@@ -3,183 +3,507 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>识己 · 天赋测评工具</title>
+<title>识己天赋测试</title>
+<link rel="stylesheet" href="print.css" media="print">
 <style>
+/* ============================================
+   识己 · 东方美学视觉体系
+   取意：宣纸 / 墨色 / 朱砂 / 泥金 / 黛青
+   ============================================ */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#f7f4ee; --card-bg:#fffefb; --text:#2f332f; --text-light:#73776f;
-  --wind:#7eb8da; --fire:#e8835e; --water:#6db5c4; --earth:#b8956a;
-  --wind-light:#e8f4fa; --fire-light:#fdf0eb; --water-light:#eaf6f8; --earth-light:#f5efe6;
-  --primary:#4f735f; --primary-dark:#365544; --primary-light:#e8f0eb; --accent:#bd8750; --accent-light:#f6eadc; --love:#c4737a;
-  --radius:18px; --shadow:0 12px 34px rgba(67,78,68,.08); --shadow-soft:0 5px 18px rgba(67,78,68,.06);
-  --font-head:"Noto Serif SC","Source Han Serif SC",serif;
-  --font-body:"PingFang SC","Microsoft YaHei",sans-serif;
+  --paper:#faf6ed; --paper-warm:#f7f1e4; --rice:#fffef9;
+  --ink:#2c2416; --ink-soft:#5c5240; --ink-muted:#999183;
+  --vermillion:#c04040; --vermillion-light:#fef5f5;
+  --celadon:#3d5c54; --celadon-deep:#2a423a; --celadon-ghost:#eef4f1;
+  --gold:#b8944c; --gold-deep:#8c6a32; --gold-ghost:#faf4e8;
+  --ochre:#8b5e3c; --ochre-light:#fdf6ef;
+  --sky:#5f9a78; --fire:#cc6e4a; --water:#4f8f9a; --earth:#a07848;
+  --sky-ghost:#e8f2e9; --fire-ghost:#fef3ed; --water-ghost:#e5f2f4; --earth-ghost:#f4ede0;
+  --radius:12px;
+  --font-song:"Noto Serif SC","Source Han Serif SC","SimSun","STSong",serif;
+  --font-hei:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",-apple-system,sans-serif;
+  --shadow-card:0 2px 4px rgba(44,36,22,.04),0 8px 24px rgba(44,36,22,.06);
+  --shadow-float:0 4px 8px rgba(44,36,22,.05),0 16px 40px rgba(44,36,22,.08);
+  --primary:var(--celadon); --primary-light:var(--celadon-ghost);
+  --accent:var(--ochre); --text-light:var(--ink-muted);
 }
-body{font-family:var(--font-body);background:radial-gradient(circle at 8% 0%,rgba(196,144,90,.10),transparent 26%),radial-gradient(circle at 92% 8%,rgba(90,125,106,.11),transparent 28%),var(--bg);color:var(--text);line-height:1.7;min-height:100vh}
-.app{max-width:960px;margin:0 auto;padding:20px}
-.header{text-align:center;padding:46px 20px 32px;position:relative}
-.header::before{content:'';display:block;width:48px;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--primary),var(--accent));margin:0 auto 14px}
-.header h1{font-family:var(--font-head);font-size:2.08rem;color:var(--primary-dark);font-weight:650;letter-spacing:3px;text-shadow:0 1px 0 #fff}
-.header .sub{color:var(--text-light);font-size:.9rem;margin-top:6px;letter-spacing:1px}
-/* Input */
-.input-panel{background:rgba(255,254,251,.96);border-radius:22px;padding:30px 34px;box-shadow:var(--shadow);margin-bottom:26px;border:1px solid rgba(198,185,168,.42);position:relative;overflow:hidden}
-.input-panel::before{content:'';position:absolute;left:0;top:0;width:100%;height:4px;background:linear-gradient(90deg,var(--primary),#82a08d 55%,var(--accent))}
-.input-panel h2{font-family:var(--font-head);font-size:1.1rem;color:var(--primary);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid #eee}
-.input-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+body{font-family:var(--font-hei);background:var(--paper);color:var(--ink);line-height:1.85;-webkit-font-smoothing:antialiased;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 70% 42% at 50% -8%,rgba(184,148,76,.11),transparent 62%),radial-gradient(ellipse 42% 30% at 92% 12%,rgba(61,92,84,.07),transparent 68%),repeating-linear-gradient(0deg,rgba(93,76,50,.018) 0,rgba(93,76,50,.018) 1px,transparent 1px,transparent 5px);opacity:.72}
+body::after{content:'';position:fixed;left:0;right:0;top:0;height:5px;z-index:3;pointer-events:none;background:linear-gradient(90deg,var(--celadon-deep) 0 36%,var(--gold) 36% 64%,var(--vermillion) 64%)}
+::selection{background:rgba(192,64,64,.16);color:var(--ink)}
+.app{max-width:880px;margin:0 auto;padding:56px 24px 96px;position:relative;z-index:1}
+
+/* ══════ 顶栏 · 如卷轴天头 ══════ */
+.header{text-align:center;padding:76px 20px 68px;position:relative}
+.header::after{content:'';display:block;width:116px;height:1px;margin:25px auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.header h1{display:inline-block;font-family:var(--font-song);font-size:2.6rem;color:var(--ink);font-weight:700;letter-spacing:.2em;line-height:1.2;position:relative;text-shadow:0 1px 0 #fff}
+.header h1::before{content:'识\A己';white-space:pre;position:absolute;left:-54px;top:-7px;width:34px;height:42px;padding-top:3px;background:var(--vermillion);color:#fff8ec;border-radius:2px;font:700 13px/17px var(--font-song);letter-spacing:0;box-shadow:inset 0 0 0 2px rgba(255,248,236,.55),0 4px 10px rgba(128,39,35,.15);transform:rotate(-2deg)}
+.header .sub{color:var(--ink-muted);font-size:.82rem;margin-top:16px;letter-spacing:.3em;font-weight:400}
+
+/* ══════ 输入区 · 如信笺 ══════ */
+.input-panel{background:rgba(255,254,249,.94);border-radius:var(--radius);padding:46px 48px;box-shadow:var(--shadow-card);margin-bottom:38px;border:1px solid #dfd4c0;position:relative;overflow:hidden}
+.input-panel::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,var(--celadon-deep) 0 68%,var(--gold) 68% 86%,var(--vermillion) 86%)}
+.input-panel::after{content:'天赋自有章法';position:absolute;right:-32px;top:92px;color:rgba(139,94,60,.075);font:700 15px var(--font-song);letter-spacing:.35em;transform:rotate(90deg);pointer-events:none}
+.input-panel h2{font-family:var(--font-song);font-size:1rem;color:var(--ink);margin-bottom:28px;font-weight:700;letter-spacing:.1em;padding-bottom:14px;border-bottom:1px solid #e8e0d0;position:relative}
+.input-panel h2::after{content:'';position:absolute;bottom:-1px;left:0;width:40px;height:2px;background:var(--vermillion)}
+.input-row{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:22px}
 .input-group{flex:1;min-width:180px}
-.input-group label{display:block;font-size:.82rem;color:var(--text-light);margin-bottom:4px;font-weight:500}
-.input-group input,.input-group textarea,.input-group select{width:100%;padding:11px 14px;border:1px solid #ded9d0;border-radius:11px;font-size:.9rem;font-family:var(--font-body);background:#fffefa;transition:all .2s;color:var(--text)}
-.input-group input:focus,.input-group textarea:focus,.input-group select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-light)}
-.input-group textarea{resize:vertical;min-height:72px}
-.input-group .hint{font-size:.75rem;color:#aaa;margin-top:4px}
-.auto-years{display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding:14px 17px;background:linear-gradient(135deg,#edf4ef,#f7f2ea);border-radius:12px;font-size:.82rem;border:1px solid #dce7df}
-.auto-years strong{color:var(--primary)}
-.auto-years .yr-badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:.78rem;font-weight:700}
-.yr-expand{background:#fdf0eb;color:#c06040}
-.yr-settle{background:#eaf1ed;color:var(--primary)}
-.btn-row{display:flex;gap:12px;justify-content:center;margin-top:8px}
-.btn{padding:12px 28px;border:none;border-radius:13px;font-size:.92rem;cursor:pointer;font-family:var(--font-body);font-weight:600;transition:all .25s;letter-spacing:.5px;box-shadow:0 3px 10px rgba(65,78,68,.06)}
-.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff}
-.btn-primary:hover{background:#4a6b58;transform:translateY(-1px);box-shadow:0 4px 12px rgba(90,125,106,.3)}
-.btn-outline{background:#fffefb;color:var(--primary);border:1px solid #91aa9a}
-.btn-outline:hover{background:var(--primary-light)}
-.btn-export{background:linear-gradient(135deg,#c79561,#ad7440);color:#fff}
-.btn-export:hover{background:#b07e4a}
-.btn-small{padding:9px 22px;font-size:.84rem}
-.talent-builder{display:grid;gap:14px}
-.builder-step{padding:17px 18px;background:linear-gradient(145deg,#fffefa,#fbfaf6);border:1px solid #ebe4da;border-radius:14px;box-shadow:0 2px 8px rgba(74,81,73,.03)}
-.builder-step-title{display:flex;align-items:center;gap:8px;color:var(--primary);font-size:.9rem;font-weight:700;margin-bottom:10px}
-.step-no{width:25px;height:25px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;background:linear-gradient(135deg,var(--primary),#779585);color:#fff;font-size:.72rem;box-shadow:0 3px 8px rgba(79,115,95,.18)}
+.input-group label{display:block;font-size:.72rem;color:var(--ochre);margin-bottom:8px;font-weight:600;letter-spacing:.15em}
+.input-group input,.input-group textarea,.input-group select{width:100%;padding:13px 16px;border:1.5px solid #e0d8c4;border-radius:6px;font-size:.88rem;font-family:var(--font-hei);background:var(--rice);transition:all .25s;color:var(--ink);outline:none}
+.input-group input:focus,.input-group textarea:focus,.input-group select:focus{border-color:var(--celadon);box-shadow:0 0 0 3px rgba(61,92,84,.06);background:#fff}
+.input-group textarea{resize:vertical;min-height:64px}
+.input-group .hint{font-size:.7rem;color:var(--ink-muted);margin-top:6px;letter-spacing:.04em}
+.date-selects{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:8px}
+.date-selects select{min-width:0;padding-left:12px;padding-right:30px;background-color:var(--rice);background-position:right 9px center}
+.date-selects select:invalid{color:var(--ink-muted)}
+.auto-years{display:flex;gap:16px;flex-wrap:wrap;align-items:center;padding:18px 0;font-size:.82rem}
+.auto-years strong{color:var(--ink);font-weight:700;letter-spacing:.06em}
+.auto-years .yr-badge{display:inline-block;padding:5px 18px;border-radius:3px;font-size:.74rem;font-weight:700;letter-spacing:.06em}
+.yr-expand{background:#f4ede2;color:#9a7436;border-left:3px solid #9a7436}
+.yr-settle{background:#efefec;color:#3f3a33;border-left:3px solid #6d6962}
+.btn-row{display:flex;gap:14px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.btn{padding:12px 36px;border:none;border-radius:4px;font-size:.88rem;cursor:pointer;font-family:var(--font-hei);font-weight:600;transition:all .3s cubic-bezier(.25,.1,.25,1);letter-spacing:.08em}
+.btn-primary{background:var(--celadon);color:#fff}
+.btn-primary:hover{background:var(--celadon-deep);transform:translateY(-1px);box-shadow:0 6px 18px rgba(61,92,84,.18)}
+.btn-outline{background:transparent;color:var(--celadon);border:1.5px solid #b0c8ba}
+.btn-outline:hover{background:var(--celadon-ghost);border-color:var(--celadon)}
+.btn-export{background:var(--vermillion);color:#fff}
+.btn-export:hover{background:#a03030;box-shadow:0 6px 18px rgba(192,64,64,.18)}
+.btn:disabled{cursor:not-allowed;opacity:.46;transform:none!important;box-shadow:none!important}
+.btn-small{padding:8px 24px;font-size:.78rem;border-radius:3px}
+.analysis-state-notice{display:none;margin:16px auto 0;max-width:520px;padding:10px 14px;background:#fbf0e9;border-left:3px solid var(--vermillion);color:#8d4b3d;border-radius:0 4px 4px 0;font-size:.75rem;line-height:1.7;text-align:center}
+.analysis-state-notice.show{display:block}
+.talent-builder{display:grid;gap:16px}
+.builder-step{padding:22px 24px;background:linear-gradient(135deg,rgba(247,241,228,.88),rgba(255,254,249,.96));border:1px solid #e3d9c6;border-radius:8px;position:relative;transition:border-color .25s,box-shadow .25s}
+.builder-step-title{display:flex;align-items:center;gap:10px;color:var(--celadon);font-size:.85rem;font-weight:700;margin-bottom:12px;letter-spacing:.06em}
+.step-no{width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;border-radius:2px;background:var(--vermillion);color:#fff;font-size:.7rem;font-weight:700;font-family:var(--font-song)}
 .builder-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.select-row{display:grid;grid-template-columns:minmax(0,1fr) 105px 38px;gap:8px;margin-top:8px;align-items:center}
+.select-row{display:grid;grid-template-columns:minmax(0,1fr) 105px 38px;gap:10px;margin-top:10px;align-items:center}
 .select-row.potential-row{grid-template-columns:minmax(0,1fr) 38px}
-.icon-btn{width:38px;height:38px;border:1px solid #ded8cf;border-radius:9px;background:#fff;color:#8a7662;cursor:pointer;font-size:1rem}
-.icon-btn:hover{background:#fff5ee;color:var(--accent)}
-.add-row-btn{margin-top:10px;border:1px dashed #b8cbbf;border-radius:9px;background:#f4f8f5;color:var(--primary);padding:8px 13px;cursor:pointer;font-family:var(--font-body)}
-.builder-summary{padding:13px 15px;background:linear-gradient(135deg,var(--primary-light),#f7f1e8);border-radius:11px;color:var(--primary-dark);font-size:.8rem;line-height:1.8;border-left:4px solid var(--primary)}
-.field-note{font-size:.74rem;color:#999;margin-top:5px}
-/* Tabs */
-.tabs{display:flex;gap:6px;background:rgba(255,254,251,.94);border-radius:15px;box-shadow:var(--shadow-soft);overflow:hidden;margin-bottom:24px;padding:6px;border:1px solid rgba(198,185,168,.34)}
-.tab{flex:1;padding:13px 6px;text-align:center;cursor:pointer;font-size:.82rem;font-weight:500;color:var(--text-light);border:none;background:transparent;font-family:var(--font-body);transition:all .2s;position:relative}
-.tab:hover{color:var(--primary);background:#fafcfb}
-.tab.active{color:var(--primary-dark);font-weight:700;background:linear-gradient(135deg,var(--primary-light),#f3eee6);border-radius:10px}
-.tab.active::after{content:'';position:absolute;bottom:0;left:20%;width:60%;height:3px;background:var(--primary);border-radius:3px 3px 0 0}
-/* Cards */
-.card{background:rgba(255,254,251,.98);border-radius:20px;box-shadow:var(--shadow);padding:34px;margin-bottom:22px;border:1px solid rgba(198,185,168,.35)}
-.card-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid var(--primary-light)}
-.card-icon{width:50px;height:50px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:1.45rem;box-shadow:inset 0 0 0 1px rgba(90,125,106,.10)}
-.card-title{font-family:var(--font-head);font-size:1.3rem;color:var(--primary)}
-.card-client{font-size:.85rem;color:var(--text-light)}
-/* Energy */
-.energy-section{margin-bottom:28px}
-.energy-section h3{font-size:1rem;color:var(--primary);margin-bottom:16px;font-family:var(--font-head)}
-.energy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
-.energy-item{background:linear-gradient(145deg,#fff,#fbfaf7);border-radius:14px;padding:17px;border:1px solid #eee9e1;box-shadow:0 3px 12px rgba(70,78,71,.04)}
-.energy-item .energy-label{font-size:.8rem;color:var(--text-light);margin-bottom:4px}
-.energy-item .energy-name{font-size:1.05rem;font-weight:700;margin-bottom:8px}
-.energy-item .energy-bar-wrap{height:8px;background:#f0ece6;border-radius:4px;overflow:hidden;margin-bottom:6px}
-.energy-item .energy-bar{height:100%;border-radius:4px;transition:width .6s ease}
-.energy-item .energy-count{font-size:.8rem;color:var(--text-light)}
-.energy-item.zero{background:#fff9f5;border-color:#fce4d0}
-.energy-zero-alert{background:#fff5ee;border:1.5px solid #f0c8a0;border-radius:12px;padding:16px 20px;margin:16px 0;font-size:.88rem;color:#b07040}
-.energy-zero-alert strong{color:#c06030}
-.wind-bar{background:var(--wind)} .fire-bar{background:var(--fire)}
-.water-bar{background:var(--water)} .earth-bar{background:var(--earth)}
-/* Ranking */
-.ranking-section{margin-bottom:28px}
-.ranking-section h3{font-size:1rem;color:var(--primary);margin-bottom:16px;font-family:var(--font-head)}
-.ranking-list{list-style:none}
-.ranking-item{display:flex;align-items:center;gap:12px;padding:11px 16px;margin-bottom:8px;background:#fdfdfc;border-radius:11px;border-left:4px solid transparent;box-shadow:0 2px 7px rgba(70,78,71,.025)}
-.ranking-item.r1{border-left-color:var(--primary);background:var(--primary-light)}
-.ranking-item.r2{border-left-color:var(--accent);background:#fdf8f3}
-.ranking-item.r3{border-left-color:var(--wind)}
-.ranking-item .rank-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:#fff;flex-shrink:0}
-.ranking-item.r1 .rank-num{background:var(--primary)}
-.ranking-item.r2 .rank-num{background:var(--accent)}
-.ranking-item.r3 .rank-num{background:var(--wind)}
-.ranking-item .rank-label{font-size:.85rem;font-weight:500}
-.ranking-item .rank-detail{font-size:.78rem;color:var(--text-light);margin-left:auto}
-/* Talent Detail */
-.talent-detail{margin-bottom:20px}
-.talent-detail h4{font-size:.95rem;color:#555;margin-bottom:8px}
-.talent-detail p{font-size:.87rem;color:var(--text);margin-bottom:6px;line-height:1.8}
-.talent-detail .tag{display:inline-block;padding:3px 12px;border-radius:20px;font-size:.75rem;margin:3px 5px 3px 0}
-.tag-wind{background:var(--wind-light);color:#4a8aaa}
-.tag-fire{background:var(--fire-light);color:#c06040}
-.tag-water{background:var(--water-light);color:#3d8a94}
-.tag-earth{background:var(--earth-light);color:#8a6a40}
-/* Career */
-.career-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.career-tag{padding:8px 18px;background:var(--primary-light);color:var(--primary);border-radius:24px;font-size:.82rem;font-weight:500;border:1px solid #d0e0d5}
-/* Annual */
-.annual-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.annual-card{background:#fdfdfc;border-radius:12px;padding:20px;border:1px solid #f0ece6}
-.annual-card .year-tag{display:inline-block;padding:4px 14px;border-radius:20px;font-size:.78rem;font-weight:700;margin-bottom:12px}
-.tag-expand{background:#fdf0eb;color:#c06040}
-.tag-settle{background:#eaf1ed;color:var(--primary)}
-.annual-card h4{font-size:.95rem;margin-bottom:10px;font-family:var(--font-head)}
+.icon-btn{width:36px;height:36px;border:1.5px solid #d8ceb8;border-radius:4px;background:var(--rice);color:var(--ochre);cursor:pointer;font-size:.95rem;transition:all .2s}
+.icon-btn:hover{background:var(--vermillion-light);color:var(--vermillion);border-color:var(--vermillion)}
+.add-row-btn{margin-top:12px;border:1px dashed #c0b898;border-radius:4px;background:transparent;color:var(--celadon);padding:9px 14px;cursor:pointer;font-family:var(--font-hei);font-size:.78rem;transition:all .2s}
+.add-row-btn:hover{background:var(--celadon-ghost);border-color:var(--celadon)}
+.builder-summary{padding:16px 18px;background:linear-gradient(135deg,var(--celadon-ghost),var(--gold-ghost));border-radius:6px;color:var(--celadon-deep);font-size:.78rem;line-height:1.9;border-left:3px solid var(--celadon)}
+.field-note{font-size:.71rem;color:var(--ink-muted);margin-top:6px}
+
+/* ══════ 导航 · 如书签 ══════ */
+.tabs{display:flex;gap:0;background:rgba(255,254,249,.94);border-radius:var(--radius);box-shadow:var(--shadow-card);overflow:hidden;margin-bottom:38px;padding:7px;border:1px solid #dfd4c0}
+.tab{flex:1;padding:15px 8px;text-align:center;cursor:pointer;font-size:.8rem;font-weight:500;color:var(--ink-soft);border:none;background:transparent;font-family:var(--font-hei);transition:all .3s;letter-spacing:.08em;position:relative}
+.tab::after{content:'';position:absolute;bottom:6px;left:50%;transform:translateX(-50%);width:0;height:2px;background:var(--vermillion);transition:width .3s}
+.tab:hover{color:var(--celadon)}
+.tab.active{color:var(--celadon-deep);font-weight:700;background:linear-gradient(180deg,rgba(238,244,241,.82),rgba(238,244,241,.3));border-radius:6px}
+.tab.active::after{width:24px}
+
+/* ══════ 卡片 · 如册页 ══════ */
+.card{background:var(--earth-ghost);border-radius:var(--radius);box-shadow:var(--shadow-card);padding:50px 52px;margin-bottom:34px;border:1px solid #dfd4c0;position:relative;overflow:hidden}
+.card::before,.card::after{content:'';position:absolute;width:38px;height:38px;pointer-events:none;opacity:.48}
+.card::before{left:13px;top:13px;border-left:1px solid var(--gold);border-top:1px solid var(--gold)}
+.card::after{right:13px;bottom:13px;border-right:1px solid var(--gold);border-bottom:1px solid var(--gold)}
+.card-header{display:flex;align-items:center;gap:18px;margin-bottom:36px;padding-bottom:22px;border-bottom:1px solid #e8e0d0}
+.card-icon{width:50px;height:50px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.56)}
+.card-title{font-family:var(--font-song);font-size:1.25rem;color:var(--ink);font-weight:700;letter-spacing:.08em}
+.card-client{font-size:.8rem;color:var(--ink-muted);margin-top:4px;letter-spacing:.04em}
+
+/* ══════ 能量分析 · 如牌匾 ══════ */
+.energy-section{margin-bottom:44px}
+.energy-section h3{font-size:1rem;color:var(--ink);margin-bottom:28px;font-family:var(--font-song);font-weight:700;letter-spacing:.1em;position:relative;padding-left:16px}
+.energy-section h3::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:20px;background:var(--vermillion);border-radius:2px}
+.energy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px}
+.energy-item{padding:28px 24px;border-radius:8px;background:linear-gradient(160deg,#fffef9,var(--paper-warm));border:1px solid #e3d9c6;transition:all .3s;text-align:center;position:relative;overflow:hidden}
+.energy-item::after{content:'';position:absolute;right:-24px;bottom:-32px;width:82px;height:82px;border:1px solid rgba(184,148,76,.14);border-radius:50%}
+.energy-item:hover{transform:translateY(-3px);box-shadow:var(--shadow-float)}
+.energy-item .energy-label{font-size:.7rem;color:var(--ink-muted);margin-bottom:12px;font-weight:600;letter-spacing:.15em}
+.energy-item .energy-name{font-size:2.4rem;font-weight:700;margin-bottom:18px;font-family:var(--font-song);line-height:1;letter-spacing:.04em}
+.energy-item .energy-bar-wrap{height:6px;background:#e8e0d0;border-radius:3px;overflow:hidden;margin-bottom:10px}
+.energy-item .energy-bar{height:100%;border-radius:3px;transition:width 1s cubic-bezier(.22,1,.36,1)}
+.energy-item .energy-count{font-size:.74rem;color:var(--ink-soft);line-height:1.6}
+.energy-item.zero{background:var(--vermillion-light);border-color:#f0d0d0}
+.energy-item.wind{background:var(--sky-ghost);border-color:#c7dccb}
+.energy-item.fire{background:var(--fire-ghost);border-color:#efd0c1}
+.energy-item.water{background:var(--water-ghost);border-color:#c9e1e4}
+.energy-item.earth{background:var(--earth-ghost);border-color:#e2d1b7}
+.energy-bar.wind-bar{background:linear-gradient(90deg,#87b99a,var(--sky))}
+.energy-bar.fire-bar{background:linear-gradient(90deg,#e09070,var(--fire))}
+.energy-bar.water-bar{background:linear-gradient(90deg,#6da8b2,var(--water))}
+.energy-bar.earth-bar{background:linear-gradient(90deg,#c49a60,var(--earth))}
+.energy-zero-alert{background:var(--vermillion-light);border-left:3px solid var(--vermillion);padding:20px 24px;margin:22px 0;font-size:.84rem;color:#8b3a3a;line-height:1.9;border-radius:0 6px 6px 0}
+.energy-zero-alert strong{color:var(--vermillion);font-weight:700}
+
+/* ══════ 强弱排名 · 如卷轴目录 ══════ */
+.ranking-section{margin-bottom:44px}
+.ranking-section h3{font-size:1rem;color:var(--ink);margin-bottom:28px;font-family:var(--font-song);font-weight:700;letter-spacing:.1em;padding-left:16px;position:relative}
+.ranking-section h3::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:20px;background:var(--vermillion);border-radius:2px}
+.ranking-list{list-style:none;display:flex;flex-direction:column;gap:0}
+.ranking-item{display:flex;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px dotted #d8ceb8;font-size:.85rem;line-height:1.8}
+.ranking-item:last-child{border-bottom:none}
+.ranking-item .rank-num{font-family:var(--font-song);font-size:.9rem;font-weight:700;color:var(--vermillion);min-width:24px}
+.ranking-item.r1 .rank-num{color:var(--vermillion)}
+.ranking-item.r2 .rank-num{color:var(--gold)}
+.ranking-item .rank-label{font-weight:700;color:var(--ink);min-width:90px;letter-spacing:.04em}
+.ranking-item .rank-detail{color:var(--ink-soft)}
+
+/* ══════ 天赋详解 · 如古籍注疏 ══════ */
+.talent-detail{margin-bottom:32px;font-family:var(--font-hei)}
+.talent-detail h3{font-size:1rem;color:var(--ink);margin-bottom:24px;font-family:var(--font-hei);font-weight:700;letter-spacing:.06em;padding-left:16px;position:relative}
+.talent-detail h3::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:20px;background:var(--vermillion);border-radius:2px}
+.talent-detail h4{font-family:var(--font-hei);font-size:.96rem;color:var(--ink);margin-bottom:10px;font-weight:700;letter-spacing:.025em}
+.talent-detail p{font-family:var(--font-hei);font-size:.85rem;color:var(--ink-soft);margin-bottom:8px;line-height:1.9}
+.talent-detail .tag{display:inline-block;padding:3px 14px;border-radius:2px;font-size:.72rem;margin:3px 8px 3px 0;font-weight:600;letter-spacing:.04em}
+.tag-wind{background:var(--sky-ghost);color:#3d6e80}
+.tag-fire{background:var(--fire-ghost);color:#b05030}
+.tag-water{background:var(--water-ghost);color:#33707a}
+.tag-earth{background:var(--earth-ghost);color:#7a5a30}
+.talent-reading-list{display:grid;gap:12px}
+.talent-reading-card{--talent-accent:var(--celadon);--talent-wash:var(--celadon-ghost);position:relative;padding:20px 24px 21px 30px;background:var(--talent-wash);border:0;border-radius:0;overflow:hidden;box-shadow:none;transition:filter .25s}
+.talent-reading-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--talent-accent)}
+.talent-reading-card::after{display:none}
+.talent-reading-card:hover{background:var(--talent-wash);filter:brightness(.985)}
+.talent-reading-head{display:grid;grid-template-columns:34px minmax(0,1fr);gap:11px;align-items:start;margin-bottom:10px;padding:0;border:0;position:relative;z-index:1}
+.talent-reading-no{width:auto;height:auto;display:block;padding-top:3px;background:none;border:0;border-radius:0;color:var(--talent-accent);font:700 .78rem/1.5 var(--font-hei);letter-spacing:.03em}
+.talent-reading-title{font-family:var(--font-hei);font-size:.96rem!important;line-height:1.55;margin:0!important;color:var(--ink)!important;letter-spacing:.025em!important}
+.talent-reading-multiplier{color:var(--talent-accent);margin-left:3px}
+.talent-resonance-badge{display:inline-block;margin-top:4px;padding:0;background:none;color:var(--vermillion);border:0;font-family:var(--font-hei);font-size:.76rem;font-weight:600;letter-spacing:.025em}
+.talent-reading-core{position:relative;z-index:1;font-family:var(--font-hei);font-size:.85rem!important;line-height:1.9!important;color:var(--ink-soft)!important;margin:0!important}
+.talent-reading-careers{margin-top:12px;padding:0;border:0;position:relative;z-index:1}
+.talent-reading-label{display:block;margin-bottom:6px;color:var(--gold-deep);font-family:var(--font-hei);font-size:.76rem;font-weight:700;letter-spacing:.04em}
+.talent-reading-card .career-list{margin-top:0;gap:5px 16px}
+.talent-reading-card .career-tag{padding:0;background:none;border:0;color:var(--ink);font-family:var(--font-hei);font-size:.85rem;font-weight:700;line-height:1.9;box-shadow:none}
+.talent-reading-card .career-tag:hover{transform:none;background:none;border:0;box-shadow:none}
+.talent-reading-path{margin-top:12px;padding:0;border:0;position:relative;z-index:1}
+.talent-reading-path .talent-reading-label{margin:0 0 5px;color:var(--gold-deep)}
+.talent-reading-path p,.talent-reading-guidance,.talent-reading-note{font-family:var(--font-hei);font-size:.85rem!important;line-height:1.9!important;color:var(--ink-soft)!important;margin:0!important}
+.talent-reading-note{margin-top:8px!important;color:var(--gold-deep)!important}
+
+/* ══════ 职业推荐 · 如匾额 ══════ */
+.career-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.career-tag{padding:10px 24px;background:linear-gradient(180deg,#fffef9,var(--paper-warm));color:var(--celadon-deep);border-radius:3px;font-size:.78rem;font-weight:500;border:1px solid #d0c5ad;transition:all .3s;letter-spacing:.05em;box-shadow:inset 0 1px rgba(255,255,255,.8)}
+.career-tag:hover{background:var(--celadon-ghost);border-color:var(--celadon);transform:translateY(-2px);box-shadow:0 4px 12px rgba(61,92,84,.08)}
+
+/* ══════ 综合职业归向 · 解读收束页 ══════ */
+.career-summary{margin-top:42px;padding:38px 36px 32px;background:var(--earth-ghost);border:1px solid #d9ccb3;border-radius:10px;position:relative;overflow:hidden;box-shadow:inset 0 1px rgba(255,255,255,.85)}
+.career-summary::before{content:'';position:absolute;right:-75px;top:-85px;width:210px;height:210px;border:1px solid rgba(184,148,76,.15);border-radius:50%;box-shadow:0 0 0 28px rgba(184,148,76,.035),0 0 0 55px rgba(61,92,84,.025);pointer-events:none}
+.career-summary::after{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(var(--celadon-deep) 0 62%,var(--gold) 62% 82%,var(--vermillion) 82%)}
+.career-summary-head{position:relative;padding:0 0 26px 64px;border-bottom:1px solid #d9ccb3;margin-bottom:24px}
+.career-summary-seal{position:absolute;left:0;top:1px;width:43px;height:50px;display:flex;align-items:center;justify-content:center;background:var(--vermillion);color:#fff8e9;border-radius:2px;box-shadow:inset 0 0 0 2px rgba(255,248,233,.52);font:700 13px/1.25 var(--font-song);letter-spacing:.12em;text-align:center;writing-mode:vertical-rl}
+.career-summary-kicker{display:block;color:var(--gold-deep);font-size:.68rem;font-weight:700;letter-spacing:.28em;margin-bottom:5px}
+.career-summary h3{font-family:var(--font-song);font-size:1.2rem;color:var(--ink);letter-spacing:.1em;line-height:1.45}
+.career-summary-intro{font-size:.78rem;color:var(--ink-muted);margin-top:7px;line-height:1.75}
+.career-direction-list{display:grid;gap:14px;position:relative}
+.career-direction{display:grid;grid-template-columns:50px minmax(0,1fr);gap:18px;padding:21px 22px 20px;background:var(--sky-ghost);border:1px solid #c9dce5;border-radius:8px;position:relative;transition:transform .25s,border-color .25s,box-shadow .25s}
+.career-direction:nth-child(4n+2){background:var(--fire-ghost);border-color:#efd0c1}
+.career-direction:nth-child(4n+3){background:var(--water-ghost);border-color:#c9e1e4}
+.career-direction:nth-child(4n+4){background:var(--earth-ghost);border-color:#e2d1b7}
+.career-direction::after{content:'';position:absolute;left:24px;top:71px;bottom:-15px;width:1px;background:linear-gradient(#d6c5a4,transparent)}
+.career-direction:last-child::after{display:none}
+.career-direction:hover{transform:translateX(3px);border-color:#bea979;box-shadow:0 8px 22px rgba(65,52,30,.07)}
+.career-direction-no{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--celadon-deep);color:#fff9ec;font:700 1rem var(--font-song);box-shadow:0 0 0 5px #edf1ea;position:relative;z-index:1}
+.career-direction:nth-child(2n) .career-direction-no{background:var(--vermillion);box-shadow:0 0 0 5px #f8ece5}
+.career-direction-body{min-width:0}
+.career-direction-title{font-family:var(--font-song);font-size:1rem;font-weight:700;color:var(--celadon-deep);letter-spacing:.045em;line-height:1.55}
+.career-direction-core{font-size:.82rem;color:var(--ink-soft);line-height:1.8;margin-top:5px}
+.career-direction-meta{display:grid;grid-template-columns:auto 1fr;gap:7px 12px;align-items:start;margin-top:13px;padding-top:12px;border-top:1px dotted #d8c9ad;font-size:.76rem;line-height:1.75}
+.career-direction-label{color:var(--gold-deep);font-weight:700;letter-spacing:.04em;white-space:nowrap}
+.career-examples,.career-sources{display:flex;flex-wrap:wrap;gap:6px}
+.career-example,.career-source{display:inline-flex;align-items:center;padding:3px 10px;border-radius:2px}
+.career-example{background:#f4ece0;color:#7c5633;border:1px solid #e5d2b8}
+.career-source{background:#edf2ee;color:#426454;border:1px solid #d4e0d8}
+.career-summary-advice{margin-top:22px;padding:15px 18px 15px 44px;background:rgba(255,254,249,.72);border-left:2px solid var(--gold);color:var(--ink-soft);font-size:.78rem;line-height:1.85;position:relative}
+.career-summary-advice::before{content:'择';position:absolute;left:13px;top:14px;color:var(--vermillion);font:700 18px var(--font-song)}
+.career-summary .disclaimer{background:transparent;border:none;border-top:1px solid #d9ccb3;border-radius:0;padding:18px 4px 0;margin-top:22px;text-align:left;line-height:1.85}
+
+/* ══════ 年度策略 · 如折页 ══════ */
+.annual-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.annual-card{background:var(--sky-ghost);border-radius:8px;padding:28px 26px;border:1px solid #c9dce5;transition:all .3s}
+.annual-card:nth-child(3n+2){background:var(--fire-ghost);border-color:#efd0c1}
+.annual-card:nth-child(3n){background:var(--earth-ghost);border-color:#e2d1b7}
+.annual-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-float)}
+.annual-card .year-tag{display:inline-block;padding:6px 18px;border-radius:3px;font-size:.73rem;font-weight:700;margin-bottom:16px;letter-spacing:.06em}
+.tag-expand{background:#f4ede2;color:#9a7436;border-left:3px solid #9a7436}
+.tag-settle{background:#efefec;color:#3f3a33;border-left:3px solid #6d6962}
+.annual-card.annual-expand{background:#f4ede2;border-color:#ddc99f}
+.annual-card.annual-settle{background:#efefec;border-color:#d2d0cb}
+.annual-compare{margin-top:24px;padding:20px;background:#f4ede2;border-radius:12px;border:1px solid #ddc99f}
+.annual-compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.annual-compare-panel{padding:14px;border-radius:10px}
+.annual-compare-panel.expand{background:#f4ede2;border:1px solid #ddc99f}
+.annual-compare-panel.settle{background:#efefec;border:1px solid #d2d0cb}
+.annual-compare-panel.expand strong{color:#9a7436}
+.annual-compare-panel.settle strong{color:#3f3a33}
+.annual-card h4{font-size:.92rem;margin-bottom:12px;font-family:var(--font-song);font-weight:700;color:var(--ink);letter-spacing:.06em}
 .annual-card ul{margin:0;padding-left:18px}
-.annual-card li{font-size:.82rem;color:var(--text);margin-bottom:6px;line-height:1.7}
-/* Synastry */
-.match-level{text-align:center;padding:20px;margin:16px 0;border-radius:12px}
-.match-high{background:#eaf1ed;color:var(--primary);font-size:1.1rem;font-weight:700}
-.match-mid{background:#fdf8f3;color:var(--accent);font-size:1rem;font-weight:600}
-.match-note{background:#fafafa;color:var(--text-light);font-size:.9rem}
-.synastry-actions{display:flex;justify-content:flex-end;margin-top:4px}
-.report-cover{padding:26px 0 20px;text-align:center;border-bottom:2px solid var(--primary-light);margin-bottom:20px}
-.report-cover h2{font-family:var(--font-head);color:var(--primary);font-size:1.55rem}
-.report-cover p{font-size:.82rem;color:var(--text-light);margin-top:4px}
-.disclaimer{margin-top:18px;padding:12px 16px;background:#fafafa;border-radius:9px;color:#888;font-size:.76rem;line-height:1.7;text-align:center}
-.talent-detail>h3,.ranking-section>h3,.energy-section>h3{display:flex;align-items:center;gap:9px;color:var(--primary-dark)}
-.talent-detail>h3::before,.ranking-section>h3::before,.energy-section>h3::before{content:'';width:5px;height:18px;border-radius:4px;background:var(--accent);flex:0 0 auto}
-.career-tag{box-shadow:0 2px 7px rgba(79,115,95,.06)}
-.annual-card{box-shadow:0 4px 14px rgba(67,78,68,.045)}
-.placeholder-banner{background:rgba(255,254,251,.72)!important;border-color:#d8d1c7!important}
+.annual-card li{font-size:.8rem;color:var(--ink-soft);margin-bottom:8px;line-height:1.85;list-style-type:'— '}
+
+/* ══════ 合盘 ══════ */
+.match-level{text-align:center;padding:32px;margin:22px 0;border-radius:8px;font-weight:700;letter-spacing:.06em}
+.match-high{background:var(--celadon-ghost);color:var(--celadon-deep);font-size:1.1rem;font-family:var(--font-song);border:1px solid #c0d4c8}
+.match-mid{background:var(--gold-ghost);color:var(--gold-deep);font-size:1.05rem;font-family:var(--font-song);border:1px solid #e0d0b0}
+.match-note{background:var(--paper-warm);color:var(--ink-soft);font-size:.88rem;border:1px solid #e8e0d0}
+.synastry-actions{display:flex;justify-content:flex-end;margin-top:10px}
+
+/* ══════ 报告封面 ══════ */
+.report-cover{padding:36px 0 32px;text-align:center;border-bottom:2px solid var(--vermillion);margin-bottom:32px}
+.report-cover h2{font-family:var(--font-song);color:var(--ink);font-size:1.6rem;font-weight:700;letter-spacing:.12em}
+.report-cover p{font-size:.8rem;color:var(--ink-muted);margin-top:10px;letter-spacing:.06em}
+
+/* ══════ 免责声明 ══════ */
+.disclaimer{margin-top:32px;padding:22px 24px;background:var(--paper-warm);border-radius:6px;color:var(--ink-muted);font-size:.72rem;line-height:2;text-align:center;letter-spacing:.04em;border:1px solid #e8e0d0}
+
+.placeholder-banner{background:var(--paper-warm)!important;border:1px dashed #d0c8b0!important;border-radius:var(--radius);padding:52px;text-align:center;color:var(--ink-muted)}
+.placeholder-banner p{font-size:.85rem;letter-spacing:.06em}
+
 @media(hover:hover){
-  .btn:hover{transform:translateY(-1px);box-shadow:0 7px 16px rgba(65,78,68,.12)}
-  .builder-step:hover{border-color:#d9e2dc;box-shadow:0 5px 14px rgba(74,81,73,.05)}
-  .tab:hover{border-radius:10px}
-  .energy-item:hover{transform:translateY(-1px);box-shadow:0 7px 16px rgba(70,78,71,.07)}
+  .energy-item:hover{transform:translateY(-4px);box-shadow:var(--shadow-float)}
+  .builder-step:hover{border-color:#c8c0a8}
 }
-/* Print */
-@media print{
-  body{background:#fff}
-  .input-panel,.tabs,.btn-row{display:none!important}
-  .card{box-shadow:none;break-inside:avoid;page-break-inside:avoid;margin-bottom:16px;padding:20px 0}
-  .app{max-width:100%;padding:0}
-  .annual-grid{grid-template-columns:1fr 1fr 1fr}
-  .report-cover{display:block}
-  .disclaimer{break-inside:avoid}
-}
-@media(max-width:600px){
-  .app{padding:12px}
-  .header h1{font-size:1.5rem}
-  .input-panel{padding:20px 16px}
+
+/* ══════ 打印 / PDF ══════ */
+.print-report-footer{display:none}
+
+/* 解读结果统一排版：品牌标题保留宋体，客户解读统一使用同一黑体字族 */
+#results{font-family:var(--font-hei)}
+#results .card-title,#results .energy-section h3,#results .ranking-section h3,#results .talent-detail h3,#results .energy-name,#results .rank-num,#results .talent-reading-no,#results .talent-reading-title,#results .career-summary h3,#results .career-summary-seal,#results .career-direction-no,#results .career-direction-title,#results .annual-card h4,#results .match-high,#results .match-mid{font-family:var(--font-hei)}
+#results .card-title{font-size:1.2rem;line-height:1.5}
+#results .energy-section h3,#results .ranking-section h3,#results .talent-detail h3{font-size:1rem;line-height:1.55}
+#results .talent-reading-title,#results .career-direction-title,#results .annual-card h4,#results .card>h4{font-size:.96rem;line-height:1.65}
+#results .ranking-item,#results .talent-reading-core,#results .talent-reading-path p,#results .talent-reading-guidance,#results .talent-reading-note,#results .talent-reading-card .career-tag,#results .career-direction-core{font-size:.85rem!important}
+
+/* ══════ 移动端 ══════ */
+@media(max-width:640px){
+  .app{padding:28px 14px 72px}
+  .header{padding:48px 12px 40px}
+  .header h1{font-size:2rem;letter-spacing:.15em}
+  .header h1::before{left:-40px;top:-5px;width:29px;height:38px;font-size:11px;line-height:15px}
+  .input-panel{padding:28px 22px}
+  .card{padding:32px 24px}
   .tabs{flex-wrap:wrap}
-  .tab{flex:1 1 33%;padding:10px 4px;font-size:.75rem}
-  .card{padding:20px 16px}
+  .tab{flex:1 1 auto;padding:12px 6px;font-size:.73rem}
+  .energy-grid{grid-template-columns:1fr 1fr}
   .annual-grid{grid-template-columns:1fr}
+  .annual-compare-grid{grid-template-columns:1fr}
   .builder-grid{grid-template-columns:1fr}
-  .select-row{grid-template-columns:minmax(0,1fr) 85px 36px}
-  .btn-row{flex-direction:column}
-  .btn{width:100%}
+  .select-row{grid-template-columns:minmax(0,1fr) 80px 34px}
+  .btn-row{flex-direction:column;align-items:stretch}
+  .btn{width:100%;text-align:center}
+  .career-summary{padding:30px 20px 26px}
+  .career-summary-head{padding-left:55px}
+  .career-direction{grid-template-columns:40px minmax(0,1fr);gap:12px;padding:18px 15px}
+  .career-direction-no{width:36px;height:36px;font-size:.88rem}
+  .career-direction::after{left:32px;top:61px}
+  .career-direction-meta{grid-template-columns:1fr;gap:4px}
+  .career-direction-label{margin-top:3px}
+  .talent-reading-card{padding:20px 14px 21px 22px}
+  .talent-reading-head{grid-template-columns:28px minmax(0,1fr);gap:8px}
+  .talent-reading-no{font-size:.74rem}
 }
-.placeholder-banner{background:#fafafa;border:2px dashed #e0dcd5;border-radius:var(--radius);padding:40px;text-align:center;color:#aaa}
-.placeholder-banner p{font-size:.9rem}
+
+/* 统一字体字族：保留清晰的标题、正文与辅助说明三级字号 */
+@media screen{
+  body,body *,body *::before,body *::after{
+    font-family:var(--font-hei)!important;
+    font-style:normal!important;
+  }
+}
+
+/* 屏幕文字配色统一：朱红大标题 / 暗金小标题 / 黑灰正文 */
+@media screen{
+  :root{--page-ink:#332f29;--page-accent:#96702f;--page-muted:#665f55;--page-title:#a33d36}
+  body,body *{color:var(--page-ink)!important}
+  .header .sub,.input-group .hint,.field-note,.card-client,.energy-item .energy-label,.energy-item .energy-count,.ranking-item .rank-detail,.talent-reading-core,.talent-reading-path p,.talent-reading-guidance,.talent-reading-note,.career-summary-intro,.career-direction-core,.career-summary-advice,.annual-card p,.annual-card li,.disclaimer,.placeholder-banner,.match-note{color:var(--page-muted)!important}
+  .header h1,.input-panel h2,.card-title,.energy-section h3,.ranking-section h3,.talent-detail h3,.career-summary h3,.report-cover h2{color:var(--page-title)!important}
+  .input-group label,.builder-step-title,.icon-btn,.add-row-btn,.tab:hover,.tab.active,.yr-expand,.yr-settle,.talent-reading-no,.talent-reading-title,.talent-reading-multiplier,.talent-resonance-badge,.talent-reading-label,.talent-reading-note,.career-direction-title,.career-direction-label,.career-example,.career-source,.year-tag,#results h4,#results .energy-name,#results .energy-item>div:nth-child(2),.annual-card h4{color:var(--page-accent)!important}
+  .btn-primary,.btn-export,.step-no,.career-summary-seal,.career-direction-no{color:#fff!important}
+  .yr-settle,.tag-settle,.annual-card.annual-settle h4,.annual-card.annual-settle .year-tag,.annual-compare-panel.settle strong{color:var(--page-ink)!important}
+  .yr-expand,.tag-expand,.annual-card.annual-expand h4,.annual-card.annual-expand .year-tag,.annual-compare-panel.expand strong{color:var(--page-accent)!important}
+  .energy-item.wind{background:#e9f3e9!important;border-color:#c7dec9!important}
+  .energy-item.fire{background:#fcece6!important;border-color:#edc9bd!important}
+  .energy-item.water{background:#e8f1f7!important;border-color:#c7dbe8!important}
+  .energy-item.earth{background:#f7eedb!important;border-color:#e2cfaa!important}
+}
+
+/* 最终统一视觉系统：宣纸底、朱红标题、泥金小标题、黑灰正文、风火水土浅底 */
+@media screen{
+  :root{
+    --ui-paper:#f6f1e8;--ui-panel:#fffdf9;--ui-ink:#332f29;--ui-red:#a33d36;--ui-gold:#96702f;
+    --ui-border:#e1d3be;--ui-wind:#e9f3e9;--ui-fire:#fcece6;--ui-water:#e8f1f7;--ui-earth:#f7eedb;--ui-gray:#efefec;
+    --shadow-card:0 10px 28px rgba(66,50,30,.08);
+  }
+  body{background:var(--ui-paper)!important}
+  body::before{background:radial-gradient(ellipse 62% 34% at 50% -8%,rgba(150,112,47,.11),transparent 68%),radial-gradient(ellipse 44% 30% at 100% 10%,rgba(163,61,54,.045),transparent 70%),repeating-linear-gradient(0deg,rgba(70,51,31,.012) 0,rgba(70,51,31,.012) 1px,transparent 1px,transparent 6px)!important;opacity:.72}
+  body::after{height:4px!important;background:linear-gradient(90deg,var(--ui-red) 0 43%,var(--ui-gold) 43% 57%,var(--ui-red) 57%)!important}
+  .app{max-width:920px!important;padding-top:38px!important}
+  .header{padding:42px 20px 36px!important}
+  .header h1{color:var(--ui-red)!important}
+  .header::after{background:var(--ui-gold)!important;width:92px!important;margin-top:18px!important}
+  .input-panel,.tabs,.card{background:var(--ui-panel)!important;border:1px solid var(--ui-border)!important;box-shadow:var(--shadow-card)!important;border-radius:10px!important}
+  .input-panel{padding:34px!important;margin-bottom:24px!important}
+  .input-panel::before{height:3px!important;background:linear-gradient(90deg,var(--ui-red) 0 74%,var(--ui-gold) 74%)!important}
+  .input-panel::after,.card::before,.card::after,.career-summary::before,.career-summary::after{display:none!important}
+  .input-panel h2{border-color:var(--ui-border)!important;margin-bottom:20px!important;padding-bottom:10px!important}
+  .input-row{gap:16px!important;margin-bottom:16px!important}
+  .input-group input,.input-group textarea,.input-group select{background:var(--ui-paper)!important;border-color:var(--ui-border)!important;border-radius:6px!important;padding:11px 13px!important}
+  .input-group input:focus,.input-group textarea:focus,.input-group select:focus{border-color:var(--ui-gold)!important;box-shadow:0 0 0 3px rgba(154,116,54,.12)!important}
+  .builder-step{background:var(--ui-paper)!important;border-color:var(--ui-border)!important;border-radius:8px!important;padding:18px!important}
+  .builder-summary{background:var(--ui-earth)!important;border-left-color:var(--ui-gold)!important}
+  .btn{border-radius:5px!important;padding:11px 24px!important;box-shadow:none!important}
+  .btn-primary,.btn-export{background:var(--ui-red)!important}
+  .btn-outline{background:transparent!important;border-color:var(--ui-gold)!important;color:var(--ui-gold)!important}
+  .tabs{padding:5px!important;margin-bottom:24px!important}
+  .tab.active{background:var(--ui-earth)!important;color:var(--ui-red)!important}
+  .tab::after{background:var(--ui-red)!important}
+  .card{padding:36px!important;margin-bottom:24px!important}
+  .card-header{margin-bottom:26px!important;padding-bottom:16px!important;border-color:var(--ui-border)!important}
+  .card-icon{background:var(--ui-earth)!important;box-shadow:none!important;border:1px solid var(--ui-border)!important}
+  .energy-section,.ranking-section{margin-bottom:30px!important}
+  .energy-grid{gap:12px!important}
+  .energy-item{padding:20px 16px!important;border-radius:8px!important;box-shadow:none!important}
+  .energy-item::after{display:none!important}
+  .energy-item:hover,.annual-card:hover,.career-direction:hover{transform:none!important;box-shadow:none!important}
+  .energy-zero-alert{background:var(--ui-fire)!important;border-color:var(--ui-red)!important;border-radius:6px!important}
+  #results .ranking-section>div{background:var(--ui-paper)!important;border:1px solid var(--ui-border)!important;border-radius:8px!important;padding:14px 18px!important}
+  #results .ranking-section>div>div{background:transparent!important;border-color:var(--ui-border)!important;padding:8px 0!important;margin:0!important}
+  .talent-reading-list{gap:10px!important}
+  .talent-reading-card{border-radius:8px!important;padding:18px 20px 19px 24px!important}
+  .career-summary{margin-top:30px!important;padding:28px!important;background:var(--ui-earth)!important;border-color:var(--ui-border)!important;border-radius:10px!important;box-shadow:none!important}
+  .career-summary-head{padding:0 0 16px!important;margin-bottom:16px!important;border-color:var(--ui-border)!important;background:linear-gradient(90deg,rgba(247,238,219,.62),transparent 72%)!important}
+  .career-summary-seal{display:none!important}
+  .career-direction-list{gap:10px!important}
+  .career-direction{padding:16px!important;border-radius:8px!important}
+  .career-direction::after{display:none!important}
+  .career-direction-no{width:34px!important;height:34px!important;background:var(--ui-red)!important;box-shadow:none!important;border-radius:5px!important}
+  .career-direction:nth-child(2n) .career-direction-no{background:var(--ui-red)!important;box-shadow:none!important}
+  .career-direction-meta{margin-top:10px!important;padding-top:10px!important;border-color:var(--ui-border)!important}
+  .career-example{background:rgba(255,255,255,.48)!important;border-color:var(--ui-border)!important}
+  .career-source{background:rgba(255,255,255,.48)!important;border-color:var(--ui-border)!important}
+  .career-summary-advice{background:rgba(255,255,255,.42)!important;border-left-color:var(--ui-gold)!important;padding:12px 16px!important}
+  .career-summary-advice::before{display:none!important}
+  .annual-grid{gap:12px!important}
+  .annual-card{padding:20px!important;border-radius:8px!important}
+  .annual-compare{padding:18px!important;border-radius:8px!important}
+  .annual-compare-panel{padding:14px!important;border-radius:6px!important}
+  .match-level{padding:22px!important;border-radius:8px!important;background:var(--ui-earth)!important;border-color:var(--ui-border)!important}
+  .disclaimer{background:transparent!important;border:0!important;border-top:1px solid var(--ui-border)!important;border-radius:0!important;padding:14px 0 0!important;margin-top:20px!important;text-align:left!important}
+  .placeholder-banner{background:var(--ui-earth)!important;border-color:var(--ui-border)!important;padding:34px!important}
+}
+
+/* 交付版排版系统：一个字体字族，四档字号，减少装饰框与视觉噪声 */
+@media screen{
+  :root{--type-main:30px;--type-section:19px;--type-item:16px;--type-base:15px;--type-note:13px}
+  body{font-size:var(--type-base)!important;line-height:1.75!important}
+  body,button,input,select,textarea{font-size:var(--type-base)!important;line-height:1.75!important}
+  .header h1{font-size:var(--type-main)!important;font-weight:600!important;line-height:1.35!important;letter-spacing:.08em!important}
+  .header h1::before{font-size:12px!important;font-weight:600!important;line-height:1.35!important}
+  .header .sub,.input-group .hint,.field-note,.card-client,.energy-item .energy-label,.energy-item .energy-count,.disclaimer,.placeholder-banner{font-size:var(--type-note)!important;line-height:1.7!important}
+  .input-panel h2,.card-title,.report-cover h2{font-size:var(--type-section)!important;font-weight:600!important;line-height:1.5!important}
+  .energy-section h3,.ranking-section h3,.talent-detail h3,.career-summary h3{font-size:var(--type-section)!important;font-weight:600!important;line-height:1.5!important}
+  .talent-reading-title,.career-direction-title,.annual-card h4,.card>h4,.match-level{font-size:var(--type-item)!important;font-weight:600!important;line-height:1.6!important}
+  .talent-reading-core,.talent-reading-path p,.talent-reading-guidance,.talent-reading-note,.career-direction-core,.annual-card p,.annual-card li,.ranking-item,#results p,#results li{font-size:var(--type-base)!important;line-height:1.82!important}
+  .talent-reading-label,.talent-resonance-badge,.career-direction-label,.year-tag,.yr-badge,.career-summary-kicker{font-size:var(--type-note)!important;font-weight:600!important;line-height:1.6!important}
+  .btn,.tab,.input-group label,.builder-step-title,.career-tag,.career-example,.career-source{font-size:var(--type-base)!important;line-height:1.5!important}
+
+  .header{padding:46px 20px 40px!important}
+  .input-panel,.card{border-radius:8px!important}
+  .input-panel{padding:32px!important}
+  .builder-step{background:transparent!important;border:0!important;border-bottom:1px solid var(--ui-border)!important;border-radius:0!important;padding:16px 0!important}
+  .builder-step:last-of-type{border-bottom:0!important}
+  .builder-summary{border-radius:6px!important;padding:14px 16px!important}
+  .tabs{border-radius:8px!important}
+  .tab{border-radius:5px!important;padding:12px 10px!important}
+  .card{padding:32px 34px!important}
+  .card-header{gap:14px!important;margin-bottom:24px!important;padding-bottom:14px!important}
+  .card-icon{width:42px!important;height:42px!important}
+
+  .energy-section,.ranking-section{margin-bottom:28px!important}
+  .energy-section h3,.ranking-section h3,.talent-detail h3{margin-bottom:16px!important;padding-left:12px!important}
+  .energy-section h3::before,.ranking-section h3::before,.talent-detail h3::before{width:3px!important;height:18px!important;background:var(--ui-red)!important}
+  .energy-grid{gap:10px!important}
+  .energy-item{padding:16px 14px!important;border-radius:6px!important}
+  .energy-item .energy-name{font-size:var(--type-item)!important;font-weight:600!important;margin-bottom:8px!important;line-height:1.45!important}
+  .energy-item .energy-bar-wrap{margin:10px 0 0!important}
+  .energy-zero-alert{padding:14px 16px!important;margin:14px 0!important}
+
+  #results .ranking-section>div{padding:8px 16px!important;border-radius:6px!important;background:var(--ui-earth)!important}
+  #results .ranking-section>div>div{padding:10px 0!important;line-height:1.75!important}
+  .ranking-item{padding:10px 0!important}
+
+  .talent-detail{margin-bottom:26px!important}
+  .talent-reading-list{gap:0!important}
+  .talent-reading-card{padding:18px 18px 18px 22px!important;border-radius:0!important;border-bottom:1px solid rgba(154,116,54,.22)!important}
+  .talent-reading-card:last-child{border-bottom:0!important}
+  .talent-reading-head{margin-bottom:8px!important}
+  .talent-reading-careers,.talent-reading-path{margin-top:10px!important}
+  .talent-reading-label{margin-bottom:3px!important}
+  .talent-reading-card .career-list{gap:4px 18px!important}
+  .talent-reading-card .career-tag{font-weight:600!important;padding:0!important}
+
+  .career-summary{margin-top:24px!important;padding:0!important;background:transparent!important;border:0!important;border-radius:0!important}
+  .career-summary-head{padding:0 0 12px!important;margin-bottom:0!important;border-bottom:1px solid var(--ui-border)!important}
+  .career-summary-kicker{display:none!important}
+  .career-direction-list{gap:0!important}
+  .career-direction{grid-template-columns:30px minmax(0,1fr)!important;gap:12px!important;padding:16px 0!important;background:transparent!important;border:0!important;border-bottom:1px solid var(--ui-border)!important;border-radius:0!important}
+  .career-direction-no{width:24px!important;height:24px!important;border-radius:50%!important;font-size:var(--type-note)!important;line-height:24px!important;text-align:center!important}
+  .career-direction-meta{display:flex!important;flex-wrap:wrap!important;align-items:baseline!important;gap:4px 8px!important;margin-top:8px!important;padding-top:0!important;border:0!important}
+  .career-direction-label{display:inline!important;margin:0!important}
+  .career-examples,.career-sources{display:inline-flex!important;flex-wrap:wrap!important;gap:4px 12px!important}
+  .career-example,.career-source{padding:0!important;border:0!important;background:transparent!important;color:var(--ui-ink)!important}
+  .career-summary-advice{margin-top:14px!important;padding:12px 0!important;background:transparent!important;border:0!important;border-top:1px solid var(--ui-border)!important}
+  .career-summary .disclaimer{margin-top:14px!important}
+
+  .annual-grid{gap:10px!important}
+  .annual-card{padding:18px!important;border-radius:6px!important}
+  .annual-card .year-tag{margin-bottom:10px!important;padding:4px 10px!important;border-radius:4px!important}
+  .annual-card li{margin-bottom:5px!important}
+  .annual-compare{margin-top:16px!important;padding:14px!important}
+  .annual-compare-grid{gap:10px!important}
+  .annual-compare-panel{padding:12px!important}
+  .match-level{padding:18px!important}
+
+  @media(max-width:640px){
+    .header h1{font-size:26px!important}
+    .input-panel,.card{padding:22px!important}
+    .career-direction{grid-template-columns:26px minmax(0,1fr)!important}
+    .career-direction-no{width:22px!important;height:22px!important;line-height:22px!important}
+  }
+}
+
+/* 潜能天赋与综合职业方向采用同一字级比例，避免两块阅读感割裂 */
+@media screen{
+  #results .talent-detail h3,#results .career-summary h3{font-size:19px!important;font-weight:600!important;line-height:1.5!important}
+  #results .talent-reading-primary-label,#results .career-direction-title{font-size:16px!important;font-weight:600!important;line-height:1.62!important}
+  #results .talent-reading-inline-value,#results .career-direction-core{font-size:15px!important;font-weight:400!important;line-height:1.78!important}
+  #results .talent-reading-inline-label,#results .career-direction-label,#results .career-example,#results .career-source{font-size:13px!important;font-weight:600!important;line-height:1.55!important}
+  #results .career-direction-meta{font-size:13px!important;line-height:1.55!important}
+
+  /* 天赋名称｜天赋内容：编号独立在左，三行标签与内容稳定对齐 */
+  #results .talent-reading-card{display:grid!important;grid-template-columns:42px minmax(0,1fr)!important;column-gap:0!important;align-items:start!important}
+  #results .talent-reading-card-no{grid-column:1!important;grid-row:1!important;display:block!important;padding:2px 0 0!important;font-size:13px!important;font-weight:600!important;line-height:1.62!important;color:var(--ui-red)!important;letter-spacing:.04em!important}
+  #results .talent-reading-rows{grid-column:2!important;min-width:0!important;display:grid!important;gap:9px!important}
+  #results .talent-reading-row,#results .talent-reading-row.talent-reading-primary-row{display:grid!important;grid-template-columns:112px minmax(0,1fr)!important;column-gap:14px!important;align-items:start!important;margin:0!important;padding:0!important}
+  #results .talent-reading-primary-label,#results .talent-reading-inline-label{display:block!important;margin:0!important;min-width:0!important;color:var(--ui-gold)!important}
+  #results .talent-reading-inline-value{display:block!important;min-width:0!important;margin:0!important;color:var(--ui-ink)!important}
+  #results .talent-reading-primary-label .talent-reading-multiplier{display:inline!important;margin-left:4px!important;font-size:inherit!important;font-weight:inherit!important;line-height:inherit!important;color:var(--ui-gold)!important;white-space:nowrap!important}
+  #results .talent-reading-primary-label small,#results .talent-reading-primary-label .talent-reading-no{display:none!important}
+
+  @media(max-width:640px){
+    #results .talent-reading-card{grid-template-columns:32px minmax(0,1fr)!important}
+    #results .talent-reading-row,#results .talent-reading-row.talent-reading-primary-row{grid-template-columns:96px minmax(0,1fr)!important;column-gap:10px!important}
+  }
+}
 </style>
 </head>
 <body>
 <div class="app">
   <div class="header">
     <h1>识己天赋测试</h1>
-    <div class="sub">用天赋的语言，读懂生命的剧本</div>
+    <div class="sub">看见天赋，照见自己</div>
   </div>
 
   <div class="input-panel" id="inputPanel">
     <h2>客户信息</h2>
     <div class="input-row">
       <div class="input-group"><label>客户姓名</label><input type="text" id="clientName" placeholder="例如：静静"></div>
-      <div class="input-group"><label>阳历出生日期</label><input type="date" id="birthDate" onchange="updateAutoYears()"></div>
+      <div class="input-group"><label>阳历出生年月日</label><div class="date-selects" aria-label="阳历出生年月日"><select id="birthYear" aria-label="出生年份" required><option value="">年</option></select><select id="birthMonth" aria-label="出生月份" required><option value="">月</option></select><select id="birthDay" aria-label="出生日期" required><option value="">日</option></select></div><input type="hidden" id="birthDate"></div>
     </div>
     <div class="input-row"><div class="input-group" style="flex:2"><label>天赋信息</label><div id="clientTalentForm"></div></div></div>
     <div class="input-row">
@@ -190,17 +514,18 @@ body{font-family:var(--font-body);background:radial-gradient(circle at 8% 0%,rgb
     </div>
     <div class="btn-row">
       <button class="btn btn-primary" onclick="runAnalysis()">开始解读</button>
-      <button class="btn btn-outline" onclick="loadExample()">加载示例</button>
-      <button class="btn btn-outline" onclick="exportCareerImage()">导出职业卡片图片</button>
-      <button class="btn btn-export" onclick="exportPDF()">导出详细PDF</button>
+      <button class="btn btn-outline" onclick="startNewClient()">新建客户 / 清空</button>
+      <button class="btn btn-outline" id="exportCareerBtn" onclick="exportCareerImage()">导出职业卡片图片</button>
+      <button class="btn btn-export" id="reportBtn" onclick="generateReport()">生成详细报告</button>
     </div>
+    <div class="analysis-state-notice" id="analysisStateNotice" role="status">输入信息已经修改，请重新点击“开始解读”后再导出。</div>
 
     <!-- 合盘区域 -->
     <h2 style="margin-top:24px;cursor:pointer;color:var(--primary)" onclick="toggleSynastry()">合盘分析 ▸ 点击展开</h2>
     <div id="synastryPanel" style="display:none">
     <div class="input-row">
       <div class="input-group"><label>对方姓名</label><input type="text" id="partnerName" placeholder="例如：小明"></div>
-      <div class="input-group"><label>对方阳历出生日期</label><input type="date" id="partnerBirth"></div>
+      <div class="input-group"><label>对方阳历出生年月日</label><div class="date-selects" aria-label="对方阳历出生年月日"><select id="partnerYear" aria-label="对方出生年份" required><option value="">年</option></select><select id="partnerMonth" aria-label="对方出生月份" required><option value="">月</option></select><select id="partnerDay" aria-label="对方出生日期" required><option value="">日</option></select></div><input type="hidden" id="partnerBirth"></div>
     </div>
     <div class="input-row"><div class="input-group" style="flex:2"><label>对方天赋信息</label><div id="partnerTalentForm"></div></div></div>
     <div class="synastry-actions"><button class="btn btn-outline btn-small" onclick="runSynastry()">单独生成合盘</button></div>
@@ -221,10 +546,10 @@ body{font-family:var(--font-body);background:radial-gradient(circle at 8% 0%,rgb
 const TALENT_NAMES={0:'创意天赋',1:'整合天赋',2:'敏锐天赋',3:'美育天赋',4:'挑战天赋',5:'价值天赋',6:'面相天赋',7:'家庭天赋',8:'教练天赋',9:'穿透天赋',10:'显化天赋',11:'悟性天赋',12:'趋势天赋',13:'执着天赋',14:'涉外天赋',15:'策略天赋',16:'执行天赋',17:'洞察天赋',18:'感知天赋',19:'资源天赋',20:'计划天赋',21:'传统天赋'};
 
 const ENERGY_TYPES={
-  wind:{name:'认知能量',symbol:'风',color:'#7eb8da',light:'#e8f4fa',desc:'具备快速、多元的学习能力，擅长将知识转化为可变现的输出。思维灵活，表达逻辑清晰，天然适合知识型、顾问型工作。核心驱动力在于「学习—整合—输出」的循环。',nums:[0,1,6,11,17,20],zeroMsg:'您拥有广阔的思维空间，适合发展独特的认知风格。建议多肯定自己的贡献与价值，寻找欣赏您独特视角的导师或搭档，让思想的火花更有信心地绽放。'},
-  fire:{name:'行动能量',symbol:'火',color:'#e8835e',light:'#fdf0eb',desc:'充满干劲，企图心强，直觉决断，适合竞争性、目标导向的工作环境。是天生的行动者，属于「竞争型人才」，最适合能够自主发挥的岗位。',nums:[4,8,14,16,19],zeroMsg:'您的行动节奏偏从容优雅，更适合深思熟虑后的精准出击。建议与行动力强的伙伴搭档，借助外部目标和协作关系，优雅地激活内在的行动潜能。'},
-  water:{name:'情绪能量',symbol:'水',color:'#6db5c4',light:'#eaf6f8',desc:'以人为本，同理心强，情感连接能力卓越。擅长销售、活动、策划等需要「以情动人」的工作，属于「渗透型人才」，善于在无形中建立信任与影响力。',nums:[2,3,7,12,13,18],zeroMsg:'您的情绪感知灵敏而内敛，以理性思考见长。建议多与情感表达能力出色的伙伴交流，在合作中自然补充情感沟通的维度，让理性与感性相得益彰。'},
-  earth:{name:'构建能量',symbol:'土',color:'#b8956a',light:'#f5efe6',desc:'擅长结构性思考，做事有计划且落地，善于提供解决方案。注重实效、讲究细节，金钱能量强，是组织和团队中的「落实型人才」。',nums:[5,9,10,15,21],zeroMsg:'您拥有开放灵动的思维特质，创意和灵感是其天然优势。建议搭配结构化工具辅助执行落地，或与擅长构建的伙伴协作，让灵感找到扎根的土壤。'}
+  wind:{name:'认知能量',symbol:'风',color:'#5d9675',light:'#e9f3e9',desc:'具备快速、多元的学习能力，擅长将知识转化为可变现的输出。思维灵活，表达逻辑清晰，天然适合知识型、顾问型工作。核心驱动力在于「学习—整合—输出」的循环。',nums:[0,1,6,11,17,20],zeroMsg:'您拥有广阔的思维空间，适合发展独特的认知风格。建议多肯定自己的贡献与价值，寻找欣赏您独特视角的导师或搭档，让思想的火花更有信心地绽放。'},
+  fire:{name:'行动能量',symbol:'火',color:'#c86b58',light:'#fcece6',desc:'充满干劲，企图心强，直觉决断，适合竞争性、目标导向的工作环境。是天生的行动者，属于「竞争型人才」，最适合能够自主发挥的岗位。',nums:[4,8,14,16,19],zeroMsg:'您的行动节奏偏从容优雅，更适合深思熟虑后的精准出击。建议与行动力强的伙伴搭档，借助外部目标和协作关系，优雅地激活内在的行动潜能。'},
+  water:{name:'情绪能量',symbol:'水',color:'#4e89a8',light:'#e8f1f7',desc:'以人为本，同理心强，情感连接能力卓越。擅长销售、活动、策划等需要「以情动人」的工作，属于「渗透型人才」，善于在无形中建立信任与影响力。',nums:[2,3,7,12,13,18],zeroMsg:'您的情绪感知灵敏而内敛，以理性思考见长。建议多与情感表达能力出色的伙伴交流，在合作中自然补充情感沟通的维度，让理性与感性相得益彰。'},
+  earth:{name:'构建能量',symbol:'土',color:'#a77a37',light:'#f7eedb',desc:'擅长结构性思考，做事有计划且落地，善于提供解决方案。注重实效、讲究细节，金钱能量强，是组织和团队中的「落实型人才」。',nums:[5,9,10,15,21],zeroMsg:'您拥有开放灵动的思维特质，创意和灵感是其天然优势。建议搭配结构化工具辅助执行落地，或与擅长构建的伙伴协作，让灵感找到扎根的土壤。'}
 };
 
 const TALENT_DETAIL={
@@ -266,28 +591,28 @@ const COMBOS=[
 
 // 关系解读使用具体天赋生成，全部采用发展性、正向表达。
 const RELATION_GUIDE={
-  0:{love:'珍视自由与新鲜感，适合以共同探索维持关系活力。',parent:'鼓励孩子大胆想象，并用小作品帮助创意落地。',money:'适合从创新项目与新兴领域发现收入机会。'},
-  1:{love:'重视思想交流，持续学习与共同成长会增强吸引力。',parent:'善于帮孩子整合知识，可多陪伴其完成输出。',money:'知识、写作与课程产品是值得积累的长期资产。'},
-  2:{love:'重视忠诚与安全感，细腻回应能让关系更稳固。',parent:'能敏锐读懂孩子感受，适合用确认与倾听建立信任。',money:'重要财务决定适合在情绪平稳时完成。'},
-  3:{love:'擅长创造仪式感与审美体验，让日常保持温度。',parent:'美感与艺术启蒙是亲子互动的天然优势。',money:'审美、品牌与内容影响力可转化为价值。'},
-  4:{love:'表达直接而有行动力，也需要彼此尊重与欣赏。',parent:'适合用目标与挑战激发孩子，同时保留选择空间。',money:'创业、业绩与拓展型机会能激活财富动力。'},
-  5:{love:'希望价值观同频，坦诚讨论期待会更有安全感。',parent:'善于传递价值观，肯定孩子的努力比单看结果更有效。',money:'说服力与价值传递能力适合发展专业服务。'},
-  6:{love:'亲和力强，关系需要陪伴、新鲜感与清晰回应。',parent:'像朋友般互动能激发孩子表达与社交自信。',money:'个人品牌、人际连接与公开表达可形成收入入口。'},
-  7:{love:'重视家庭归属与长期承诺，守护是重要的爱之语言。',parent:'能建立稳定规则，也适合给孩子适度自主空间。',money:'家居、生活服务与家庭场景相关领域值得关注。'},
-  8:{love:'愿意支持伴侣成长，被看见贡献会更有动力。',parent:'擅长鼓励与陪练，清晰边界能让陪伴更轻松。',money:'培训、教练与团队发展经验可以产品化。'},
-  9:{love:'需要独立空间与高质量沟通，尊重边界会更亲密。',parent:'善于引导孩子看见问题本质，可先肯定再给建议。',money:'诊断问题与提供解决方案是核心变现能力。'},
-  10:{love:'重视共同愿景与生活品质，适合一起拓展视野。',parent:'能提供丰富资源，帮助孩子确定长期方向。',money:'高质量人脉、海外视野与资源连接是重要优势。'},
-  11:{love:'看重内涵、原则与精神共鸣，欣赏彼此专业会更靠近。',parent:'适合培养孩子的求知欲，也要允许多元答案。',money:'专业认证、权威知识与高价值服务有利于稳定积累。'},
-  12:{love:'重视付出与回应的平衡，直接说出需要更容易被理解。',parent:'能发现孩子的兴趣趋势，公平回应会增强安全感。',money:'选品、趋势判断与品牌代理是可发展的方向。'},
-  13:{love:'投入而专注，稳定的信任与温柔表达能滋养关系。',parent:'适合培养深度学习，也要给试错与放松留出空间。',money:'在冷门或专业细分领域长期深耕更容易建立壁垒。'},
-  14:{love:'喜欢共同旅行与成长，开放沟通能保持关系活力。',parent:'带孩子拓展视野、学习语言与表达是天然优势。',money:'跨文化传播、海外业务与演讲表达可形成价值。'},
-  15:{love:'善于规划关系未来，也需要练习表达真实感受与需要。',parent:'能设计成长路径，陪伴时加入弹性会更有效。',money:'商业模式、策略咨询与幕后规划是优势领域。'},
-  16:{love:'热情果断，及时沟通与稳定释放压力有助于长久相处。',parent:'适合带孩子在实践中学习，并允许不同节奏。',money:'执行、运营、销售与技能型成果适合快速转化。'},
-  17:{love:'追求深度与灵魂共鸣，同时珍视得体的个人空间。',parent:'善于看见孩子潜力，真实表达会让连接更稳。',money:'人才媒合、公益项目与资源对接能发挥洞察优势。'},
-  18:{love:'感受细腻，稳定陪伴与明确回应能带来安心。',parent:'能共情孩子的细微感受，适合艺术与感官体验式陪伴。',money:'身心健康、体验服务与精细手作适合长期深耕。'},
-  19:{love:'温暖有感染力，彼此关注与共同目标会增强连接。',parent:'擅长鼓励孩子参与群体，在体验中建立自信。',money:'人脉经营、团队管理与资源整合能放大机会。'},
-  20:{love:'可靠而贴心，清晰分工能让照顾与独立保持平衡。',parent:'善于提供稳定支持，也可让孩子参与计划制定。',money:'计划、风控与长期积累是财富安全感的来源。'},
-  21:{love:'看重责任、秩序与可见的承诺，稳定行动最能表达爱。',parent:'适合建立规律与时间观念，同时保留协商空间。',money:'制度管理、传统行业与长期经营更容易沉淀成果。'}
+  0:{love:'珍视自由与新鲜感，适合以共同探索维持关系活力。',parent:'重点培养想象力与创造力，并通过小作品、小项目让创意逐步落地。',money:'适合从创新项目与新兴领域发现收入机会。'},
+  1:{love:'重视思想交流，持续学习与共同成长会增强吸引力。',parent:'重点培养知识整合与表达能力，可通过复述、写作或分享完成从输入到输出。',money:'知识、写作与课程产品是值得积累的长期资产。'},
+  2:{love:'重视忠诚与安全感，细腻回应能让关系更稳固。',parent:'重点培养情绪觉察与安全感，先确认真实感受，再练习清晰表达自己的需要。',money:'重要财务决定适合在情绪平稳时完成。'},
+  3:{love:'擅长创造仪式感与审美体验，让日常保持温度。',parent:'重点培养审美感受与创造表达，可通过艺术、空间布置和生活观察积累美感。',money:'审美、品牌与内容影响力可转化为价值。'},
+  4:{love:'表达直接而有行动力，也需要彼此尊重与欣赏。',parent:'重点培养目标感与健康的挑战精神，在有选择空间的任务中学习坚持与复盘。',money:'创业、业绩与拓展型机会能激活财富动力。'},
+  5:{love:'希望价值观同频，坦诚讨论期待会更有安全感。',parent:'重点培养价值判断与自我肯定，多看见过程中的努力，并练习有依据地表达观点。',money:'说服力与价值传递能力适合发展专业服务。'},
+  6:{love:'亲和力强，关系需要陪伴、新鲜感与清晰回应。',parent:'重点培养公开表达与社交自信，可从讲述、展示和真实互动中建立个人影响力。',money:'个人品牌、人际连接与公开表达可形成收入入口。'},
+  7:{love:'重视家庭归属与长期承诺，守护是重要的爱之语言。',parent:'重点培养责任感与生活秩序，同时保留自主选择和适度调整规则的空间。',money:'家居、生活服务与家庭场景相关领域值得关注。'},
+  8:{love:'愿意支持伴侣成长，被看见贡献会更有动力。',parent:'重点培养鼓励他人和带领练习的能力，同时建立边界，让付出与自我成长保持平衡。',money:'培训、教练与团队发展经验可以产品化。'},
+  9:{love:'需要独立空间与高质量沟通，尊重边界会更亲密。',parent:'重点培养深度观察与问题分析能力，先看见已有成果，再练习提出清晰、可行的建议。',money:'诊断问题与提供解决方案是核心变现能力。'},
+  10:{love:'重视共同愿景与生活品质，适合一起拓展视野。',parent:'重点培养资源连接与长期视野，通过多元体验认识世界，再逐步形成自己的方向。',money:'高质量人脉、海外视野与资源连接是重要优势。'},
+  11:{love:'看重内涵、原则与精神共鸣，欣赏彼此专业会更靠近。',parent:'重点培养求知欲与专业深度，在追寻答案的同时，也允许多元观点和持续修正。',money:'专业认证、权威知识与高价值服务有利于稳定积累。'},
+  12:{love:'重视付出与回应的平衡，直接说出需要更容易被理解。',parent:'重点培养趋势感知与兴趣辨别能力，通过比较、选择和体验找到真正愿意长期投入的方向。',money:'选品、趋势判断与品牌代理是可发展的方向。'},
+  13:{love:'投入而专注，稳定的信任与温柔表达能滋养关系。',parent:'重点培养专注力与深度学习能力，也要为试错、休息和转换视角保留空间。',money:'在冷门或专业细分领域长期深耕更容易建立壁垒。'},
+  14:{love:'喜欢共同旅行与成长，开放沟通能保持关系活力。',parent:'重点培养语言、表达与跨文化视野，通过旅行、阅读和公开分享拓宽经验边界。',money:'跨文化传播、海外业务与演讲表达可形成价值。'},
+  15:{love:'善于规划关系未来，也需要练习表达真实感受与需要。',parent:'重点培养规划与策略思维，把长远目标拆成阶段行动，并为变化预留弹性。',money:'商业模式、策略咨询与幕后规划是优势领域。'},
+  16:{love:'热情果断，及时沟通与稳定释放压力有助于长久相处。',parent:'重点培养行动力与实践能力，在真实任务中边做边学，同时建立适合自己的节奏。',money:'执行、运营、销售与技能型成果适合快速转化。'},
+  17:{love:'追求深度与灵魂共鸣，同时珍视得体的个人空间。',parent:'重点培养识人、识己与潜力发现能力，通过真实表达和深入交流增强连接感。',money:'人才媒合、公益项目与资源对接能发挥洞察优势。'},
+  18:{love:'感受细腻，稳定陪伴与明确回应能带来安心。',parent:'重点培养细腻感知与身心表达，可通过艺术、自然和感官体验形成稳定的内在连接。',money:'身心健康、体验服务与精细手作适合长期深耕。'},
+  19:{love:'温暖有感染力，彼此关注与共同目标会增强连接。',parent:'重点培养群体参与与组织能力，在共同任务和团队体验中建立自信与影响力。',money:'人脉经营、团队管理与资源整合能放大机会。'},
+  20:{love:'可靠而贴心，清晰分工能让照顾与独立保持平衡。',parent:'重点培养计划意识与稳定执行力，让自己参与制定步骤，并在完成中积累安全感。',money:'计划、风控与长期积累是财富安全感的来源。'},
+  21:{love:'看重责任、秩序与可见的承诺，稳定行动最能表达爱。',parent:'重点培养规律、时间观念与责任意识，在清晰边界中保留协商和自主安排的空间。',money:'制度管理、传统行业与长期经营更容易沉淀成果。'}
 };
 
 // 综合职业先归纳“工作内核”，再给出不同落地形态，避免同义岗位重复占位。
@@ -318,18 +643,18 @@ const CAREER_EXAMPLE_KEYWORDS={
 };
 
 const AUX_TO_POTENTIAL={
-  1:{auxName:'内敛学习者',auxCore:'对自我能力不确信，常担心被赋予期待；倾向吸收而非输出。',auxPath:'将学习成果转化为可变现的作品；通过教学与复盘建立自信。',potential:{num:19,proto:'英雄原型',theme:'个人主义倾向',key:'学会在团队中借力，用合作代替独撑'}},
-  10:{auxName:'独立奋斗者',auxCore:'相信成功源于努力，认为求助等于示弱；羡慕他人成就，却不愿依附。',auxPath:'主动对接高阶资源，与优秀者同行；建立个人知识库实现资源互换。',potential:null},
-  4:{auxName:'蓄势待发者',auxCore:'追求完美，害怕丢脸；准备过度却难以出手，期待一鸣惊人。',auxPath:'先求有再求好，用行动代替过度准备；善用高度动能快速推进事业。',potential:{num:13,proto:'父亲原型',theme:'证明导向',key:'放下「对错执念」，允许他人有自己的答案'}},
-  7:{auxName:'规则沉默者',auxCore:'不善于表达个人标准与边界，倾向闷在心里；对不守规矩者心生不满却不言明。',auxPath:'学会清晰表达底线与规则；用日记或对话处理积压情绪。',potential:{num:16,proto:'运动家原型',theme:'冷暴力倾向',key:'及时表达不满，学会用直接沟通代替冷战'}},
-  2:{auxName:'情感倾听者',auxCore:'高敏感，能察觉他人弦外之音；通过倾听他人情绪来证明自己的价值。',auxPath:'区分「倾听支持」与「情绪依赖」；寻找正向的女性榜样作为指引。',potential:{num:11,proto:'法官原型',theme:'高敏感与评判',key:'接纳不完美，理解「足够好」的价值'}},
-  11:{auxName:'价值自律者',auxCore:'圈层分明，对不认可的人懒得假笑；担忧自己「德不配位」，倾向降价求售。',auxPath:'通过专业认证建立自信；学会接受合理定价，避免自我贬低。',potential:null},
-  5:{auxName:'策略筹备者',auxCore:'搜集有利信息先发制人，害怕没有影响力；表达模糊，让人觉得话中有话。',auxPath:'练习清晰表达，降低他人误解；允许犯错，将错误视为学习机会。',potential:{num:14,proto:'倡导者原型',theme:'恐惧失败',key:'重新定义失败——它是进步的阶梯，而非终点'}},
-  8:{auxName:'成就认可者',auxCore:'渴望功劳被看见、被感谢；容易背负他人课题，压力大时选择逃避。',auxPath:'用作品和成果堆叠自信；学会授权与放手，减少不必要的承担。',potential:{num:17,proto:'导师原型',theme:'隐藏真实',key:'接纳自己的不完美，适度展露真实想法'}},
-  3:{auxName:'魅力竞争者',auxCore:'与同层次的人比较，渴望被关注；对自身外表与条件不自信却追求光环。',auxPath:'以「园丁精神」精进外在条件；发展美学相关事业，将优势转化为变现能力。',potential:{num:12,proto:'母亲原型',theme:'无条件奉献',key:'区分真我付出与交换式付出，学会先爱自己'}},
-  12:{auxName:'情感交换者',auxCore:'付出后期待对方「懂」自己；用情勒换取关注，越得不到越紧抓。',auxPath:'理解付出与回报常不平等；学会直接表达需求，而非期待对方猜测。',potential:null},
-  6:{auxName:'关系调和者',auxCore:'害怕关系断裂而选择忍让；不擅长拒绝，倾向保持中立。',auxPath:'练习温和而坚定地表达「不」；在关系智慧中成长，学会得体拒绝。',potential:{num:15,proto:'隐藏欲望原型',theme:'压抑真实需求',key:'告诉自己「我已经足够好」，无需用交换换取爱'}},
-  9:{auxName:'真相直言者',auxCore:'不喜欢被强迫融入，却害怕没有存在感；追求真相，说话直接。',auxPath:'先找优点再给观点；成为指引他人的智者，减少「独醒」的孤独感。',potential:{num:18,proto:'受害者原型',theme:'权益计较',key:'学会接纳他人意见，放下「受害者」心态，转为问题的解决者'}}
+  1:{auxName:'内敛学习者',auxCore:'更习惯先充分吸收和理解，再把成果表达出来；当输出节奏清晰时，学习优势会更容易被看见。',auxPath:'将学习成果转化为可变现的作品；通过教学与复盘建立自信。',potential:{num:19,proto:'英雄原型',theme:'个人主义倾向',key:'学会在团队中借力，用合作代替独撑'}},
+  10:{auxName:'独立奋斗者',auxCore:'重视独立完成与个人努力，也可以逐步把优质资源和可信赖的合作伙伴纳入成长路径。',auxPath:'主动对接高阶资源，与优秀者同行；建立个人知识库实现资源互换。',potential:null},
+  4:{auxName:'蓄势待发者',auxCore:'对品质和表现有较高要求，充分准备能带来安全感；适时开始，会让潜力更快转化为成果。',auxPath:'先求有再求好，用行动代替过度准备；善用高度动能快速推进事业。',potential:{num:13,proto:'父亲原型',theme:'证明导向',key:'放下「对错执念」，允许他人有自己的答案'}},
+  7:{auxName:'规则沉默者',auxCore:'内心拥有清晰的标准与边界，适合练习及时、平和地表达，让彼此更容易理解规则与期待。',auxPath:'学会清晰表达底线与规则；用日记或对话处理积压情绪。',potential:{num:16,proto:'运动家原型',theme:'沟通蓄力',key:'在感受出现时及时说出来，用直接而温和的沟通增进理解'}},
+  2:{auxName:'情感倾听者',auxCore:'能够捕捉细微情绪并给予陪伴；在倾听他人的同时，也需要为自己的感受保留同等空间。',auxPath:'区分「倾听支持」与「情绪依赖」；寻找正向的女性榜样作为指引。',potential:{num:11,proto:'法官原型',theme:'高敏感与评判',key:'接纳不完美，理解「足够好」的价值'}},
+  11:{auxName:'价值自律者',auxCore:'对圈层、品质和专业价值有明确判断；持续积累资历与成果，有助于更从容地确认自己的合理价值。',auxPath:'通过专业认证建立自信；学会接受合理定价，避免自我贬低。',potential:null},
+  5:{auxName:'策略筹备者',auxCore:'善于提前收集信息并规划表达；把思路说得更直接完整，会让策略更容易获得理解与支持。',auxPath:'练习清晰表达，降低他人误解；允许犯错，将错误视为学习机会。',potential:{num:14,proto:'倡导者原型',theme:'成长勇气',key:'把每一次尝试都视为积累经验的阶梯，让行动带来持续成长'}},
+  8:{auxName:'成就认可者',auxCore:'重视自己的贡献被看见，也愿意承担责任；建立清晰分工后，付出会更轻松、更可持续。',auxPath:'用作品和成果堆叠自信；学会授权与放手，减少不必要的承担。',potential:{num:17,proto:'导师原型',theme:'真实表达',key:'接纳自己的完整状态，适度表达真实想法与感受'}},
+  3:{auxName:'魅力竞争者',auxCore:'容易从优秀同伴身上获得成长动力；把关注点放回自身的持续精进，更能形成稳定而独特的魅力。',auxPath:'以「园丁精神」精进外在条件；发展美学相关事业，将优势转化为变现能力。',potential:{num:12,proto:'母亲原型',theme:'自我滋养',key:'在关爱他人的同时照顾自己的需要，让付出来自真诚与丰盈'}},
+  12:{auxName:'情感交换者',auxCore:'付出时期待被理解和回应；练习把需要直接说清楚，能让关系中的给予与接受更加轻松。',auxPath:'理解付出与回报常不平等；学会直接表达需求，而非期待对方猜测。',potential:null},
+  6:{auxName:'关系调和者',auxCore:'珍惜关系和整体和谐，常愿意先照顾他人感受；清晰表达自己的选择，会让关系更平衡。',auxPath:'练习温和而坚定地表达「不」；在关系智慧中成长，学会得体拒绝。',potential:{num:15,proto:'隐藏欲望原型',theme:'真实需求',key:'确认自己已经足够好，并以直接表达建立更真诚的关系'}},
+  9:{auxName:'真相直言者',auxCore:'重视真实与独立判断，表达观点时加入对方容易接收的方式，会让洞察产生更大的帮助。',auxPath:'先找优点再给观点；成为指引他人的智者，减少「独醒」的孤独感。',potential:{num:18,proto:'视角转化原型',theme:'主动选择',key:'接纳不同意见，把关注点转向自己能够推动的解决方案'}}
 };
 
 // 潜能天赋去数字化名称
@@ -342,11 +667,11 @@ const POTENTIAL_DIRECT={
   11:{name:'悦纳不完美',proto:'法官原型',theme:'高敏感与评判',key:'接纳不完美，理解「足够好」的价值'},
   12:{name:'学会自爱',proto:'母亲原型',theme:'无条件奉献',key:'区分真我付出与交换式付出，学会先爱自己'},
   13:{name:'放下执念',proto:'父亲原型',theme:'证明导向',key:'放下「对错执念」，允许他人有自己的答案'},
-  14:{name:'拥抱成长',proto:'倡导者原型',theme:'恐惧失败',key:'重新定义失败——它是进步的阶梯，而非终点'},
+  14:{name:'拥抱成长',proto:'倡导者原型',theme:'成长勇气',key:'把每一次尝试都视为积累经验的阶梯，让行动带来持续成长'},
   15:{name:'正视自我需求',proto:'隐藏欲望原型',theme:'压抑真实需求',key:'告诉自己「我已经足够好」，无需用交换换取爱'},
-  16:{name:'直接沟通',proto:'运动家原型',theme:'冷暴力倾向',key:'及时表达不满，学会用直接沟通代替冷战'},
-  17:{name:'展露真实',proto:'导师原型',theme:'隐藏真实',key:'接纳自己的不完美，适度展露真实想法'},
-  18:{name:'转化视角',proto:'受害者原型',theme:'权益计较',key:'学会接纳他人意见，放下「受害者」心态，转为问题的解决者'},
+  16:{name:'直接沟通',proto:'运动家原型',theme:'沟通蓄力',key:'在感受出现时及时说出来，用直接而温和的沟通增进理解'},
+  17:{name:'展露真实',proto:'导师原型',theme:'真实表达',key:'接纳自己的完整状态，适度表达真实想法与感受'},
+  18:{name:'转化视角',proto:'视角转化原型',theme:'主动选择',key:'接纳不同意见，把关注点转向自己能够推动的解决方案'},
   19:{name:'学会借力',proto:'英雄原型',theme:'个人主义倾向',key:'学会在团队中借力，用合作代替独撑'},
   20:{name:'从容前行',proto:'工程师原型',theme:'完美焦虑',key:'理解「完成比完美更重要」，允许自己和他人犯错'},
   21:{name:'建立界限',proto:'享乐主义原型',theme:'自由恐惧',key:'建立健康的界限感，选择真正想要的自由'}
@@ -396,7 +721,7 @@ function renderStructuredTalentForm(prefix){
     <div class="builder-step"><div class="builder-step-title"><span class="step-no">1</span>最强共振天赋</div><div class="builder-grid"><select id="${prefix}ResonanceMode" disabled><option value="no">已确认：无最强共振</option><option value="yes">已确认：有最强共振</option></select><select id="${prefix}ResonanceTalent" disabled>${talentOptions()}</select></div><div class="field-note">系统会先比对辅助天赋与主天赋：名称相同即自动确认为最强共振，没有相同则显示“无”。</div></div>
     <div class="builder-step"><div class="builder-step-title"><span class="step-no">2</span>组合天赋</div><select id="${prefix}Combo">${comboOptions()}</select><div class="field-note">只有这里明确选择后才会生成组合解读；潜能天赋不会参与组合判断。</div></div>
     <div class="builder-step"><div class="builder-step-title"><span class="step-no">3</span>主天赋（5—7个）</div><div id="${prefix}MainRows"></div><button type="button" class="add-row-btn" onclick="addMainRow('${prefix}')">＋ 添加主天赋</button></div>
-    <div class="builder-step"><div class="builder-step-title"><span class="step-no">4</span>辅助天赋（1个）</div><select id="${prefix}Aux" onchange="syncAuxResonance('${prefix}')">${auxiliaryTalentOptions()}</select><div class="field-note">括号内是辅助天赋特有的成长面向，与同名主天赋的外显优势有所区别。</div></div>
+    <div class="builder-step"><div class="builder-step-title"><span class="step-no">4</span>辅助天赋（1个 · ×0.5）</div><select id="${prefix}Aux" onchange="syncAuxResonance('${prefix}')">${auxiliaryTalentOptions()}</select><div class="field-note">括号内是辅助天赋特有的成长面向，与同名主天赋的外显优势有所区别。</div></div>
     <div class="builder-step"><div class="builder-step-title"><span class="step-no">5</span>潜能天赋（1—2个）</div><div id="${prefix}PotentialRows"></div><button type="button" class="add-row-btn" onclick="addPotentialRow('${prefix}')">＋ 添加潜能天赋</button><div class="field-note">仅显示描述性名称，客户卡片和报告中不会出现内部数字。</div></div>
     <div class="builder-summary" id="${prefix}BuilderSummary">请依次完成天赋选择，生成前系统会检查数量、重复项与组合关系。</div>
   </div>`;
@@ -457,6 +782,152 @@ function getStructuredDraft(prefix){
   return {mains,aux,potentials,combo,resonanceMode,resonanceTalent};
 }
 
+const INPUT_DRAFT_STORAGE_KEY='shiji-talent-input-draft-v1';
+let inputDraftSaveTimer=null;
+
+function readTalentDraftForStorage(prefix){
+  return {
+    mainRows:[...document.querySelectorAll(`#${prefix}MainRows .main-row`)].map(row=>({
+      num:row.querySelector('.main-talent')?.value||'',
+      multiplier:Number(row.querySelector('.main-multiplier')?.value||1)
+    })),
+    aux:document.getElementById(prefix+'Aux')?.value||'',
+    potentials:[...document.querySelectorAll(`#${prefix}PotentialRows .potential-talent`)].map(select=>select.value||''),
+    combo:document.getElementById(prefix+'Combo')?.value||''
+  };
+}
+
+function saveInputDraft(){
+  const panel=document.getElementById('inputPanel');
+  if(!panel)return;
+  const draft={
+    clientName:document.getElementById('clientName')?.value||'',
+    birth:document.getElementById('birthDate')?.value||'',
+    clientTalent:readTalentDraftForStorage('client'),
+    partnerName:document.getElementById('partnerName')?.value||'',
+    partnerBirth:document.getElementById('partnerBirth')?.value||'',
+    partnerTalent:readTalentDraftForStorage('partner'),
+    synastryOpen:document.getElementById('synastryPanel')?.style.display!=='none'
+  };
+  try{localStorage.setItem(INPUT_DRAFT_STORAGE_KEY,JSON.stringify(draft));}catch(error){}
+}
+
+function queueInputDraftSave(){
+  clearTimeout(inputDraftSaveTimer);
+  inputDraftSaveTimer=setTimeout(saveInputDraft,120);
+}
+
+function restoreChineseDateSelect(prefix,value){
+  const d=parseBirthDate(value);if(!d)return;
+  const year=document.getElementById(prefix+'Year');
+  const month=document.getElementById(prefix+'Month');
+  const day=document.getElementById(prefix+'Day');
+  if(!year||!month||!day)return;
+  year.value=String(d.year);year.dispatchEvent(new Event('change',{bubbles:true}));
+  month.value=String(d.month);month.dispatchEvent(new Event('change',{bubbles:true}));
+  day.value=String(d.day);day.dispatchEvent(new Event('change',{bubbles:true}));
+}
+
+function restoreTalentDraft(prefix,draft){
+  if(!draft)return;
+  const mainBox=document.getElementById(prefix+'MainRows');
+  const potentialBox=document.getElementById(prefix+'PotentialRows');
+  if(mainBox){
+    mainBox.innerHTML='';
+    const rows=Array.isArray(draft.mainRows)&&draft.mainRows.length?draft.mainRows:Array.from({length:5},()=>({num:'',multiplier:1}));
+    rows.slice(0,7).forEach(row=>addMainRow(prefix,row.num||'',Number(row.multiplier)||1));
+    while(mainBox.children.length<5)addMainRow(prefix);
+  }
+  if(potentialBox){
+    potentialBox.innerHTML='';
+    const potentials=Array.isArray(draft.potentials)&&draft.potentials.length?draft.potentials:[''];
+    potentials.slice(0,2).forEach(num=>addPotentialRow(prefix,num||''));
+  }
+  const combo=document.getElementById(prefix+'Combo');if(combo)combo.value=String(draft.combo||'');
+  const aux=document.getElementById(prefix+'Aux');if(aux)aux.value=String(draft.aux||'');
+  syncAuxResonance(prefix);
+}
+
+function restoreInputDraft(){
+  let draft=null;
+  try{draft=JSON.parse(localStorage.getItem(INPUT_DRAFT_STORAGE_KEY)||'null');}catch(error){}
+  if(!draft)return false;
+  const clientName=document.getElementById('clientName');if(clientName)clientName.value=draft.clientName||'';
+  const partnerName=document.getElementById('partnerName');if(partnerName)partnerName.value=draft.partnerName||'';
+  restoreTalentDraft('client',draft.clientTalent);
+  restoreTalentDraft('partner',draft.partnerTalent);
+  restoreChineseDateSelect('birth',draft.birth);
+  restoreChineseDateSelect('partner',draft.partnerBirth);
+  if(draft.synastryOpen){
+    const panel=document.getElementById('synastryPanel');if(panel)panel.style.display='block';
+    const heading=document.querySelector('#inputPanel h2[onclick]');if(heading)heading.textContent='合盘分析 ▾ 点击收起';
+  }
+  return true;
+}
+
+function markAnalysisDirty(source='client'){
+  if(source==='partner'){
+    if(window._partnerAnalysis)window._partnerAnalysisDirty=true;
+  }else{
+    if(window._analysis)window._analysisDirty=true;
+    if(window._partnerAnalysis)window._partnerAnalysisDirty=true;
+  }
+  updateAnalysisFreshUI();
+}
+
+function updateAnalysisFreshUI(){
+  const mainStale=Boolean(window._analysis&&window._analysisDirty);
+  const partnerStale=Boolean(window._partnerAnalysis&&window._partnerAnalysisDirty);
+  const notice=document.getElementById('analysisStateNotice');
+  const imageButton=document.getElementById('exportCareerBtn');
+  const pdfButton=document.getElementById('reportBtn');
+  if(notice){
+    notice.classList.toggle('show',mainStale||partnerStale);
+    notice.textContent=mainStale?'客户信息已经修改，请重新点击“开始解读”后再导出。':'合盘信息已经修改，请重新生成合盘后再导出完整PDF。';
+  }
+  if(imageButton)imageButton.disabled=mainStale;
+  if(pdfButton)pdfButton.disabled=mainStale||partnerStale;
+}
+
+function enableInputDraftAutosave(){
+  const panel=document.getElementById('inputPanel');if(!panel)return;
+  const handleChange=event=>{
+    queueInputDraftSave();
+    markAnalysisDirty(event.target.closest('#synastryPanel')?'partner':'client');
+  };
+  panel.addEventListener('input',handleChange);
+  panel.addEventListener('change',handleChange);
+  panel.addEventListener('click',event=>{
+    queueInputDraftSave();
+    if(event.target.closest('.add-row-btn,.icon-btn'))markAnalysisDirty(event.target.closest('#synastryPanel')?'partner':'client');
+  });
+}
+
+function startNewClient(){
+  if(!confirm('确定开始新客户吗？当前输入、解读结果和合盘信息将从本机清除。'))return;
+  clearTimeout(inputDraftSaveTimer);
+  try{localStorage.removeItem(INPUT_DRAFT_STORAGE_KEY);}catch(error){}
+  window._analysis=null;window._partnerAnalysis=null;
+  window._analysisDirty=false;window._partnerAnalysisDirty=false;
+  const clientName=document.getElementById('clientName');if(clientName)clientName.value='';
+  const partnerName=document.getElementById('partnerName');if(partnerName)partnerName.value='';
+  for(const prefix of ['birth','partner']){
+    const year=document.getElementById(prefix+'Year');
+    const month=document.getElementById(prefix+'Month');
+    const day=document.getElementById(prefix+'Day');
+    if(year){year.value='';year.dispatchEvent(new Event('change',{bubbles:true}));}
+    if(month){month.value='';month.dispatchEvent(new Event('change',{bubbles:true}));}
+    if(day){day.value='';day.dispatchEvent(new Event('change',{bubbles:true}));}
+  }
+  renderStructuredTalentForm('client');
+  renderStructuredTalentForm('partner');
+  const synastryPanel=document.getElementById('synastryPanel');if(synastryPanel)synastryPanel.style.display='none';
+  const synastryHeading=document.querySelector('#inputPanel h2[onclick]');if(synastryHeading)synastryHeading.textContent='合盘分析 ▸ 点击展开';
+  const results=document.getElementById('results');if(results)results.innerHTML='<div class="placeholder-banner"><p>请先输入天赋信息并点击「开始解读」</p></div>';
+  updateAutoYears();updateAnalysisFreshUI();saveInputDraft();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
 function updateBuilderSummary(prefix){
   const el=document.getElementById(prefix+'BuilderSummary');
   if(!el) return;
@@ -491,7 +962,7 @@ function collectStructuredTalent(prefix,showAlert=true){
     combos=[combo];
   }
   const talents=d.mains.map(x=>({num:Number(x.num),name:TALENT_NAMES[Number(x.num)],multiplier:x.multiplier,role:'main',source:'select'}));
-  talents.push({num:auxNum,name:TALENT_NAMES[auxNum],multiplier:1,role:'aux',source:'select'});
+  talents.push({num:auxNum,name:TALENT_NAMES[auxNum],multiplier:.5,role:'aux',source:'select'});
   return {talents,potentialNums:d.potentials.map(Number),combos};
 }
 
@@ -510,8 +981,38 @@ function calcAnnualYear(year,month,day){
 
 function parseBirthDate(value){
   if(!value) return null;
-  const m=value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  const m=String(value).match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})$/);
   return m?{year:Number(m[1]),month:Number(m[2]),day:Number(m[3])}:null;
+}
+
+function initChineseDateSelect(prefix,hiddenId,onChange){
+  const year=document.getElementById(prefix+'Year');
+  const month=document.getElementById(prefix+'Month');
+  const day=document.getElementById(prefix+'Day');
+  const hidden=document.getElementById(hiddenId);
+  if(!year||!month||!day||!hidden)return;
+  const currentYear=new Date().getFullYear();
+  for(let y=currentYear;y>=1900;y--){year.insertAdjacentHTML('beforeend',`<option value="${y}">${y}年</option>`);}
+  for(let m=1;m<=12;m++){month.insertAdjacentHTML('beforeend',`<option value="${m}">${m}月</option>`);}
+  const refreshDays=()=>{
+    const selected=day.value;
+    day.innerHTML='<option value="">日</option>';
+    if(!year.value||!month.value){day.disabled=true;return;}
+    day.disabled=false;
+    const maxDay=new Date(Number(year.value),Number(month.value),0).getDate();
+    for(let d=1;d<=maxDay;d++){day.insertAdjacentHTML('beforeend',`<option value="${d}">${d}日</option>`);}
+    if(selected&&Number(selected)<=maxDay)day.value=selected;
+  };
+  const sync=()=>{
+    if(year.value&&month.value&&day.value){
+      hidden.value=`${year.value}-${String(month.value).padStart(2,'0')}-${String(day.value).padStart(2,'0')}`;
+    }else hidden.value='';
+    if(typeof onChange==='function')onChange();
+  };
+  year.addEventListener('change',()=>{refreshDays();sync();});
+  month.addEventListener('change',()=>{refreshDays();sync();});
+  day.addEventListener('change',sync);
+  refreshDays();
 }
 
 function anniversaryDate(year,month,day){
@@ -520,6 +1021,13 @@ function anniversaryDate(year,month,day){
 }
 
 function formatDate(d){return `${d.year}年${d.month}月${d.day}日`;}
+function formatBirthValue(value){const d=parseBirthDate(value);return d?formatDate(d):String(value||'');}
+function getAgeFromBirth(value){
+  const d=parseBirthDate(value);if(!d)return null;
+  const now=new Date();let age=now.getFullYear()-d.year;
+  if(now.getMonth()+1<d.month||(now.getMonth()+1===d.month&&now.getDate()<d.day))age--;
+  return Math.max(0,age);
+}
 
 function getAutoYears(birthDate){
   const d=parseBirthDate(birthDate);
@@ -595,7 +1103,7 @@ function renderEnergySection(counts,zeros){
   h+='<div class="energy-grid">';
   for(let key of ['wind','fire','water','earth']){
     const et=ENERGY_TYPES[key],count=counts[key],pct=Math.round(count/total*100),isZero=count===0;
-    h+=`<div class="energy-item${isZero?' zero':''}"><div class="energy-name" style="color:${et.color}">${et.name}</div><div style="font-size:1.3rem;font-weight:700;color:${isZero?'#ccc':et.color}">${pct}%</div><div class="energy-bar-wrap"><div class="energy-bar ${key}-bar" style="width:${Math.max(pct,4)}%"></div></div></div>`;
+    h+=`<div class="energy-item ${key}${isZero?' zero':''}"><div class="energy-name" style="color:${et.color}">${et.name}</div><div style="font-size:1.3rem;font-weight:700;color:${isZero?'#ccc':et.color}">${pct}%</div><div class="energy-bar-wrap"><div class="energy-bar ${key}-bar" style="width:${Math.max(pct,4)}%"></div></div></div>`;
   }
   h+='</div>';
   if(zeros.length>0){
@@ -609,7 +1117,7 @@ function renderEnergySection(counts,zeros){
 function renderRankingSection(ranking,potentialNums=[]){
   let h='<div class="ranking-section"><h3>能量强弱排序</h3>';
   const fmt=items=>items.length?items.map(t=>`${t.name}×${t.multiplier||1}${ranking.resonantNums?.has(t.num)?'（主辅共振）':''}`).join('、'):'无';
-  const fmtAux=items=>items.length?items.map(t=>`${AUX_TO_POTENTIAL[t.num]?.auxName||t.name}（${t.name}的辅助面向）×1`).join('、'):'无';
+  const fmtAux=items=>items.length?items.map(t=>`${AUX_TO_POTENTIAL[t.num]?.auxName||t.name}（${t.name}的辅助面向）×${t.multiplier}`).join('、'):'无';
   const comboText=ranking.combos.length?ranking.combos.map(c=>`${c.name}（${c.nums.map(n=>TALENT_NAMES[n]+'×1').join('＋')}）`).join('；'):'无';
   const lines=[
     `1 核心天赋：${fmt(ranking.core)}`,
@@ -629,37 +1137,53 @@ function renderRankingSection(ranking,potentialNums=[]){
 }
 
 function renderTalentDetail(talents){
-  let h='<div class="talent-detail"><h3>天赋详细解读</h3>';
+  let h='<div class="talent-detail"><h3>天赋详细解读</h3><div class="talent-reading-list">';
   const ordered=[...talents].filter(t=>t.role!=='aux').sort((a,b)=>b.multiplier-a.multiplier);
-  for(let t of ordered){
+  for(let i=0;i<ordered.length;i++){
+    const t=ordered[i];
     const d=TALENT_DETAIL[t.num]; if(!d) continue;
     const et=ENERGY_TYPES[d.energy];
-    h+=`<div style="margin-bottom:24px;padding:20px;border-radius:12px;background:${et.light};border:1px solid ${et.color+'20'}"><h4 style="color:${et.color};margin-bottom:8px;font-size:1rem">${d.name}×${t.multiplier||1}${t.resonancePromoted?'（主辅共振，按×3解读）':''}</h4><p style="font-size:.85rem;line-height:1.8">${d.core}</p><p style="font-size:.85rem;margin-top:10px"><strong>最适合的三个职业方向：</strong></p><div class="career-list">${d.careers.slice(0,3).map(c=>`<span class="career-tag">${c}</span>`).join('')}</div><p style="font-size:.82rem;color:var(--text-light);margin-top:10px;line-height:1.7"><strong>培养路径：</strong>${d.path}</p></div>`;
+    h+=`<article class="talent-reading-card" style="--talent-accent:${et.color};--talent-wash:${et.light}"><span class="talent-reading-card-no">${String(i+1).padStart(2,'0')}</span><div class="talent-reading-rows"><div class="talent-reading-row talent-reading-primary-row"><span class="talent-reading-primary-label">${d.name}<span class="talent-reading-multiplier">×${t.multiplier||1}</span></span><span class="talent-reading-inline-value">${d.core}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">职业方向</span><span class="talent-reading-inline-value talent-reading-career-value">${d.careers.slice(0,3).join(' · ')}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">培养路径</span><span class="talent-reading-inline-value">${d.path}</span></div></div></article>`;
   }
-  return h+'</div>';
+  return h+'</div></div>';
 }
 
 function renderAuxiliaryDetail(talents){
   const aux=talents.find(t=>t.role==='aux');
   if(!aux) return '';
+  const d=TALENT_DETAIL[aux.num]; if(!d) return '';
   const data=AUX_TO_POTENTIAL[aux.num];
   if(!data) return '';
+  const et=ENERGY_TYPES[d.energy];
   const main=talents.find(t=>t.role!=='aux'&&t.num===aux.num);
-  const heading=main?`最强共振：${main.name}（主）＋${data.auxName}（辅）`:`辅助天赋：${data.auxName}`;
+  const idx=1+(talents.filter(t=>t.role!=='aux').length); // 编号接在主天赋后面
+  const heading=main?`${main.name}（主）＋${data.auxName}（辅）`:`${data.auxName}`;
   const relation=main
-    ?`主天赋呈现的是较自然、容易被看见的${main.name}优势；辅助天赋呈现的是同一内核中仍可继续发展的“${data.auxName}”面向。两者同名共振，因此会成为整份天赋结构中最强的动力。`
-    :`它虽然对应“${aux.name}”这一名称，但角色不同：主天赋代表自然外显的优势，辅助天赋代表尚待培养、用于补足整体结构的内在潜力。`;
-  return `<div class="talent-detail"><h3>辅助天赋解读</h3><div style="padding:20px;background:#f4f8f5;border-radius:12px;border:1.5px solid #cfe0d5"><h4 style="color:var(--primary);font-size:1rem;margin-bottom:8px">${heading}</h4><p style="font-size:.85rem;line-height:1.8">${relation}</p><p style="font-size:.84rem;line-height:1.8;margin-top:8px"><strong>需要注意：</strong>${data.auxCore}</p><p style="font-size:.84rem;line-height:1.8;margin-top:6px;color:var(--primary)"><strong>发展建议：</strong>${data.auxPath}</p></div></div>`;
+    ?`主天赋呈现的是较自然、容易被看见的${main.name}优势；辅助天赋呈现的是同一内核中仍可继续发展的「${data.auxName}」面向。两者同名共振，因此会成为整份天赋结构中最强的动力。`
+    :`「${data.auxName}」是${d.name}在辅助层面的呈现——主天赋代表自然外显的优势，辅助天赋代表尚待培养、用于补足整体结构的内在潜力。`;
+  return `<div class="talent-detail"><h3>辅助天赋解读</h3><div class="talent-reading-list"><article class="talent-reading-card" style="--talent-accent:${et.color};--talent-wash:${et.light}"><span class="talent-reading-card-no">${String(idx).padStart(2,'0')}</span><div class="talent-reading-rows"><div class="talent-reading-row talent-reading-primary-row"><span class="talent-reading-primary-label">${d.name}<span class="talent-reading-multiplier">×${aux.multiplier}</span></span><span class="talent-reading-inline-value"><strong>${heading}</strong><br>${relation}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">职业方向</span><span class="talent-reading-inline-value talent-reading-career-value">${d.careers.slice(0,3).join(' · ')}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">发展建议</span><span class="talent-reading-inline-value">${data.auxPath}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">需要觉察</span><span class="talent-reading-inline-value">${data.auxCore}</span></div></div></article></div></div>`;
 }
 
 function renderPotentialBreakthrough(potentialNums=[],talents){
   if(!potentialNums.length) return '';
-  let h='<div class="talent-detail"><h3>潜能天赋 · 突破指引</h3>';
-  for(const potentialNum of potentialNums){
+  const idxBase=1+talents.filter(t=>t.role!=='aux').length+(talents.some(t=>t.role==='aux')?1:0); // 编号接在辅助后面
+  let h='<div class="talent-detail"><h3>潜能天赋 · 突破指引</h3><div class="talent-reading-list">';
+  for(let i=0;i<potentialNums.length;i++){
+    const potentialNum=potentialNums[i];
     const p=POTENTIAL_DIRECT[potentialNum]; if(!p) continue;
-    h+=`<div style="padding:20px;margin-bottom:10px;background:#fff8f3;border-radius:12px;border:1.5px solid #f0d8c0"><p style="font-size:.9rem;line-height:1.8"><strong>潜能天赋：${p.name}</strong></p><p style="font-size:.85rem;margin:8px 0;line-height:1.7">这一潜能邀请您以更温柔、清晰的方式看见自己的需要，并把觉察转化为可以实践的小行动。</p><p style="font-size:.85rem;color:var(--primary);line-height:1.7"><strong>突破方式：</strong>${p.key}</p></div>`;
+    // 找到对应的辅助天赋信息获取更多上下文
+    let auxContext='';
+    for(let t of talents){
+      const ad=AUX_TO_POTENTIAL[t.num];
+      if(ad&&ad.potential&&ad.potential.num===potentialNum){
+        auxContext=`该潜能与<strong>${ad.auxName}</strong>（${TALENT_NAMES[t.num]}的辅助面向）相关联。${ad.auxCore}`;
+        break;
+      }
+    }
+    const potentialReading=`核心课题围绕「${p.theme}」展开。${p.key}，这会帮助你把内在觉察转化为更稳定的成长力量。`;
+    h+=`<article class="talent-reading-card" style="--talent-accent:var(--earth);--talent-wash:var(--earth-ghost)"><span class="talent-reading-card-no">${String(idxBase+i).padStart(2,'0')}</span><div class="talent-reading-rows"><div class="talent-reading-row talent-reading-primary-row"><span class="talent-reading-primary-label">${p.name}</span><span class="talent-reading-inline-value">${potentialReading}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">突破指引</span><span class="talent-reading-inline-value">${p.key}</span></div>${auxContext?`<div class="talent-reading-row"><span class="talent-reading-inline-label">关联辅助</span><span class="talent-reading-inline-value">${auxContext}</span></div>`:''}</div></article>`;
   }
-  return h+'</div>';
+  return h+'</div></div>';
 }
 
 function renderAnnualCard(years,birth){
@@ -675,7 +1199,7 @@ function renderAnnualCard(years,birth){
     const tagClass=s.type==='expand'?'tag-expand':'tag-settle';
     const sy=nowY+i;
     const dr=`${formatDate(anniversaryDate(sy,month,day))} 至 ${formatDate(anniversaryDate(sy+1,month,day))}`;
-    h+=`<div class="annual-card"><span class="year-tag ${tagClass}">${ANNUAL_NAMES[y]} · ${typeLabel}</span><p style="font-size:.72rem;color:var(--text-light);margin-bottom:6px">📅 ${dr}</p><h4>${labels[i]}：${s.title}</h4><p style="font-size:.82rem;color:var(--text-light);margin-bottom:12px;line-height:1.7">${s.state}</p><ul>${s.tips.map(t=>'<li>'+t+'</li>').join('')}</ul><p style="font-size:.78rem;color:var(--primary);margin-top:12px;padding:8px 12px;background:var(--primary-light);border-radius:8px;line-height:1.6">💡 ${s.tip}</p></div>`;
+    h+=`<div class="annual-card annual-${s.type}"><span class="year-tag ${tagClass}">${ANNUAL_NAMES[y]} · ${typeLabel}</span><p style="margin-bottom:6px">📅 ${dr}</p><h4>${labels[i]}：${s.title}</h4><p style="margin-bottom:12px">${s.state}</p><ul>${s.tips.map(t=>'<li>'+t+'</li>').join('')}</ul><p style="margin-top:12px;padding:8px 12px;background:rgba(255,255,255,.35);border-radius:8px">💡 ${s.tip}</p></div>`;
   }
   h+='</div>';
   h+=renderAnnualCompare();
@@ -683,7 +1207,7 @@ function renderAnnualCard(years,birth){
 }
 
 function renderAnnualCompare(){
-  return `<div style="margin-top:24px;padding:20px;background:#fdfcf9;border-radius:12px;border:1px solid #f0ece6"><h4 style="font-size:.9rem;color:var(--primary);margin-bottom:12px">开拓能量年 vs 沉淀能量年</h4><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:.82rem"><div style="padding:14px;background:#fdf0eb;border-radius:10px"><strong style="color:#c06040">开拓能量年</strong><ul style="margin-top:8px;padding-left:16px;line-height:2"><li>主动扩张：拓展人脉、开拓新市场</li><li>大胆决策：抓住机遇、签约合作</li><li>提升曝光：增加公开露出与品牌建设</li><li>加快执行：集中推进核心项目</li><li>财务规划：适当增加有明确目标的投入</li></ul></div><div style="padding:14px;background:#eaf1ed;border-radius:10px"><strong style="color:var(--primary)">沉淀能量年</strong><ul style="margin-top:8px;padding-left:16px;line-height:2"><li>向内蓄力：学习、沉淀、觉察</li><li>清理旧模式：断舍离、戒断不良习惯</li><li>稳健保守：减少风险决策</li><li>情绪管理：建立稳定的情绪出口</li><li>修复关系：处理未了的情感课题</li></ul></div></div></div>`;
+  return `<div class="annual-compare"><h4 style="margin-bottom:12px">开拓能量年 vs 沉淀能量年</h4><div class="annual-compare-grid"><div class="annual-compare-panel expand"><strong>开拓能量年</strong><ul style="margin-top:8px;padding-left:16px"><li>主动扩张：拓展人脉、开拓新市场</li><li>大胆决策：抓住机遇、签约合作</li><li>提升曝光：增加公开露出与品牌建设</li><li>加快执行：集中推进核心项目</li><li>财务规划：适当增加有明确目标的投入</li></ul></div><div class="annual-compare-panel settle"><strong>沉淀能量年</strong><ul style="margin-top:8px;padding-left:16px"><li>向内蓄力：学习、沉淀、觉察</li><li>清理旧模式：断舍离、戒断不良习惯</li><li>稳健保守：减少风险决策</li><li>情绪管理：建立稳定的情绪出口</li><li>修复关系：处理未了的情感课题</li></ul></div></div></div>`;
 }
 
 function getDirectionCareerExamples(direction,contributors){
@@ -705,37 +1229,60 @@ function getDirectionCareerExamples(direction,contributors){
 
 function getCareerDirections(talents,combos){
   const comboNums=new Set(combos.flatMap(c=>c.nums));
-  return CAREER_ARCHETYPES.map(direction=>{
+  const scored=CAREER_ARCHETYPES.map(direction=>{
     let score=0,contributors=[];
     for(const t of talents){
       if(t.absorbedByResonance) continue;
       const fit=direction.weights[t.num]||0;
       if(!fit) continue;
-      const roleFactor=t.role==='aux'?.55:1;
+      const roleFactor=1;
       const comboFactor=comboNums.has(t.num)?1.12:1;
       score+=fit*(t.multiplier||1)*roleFactor*comboFactor;
       contributors.push({num:t.num,name:t.name,value:fit*(t.multiplier||1)});
     }
     contributors.sort((a,b)=>b.value-a.value);
     return {...direction,score,examples:getDirectionCareerExamples(direction,contributors),contributors:contributors.slice(0,3).map(x=>x.name)};
-  }).sort((a,b)=>b.score-a.score||a.title.localeCompare(b.title,'zh-CN')).slice(0,5);
+  }).sort((a,b)=>b.score-a.score||a.title.localeCompare(b.title,'zh-CN'));
+  const selected=scored.filter(direction=>direction.score>0).slice(0,5);
+  const leadingTalents=[...talents].filter(t=>t.role!=='aux'&&!t.absorbedByResonance).sort((a,b)=>b.multiplier-a.multiplier);
+  const sourceNames=leadingTalents.slice(0,3).map(t=>t.name);
+  const usedExamples=new Set(selected.flatMap(direction=>direction.examples));
+  const evidenceCareers=leadingTalents.flatMap(t=>TALENT_DETAIL[t.num]?.careers||[]).filter(career=>{
+    if(usedExamples.has(career))return false;
+    usedExamples.add(career);return true;
+  });
+  const fallbackBlueprints=[
+    {title:'核心优势的跨场景应用',core:`围绕${sourceNames.join('、')}等核心天赋，把已经具备的能力迁移到不同产业、项目或服务场景中。`},
+    {title:'个人经验的专业化转化',core:`将${sourceNames.join('、')}带来的经验沉淀为作品、方法或服务，在实践中逐步形成清晰定位。`},
+    {title:'多天赋协同的项目实践',core:`以${sourceNames.join('、')}为能力支点，通过真实项目验证最适合自己的工作方式与发展路径。`}
+  ];
+  let fallbackIndex=0;
+  while(selected.length<5){
+    const blueprint=fallbackBlueprints[fallbackIndex%fallbackBlueprints.length];
+    const start=fallbackIndex*3;
+    const examples=evidenceCareers.slice(start,start+3);
+    while(examples.length<3)examples.push(...leadingTalents.flatMap(t=>TALENT_DETAIL[t.num]?.careers||[]).filter(c=>!examples.includes(c)).slice(0,3-examples.length));
+    selected.push({id:`evidence_extension_${fallbackIndex}`,title:blueprint.title,core:blueprint.core,examples:examples.slice(0,3),contributors:sourceNames,score:.01,derivedFromEvidence:true});
+    fallbackIndex++;
+  }
+  return selected.slice(0,5);
 }
 
 function renderCareerSummary(talents,combos){
-  let h='<div style="margin-top:28px;padding:24px;background:linear-gradient(135deg,#faf8f4,#f5f0e8);border-radius:12px;border:2px solid var(--accent)20"><h3 style="color:var(--accent);margin-bottom:16px;font-family:var(--font-head)">综合职业方向推荐</h3>';
+  let h='<section class="career-summary"><div class="career-summary-head"><span class="career-summary-seal">职业归向</span><span class="career-summary-kicker">TALENT · CAREER</span><h3>综合职业方向推荐</h3></div>';
   const ranked=getCareerDirections(talents,combos);
-  h+='<div style="display:grid;gap:10px">';
-  h+=ranked.map((d,i)=>`<div style="padding:14px 16px;background:#fff;border:1px solid #eadfce;border-radius:10px"><div style="font-size:.9rem;font-weight:700;color:var(--primary)">${i+1}. ${d.title}</div><p style="font-size:.81rem;line-height:1.7;margin-top:4px">${d.core}</p><p style="font-size:.79rem;color:var(--accent);margin-top:7px"><strong>职业案例：</strong>${d.examples.slice(0,3).join('、')}</p><p style="font-size:.75rem;color:var(--text-light);margin-top:4px">主要天赋来源：${d.contributors.join('、')}</p></div>`).join('');
+  h+='<div class="career-direction-list">';
+  h+=ranked.map((d,i)=>`<article class="career-direction"><div class="career-direction-no">${String(i+1).padStart(2,'0')}</div><div class="career-direction-body"><div class="career-direction-title">${d.title}</div><p class="career-direction-core">${d.core}</p><div class="career-direction-meta"><span class="career-direction-label">职业案例</span><div class="career-examples">${d.examples.slice(0,3).map(example=>`<span class="career-example">${example}</span>`).join('')}</div><span class="career-direction-label">天赋来源</span><div class="career-sources">${d.contributors.map(source=>`<span class="career-source">${source}</span>`).join('')}</div></div></div></article>`).join('');
   h+='</div>';
-  h+='<p style="font-size:.78rem;color:var(--text-light);margin-top:16px;line-height:1.7">建议先选择最有兴趣的两个内核方向，再结合既有经验、教育背景和市场机会缩小到具体行业与岗位。</p>';
+  h+='<p class="career-summary-advice">建议先选择最有兴趣的两个内核方向，再结合既有经验、教育背景和市场机会缩小到具体行业与岗位。</p>';
   h+='<div class="disclaimer">免责声明：以上内容基于识己天赋体系生成，仅供个人成长与职业探索参考，不构成职业、心理、医疗、法律或投资决策依据。请结合个人经历、教育背景、现实条件与专业意见综合判断。</div>';
-  h+='</div>';
+  h+='</section>';
   return h;
 }
 
 function renderCareerCard(name,talents,counts,zeros,ranking,combos,potentialNums=[]){
   let h='<div class="card"><div class="card-header"><div class="card-icon" style="background:var(--primary-light)">💼</div><div><div class="card-title">天赋职业解读</div>';
-  h+=name?`<div class="card-client">为 <strong>${name}</strong> 定制的天赋职业分析</div>`:'';
+  h+=name?`<div class="card-client">为 <strong>${escapeHtml(name)}</strong> 定制的天赋职业分析</div>`:'';
   h+='</div></div>'+renderEnergySection(counts,zeros)+renderRankingSection(ranking,potentialNums)+renderTalentDetail(talents)+renderAuxiliaryDetail(talents)+renderPotentialBreakthrough(potentialNums,talents)+renderCareerSummary(talents,combos)+'</div>';
   return h;
 }
@@ -748,10 +1295,18 @@ function renderLoveCard(name,counts,talents,waterCount){
   return `<div class="card"><div class="card-header"><div class="card-icon" style="background:#fdf0eb">💕</div><div><div class="card-title">亲密关系解读</div>${name?`<div class="card-client">属于 <strong>${escapeHtml(name)}</strong> 的情感画像</div>`:''}</div></div><p style="font-size:.87rem;line-height:1.8;margin-bottom:16px">${base}</p><h4 style="color:var(--accent);margin-bottom:8px">天赋在关系中的表达</h4><ul style="padding-left:20px;font-size:.87rem;line-height:2">${insights.map(s=>'<li>'+s+'</li>').join('')}</ul><div style="margin-top:16px;padding:14px 16px;background:#fff8f3;border-radius:10px;font-size:.84rem;line-height:1.8"><strong>关系练习：</strong>把期待说清楚、把欣赏说出来，并为彼此保留独立成长的空间。</div></div>`;
 }
 
-function renderParentCard(name,talents,counts){
+function renderParentCard(name,talents,counts,birth){
   const top=[...talents].filter(t=>t.role!=='aux').sort((a,b)=>b.multiplier-a.multiplier).slice(0,4);
   const insights=top.map(t=>`${t.name}×${t.multiplier}：${RELATION_GUIDE[t.num].parent}`);
-  return `<div class="card"><div class="card-header"><div class="card-icon" style="background:#eaf6f8">👨‍👩‍👧</div><div><div class="card-title">亲子关系解读</div>${name?`<div class="card-client">属于 <strong>${escapeHtml(name)}</strong> 的教养画像</div>`:''}</div></div><p style="font-size:.87rem;line-height:1.8;margin-bottom:16px">您的优势是把自身天赋转化为孩子可感知的支持。最有效的教养方式，是在稳定陪伴中看见孩子与您不同的节奏。</p><h4 style="color:var(--water);margin-bottom:8px">天赋在教养中的表达</h4><ul style="padding-left:20px;font-size:.87rem;line-height:2">${insights.map(s=>'<li>'+s+'</li>').join('')}</ul><div style="margin-top:16px;padding:14px 16px;background:#eaf6f8;border-radius:10px;font-size:.84rem;line-height:1.8"><strong>亲子练习：</strong>先连接感受，再讨论方法；先提供选择，再共同约定边界。</div></div>`;
+  const age=getAgeFromBirth(birth),isChild=age!==null&&age<18;
+  const profile=isChild?'成长培养画像':'自我培养画像';
+  const intro=isChild
+    ?'这部分从孩子自身的天赋出发，重点不是给天赋贴标签，而是看见适合他的培养方式，让优势在尊重节奏、稳定支持和真实体验中自然生长。'
+    :'亲子维度也可以用来重新理解和培养自己。无论童年是否得到过充分支持，现在都可以从天赋出发，为自己补充合适的环境、练习与成长方式。';
+  const practice=isChild
+    ?'先看见兴趣和感受，再提供适量选择；用具体体验代替催促，让鼓励、边界与自主空间同时存在。'
+    :'像培养一个珍贵的孩子一样培养自己：尊重真实节奏，给优势持续练习的空间，也允许自己在安全范围内试错。';
+  return `<div class="card"><div class="card-header"><div class="card-icon" style="background:#eaf6f8">🌱</div><div><div class="card-title">亲子关系与天赋培养</div>${name?`<div class="card-client">属于 <strong>${escapeHtml(name)}</strong> 的${profile}${age!==null?` · ${age}岁`:''}</div>`:''}</div></div><p style="font-size:.87rem;line-height:1.8;margin-bottom:16px">${intro}</p><h4 style="color:var(--water);margin-bottom:8px">天赋培养重点</h4><ul style="padding-left:20px;font-size:.87rem;line-height:2">${insights.map(s=>'<li>'+s+'</li>').join('')}</ul><div style="margin-top:16px;padding:14px 16px;background:#eaf6f8;border-radius:10px;font-size:.84rem;line-height:1.8"><strong>${isChild?'培养提醒':'自我培养练习'}：</strong>${practice}</div></div>`;
 }
 
 function renderMoneyCard(name,talents,counts){
@@ -782,7 +1337,13 @@ function analyzeSynastry(analysis1,analysis2){
   const allNums1=new Set(t1.map(t=>t.num)),allNums2=new Set(t2.map(t=>t.num));
   const combinedNums=new Set([...allNums1,...allNums2]);
   const comboMatch=[];
-  for(let c of COMBOS){if(c.nums.every(n=>combinedNums.has(n))) comboMatch.push(c);}
+  for(let c of COMBOS){
+    const completeTogether=c.nums.every(n=>combinedNums.has(n));
+    const completeByFirst=c.nums.every(n=>allNums1.has(n));
+    const completeBySecond=c.nums.every(n=>allNums2.has(n));
+    const bothContribute=c.nums.some(n=>allNums1.has(n))&&c.nums.some(n=>allNums2.has(n));
+    if(completeTogether&&!completeByFirst&&!completeBySecond&&bothContribute)comboMatch.push(c);
+  }
   if(comboMatch.length>0){score+=5;reasons.push({title:'组合天赋契合',detail:'双方天赋合并后形成了完整的组合能量，在一起时能激发超越各自单独时的协同效应。',combos:comboMatch});}
   
   // 规则3：同能量类型重合
@@ -809,12 +1370,12 @@ function escapeHtml(value){
 function buildAnalysis(name,birth,structured){
   if(!structured||structured.talents.length===0) return null;
   const auxNums=new Set(structured.talents.filter(t=>t.role==='aux').map(t=>t.num));
-  const promotedNums=new Set(structured.talents.filter(t=>t.role!=='aux'&&t.multiplier===1&&auxNums.has(t.num)).map(t=>t.num));
+  const resonantNums=new Set(structured.talents.filter(t=>t.role!=='aux'&&auxNums.has(t.num)).map(t=>t.num));
   const talents=structured.talents.map(t=>{
-    if(t.role!=='aux'&&promotedNums.has(t.num)){
-      return {...t,originalMultiplier:1,multiplier:3,resonancePromoted:true};
+    if(t.role!=='aux'&&resonantNums.has(t.num)){
+      return {...t,originalMultiplier:t.multiplier,multiplier:3,resonance:true,resonancePromoted:t.multiplier<3};
     }
-    if(t.role==='aux'&&promotedNums.has(t.num)) return {...t,absorbedByResonance:true};
+    if(t.role==='aux'&&resonantNums.has(t.num)) return {...t,absorbedByResonance:true,resonance:true};
     return {...t};
   });
   const combos=findCombos(talents,structured.combos);
@@ -826,17 +1387,20 @@ function runAnalysis(){
   const name=document.getElementById('clientName').value.trim();
   const birth=document.getElementById('birthDate').value;
   if(!name){alert('请输入客户姓名');return;}
-  if(!birth){alert('请选择阳历出生日期');return;}
+  if(!birth){alert('请选择阳历出生年月日');return;}
   const structured=collectStructuredTalent('client');
   if(!structured) return;
   window._analysis=buildAnalysis(name,birth,structured);
+  window._analysisDirty=false;
+  if(window._partnerAnalysis)window._partnerAnalysisDirty=true;
+  updateAnalysisFreshUI();
   switchTab('career');
 }
 
 function renderSynastryCard(a,b){
   const sy=analyzeSynastry(a,b);
   if(!sy) return '<div class="placeholder-banner"><p>无法完成合盘分析</p></div>';
-  let h=`<div class="card"><div class="card-header"><div class="card-icon" style="background:#fdf8f3">🔗</div><div><div class="card-title">亲密与亲子合盘</div><div class="card-client">${escapeHtml(a.name)} &amp; ${escapeHtml(b.name)}</div></div></div><div class="match-level ${sy.levelClass}">${sy.level}<p style="font-size:.82rem;margin-top:8px;font-weight:400">综合共振参考：${sy.score}</p></div><p style="font-size:.87rem;line-height:1.8;margin-bottom:20px">${sy.desc}</p>`;
+  let h=`<div class="card"><div class="card-header"><div class="card-icon" style="background:#fdf8f3">🔗</div><div><div class="card-title">亲密与亲子合盘</div><div class="card-client">${escapeHtml(a.name)}（${escapeHtml(formatBirthValue(a.birth))}） &amp; ${escapeHtml(b.name)}（${escapeHtml(formatBirthValue(b.birth))}）</div></div></div><div class="match-level ${sy.levelClass}">${sy.level}<p style="font-size:.82rem;margin-top:8px;font-weight:400">综合共振参考：${sy.score}</p></div><p style="font-size:.87rem;line-height:1.8;margin-bottom:20px">${sy.desc}</p>`;
   for(const r of sy.reasons){
     h+=`<div style="margin-bottom:16px;padding:16px;background:#fdfcf9;border-radius:10px;border:1px solid #f0ece6"><h4 style="color:var(--accent);margin-bottom:8px">${r.title}</h4><p style="font-size:.84rem;line-height:1.7">${r.detail}</p>`;
     if(r.pairs) h+='<ul style="padding-left:20px;font-size:.82rem;line-height:1.8;margin-top:8px">'+r.pairs.map(p=>'<li>'+p+'</li>').join('')+'</ul>';
@@ -848,7 +1412,7 @@ function renderSynastryCard(a,b){
 }
 
 function runSynastry(){
-  if(!window._analysis){
+  if(!window._analysis||window._analysisDirty){
     const mainName=document.getElementById('clientName').value.trim();
     const mainBirth=document.getElementById('birthDate').value;
     if(!mainName||!mainBirth){alert('请先完整填写客户信息');return;}
@@ -862,6 +1426,9 @@ function runSynastry(){
   const partnerStructured=collectStructuredTalent('partner');
   if(!partnerStructured) return;
   window._partnerAnalysis=buildAnalysis(pname,pbirth,partnerStructured);
+  window._analysisDirty=false;
+  window._partnerAnalysisDirty=false;
+  updateAnalysisFreshUI();
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('results').innerHTML=renderSynastryCard(window._analysis,window._partnerAnalysis);
   document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
@@ -878,27 +1445,9 @@ function switchTab(tab){
   
   if(tab==='career'){results.innerHTML=renderCareerCard(a.name,a.talents,a.counts,a.zeros,a.ranking,a.combos,a.potentialNums);}
   else if(tab==='relations'){
-    results.innerHTML=renderLoveCard(a.name,a.counts,a.talents,a.counts.water||0)+renderParentCard(a.name,a.talents,a.counts)+renderMoneyCard(a.name,a.talents,a.counts);
+    results.innerHTML=renderLoveCard(a.name,a.counts,a.talents,a.counts.water||0)+renderParentCard(a.name,a.talents,a.counts,a.birth)+renderMoneyCard(a.name,a.talents,a.counts);
   }
   else if(tab==='annual'){results.innerHTML=renderAnnualCard(a.years,a.birth);}
-}
-
-function loadExample(){
-  document.getElementById('clientName').value='静静';
-  document.getElementById('birthDate').value='1990-06-15';
-  renderStructuredTalentForm('client');
-  const example=[[6,3],[11,2],[2,1],[3,1],[4,1]];
-  const rows=[...document.querySelectorAll('#clientMainRows .main-row')];
-  example.forEach(([num,multiplier],i)=>{
-    rows[i].querySelector('.main-talent').value=String(num);
-    rows[i].querySelector('.main-multiplier').value=String(multiplier);
-  });
-  document.getElementById('clientAux').value='7';
-  document.querySelector('#clientPotentialRows .potential-talent').value='15';
-  document.getElementById('clientCombo').value='';
-  document.getElementById('clientResonanceMode').value='no';
-  syncResonance('client');
-  updateAutoYears();
 }
 
 function toggleSynastry(){
@@ -908,20 +1457,314 @@ function toggleSynastry(){
   else{p.style.display='none';if(h2)h2.textContent='合盘分析 ▸ 点击展开';}
 }
 
-function exportPDF(){
+function generateReport(){
   const a=window._analysis;
   if(!a){alert('请先进行天赋解读');return;}
-  const results=document.getElementById('results');
-  const previous=results.innerHTML;
-  const title=`<div class="report-cover"><h2>识己 · 天赋综合解读报告</h2><p>${escapeHtml(a.name)} · ${escapeHtml(a.birth)} · 生成于 ${new Date().toLocaleDateString('zh-CN')}</p></div>`;
-  let full=title+renderCareerCard(a.name,a.talents,a.counts,a.zeros,a.ranking,a.combos,a.potentialNums)+renderAnnualCard(a.years,a.birth)+renderLoveCard(a.name,a.counts,a.talents,a.counts.water||0)+renderParentCard(a.name,a.talents,a.counts)+renderMoneyCard(a.name,a.talents,a.counts);
-  if(window._partnerAnalysis) full+=renderSynastryCard(a,window._partnerAnalysis);
-  results.innerHTML=full;
-  const restore=()=>{results.innerHTML=previous;window.removeEventListener('afterprint',restore);};
-  window.addEventListener('afterprint',restore);
-  window.print();
-  setTimeout(()=>{if(results.innerHTML===full)restore();},1500);
+  if(window._analysisDirty){alert('客户信息已经修改，请重新点击"开始解读"后再生成报告');return;}
+  
+  const R=buildReportHTML(a);
+  const w=window.open('','_blank','width=900,height=700');
+  w.document.write(R);
+  w.document.close();
+  setTimeout(()=>w.print(),600);
 }
+
+function buildReportHTML(a){
+  const now=new Date(); const dateStr=now.getFullYear()+'年'+(now.getMonth()+1)+'月'+now.getDate()+'日';
+  const mains=a.talents.filter(t=>t.role!=='aux'&&t.source!=='combo');
+  const auxs=a.talents.filter(t=>t.role==='aux'&&t.source!=='combo');
+  const comboTs=a.talents.filter(t=>t.source==='combo');
+  const allTs=[...mains,...auxs,...comboTs];
+  
+  // 能量占比
+  const totalEnergy=Object.values(a.counts).reduce((s,v)=>s+v,0)||1;
+  const pcts={};
+  for(let k of ['wind','fire','water','earth']) pcts[k]=Math.round(a.counts[k]/totalEnergy*100);
+  
+  const energyOrder=[{k:'wind',n:'认知能量（风）'},{k:'fire',n:'行动能量（火）'},{k:'water',n:'情绪能量（水）'},{k:'earth',n:'构建能量（土）'}];
+  
+  // 主天赋摘要
+  const mainNames=mains.map(t=>t.name+(t.multiplier>=3?'×'+t.multiplier+'倍':t.multiplier>=2?'×'+t.multiplier+'倍':'')).join(' + ');
+  const auxNames=auxs.map(t=>t.name+'×'+t.multiplier+'倍').join(' | ');
+  
+  let html=`<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>识己天赋测评报告 - ${esc(a.name)}</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;color:#2c2416;line-height:1.9;max-width:780px;margin:0 auto;padding:0 20px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+@page{margin:18mm 16mm;size:A4}
+@media print{body{max-width:100%;padding:0}}
+.cover{text-align:center;padding:60px 0 48px;border-bottom:3px double #c04040;margin-bottom:40px}
+.cover h1{font-family:"Noto Serif SC","SimSun",serif;font-size:28px;color:#2c2416;letter-spacing:4px;margin-bottom:16px}
+.cover .info{font-size:15px;color:#5c5240;margin:10px 0}
+.cover .sub{font-size:13px;color:#999183;margin-top:18px}
+.section{margin:40px 0;page-break-inside:avoid}
+.section h2{font-family:"Noto Serif SC","SimSun",serif;font-size:20px;color:#2c2416;border-left:4px solid #c04040;padding-left:14px;margin-bottom:20px;letter-spacing:2px}
+.section h3{font-size:16px;color:#3d5c54;margin:18px 0 10px;font-weight:700}
+.section p,.section li{font-size:14px;color:#5c5240;line-height:2;margin-bottom:6px}
+.section ul{padding-left:20px;margin:8px 0}
+.section ul li{list-style-type:'— ';margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+th,td{border:1px solid #d8ceb8;padding:10px 14px;text-align:left}
+th{background:#f7f1e4;font-weight:700;color:#3d5c54}
+td{color:#5c5240}
+.tag{display:inline-block;padding:2px 10px;border-radius:2px;font-size:12px;font-weight:600;margin:2px 4px}
+.tag-w{background:#e8f1f5;color:#3d6e80}.tag-f{background:#fef3ed;color:#b05030}
+.tag-s{background:#e5f2f4;color:#33707a}.tag-e{background:#f4ede0;color:#7a5a30}
+.tag-c{background:#fef5f5;color:#a33b32}
+.highlight{background:linear-gradient(transparent 60%,#fef3ed 60%);padding:0 4px}
+.note{padding:14px 18px;background:#fef9f4;border-left:3px solid #c04040;margin:12px 0;font-size:13px;color:#8b3a3a;border-radius:0 6px 6px 0}
+.zero-box{padding:16px 20px;background:#fef5f5;border:1px solid #f0d0d0;border-radius:6px;margin:14px 0;font-size:13px;color:#8b3a3a}
+.signature{text-align:right;margin-top:50px;padding-top:30px;border-top:1px solid #d8ceb8;font-size:14px;color:#5c5240;font-family:"Noto Serif SC","SimSun",serif}
+/* 与网页、职业卡统一：朱红大标题、暗金小标题、黑灰正文、风火水土浅色 */
+body,body *{font-family:"Microsoft YaHei","PingFang SC",sans-serif!important;color:#332f29;line-height:1.72}
+body{font-size:14px}
+.cover h1{font-size:26px}.cover .info,.section p,.section li,table{font-size:14px}.cover .sub{font-size:13px}
+.section h2{font-size:18px}.section h3{font-size:16px}.tag,.note,.zero-box{font-size:13px}
+.cover{background:#fffdf9;border-color:#a33d36}
+.cover h1{color:#a33d36;font-weight:400;letter-spacing:0}
+.cover .info,.cover .sub{color:#332f29}
+.section{margin:32px 0}
+.section h2{color:#a33d36;border-color:#a33d36;font-weight:400;letter-spacing:0}
+.section h3{color:#96702f;font-weight:400}
+.section p,.section li,td{color:#332f29}
+th{background:#f7eedb;color:#96702f;font-weight:400}
+.tag-w{background:#e9f3e9;color:#332f29}.tag-f{background:#fcece6;color:#332f29}
+.tag-s{background:#e8f1f7;color:#332f29}.tag-e{background:#f7eedb;color:#332f29}
+.tag-c,.zero-box,.note{background:#fcece6;color:#332f29;border-color:#edc9bd}
+.highlight{background:#f7eedb}
+.signature{font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#332f29}
+</style></head><body>`;
+
+  // ══ 封面 ══
+  html+=`<div class="cover"><h1>天赋职业测评</h1><p style="font-size:16px;color:#c04040;letter-spacing:3px">—— 个人专属版 ——</p><div class="info"><strong>${esc(a.name)}</strong></div><div class="info">出生日期：${esc(formatBirthValue(a.birth))}</div><div class="info">核心天赋：${esc(mainNames)}</div><div class="info">辅助天赋：${esc(auxNames)||'无'}</div>${a.potentialNums&&a.potentialNums.length?`<div class="info">潜能天赋（人生课题）：${a.potentialNums.map(n=>POTENTIAL_NAMES[n]||'').filter(Boolean).join('、')}</div>`:''}<div class="sub">识己天赋测评体系 · 基于天赋职业解读框架<br>报告生成日期：${dateStr}</div></div>`;
+
+  // ══ 一、天赋总览 ══
+  html+=`<div class="section"><h2>一、天赋总览</h2>`;
+  const energyDesc=[];
+  let maxE='wind',maxV=a.counts.wind;
+  for(let e of energyOrder){if(a.counts[e.k]>maxV){maxV=a.counts[e.k];maxE=e.k;}}
+  const maxEName=ENERGY_TYPES[maxE].name;
+  energyDesc.push(`你的天赋组合呈现出鲜明的「${maxEName}主导」格局，以${esc(mains.map(t=>t.name).join('、'))}为核心驱动。`);
+  html+=`<p>${energyDesc.join('')}</p>`;
+  
+  // 能量表格
+  html+=`<h3>1.1 天赋能量分布</h3><table><tr><th>能量类型</th><th>包含天赋</th><th>倍数合计</th><th>占比</th><th>能量解读</th></tr>`;
+  for(let e of energyOrder){
+    const ts=allTs.filter(t=>TALENT_DETAIL[t.num]?.energy===e.k);
+    const names=ts.map(t=>t.name+(t.multiplier>1?'×'+t.multiplier:'')).join(' + ')||'—';
+    html+=`<tr><td><strong>${e.n}</strong></td><td>${esc(names)}</td><td>${a.counts[e.k]}倍</td><td>${pcts[e.k]}%</td><td>${a.counts[e.k]===0?'<span style="color:#c04040">需要特别关注</span>':(a.counts[e.k]===maxV?'<strong>主导能量</strong>，'+ENERGY_TYPES[e.k].desc.substring(0,20)+'…':'辅助能量')}</td></tr>`;
+  }
+  html+=`</table>`;
+  
+  // 0能量提醒
+  if(a.zeros.length>0){
+    html+=`<h3>1.2 零能量提醒</h3>`;
+    for(let z of a.zeros){
+      html+=`<div class="zero-box"><strong>${ENERGY_TYPES[z].name}能量为零：</strong>${ENERGY_TYPES[z].zeroMsg}</div>`;
+    }
+  }
+  html+=`</div>`;
+
+  // ══ 二、核心天赋深度解读 ══
+  html+=`<div class="section"><h2>二、核心天赋深度解读</h2>`;
+  let secIdx=1;
+  for(let t of mains){
+    const d=TALENT_DETAIL[t.num]; if(!d) continue;
+    const e=ENERGY_TYPES[d.energy];
+    const mulLabel=t.multiplier>=3?'三倍出现，这是你天赋体系中最强大的驱动力':t.multiplier+'倍出现';
+    html+=`<h3>2.${secIdx} ${d.name} ×${t.multiplier}倍${t.multiplier>=3?'（核心天赋）':''}</h3>`;
+    html+=`<p><strong>能量归属：${e.name}（${e.symbol}）</strong></p>`;
+    html+=`<p>${d.name}${mulLabel}。${d.core}</p>`;
+    
+    // 检查该天赋是否参与组合
+    const relatedCombos=a.combos.filter(c=>c.nums.includes(t.num));
+    if(relatedCombos.length>0){
+      html+=`<p>该天赋与<strong>${relatedCombos.map(c=>c.name).join('、')}</strong>形成组合能量，产生超越单一天赋的协同效应。</p>`;
+    }
+    
+    // 独特优势（根据乘数定制）
+    html+=`<p><strong>${t.multiplier>=3?'多倍'+d.name+'的独特优势':d.name+'的独特优势'}</strong></p><ul>`;
+    if(t.multiplier>=3){
+      html+=`<li><strong>超级放大器</strong>：${t.multiplier}倍的能量意味着${d.name}不仅仅是一种能力，它几乎构成了你职业发展的底层操作系统</li>`;
+      html+=`<li><strong>核心竞争力</strong>：在${e.name}领域，你拥有远超常人的敏锐度和执行力</li>`;
+    }
+    html+=`<li><strong>核心驱动力</strong>：${d.path}</li>`;
+    // 同一能量类型的其他天赋联动
+    const sameEnergy=allTs.filter(ot=>ot.num!==t.num&&TALENT_DETAIL[ot.num]?.energy===d.energy);
+    if(sameEnergy.length>0){
+      html+=`<li><strong>能量共振</strong>：与<strong>${sameEnergy.map(ot=>ot.name).join('、')}</strong>同属${e.name}，彼此加强，形成该领域的深厚积累</li>`;
+    }
+    html+=`</ul>`;
+    
+    // 职业建议
+    html+=`<p><strong>职业应用建议</strong></p>`;
+    html+=`<ul>${d.careers.slice(0,3).map(c=>'<li>'+esc(c)+'</li>').join('')}</ul>`;
+    
+    // 培养路径
+    html+=`<p><strong>培养路径</strong></p><p>${d.path}</p>`;
+    secIdx++;
+  }
+  
+  // 辅助天赋 —— 与主天赋同级，各有独立h3
+  for(let t of auxs){
+    const d=TALENT_DETAIL[t.num]; if(!d) continue;
+    const e=ENERGY_TYPES[d.energy];
+    html+=`<h3>2.${secIdx} ${d.name} ×${t.multiplier}倍（辅助天赋）</h3>`;
+    html+=`<p><strong>能量归属：${e.name}（${e.symbol}）</strong></p>`;
+    html+=`<p>${d.core}</p>`;
+    html+=`<p><strong>职业应用：</strong>${d.careers.slice(0,2).join('、')}</p>`;
+    html+=`<p><strong>培养建议：</strong>${d.path}</p>`;
+    secIdx++;
+  }
+  html+=`</div>`;
+
+  // ══ 三、组合天赋 ══
+  if(a.combos.length>0){
+    html+=`<div class="section"><h2>三、组合天赋能量</h2><p>当多个天赋同时出现时，它们之间会产生协同增效，形成超越单一天赋的组合能量。</p>`;
+    let ci=1;
+    for(let c of a.combos){
+      html+=`<h3>3.${ci} ${c.name}</h3><p>${c.desc}</p>`;
+      if(c.careers&&c.careers.length){
+        html+=`<p><strong>适合方向：</strong>${c.careers.join('、')}</p>`;
+      }
+      ci++;
+    }
+    html+=`</div>`;
+  }
+
+  // ══ 四、潜能天赋 ══
+  if(a.potentialNums&&a.potentialNums.length>0){
+    html+=`<div class="section"><h2>四、潜能天赋（人生课题）</h2>`;
+    for(let pn of a.potentialNums){
+      const pd=POTENTIAL_DIRECT[pn]; if(!pd) continue;
+      html+=`<h3>${pd.name} · ${pd.proto}</h3>`;
+      html+=`<p><strong>核心课题：</strong>${pd.theme}</p>`;
+      html+=`<div class="note"><strong>突破关键：</strong>${pd.key}</div>`;
+    }
+    // 关联辅助天赋
+    for(let t of allTs){
+      const aux=AUX_TO_POTENTIAL[t.num]; if(!aux||!aux.potential) continue;
+      if(a.potentialNums.includes(aux.potential.num)){
+        html+=`<h3>辅助天赋面向：${t.name}——${aux.auxName}</h3>`;
+        html+=`<p>${aux.auxCore}</p><p><strong>突破路径：</strong>${aux.auxPath}</p>`;
+      }
+    }
+    html+=`</div>`;
+  }
+
+  // ══ 五、年度能量 ══
+  html+=`<div class="section"><h2>五、年度能量策略</h2>`;
+  const yearLabels=['本年度','下一年度','后年'];
+  for(let i=0;i<a.years.length;i++){
+    const y=a.years[i]; if(!y||!ANNUAL_STRATEGY[y]) continue;
+    const s=ANNUAL_STRATEGY[y];
+    html+=`<h3>5.${i+1} ${yearLabels[i]}：${ANNUAL_NAMES[y]} · ${s.title}</h3>`;
+    html+=`<p><strong>能量属性：</strong>${s.type==='expand'?'开拓能量年':'沉淀能量年'}</p>`;
+    html+=`<p>${s.state}</p><p><strong>年度策略：</strong></p><ul>${s.tips.map(t=>'<li>'+esc(t)+'</li>').join('')}</ul>`;
+    html+=`<div class="note">职业规划师提示：${s.tip}</div>`;
+  }
+  html+=`</div>`;
+
+  // ══ 六、职业方向推荐 ══
+  html+=`<div class="section"><h2>六、职业方向推荐</h2><p>基于你的天赋组合、能量格局与组合天赋协同效应，以下是五个与你的天赋体系高度契合的职业方向。</p>`;
+  
+  // 加权统计职业方向（乘数越高权重越大，组合天赋单独加分）
+  const careerScore={}, careerTalents={};
+  for(let t of allTs){
+    const d=TALENT_DETAIL[t.num]; if(!d) continue;
+    const w=t.multiplier; // 乘数作为权重
+    for(let c of d.careers){
+      careerScore[c]=(careerScore[c]||0)+w;
+      if(!careerTalents[c]) careerTalents[c]=[];
+      if(!careerTalents[c].includes(t.name)) careerTalents[c].push(t.name);
+    }
+  }
+  // 组合天赋职业加分
+  for(let c of a.combos){
+    if(c.careers) for(let cc of c.careers){
+      careerScore[cc]=(careerScore[cc]||0)+2; // 组合职业额外+2分
+      if(!careerTalents[cc]) careerTalents[cc]=[];
+      if(!careerTalents[cc].includes(c.name)) careerTalents[cc].push(c.name);
+    }
+  }
+  const topCareers=Object.entries(careerScore).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const maxScore=topCareers.length?topCareers[0][1]:1;
+  
+  let di=1;
+  for(let [career,score] of topCareers){
+    const ratio=score/maxScore;
+    const stars=ratio>=0.8?'★★★★★':ratio>=0.6?'★★★★☆':ratio>=0.4?'★★★☆☆':'★★★';
+    const relTs=careerTalents[career]||[];
+    html+=`<h3>方向${['一','二','三','四','五'][di-1]}：${esc(career)}</h3>`;
+    html+=`<p><strong>天赋匹配度：${stars}</strong>（契合分数：${score}）</p>`;
+    html+=`<p>该方向深度契合你的<strong>${esc(relTs.slice(0,3).join('、'))}</strong>${relTs.length>3?'等':''}天赋，能充分发挥你的核心竞争优势。</p>`;
+    
+    // 找该方向对应的能量类型
+    const matchingT=allTs.find(t=>TALENT_DETAIL[t.num]?.careers.includes(career));
+    if(matchingT){
+      const e=ENERGY_TYPES[TALENT_DETAIL[matchingT.num].energy];
+      html+=`<p style="color:#5c5240;font-size:13px">该方向属于<strong>${e.name}</strong>领域，与你${a.counts[TALENT_DETAIL[matchingT.num].energy]>1?'在该领域的深厚积累':''}天然匹配。</p>`;
+    }
+    di++;
+  }
+  html+=`</div>`;
+
+  // ══ 七、成长路径建议 ══
+  html+=`<div class="section"><h2>七、成长路径建议</h2><p>天赋不是终点，而是起点。以下是基于你的天赋能量格局定制的发展建议。</p>`;
+  
+  // 根据主导能量定制成长路径
+  const domEnergy=energyOrder.find(e=>a.counts[e.k]===maxV);
+  const domName=domEnergy?domEnergy.n:'综合';
+  html+=`<p>你的能量格局以<strong>${domName}</strong>为主导${a.zeros.length>0?'，同时'+a.zeros.map(z=>ENERGY_TYPES[z].name).join('、')+'能量为零，需要注意该领域的建设性补充':''}。以下是三阶段成长建议：</p>`;
+  
+  html+=`<h3>第一阶段：建立根基（0–2年）</h3><ul>`;
+  html+=`<li>选定一个主方向深耕——建议从<strong>${esc(topCareers.length>0?topCareers[0][0]:'你的核心天赋领域')}</strong>切入，专注积累而非贪多</li>`;
+  if(mains.length>0) html+=`<li>用<strong>${esc(mains[0].name)}</strong>建立专业壁垒：${TALENT_DETAIL[mains[0].num]?.path.substring(0,40)||'持续积累代表作'}……</li>`;
+  if(a.zeros.includes('earth')) html+=`<li>搭配结构化工具（清单、模板、日程表）作为外部辅助，弥补构建能量的不足</li>`;
+  html+=`<li>有意识地每周至少一次公开表达——分享专业见解，让核心天赋在实战中成长</li>`;
+  html+=`</ul>`;
+  
+  html+=`<h3>第二阶段：深化影响（2–5年）</h3><ul>`;
+  html+=`<li>将影响力从一对一扩展到一对多——开发课程、带领社群、做培训项目</li>`;
+  if(a.combos.length>0) html+=`<li>激活组合天赋能量——${a.combos[0].name}的协同效应将在此阶段全面显现</li>`;
+  if(a.zeros.includes('earth')) html+=`<li>与构建能量强的伙伴协作互补，或系统学习项目管理方法，让落地不再依赖直觉</li>`;
+  html+=`<li>打造个人品牌视觉与内容体系，用<strong>${esc(mains.map(t=>t.name).join('、'))}</strong>的天赋组合建立独特定位</li>`;
+  html+=`</ul>`;
+  
+  html+=`<h3>第三阶段：构建生态（5年以上）</h3><ul>`;
+  html+=`<li>从"做事者"进化为"建构者"——搭建团队、培育传承体系、打造可持续的影响力生态</li>`;
+  if(a.potentialNums&&a.potentialNums.length>0){
+    const pn=a.potentialNums[0];
+    html+=`<li><strong>${POTENTIAL_NAMES[pn]||''}</strong>（潜能天赋）在此阶段将全面开花——从个人突破到系统赋能</li>`;
+  }
+  html+=`<li>长期布局，成为行业标杆——你的天赋组合的终极形态是：一个让人信任、追随、受益的思想引领者</li>`;
+  html+=`</ul>`;
+  html+=`</div>`;
+
+  // ══ 八、总结寄语 ══
+  html+=`<div class="section"><h2>八、总结寄语</h2>`;
+  html+=`<p>你的天赋组合——<strong>${esc(mains.map(t=>t.name+(t.multiplier>=3?'×'+t.multiplier+'倍':t.multiplier>=2?'×'+t.multiplier+'倍':'')).join('、'))}</strong>${auxs.length>0?'，辅以'+esc(auxs.map(t=>t.name+'×'+t.multiplier+'倍').join('、')):''}——这构成了你独一无二的天赋版图。</p>`;
+  html+=`<p>${mains.length>0?TALENT_DETAIL[mains[0].num].core:''}</p>`;
+  if(a.zeros.length>0){
+    html+=`<p>${a.zeros.map(z=>ENERGY_TYPES[z].name).join('、')}的零能量并非弱点，而是指引——它告诉你在哪些领域需要借助外部工具或搭档的力量。完美从不存在，完整才是方向。</p>`;
+  }
+  if(a.combos.length>0){
+    html+=`<p>你身上还有组合天赋的协同能量——${a.combos.map(c=>c.name).join('、')}——这是超越单一天赋的独特优势，值得你重点发展和运用。</p>`;
+  }
+  if(a.potentialNums&&a.potentialNums.length>0){
+    const pn=a.potentialNums[0]; const pd=POTENTIAL_DIRECT[pn];
+    html+=`<p>而<strong>${POTENTIAL_NAMES[pn]||''}</strong>——你的人生课题——是一份藏在深处的礼物。${pd?pd.key:''}它不是需要克服的弱点，而是等待你开采的内在资源。</p>`;
+  }
+  html+=`<p>你不是普通人。你的天赋组合是来这个世界完成特定使命的。相信这一点，然后，大步向前。</p>`;
+  html+=`<div class="signature">—— 识己天赋测评体系 · 专属报告</div>`;
+  html+=`</div>`;
+
+  html+=`<p style="text-align:center;color:#999183;font-size:12px;margin-top:40px">※ 以上解读基于识己天赋体系生成，仅供个人成长参考，不构成职业决策依据。</p>`;
+  html+=`</body></html>`;
+  return html;
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+if(typeof escapeHtml==='undefined'){var escapeHtml=esc;}
 
 function canvasRoundRect(ctx,x,y,w,h,r,fill,stroke){
   ctx.beginPath();ctx.roundRect(x,y,w,h,r);
@@ -942,121 +1785,164 @@ function canvasWrappedText(ctx,text,x,y,maxWidth,lineHeight,maxLines=2){
 }
 
 const IMAGE_FONTS={
-  hero:'700 48px "Microsoft YaHei"',
-  meta:'400 22px "Microsoft YaHei"',
-  section:'700 28px "Microsoft YaHei"',
-  cardTitle:'700 20px "Microsoft YaHei"',
+  hero:'400 42px "Microsoft YaHei"',
+  meta:'400 18px "Microsoft YaHei"',
+  section:'400 24px "Microsoft YaHei"',
+  cardTitle:'400 18px "Microsoft YaHei"',
   body:'400 16px "Microsoft YaHei"',
-  bodyStrong:'700 16px "Microsoft YaHei"',
-  badge:'700 17px "Microsoft YaHei"',
+  bodyStrong:'400 16px "Microsoft YaHei"',
+  badge:'400 16px "Microsoft YaHei"',
   footer:'400 15px "Microsoft YaHei"'
 };
+const IMAGE_LINE_HEIGHT=22;
 
-function canvasSectionTitle(ctx,title,x,y,color='#30493b'){
-  canvasRoundRect(ctx,x,y+3,7,27,4,'#bd8750');
-  ctx.fillStyle=color;ctx.font=IMAGE_FONTS.section;ctx.fillText(title,x+20,y);
+function canvasSectionTitle(ctx,title,x,y,color='#a33d36'){
+  canvasRoundRect(ctx,x,y+2,9,29,2,'#a33d36');
+  ctx.fillStyle=color;ctx.font=IMAGE_FONTS.section;ctx.fillText(title,x+23,y);
+  const textWidth=ctx.measureText(title).width;
+  ctx.fillStyle='#c7aa70';ctx.fillRect(x+31+textWidth,y+18,850-textWidth,1);
+}
+
+function canvasInkMountains(ctx,x,y,w,h){
+  ctx.save();
+  ctx.globalAlpha=.07;ctx.fillStyle='#5d9675';
+  ctx.beginPath();ctx.moveTo(x,y+h);
+  ctx.bezierCurveTo(x+w*.12,y+h*.66,x+w*.2,y+h*.2,x+w*.32,y+h*.62);
+  ctx.bezierCurveTo(x+w*.42,y+h*.94,x+w*.49,y+h*.3,x+w*.59,y+h*.57);
+  ctx.bezierCurveTo(x+w*.71,y+h*.86,x+w*.78,y+h*.44,x+w,y+h*.7);
+  ctx.lineTo(x+w,y+h);ctx.closePath();ctx.fill();
+  ctx.globalAlpha=.05;ctx.fillStyle='#a77a37';
+  ctx.beginPath();ctx.moveTo(x,y+h);ctx.bezierCurveTo(x+w*.2,y+h*.72,x+w*.34,y+h*.45,x+w*.52,y+h*.79);ctx.bezierCurveTo(x+w*.69,y+h*.98,x+w*.8,y+h*.58,x+w,y+h*.83);ctx.lineTo(x+w,y+h);ctx.closePath();ctx.fill();
+  ctx.restore();
+}
+
+function canvasBrandSeal(ctx,x,y){
+  canvasRoundRect(ctx,x,y,54,64,3,'#a33d36','#8f312b');
+  ctx.strokeStyle='rgba(255,247,232,.72)';ctx.lineWidth=1;ctx.strokeRect(x+5,y+5,44,54);
+  ctx.fillStyle='#fff8ea';ctx.font='400 16px "Microsoft YaHei"';ctx.textAlign='center';
+  ctx.fillText('识',x+27,y+10);ctx.fillText('己',x+27,y+34);ctx.textAlign='left';
 }
 
 function exportCareerImage(){
   const a=window._analysis;
   if(!a){alert('请先进行天赋职业解读');return;}
+  if(window._analysisDirty){alert('客户信息已经修改，请重新点击“开始解读”后再导出');return;}
   const mains=[...a.talents].filter(t=>t.role!=='aux').sort((x,y)=>y.multiplier-x.multiplier);
   const aux=a.talents.find(t=>t.role==='aux');
   const auxData=aux?AUX_TO_POTENTIAL[aux.num]:null;
   const directions=getCareerDirections(a.talents,a.combos);
-  const energyTop=270;
+  const energyTop=292;
   const energyBottom=energyTop+174;
   const zeroHeight=a.zeros.length?50+a.zeros.length*66:0;
   const structureTop=energyBottom+zeroHeight+38;
-  const talentRows=Math.ceil(mains.length/2);
-  const talentGridHeight=talentRows*118;
-  const auxHeight=auxData?92:0;
-  const potentialHeight=a.potentialNums.length?a.potentialNums.length*76:0;
-  const careerTop=structureTop+54+talentGridHeight+auxHeight+potentialHeight+28;
-  const canvasHeight=careerTop+54+directions.length*76+92;
+  const talentGridHeight=mains.length*116;
+  const auxHeight=auxData?144:0;
+  const potentialHeight=a.potentialNums.length?a.potentialNums.length*104:0;
+  const careerTop=structureTop+54+talentGridHeight+auxHeight+potentialHeight+30;
+  const canvasHeight=careerTop+54+directions.length*84+92;
   const canvas=document.createElement('canvas');canvas.width=1080;canvas.height=canvasHeight;
   const ctx=canvas.getContext('2d');
-  ctx.fillStyle='#f3eee7';ctx.fillRect(0,0,1080,canvasHeight);
-  ctx.shadowColor='rgba(61,76,65,.14)';ctx.shadowBlur=28;ctx.shadowOffsetY=10;
-  canvasRoundRect(ctx,48,42,984,canvasHeight-70,28,'#fffdf9','#e5d9ca');
+  ctx.fillStyle='#f6f1e8';ctx.fillRect(0,0,1080,canvasHeight);
+  ctx.fillStyle='rgba(51,47,41,.018)';
+  for(let py=0;py<canvasHeight;py+=8)ctx.fillRect(0,py,1080,1);
+  ctx.fillStyle='#a33d36';ctx.fillRect(0,0,1080,8);
+  ctx.shadowColor='rgba(48,40,28,.16)';ctx.shadowBlur=34;ctx.shadowOffsetY=12;
+  canvasRoundRect(ctx,40,34,1000,canvasHeight-62,22,'#fffdf9','#e1d3be');
   ctx.shadowColor='transparent';ctx.shadowBlur=0;ctx.shadowOffsetY=0;
-  canvasRoundRect(ctx,70,62,940,130,22,'#eef4f0','#dce8e0');
-  ctx.beginPath();ctx.arc(950,92,30,0,Math.PI*2);ctx.fillStyle='#dfc6a8';ctx.globalAlpha=.55;ctx.fill();ctx.globalAlpha=1;
-  ctx.beginPath();ctx.arc(918,132,15,0,Math.PI*2);ctx.fillStyle='#8eaa99';ctx.globalAlpha=.45;ctx.fill();ctx.globalAlpha=1;
-  ctx.textBaseline='top';ctx.fillStyle='#365544';ctx.font=IMAGE_FONTS.hero;ctx.fillText('识己 · 天赋职业全览',94,84);
-  ctx.fillStyle='#7a7c76';ctx.font=IMAGE_FONTS.meta;ctx.fillText(`${a.name}  ·  ${a.birth}`,96,148);
-  ctx.fillStyle='#bd8750';ctx.fillRect(88,210,904,3);
+  ctx.strokeStyle='rgba(150,112,47,.42)';ctx.lineWidth=1;ctx.strokeRect(57,51,966,canvasHeight-96);
+  canvasInkMountains(ctx,620,66,360,132);
+  ctx.textBaseline='top';ctx.fillStyle='#a33d36';ctx.font=IMAGE_FONTS.hero;ctx.fillText('天赋职业全览',92,76);
+  ctx.fillStyle='#a33d36';ctx.fillRect(94,139,70,3);
+  ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.meta;ctx.fillText(`识己天赋测试  ·  ${a.name}  ·  ${formatBirthValue(a.birth)}`,94,157);
+  canvasBrandSeal(ctx,922,78);
+  ctx.fillStyle='#96702f';ctx.fillRect(88,211,904,2);
+  ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.footer;ctx.fillText('以天赋为镜，看见更适合自己的生长方向',88,226);
 
-  canvasSectionTitle(ctx,'四大天赋占比',88,230);
+  canvasSectionTitle(ctx,'四大天赋占比',88,252);
   const total=Object.values(a.counts).reduce((s,n)=>s+n,0)||1;
   const energyKeys=['wind','fire','water','earth'];
   energyKeys.forEach((key,i)=>{
     const et=ENERGY_TYPES[key],pct=Math.round((a.counts[key]||0)/total*100);
     const x=88+(i%2)*460,y=energyTop+Math.floor(i/2)*86;
-    canvasRoundRect(ctx,x,y,440,72,12,et.light,et.color+'55');
-    ctx.fillStyle=et.color;ctx.font=IMAGE_FONTS.cardTitle;ctx.fillText(et.name,x+16,y+10);
-    ctx.textAlign='right';ctx.fillText(`${pct}%`,x+420,y+10);ctx.textAlign='left';
-    canvasRoundRect(ctx,x+16,y+43,408,12,6,'#e9e5df');
-    if(pct>0)canvasRoundRect(ctx,x+16,y+43,Math.max(8,408*pct/100),12,6,et.color);
+    canvasRoundRect(ctx,x,y,440,72,8,et.light,'#e1d3be');
+    ctx.fillStyle=et.color;ctx.fillRect(x,y,5,72);
+    ctx.fillStyle='#96702f';ctx.font=IMAGE_FONTS.cardTitle;ctx.fillText(et.name,x+18,y+10);
+    ctx.fillStyle='#96702f';ctx.textAlign='right';ctx.fillText(`${pct}%`,x+420,y+10);ctx.textAlign='left';
+    canvasRoundRect(ctx,x+18,y+45,402,8,4,'#eee5d7');
+    if(pct>0)canvasRoundRect(ctx,x+18,y+45,Math.max(8,402*pct/100),8,4,et.color);
   });
 
   if(a.zeros.length){
     let zeroY=energyBottom+10;
-    canvasSectionTitle(ctx,'0能量提醒',88,zeroY,'#b06d3f');
+    canvasSectionTitle(ctx,'0能量提醒',88,zeroY,'#a77a37');
     zeroY+=42;
     a.zeros.forEach(key=>{
       const et=ENERGY_TYPES[key];
-      canvasRoundRect(ctx,88,zeroY,904,56,10,'#fff6ee','#edcfb1');
-      ctx.fillStyle='#a4653b';ctx.font=IMAGE_FONTS.cardTitle;ctx.fillText(`${et.name}：`,104,zeroY+9);
-      ctx.fillStyle='#766b62';ctx.font=IMAGE_FONTS.body;canvasWrappedText(ctx,et.zeroMsg,218,zeroY+8,752,20,2);
+      canvasRoundRect(ctx,88,zeroY,904,56,7,'#fcece6','#edc9bd');
+      ctx.fillStyle='#a33d36';ctx.fillRect(88,zeroY,4,56);
+      ctx.fillStyle='#96702f';ctx.font=IMAGE_FONTS.cardTitle;ctx.fillText(`${et.name}：`,106,zeroY+9);
+      ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.body;canvasWrappedText(ctx,et.zeroMsg,220,zeroY+8,748,IMAGE_LINE_HEIGHT,2);
       zeroY+=66;
     });
   }
 
   canvasSectionTitle(ctx,'天赋结构与职业提示',88,structureTop);
   if(a.combos.length){
-    ctx.fillStyle='#9a693f';ctx.font=IMAGE_FONTS.bodyStrong;ctx.fillText(`组合天赋：${a.combos.map(c=>c.name).join('、')}`,360,structureTop+6);
+    ctx.fillStyle='#9a763b';ctx.font=IMAGE_FONTS.bodyStrong;ctx.fillText(`组合天赋：${a.combos.map(c=>c.name).join('、')}`,360,structureTop+6);
   }
   const getRankLabel=t=>a.ranking.core.some(x=>x.num===t.num)?'核心天赋':a.ranking.overlap.some(x=>x.num===t.num)?'重叠天赋':'主天赋';
   mains.forEach((t,i)=>{
-    const d=TALENT_DETAIL[t.num],x=88+(i%2)*460,y=structureTop+48+Math.floor(i/2)*118;
+    const d=TALENT_DETAIL[t.num],x=88,y=structureTop+48+i*116;
     const et=ENERGY_TYPES[d.energy];
-    canvasRoundRect(ctx,x,y,440,104,12,et.light,et.color+'44');
-    ctx.fillStyle=et.color;ctx.font=IMAGE_FONTS.cardTitle;ctx.fillText(`${t.name}×${t.multiplier} · ${getRankLabel(t)}`,x+14,y+10);
-    ctx.fillStyle='#625f5a';ctx.font=IMAGE_FONTS.body;canvasWrappedText(ctx,d.core.split('。')[0]+'。',x+14,y+39,410,20,2);
-    ctx.fillStyle='#8b6b46';ctx.font=IMAGE_FONTS.body;canvasWrappedText(ctx,`职业：${d.careers.slice(0,3).join('、')}`,x+14,y+80,410,18,1);
+    canvasRoundRect(ctx,x,y,904,106,8,et.light,'#e1d3be');
+    ctx.fillStyle=et.color;ctx.fillRect(x,y,5,106);
+    ctx.fillStyle='#96702f';ctx.font=IMAGE_FONTS.cardTitle;ctx.fillText(`${t.name}×${t.multiplier} · ${getRankLabel(t)}`,106,y+10);
+    ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.body;canvasWrappedText(ctx,d.core.split('。')[0]+'。',106,y+40,866,IMAGE_LINE_HEIGHT,2);
+    ctx.fillStyle='#96702f';ctx.font=IMAGE_FONTS.bodyStrong;canvasWrappedText(ctx,`职业推荐：${d.careers.slice(0,3).join('、')}`,106,y+82,866,IMAGE_LINE_HEIGHT,1);
   });
 
   let detailY=structureTop+48+talentGridHeight;
   if(auxData){
     const auxResonant=a.ranking.resonantNums?.has(aux.num);
-    canvasRoundRect(ctx,88,detailY,904,80,12,'#f4f8f5','#cfe0d5');
-    ctx.fillStyle='#5a7d6a';ctx.font=IMAGE_FONTS.cardTitle;ctx.fillText(`辅助天赋：${auxData.auxName}（${aux.name}${auxResonant?' · 最强共振':'的辅助面向'}）`,104,detailY+10);
-    ctx.fillStyle='#68645f';ctx.font=IMAGE_FONTS.body;canvasWrappedText(ctx,`含义：${auxData.auxCore}  职业参考：${TALENT_DETAIL[aux.num].careers.slice(0,3).join('、')}`,104,detailY+39,864,20,2);
-    detailY+=92;
+    const auxCareers=TALENT_DETAIL[aux.num].careers.slice(0,3).join('、');
+    const auxEnergy=ENERGY_TYPES[TALENT_DETAIL[aux.num].energy];
+    canvasRoundRect(ctx,88,detailY,904,134,8,auxEnergy.light,'#e1d3be');
+    ctx.fillStyle=auxEnergy.color;ctx.fillRect(88,detailY,5,134);
+    ctx.fillStyle='#96702f';ctx.font=IMAGE_FONTS.cardTitle;
+    ctx.fillText(`${aux.name}×${aux.multiplier} · 辅助天赋${auxResonant?'（主辅共振）':''}`,106,detailY+10);
+    ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.body;
+    canvasWrappedText(ctx,`含义：${auxData.auxCore}`,106,detailY+40,866,IMAGE_LINE_HEIGHT,2);
+    ctx.fillStyle='#96702f';ctx.font=IMAGE_FONTS.bodyStrong;
+    canvasWrappedText(ctx,`职业推荐：${auxCareers}`,106,detailY+86,866,IMAGE_LINE_HEIGHT,1);
+    ctx.fillStyle='#96702f';ctx.font=IMAGE_FONTS.badge;
+    canvasWrappedText(ctx,`发展建议：${auxData.auxPath}`,106,detailY+110,866,IMAGE_LINE_HEIGHT,1);
+    detailY+=144;
   }
   if(a.potentialNums.length){
     a.potentialNums.forEach((num,index)=>{
-      const p=POTENTIAL_DIRECT[num],y=detailY+index*76;
+      const p=POTENTIAL_DIRECT[num],y=detailY+index*104;
       if(!p)return;
-      canvasRoundRect(ctx,88,y,904,64,12,'#fff5ea','#ecd4b9');
-      ctx.fillStyle='#9a693f';ctx.font=IMAGE_FONTS.cardTitle;ctx.fillText(`潜能天赋：${p.name}`,104,y+8);
-      ctx.fillStyle='#6f6257';ctx.font=IMAGE_FONTS.body;canvasWrappedText(ctx,`突破方式：${p.key}`,104,y+34,864,20,1);
+      canvasRoundRect(ctx,88,y,904,94,8,'#f7eedb','#e2cfaa');
+      ctx.fillStyle='#a77a37';ctx.fillRect(88,y,5,94);
+      ctx.fillStyle='#96702f';ctx.font=IMAGE_FONTS.cardTitle;
+      ctx.fillText(`潜能天赋：${p.name}`,106,y+10);
+      ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.body;
+      canvasWrappedText(ctx,`突破方式：${p.key}`,106,y+40,866,IMAGE_LINE_HEIGHT,2);
     });
   }
 
   canvasSectionTitle(ctx,'五种综合职业方向',88,careerTop);
   directions.forEach((d,i)=>{
-    const y=careerTop+48+i*76;
-    canvasRoundRect(ctx,88,y,904,62,14,i%2===0?'#f1f6f3':'#faf5ee','#e8e0d6');
-    ctx.beginPath();ctx.arc(119,y+31,18,0,Math.PI*2);ctx.fillStyle=i%2===0?'#5a7d6a':'#bd8750';ctx.fill();
-    ctx.fillStyle='#fff';ctx.font=IMAGE_FONTS.badge;ctx.textAlign='center';ctx.fillText(String(i+1),119,y+19);ctx.textAlign='left';
-    ctx.fillStyle='#4f735f';ctx.font=IMAGE_FONTS.cardTitle;ctx.fillText(d.title,151,y+9);
-    ctx.fillStyle='#77716a';ctx.font=IMAGE_FONTS.body;canvasWrappedText(ctx,`职业案例：${d.examples.slice(0,3).join('、')}`,151,y+37,815,22,1);
+    const y=careerTop+48+i*84;
+    const directionEnergy=ENERGY_TYPES[energyKeys[i%energyKeys.length]];
+    canvasRoundRect(ctx,88,y,904,70,0,directionEnergy.light,null);
+    ctx.fillStyle='#a33d36';ctx.font=IMAGE_FONTS.badge;ctx.fillText(`${String(i+1).padStart(2,'0')}`,104,y+12);
+    ctx.fillStyle='#96702f';ctx.font=IMAGE_FONTS.cardTitle;ctx.fillText(d.title,146,y+9);
+    ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.body;canvasWrappedText(ctx,`职业案例：${d.examples.slice(0,3).join('、')}`,146,y+40,820,IMAGE_LINE_HEIGHT,1);
   });
 
-  ctx.fillStyle='#e6ded4';ctx.fillRect(110,canvasHeight-70,860,1);
-  ctx.fillStyle='#9a958e';ctx.font=IMAGE_FONTS.footer;ctx.textAlign='center';ctx.fillText('仅供个人成长与职业探索参考，不构成职业决策依据',540,canvasHeight-52);ctx.textAlign='left';
+  ctx.fillStyle='#96702f';ctx.fillRect(110,canvasHeight-72,860,1);
+  ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.footer;ctx.textAlign='center';ctx.fillText('识己天赋测试  ·  仅供个人成长与职业探索参考，不构成职业决策依据',540,canvasHeight-54);ctx.textAlign='left';
 
   const link=document.createElement('a');
   link.download=`识己-${a.name}-天赋职业全览.png`;
@@ -1064,7 +1950,16 @@ function exportCareerImage(){
   link.click();
 }
 
-window.addEventListener('DOMContentLoaded',()=>{renderStructuredTalentForm('partner');loadExample();});
+window.addEventListener('DOMContentLoaded',()=>{
+  initChineseDateSelect('birth','birthDate',updateAutoYears);
+  initChineseDateSelect('partner','partnerBirth');
+  renderStructuredTalentForm('client');
+  renderStructuredTalentForm('partner');
+  restoreInputDraft();
+  enableInputDraftAutosave();
+  window.addEventListener('pagehide',saveInputDraft);
+  updateAutoYears();
+});
 </script>
 </body>
 </html>
