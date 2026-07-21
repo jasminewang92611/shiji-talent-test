@@ -80,7 +80,7 @@ body::after{content:'';position:fixed;left:0;right:0;top:0;height:5px;z-index:3;
 .step-no{width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;border-radius:2px;background:var(--vermillion);color:#fff;font-size:.7rem;font-weight:700;font-family:var(--font-song)}
 .builder-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .select-row{display:grid;grid-template-columns:minmax(0,1fr) 105px 38px;gap:10px;margin-top:10px;align-items:center}
-.select-row.potential-row{grid-template-columns:minmax(0,1fr) 38px}
+.select-row.potential-row,.select-row.auxiliary-row{grid-template-columns:minmax(0,1fr) 38px}
 .icon-btn{width:36px;height:36px;border:1.5px solid #d8ceb8;border-radius:4px;background:var(--rice);color:var(--ochre);cursor:pointer;font-size:.95rem;transition:all .2s}
 .icon-btn:hover{background:var(--vermillion-light);color:var(--vermillion);border-color:var(--vermillion)}
 .add-row-btn{margin-top:12px;border:1px dashed #c0b898;border-radius:4px;background:transparent;color:var(--celadon);padding:9px 14px;cursor:pointer;font-family:var(--font-hei);font-size:.78rem;transition:all .2s}
@@ -472,8 +472,11 @@ body::after{content:'';position:fixed;left:0;right:0;top:0;height:5px;z-index:3;
   #results .talent-detail h3,#results .career-summary h3{font-size:19px!important;font-weight:600!important;line-height:1.5!important}
   #results .talent-reading-primary-label,#results .career-direction-title{font-size:16px!important;font-weight:600!important;line-height:1.62!important}
   #results .talent-reading-inline-value,#results .career-direction-core{font-size:15px!important;font-weight:400!important;line-height:1.78!important}
-  #results .talent-reading-inline-label,#results .career-direction-label,#results .career-example,#results .career-source{font-size:13px!important;font-weight:600!important;line-height:1.55!important}
-  #results .career-direction-meta{font-size:13px!important;line-height:1.55!important}
+  #results .talent-reading-inline-label{font-size:13px!important;font-weight:600!important;line-height:1.55!important}
+  #results .career-direction-label,#results .career-example,#results .career-source{font-size:15px!important;line-height:1.78!important}
+  #results .career-direction-label{font-weight:600!important}
+  #results .career-example,#results .career-source{font-weight:400!important}
+  #results .career-direction-meta{font-size:15px!important;line-height:1.78!important}
 
   /* 天赋名称｜天赋内容：编号独立在左，三行标签与内容稳定对齐 */
   #results .talent-reading-card{display:grid!important;grid-template-columns:42px minmax(0,1fr)!important;column-gap:0!important;align-items:start!important}
@@ -504,21 +507,15 @@ body::after{content:'';position:fixed;left:0;right:0;top:0;height:5px;z-index:3;
     <h2>客户信息</h2>
     <div class="input-row">
       <div class="input-group"><label>客户姓名</label><input type="text" id="clientName" placeholder="例如：静静"></div>
-      <div class="input-group"><label>阳历出生年月日</label><div class="date-selects" aria-label="阳历出生年月日"><select id="birthYear" aria-label="出生年份" required><option value="">年</option></select><select id="birthMonth" aria-label="出生月份" required><option value="">月</option></select><select id="birthDay" aria-label="出生日期" required><option value="">日</option></select></div><input type="hidden" id="birthDate"></div>
     </div>
     <div class="input-row"><div class="input-group" style="flex:2"><label>天赋信息</label><div id="clientTalentForm"></div></div></div>
-    <div class="input-row">
-      <div class="auto-years" id="autoYearsDisplay">
-        <strong>📅 三年年度策略：</strong>
-        <span style="color:var(--text-light);font-size:.8rem">请先选择出生日期，自动计算</span>
-      </div>
-    </div>
     <div class="btn-row">
       <button class="btn btn-primary" onclick="runAnalysis()">开始解读</button>
       <button class="btn btn-outline" onclick="startNewClient()">新建客户 / 清空</button>
       <button class="btn btn-outline" id="exportCareerBtn" onclick="exportCareerImage()">导出职业卡片图片</button>
       <button class="btn btn-export" id="reportBtn" onclick="generateReport()">生成详细报告</button>
     </div>
+    <div class="report-ai-tip"><strong>使用提示</strong><span>点击“生成详细报告”，导出PDF文档后，可提交给AI并结合个人简历，做进一步分析和职业选择。</span></div>
     <div class="analysis-state-notice" id="analysisStateNotice" role="status">输入信息已经修改，请重新点击“开始解读”后再导出。</div>
 
     <!-- 合盘区域 -->
@@ -526,7 +523,6 @@ body::after{content:'';position:fixed;left:0;right:0;top:0;height:5px;z-index:3;
     <div id="synastryPanel" style="display:none">
     <div class="input-row">
       <div class="input-group"><label>对方姓名</label><input type="text" id="partnerName" placeholder="例如：小明"></div>
-      <div class="input-group"><label>对方阳历出生年月日</label><div class="date-selects" aria-label="对方阳历出生年月日"><select id="partnerYear" aria-label="对方出生年份" required><option value="">年</option></select><select id="partnerMonth" aria-label="对方出生月份" required><option value="">月</option></select><select id="partnerDay" aria-label="对方出生日期" required><option value="">日</option></select></div><input type="hidden" id="partnerBirth"></div>
     </div>
     <div class="input-row"><div class="input-group" style="flex:2"><label>对方天赋信息</label><div id="partnerTalentForm"></div></div></div>
     <div class="synastry-actions"><button class="btn btn-outline btn-small" onclick="runSynastry()">单独生成合盘</button></div>
@@ -711,8 +707,9 @@ function potentialOptions(selected=''){
   return '<option value="">请选择潜能天赋</option>'+Object.entries(POTENTIAL_NAMES).map(([num,name])=>`<option value="${num}" ${String(selected)===num?'selected':''}>${name}</option>`).join('');
 }
 
-function comboOptions(selected=''){
-  return '<option value="">无组合天赋</option>'+COMBOS.map((combo,index)=>`<option value="${index}" ${String(selected)===String(index)?'selected':''}>${combo.nums.map(n=>TALENT_NAMES[n]).join('＋')} · ${combo.name}</option>`).join('');
+function findCombosByMainNums(mainNums=[]){
+  const owned=new Set(mainNums.map(Number).filter(Number.isFinite));
+  return COMBOS.filter(combo=>combo.nums.every(num=>owned.has(num)));
 }
 
 function renderStructuredTalentForm(prefix){
@@ -720,13 +717,14 @@ function renderStructuredTalentForm(prefix){
   if(!el) return;
   el.innerHTML=`<div class="talent-builder">
     <div class="builder-step"><div class="builder-step-title"><span class="step-no">1</span>最强共振天赋</div><div class="builder-grid"><select id="${prefix}ResonanceMode" disabled><option value="no">已确认：无最强共振</option><option value="yes">已确认：有最强共振</option></select><select id="${prefix}ResonanceTalent" disabled>${talentOptions()}</select></div><div class="field-note">系统会先比对辅助天赋与主天赋：名称相同即自动确认为最强共振，没有相同则显示“无”。</div></div>
-    <div class="builder-step"><div class="builder-step-title"><span class="step-no">2</span>组合天赋</div><select id="${prefix}Combo">${comboOptions()}</select><div class="field-note">只有这里明确选择后才会生成组合解读；潜能天赋不会参与组合判断。</div></div>
+    <div class="builder-step"><div class="builder-step-title"><span class="step-no">2</span>组合天赋 · 自动识别</div><div class="auto-combo-result" id="${prefix}ComboDisplay">完成主天赋选择后，系统会自动判断。</div><div class="field-note">仅根据5—7个主天赋判断；辅助天赋和潜能天赋不参与个人组合天赋识别。</div></div>
     <div class="builder-step"><div class="builder-step-title"><span class="step-no">3</span>主天赋（5—7个）</div><div id="${prefix}MainRows"></div><button type="button" class="add-row-btn" onclick="addMainRow('${prefix}')">＋ 添加主天赋</button></div>
-    <div class="builder-step"><div class="builder-step-title"><span class="step-no">4</span>辅助天赋（1个 · ×0.5）</div><select id="${prefix}Aux" onchange="syncAuxResonance('${prefix}')">${auxiliaryTalentOptions()}</select><div class="field-note">括号内是辅助天赋特有的成长面向，与同名主天赋的外显优势有所区别。</div></div>
+    <div class="builder-step"><div class="builder-step-title"><span class="step-no">4</span>辅助天赋（1—2个 · 每个×0.5）</div><div id="${prefix}AuxRows"></div><button type="button" class="add-row-btn" onclick="addAuxRow('${prefix}')">＋ 添加辅助天赋</button><div class="field-note">括号内是辅助天赋特有的成长面向，与同名主天赋的外显优势有所区别。</div></div>
     <div class="builder-step"><div class="builder-step-title"><span class="step-no">5</span>潜能天赋（1—2个）</div><div id="${prefix}PotentialRows"></div><button type="button" class="add-row-btn" onclick="addPotentialRow('${prefix}')">＋ 添加潜能天赋</button><div class="field-note">仅显示描述性名称，客户卡片和报告中不会出现内部数字。</div></div>
     <div class="builder-summary" id="${prefix}BuilderSummary">请依次完成天赋选择，生成前系统会检查数量、重复项与组合关系。</div>
   </div>`;
   for(let i=0;i<5;i++) addMainRow(prefix);
+  addAuxRow(prefix);
   addPotentialRow(prefix);
 }
 
@@ -763,10 +761,15 @@ function syncAuxResonance(prefix){
   const mode=document.getElementById(prefix+'ResonanceMode');
   const talent=document.getElementById(prefix+'ResonanceTalent');
   if(!mode||!talent) return;
-  const aux=document.getElementById(prefix+'Aux')?.value||'';
-  const hasMatch=aux!==''&&[...document.querySelectorAll(`#${prefix}MainRows .main-talent`)].some(s=>s.value===aux);
-  mode.value=hasMatch?'yes':'no';
-  talent.value=hasMatch?aux:'';
+  const mainNums=new Set([...document.querySelectorAll(`#${prefix}MainRows .main-talent`)].map(s=>s.value).filter(Boolean));
+  const auxNums=[...document.querySelectorAll(`#${prefix}AuxRows .auxiliary-talent`)].map(s=>s.value).filter(Boolean);
+  const matches=[...new Set(auxNums.filter(num=>mainNums.has(num)))];
+  mode.value=matches.length?'yes':'no';
+  const modeOption=mode.options[mode.selectedIndex];
+  if(modeOption)modeOption.textContent=matches.length?`已确认：${matches.length}个最强共振`:'已确认：无最强共振';
+  talent.innerHTML=matches.length
+    ?`<option value="${matches.join(',')}">${matches.map(num=>TALENT_NAMES[Number(num)]).join('、')}</option>`
+    :'<option value="">无</option>';
   updateBuilderSummary(prefix);
 }
 
@@ -775,12 +778,12 @@ function syncResonance(prefix){syncAuxResonance(prefix);}
 function getStructuredDraft(prefix){
   const mainRows=[...document.querySelectorAll(`#${prefix}MainRows .main-row`)];
   const mains=mainRows.map(row=>({num:row.querySelector('.main-talent').value,multiplier:Number(row.querySelector('.main-multiplier').value)})).filter(x=>x.num!=='');
-  const aux=document.getElementById(prefix+'Aux')?.value||'';
+  const auxs=[...document.querySelectorAll(`#${prefix}AuxRows .auxiliary-talent`)].map(s=>s.value).filter(v=>v!=='');
   const potentials=[...document.querySelectorAll(`#${prefix}PotentialRows .potential-talent`)].map(s=>s.value).filter(v=>v!=='');
-  const combo=document.getElementById(prefix+'Combo')?.value||'';
+  const combos=findCombosByMainNums(mains.map(item=>item.num));
   const resonanceMode=document.getElementById(prefix+'ResonanceMode')?.value||'no';
-  const resonanceTalent=document.getElementById(prefix+'ResonanceTalent')?.value||'';
-  return {mains,aux,potentials,combo,resonanceMode,resonanceTalent};
+  const resonanceTalents=(document.getElementById(prefix+'ResonanceTalent')?.value||'').split(',').filter(Boolean);
+  return {mains,auxs,potentials,combos,resonanceMode,resonanceTalents};
 }
 
 const INPUT_DRAFT_STORAGE_KEY='shiji-talent-input-draft-v1';
@@ -792,9 +795,8 @@ function readTalentDraftForStorage(prefix){
       num:row.querySelector('.main-talent')?.value||'',
       multiplier:Number(row.querySelector('.main-multiplier')?.value||1)
     })),
-    aux:document.getElementById(prefix+'Aux')?.value||'',
-    potentials:[...document.querySelectorAll(`#${prefix}PotentialRows .potential-talent`)].map(select=>select.value||''),
-    combo:document.getElementById(prefix+'Combo')?.value||''
+    auxs:[...document.querySelectorAll(`#${prefix}AuxRows .auxiliary-talent`)].map(select=>select.value||''),
+    potentials:[...document.querySelectorAll(`#${prefix}PotentialRows .potential-talent`)].map(select=>select.value||'')
   };
 }
 
@@ -803,10 +805,8 @@ function saveInputDraft(){
   if(!panel)return;
   const draft={
     clientName:document.getElementById('clientName')?.value||'',
-    birth:document.getElementById('birthDate')?.value||'',
     clientTalent:readTalentDraftForStorage('client'),
     partnerName:document.getElementById('partnerName')?.value||'',
-    partnerBirth:document.getElementById('partnerBirth')?.value||'',
     partnerTalent:readTalentDraftForStorage('partner'),
     synastryOpen:document.getElementById('synastryPanel')?.style.display!=='none'
   };
@@ -832,6 +832,7 @@ function restoreChineseDateSelect(prefix,value){
 function restoreTalentDraft(prefix,draft){
   if(!draft)return;
   const mainBox=document.getElementById(prefix+'MainRows');
+  const auxBox=document.getElementById(prefix+'AuxRows');
   const potentialBox=document.getElementById(prefix+'PotentialRows');
   if(mainBox){
     mainBox.innerHTML='';
@@ -844,8 +845,12 @@ function restoreTalentDraft(prefix,draft){
     const potentials=Array.isArray(draft.potentials)&&draft.potentials.length?draft.potentials:[''];
     potentials.slice(0,2).forEach(num=>addPotentialRow(prefix,num||''));
   }
-  const combo=document.getElementById(prefix+'Combo');if(combo)combo.value=String(draft.combo||'');
-  const aux=document.getElementById(prefix+'Aux');if(aux)aux.value=String(draft.aux||'');
+  if(auxBox){
+    auxBox.innerHTML='';
+    const auxs=Array.isArray(draft.auxs)&&draft.auxs.length?draft.auxs:(draft.aux?[draft.aux]:['']);
+    auxs.slice(0,2).forEach(num=>addAuxRow(prefix,num||''));
+    if(!auxBox.children.length)addAuxRow(prefix);
+  }
   syncAuxResonance(prefix);
 }
 
@@ -857,8 +862,6 @@ function restoreInputDraft(){
   const partnerName=document.getElementById('partnerName');if(partnerName)partnerName.value=draft.partnerName||'';
   restoreTalentDraft('client',draft.clientTalent);
   restoreTalentDraft('partner',draft.partnerTalent);
-  restoreChineseDateSelect('birth',draft.birth);
-  restoreChineseDateSelect('partner',draft.partnerBirth);
   if(draft.synastryOpen){
     const panel=document.getElementById('synastryPanel');if(panel)panel.style.display='block';
     const heading=document.querySelector('#inputPanel h2[onclick]');if(heading)heading.textContent='合盘分析 ▾ 点击收起';
@@ -912,20 +915,12 @@ function startNewClient(){
   window._analysisDirty=false;window._partnerAnalysisDirty=false;
   const clientName=document.getElementById('clientName');if(clientName)clientName.value='';
   const partnerName=document.getElementById('partnerName');if(partnerName)partnerName.value='';
-  for(const prefix of ['birth','partner']){
-    const year=document.getElementById(prefix+'Year');
-    const month=document.getElementById(prefix+'Month');
-    const day=document.getElementById(prefix+'Day');
-    if(year){year.value='';year.dispatchEvent(new Event('change',{bubbles:true}));}
-    if(month){month.value='';month.dispatchEvent(new Event('change',{bubbles:true}));}
-    if(day){day.value='';day.dispatchEvent(new Event('change',{bubbles:true}));}
-  }
   renderStructuredTalentForm('client');
   renderStructuredTalentForm('partner');
   const synastryPanel=document.getElementById('synastryPanel');if(synastryPanel)synastryPanel.style.display='none';
   const synastryHeading=document.querySelector('#inputPanel h2[onclick]');if(synastryHeading)synastryHeading.textContent='合盘分析 ▸ 点击展开';
   const results=document.getElementById('results');if(results)results.innerHTML='<div class="placeholder-banner"><p>请先输入天赋信息并点击「开始解读」</p></div>';
-  updateAutoYears();updateAnalysisFreshUI();saveInputDraft();
+  updateAnalysisFreshUI();saveInputDraft();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -933,8 +928,15 @@ function updateBuilderSummary(prefix){
   const el=document.getElementById(prefix+'BuilderSummary');
   if(!el) return;
   const d=getStructuredDraft(prefix);
-  const comboName=d.combo===''?'无':COMBOS[Number(d.combo)]?.name||'无';
-  el.textContent=`已选主天赋 ${d.mains.length}/5—7 · 辅助天赋 ${d.aux===''?'未选':'已选'} · 潜能天赋 ${d.potentials.length}/1—2 · 组合天赋：${comboName}`;
+  const comboDisplay=document.getElementById(prefix+'ComboDisplay');
+  const comboName=d.combos.length?d.combos.map(combo=>combo.name).join('、'):'无';
+  if(comboDisplay){
+    comboDisplay.textContent=d.mains.length<5
+      ?'完成5—7个主天赋选择后，系统会自动判断。'
+      :(d.combos.length?`已识别：${d.combos.map(combo=>`${combo.nums.map(num=>TALENT_NAMES[num]).join('＋')} · ${combo.name}`).join('；')}`:'自动识别结果：无组合天赋');
+    comboDisplay.classList.toggle('has-combo',d.combos.length>0);
+  }
+  el.textContent=`已选主天赋 ${d.mains.length}/5—7 · 辅助天赋 ${d.auxs.length}/1—2 · 潜能天赋 ${d.potentials.length}/1—2 · 组合天赋：${comboName}`;
 }
 
 function collectStructuredTalent(prefix,showAlert=true){
@@ -943,32 +945,19 @@ function collectStructuredTalent(prefix,showAlert=true){
   if(d.mains.length<5||d.mains.length>7) return fail('请选择5—7个主天赋');
   const mainNums=d.mains.map(x=>Number(x.num));
   if(new Set(mainNums).size!==mainNums.length) return fail('主天赋不能重复，请检查选择');
-  if(d.aux==='') return fail('请选择1个辅助天赋');
+  if(d.auxs.length<1||d.auxs.length>2) return fail('请选择1—2个辅助天赋');
+  if(new Set(d.auxs).size!==d.auxs.length) return fail('辅助天赋不能重复，请检查选择');
   if(d.potentials.length<1||d.potentials.length>2) return fail('请选择1—2个潜能天赋');
   if(new Set(d.potentials).size!==d.potentials.length) return fail('潜能天赋不能重复，请检查选择');
-  const auxNum=Number(d.aux);
-  const auxMatchesMain=mainNums.includes(auxNum);
-  if(d.resonanceMode==='yes'){
-    if(d.resonanceTalent==='') return fail('请选择最强共振天赋');
-    if(Number(d.resonanceTalent)!==auxNum||!mainNums.includes(Number(d.resonanceTalent))) return fail('最强共振天赋必须同时出现在主天赋与辅助天赋中');
-  }else if(auxMatchesMain){
-    return fail('检测到主天赋与辅助天赋相同，请将“最强共振天赋”选择为“有”');
-  }
-  let combos=[];
-  if(d.combo!==''){
-    const combo=COMBOS[Number(d.combo)];
-    if(!combo) return fail('组合天赋选择无效，请重新选择');
-    const owned=new Set([...mainNums,auxNum]);
-    if(!combo.nums.every(num=>owned.has(num))) return fail(`所选组合需要同时具备：${combo.nums.map(n=>TALENT_NAMES[n]).join('、')}`);
-    combos=[combo];
-  }
+  const auxNums=d.auxs.map(Number);
   const talents=d.mains.map(x=>({num:Number(x.num),name:TALENT_NAMES[Number(x.num)],multiplier:x.multiplier,role:'main',source:'select'}));
-  talents.push({num:auxNum,name:TALENT_NAMES[auxNum],multiplier:.5,role:'aux',source:'select'});
+  talents.push(...auxNums.map(auxNum=>({num:auxNum,name:TALENT_NAMES[auxNum],multiplier:.5,role:'aux',source:'select'})));
+  const combos=findCombos(talents);
   return {talents,potentialNums:d.potentials.map(Number),combos};
 }
 
 function parseInput(){
-  return {name:document.getElementById('clientName').value.trim(),birth:document.getElementById('birthDate').value,structured:collectStructuredTalent('client')};
+  return {name:document.getElementById('clientName').value.trim(),structured:collectStructuredTalent('client')};
 }
 
 // 年度策略自动计算
@@ -1039,32 +1028,6 @@ function getAutoYears(birthDate){
   return [calcAnnualYear(cy,month,day),calcAnnualYear(cy+1,month,day),calcAnnualYear(cy+2,month,day)];
 }
 
-function updateAutoYears(){
-  const birth=document.getElementById('birthDate').value;
-  const years=getAutoYears(birth);
-  const display=document.getElementById('autoYearsDisplay');
-  if(years.length===0||!birth){
-    display.innerHTML='<strong>📅 三年年度策略：</strong><span style="color:var(--text-light);font-size:.8rem">请先选择出生日期，自动计算</span>';
-    return;
-  }
-  const d=parseBirthDate(birth);
-  const month=d.month, day=d.day;
-  const nowY=new Date().getFullYear();
-  let html='<strong>📅 三年年度策略：</strong>';
-  for(let i=0;i<years.length;i++){
-    const y=years[i];
-    const s=ANNUAL_STRATEGY[y];
-    const cls=s&&s.type==='expand'?'yr-expand':'yr-settle';
-    const label=s?ANNUAL_NAMES[y]:'';
-    const sy=nowY+i;
-    const startDate=anniversaryDate(sy,month,day);
-    const endDate=anniversaryDate(sy+1,month,day);
-    const ds=`${formatDate(startDate)} 至 ${formatDate(endDate)}`;
-    html+=`<span class="yr-badge ${cls}">${label}<br><small style="font-size:.65rem;opacity:.7">${ds}</small></span>`;
-  }
-  display.innerHTML=html;
-}
-
 // ==================== 分析引擎 ====================
 function analyzeEnergy(talents){
   const counts={wind:0,fire:0,water:0,earth:0};
@@ -1079,10 +1042,10 @@ function analyzeEnergy(talents){
   return {counts,energyTalents,zeros};
 }
 
-function findCombos(talents,selectedCombos=[]){
-  // 组合天赋必须由录入者明确选择；潜能天赋不参与，也不根据名称自动猜测。
-  const talentNums=new Set(talents.map(t=>t.num));
-  return selectedCombos.filter(combo=>combo&&combo.nums.every(n=>talentNums.has(n)));
+function findCombos(talents=[]){
+  // 个人组合只根据主天赋自动判断；辅助天赋与潜能天赋均不参与。
+  const mainNums=talents.filter(t=>t.role!=='aux'&&t.source!=='combo').map(t=>t.num);
+  return findCombosByMainNums(mainNums);
 }
 
 function getEnergyRanking(talents,combos,potentialNums){
@@ -1150,37 +1113,41 @@ function renderTalentDetail(talents){
 }
 
 function renderAuxiliaryDetail(talents){
-  const aux=talents.find(t=>t.role==='aux');
-  if(!aux) return '';
-  const d=TALENT_DETAIL[aux.num]; if(!d) return '';
-  const data=AUX_TO_POTENTIAL[aux.num];
-  if(!data) return '';
-  const et=ENERGY_TYPES[d.energy];
-  const main=talents.find(t=>t.role!=='aux'&&t.num===aux.num);
-  const idx=1+(talents.filter(t=>t.role!=='aux').length); // 编号接在主天赋后面
-  const heading=main?`${main.name}（主）＋${data.auxName}（辅）`:`${data.auxName}`;
-  const relation=main
-    ?`主天赋呈现的是较自然、容易被看见的${main.name}优势；辅助天赋呈现的是同一内核中仍可继续发展的「${data.auxName}」面向。两者同名共振，因此会成为整份天赋结构中最强的动力。`
-    :`「${data.auxName}」是${d.name}在辅助层面的呈现——主天赋代表自然外显的优势，辅助天赋代表尚待培养、用于补足整体结构的内在潜力。`;
-  return `<div class="talent-detail"><h3>辅助天赋解读</h3><div class="talent-reading-list"><article class="talent-reading-card" style="--talent-accent:${et.color};--talent-wash:${et.light}"><span class="talent-reading-card-no">${String(idx).padStart(2,'0')}</span><div class="talent-reading-rows"><div class="talent-reading-row talent-reading-primary-row"><span class="talent-reading-primary-label">${d.name}<span class="talent-reading-multiplier">×${aux.multiplier}</span></span><span class="talent-reading-inline-value"><strong>${heading}</strong><br>${relation}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">职业方向</span><span class="talent-reading-inline-value talent-reading-career-value">${d.careers.slice(0,3).join(' · ')}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">发展建议</span><span class="talent-reading-inline-value">${data.auxPath}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">需要觉察</span><span class="talent-reading-inline-value">${data.auxCore}</span></div></div></article></div></div>`;
+  const auxs=talents.filter(t=>t.role==='aux');
+  if(!auxs.length) return '';
+  const mainCount=talents.filter(t=>t.role!=='aux').length;
+  let h='<div class="talent-detail"><h3>辅助天赋解读</h3><div class="talent-reading-list">';
+  auxs.forEach((aux,i)=>{
+    const d=TALENT_DETAIL[aux.num],data=AUX_TO_POTENTIAL[aux.num];
+    if(!d||!data)return;
+    const et=ENERGY_TYPES[d.energy];
+    const main=talents.find(t=>t.role!=='aux'&&t.num===aux.num);
+    const idx=1+mainCount+i;
+    const heading=main?`${main.name}（主）＋${data.auxName}（辅）`:`${data.auxName}`;
+    const relation=main
+      ?`主天赋呈现的是较自然、容易被看见的${main.name}优势；辅助天赋呈现的是同一内核中仍可继续发展的「${data.auxName}」面向。两者同名共振，因此会成为整份天赋结构中最强的动力。`
+      :`「${data.auxName}」是${d.name}在辅助层面的呈现——主天赋代表自然外显的优势，辅助天赋代表尚待培养、用于补足整体结构的内在潜力。`;
+    h+=`<article class="talent-reading-card" style="--talent-accent:${et.color};--talent-wash:${et.light}"><span class="talent-reading-card-no">${String(idx).padStart(2,'0')}</span><div class="talent-reading-rows"><div class="talent-reading-row talent-reading-primary-row"><span class="talent-reading-primary-label">${d.name}<span class="talent-reading-multiplier">×${aux.multiplier}</span></span><span class="talent-reading-inline-value"><strong>${heading}</strong><br>${relation}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">职业方向</span><span class="talent-reading-inline-value talent-reading-career-value">${d.careers.slice(0,3).join(' · ')}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">发展建议</span><span class="talent-reading-inline-value">${data.auxPath}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">需要觉察</span><span class="talent-reading-inline-value">${data.auxCore}</span></div></div></article>`;
+  });
+  return h+'</div></div>';
 }
 
 function renderPotentialBreakthrough(potentialNums=[],talents){
   if(!potentialNums.length) return '';
-  const idxBase=1+talents.filter(t=>t.role!=='aux').length+(talents.some(t=>t.role==='aux')?1:0); // 编号接在辅助后面
+  const idxBase=1+talents.filter(t=>t.role!=='aux').length+talents.filter(t=>t.role==='aux').length; // 编号接在全部辅助后面
   let h='<div class="talent-detail"><h3>潜能天赋 · 突破指引</h3><div class="talent-reading-list">';
   for(let i=0;i<potentialNums.length;i++){
     const potentialNum=potentialNums[i];
     const p=POTENTIAL_DIRECT[potentialNum]; if(!p) continue;
     // 找到对应的辅助天赋信息获取更多上下文
-    let auxContext='';
-    for(let t of talents){
+    const auxContexts=[];
+    for(let t of talents.filter(t=>t.role==='aux')){
       const ad=AUX_TO_POTENTIAL[t.num];
       if(ad&&ad.potential&&ad.potential.num===potentialNum){
-        auxContext=`该潜能与<strong>${ad.auxName}</strong>（${TALENT_NAMES[t.num]}的辅助面向）相关联。${ad.auxCore}`;
-        break;
+        auxContexts.push(`该潜能与<strong>${ad.auxName}</strong>（${TALENT_NAMES[t.num]}的辅助面向）相关联。${ad.auxCore}`);
       }
     }
+    const auxContext=auxContexts.join('<br>');
     const potentialReading=`核心课题围绕「${p.theme}」展开。${p.key}，这会帮助你把内在觉察转化为更稳定的成长力量。`;
     h+=`<article class="talent-reading-card" style="--talent-accent:var(--earth);--talent-wash:var(--earth-ghost)"><span class="talent-reading-card-no">${String(idxBase+i).padStart(2,'0')}</span><div class="talent-reading-rows"><div class="talent-reading-row talent-reading-primary-row"><span class="talent-reading-primary-label">${p.name}</span><span class="talent-reading-inline-value">${potentialReading}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">突破指引</span><span class="talent-reading-inline-value">${p.key}</span></div>${auxContext?`<div class="talent-reading-row"><span class="talent-reading-inline-label">关联辅助</span><span class="talent-reading-inline-value">${auxContext}</span></div>`:''}</div></article>`;
   }
@@ -1300,14 +1267,19 @@ function renderParentCard(name,talents,counts,birth){
   const top=[...talents].filter(t=>t.role!=='aux').sort((a,b)=>b.multiplier-a.multiplier).slice(0,4);
   const insights=top.map(t=>`${t.name}×${t.multiplier}：${RELATION_GUIDE[t.num].parent}`);
   const age=getAgeFromBirth(birth),isChild=age!==null&&age<18;
-  const profile=isChild?'成长培养画像':'自我培养画像';
-  const intro=isChild
+  const profile=age===null?'天赋培养画像':(isChild?'成长培养画像':'自我培养画像');
+  const intro=age===null
+    ?'这部分从天赋本身出发，重点是看见更合适的培养方式。既可以用于理解和支持孩子，也可以用来重新培养自己，让优势在尊重节奏、稳定支持和真实体验中自然生长。'
+    :isChild
     ?'这部分从孩子自身的天赋出发，重点不是给天赋贴标签，而是看见适合他的培养方式，让优势在尊重节奏、稳定支持和真实体验中自然生长。'
     :'亲子维度也可以用来重新理解和培养自己。无论童年是否得到过充分支持，现在都可以从天赋出发，为自己补充合适的环境、练习与成长方式。';
-  const practice=isChild
+  const practice=age===null
+    ?'先看见兴趣、感受与真实节奏，再提供适量选择和持续练习；让鼓励、边界、自主空间与安全试错同时存在。'
+    :isChild
     ?'先看见兴趣和感受，再提供适量选择；用具体体验代替催促，让鼓励、边界与自主空间同时存在。'
     :'像培养一个珍贵的孩子一样培养自己：尊重真实节奏，给优势持续练习的空间，也允许自己在安全范围内试错。';
-  return `<div class="card"><div class="card-header"><div class="card-icon" style="background:#eaf6f8">🌱</div><div><div class="card-title">亲子关系与天赋培养</div>${name?`<div class="card-client">属于 <strong>${escapeHtml(name)}</strong> 的${profile}${age!==null?` · ${age}岁`:''}</div>`:''}</div></div><p style="font-size:.87rem;line-height:1.8;margin-bottom:16px">${intro}</p><h4 style="color:var(--water);margin-bottom:8px">天赋培养重点</h4><ul style="padding-left:20px;font-size:.87rem;line-height:2">${insights.map(s=>'<li>'+s+'</li>').join('')}</ul><div style="margin-top:16px;padding:14px 16px;background:#eaf6f8;border-radius:10px;font-size:.84rem;line-height:1.8"><strong>${isChild?'培养提醒':'自我培养练习'}：</strong>${practice}</div></div>`;
+  const practiceLabel=age===null?'培养提醒':(isChild?'培养提醒':'自我培养练习');
+  return `<div class="card"><div class="card-header"><div class="card-icon" style="background:#eaf6f8">🌱</div><div><div class="card-title">亲子关系与天赋培养</div>${name?`<div class="card-client">属于 <strong>${escapeHtml(name)}</strong> 的${profile}${age!==null?` · ${age}岁`:''}</div>`:''}</div></div><p style="font-size:.87rem;line-height:1.8;margin-bottom:16px">${intro}</p><h4 style="color:var(--water);margin-bottom:8px">天赋培养重点</h4><ul style="padding-left:20px;font-size:.87rem;line-height:2">${insights.map(s=>'<li>'+s+'</li>').join('')}</ul><div style="margin-top:16px;padding:14px 16px;background:#eaf6f8;border-radius:10px;font-size:.84rem;line-height:1.8"><strong>${practiceLabel}：</strong>${practice}</div></div>`;
 }
 
 function renderMoneyCard(name,talents,counts){
@@ -1368,7 +1340,7 @@ function escapeHtml(value){
   return String(value||'').replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
 }
 
-function buildAnalysis(name,birth,structured){
+function buildAnalysis(name,birth='',structured){
   if(!structured||structured.talents.length===0) return null;
   const auxNums=new Set(structured.talents.filter(t=>t.role==='aux').map(t=>t.num));
   const resonantNums=new Set(structured.talents.filter(t=>t.role!=='aux'&&auxNums.has(t.num)).map(t=>t.num));
@@ -1379,19 +1351,17 @@ function buildAnalysis(name,birth,structured){
     if(t.role==='aux'&&resonantNums.has(t.num)) return {...t,absorbedByResonance:true,resonance:true};
     return {...t};
   });
-  const combos=findCombos(talents,structured.combos);
+  const combos=findCombos(talents);
   const energy=analyzeEnergy(talents);
   return {name,birth,talents,potentialNums:structured.potentialNums,counts:energy.counts,zeros:energy.zeros,combos,ranking:getEnergyRanking(talents,combos,structured.potentialNums),years:getAutoYears(birth)};
 }
 
 function runAnalysis(){
   const name=document.getElementById('clientName').value.trim();
-  const birth=document.getElementById('birthDate').value;
   if(!name){alert('请输入客户姓名');return;}
-  if(!birth){alert('请选择阳历出生年月日');return;}
   const structured=collectStructuredTalent('client');
   if(!structured) return;
-  window._analysis=buildAnalysis(name,birth,structured);
+  window._analysis=buildAnalysis(name,'',structured);
   window._analysisDirty=false;
   if(window._partnerAnalysis)window._partnerAnalysisDirty=true;
   updateAnalysisFreshUI();
@@ -1401,7 +1371,7 @@ function runAnalysis(){
 function renderSynastryCard(a,b){
   const sy=analyzeSynastry(a,b);
   if(!sy) return '<div class="placeholder-banner"><p>无法完成合盘分析</p></div>';
-  let h=`<div class="card"><div class="card-header"><div class="card-icon" style="background:#fdf8f3">🔗</div><div><div class="card-title">亲密与亲子合盘</div><div class="card-client">${escapeHtml(a.name)}（${escapeHtml(formatBirthValue(a.birth))}） &amp; ${escapeHtml(b.name)}（${escapeHtml(formatBirthValue(b.birth))}）</div></div></div><div class="match-level ${sy.levelClass}">${sy.level}<p style="font-size:.82rem;margin-top:8px;font-weight:400">综合共振参考：${sy.score}</p></div><p style="font-size:.87rem;line-height:1.8;margin-bottom:20px">${sy.desc}</p>`;
+  let h=`<div class="card"><div class="card-header"><div class="card-icon" style="background:#fdf8f3">🔗</div><div><div class="card-title">亲密与亲子合盘</div><div class="card-client">${escapeHtml(a.name)} &amp; ${escapeHtml(b.name)}</div></div></div><div class="match-level ${sy.levelClass}">${sy.level}<p style="font-size:.82rem;margin-top:8px;font-weight:400">综合共振参考：${sy.score}</p></div><p style="font-size:.87rem;line-height:1.8;margin-bottom:20px">${sy.desc}</p>`;
   for(const r of sy.reasons){
     h+=`<div style="margin-bottom:16px;padding:16px;background:#fdfcf9;border-radius:10px;border:1px solid #f0ece6"><h4 style="color:var(--accent);margin-bottom:8px">${r.title}</h4><p style="font-size:.84rem;line-height:1.7">${r.detail}</p>`;
     if(r.pairs) h+='<ul style="padding-left:20px;font-size:.82rem;line-height:1.8;margin-top:8px">'+r.pairs.map(p=>'<li>'+p+'</li>').join('')+'</ul>';
@@ -1415,18 +1385,16 @@ function renderSynastryCard(a,b){
 function runSynastry(){
   if(!window._analysis||window._analysisDirty){
     const mainName=document.getElementById('clientName').value.trim();
-    const mainBirth=document.getElementById('birthDate').value;
-    if(!mainName||!mainBirth){alert('请先完整填写客户信息');return;}
+    if(!mainName){alert('请先填写客户姓名和天赋信息');return;}
     const mainStructured=collectStructuredTalent('client');
     if(!mainStructured) return;
-    window._analysis=buildAnalysis(mainName,mainBirth,mainStructured);
+    window._analysis=buildAnalysis(mainName,'',mainStructured);
   }
   const pname=document.getElementById('partnerName').value.trim();
-  const pbirth=document.getElementById('partnerBirth').value;
-  if(!pname||!pbirth){alert('请完整填写对方姓名和出生日期');return;}
+  if(!pname){alert('请填写对方姓名和天赋信息');return;}
   const partnerStructured=collectStructuredTalent('partner');
   if(!partnerStructured) return;
-  window._partnerAnalysis=buildAnalysis(pname,pbirth,partnerStructured);
+  window._partnerAnalysis=buildAnalysis(pname,'',partnerStructured);
   window._analysisDirty=false;
   window._partnerAnalysisDirty=false;
   updateAnalysisFreshUI();
@@ -1448,7 +1416,7 @@ function switchTab(tab){
   else if(tab==='relations'){
     results.innerHTML=renderLoveCard(a.name,a.counts,a.talents,a.counts.water||0)+renderParentCard(a.name,a.talents,a.counts,a.birth)+renderMoneyCard(a.name,a.talents,a.counts);
   }
-  else if(tab==='annual'){results.innerHTML=renderAnnualCard(a.years,a.birth);}
+  else if(tab==='annual'){results.innerHTML=a.years.length?renderAnnualCard(a.years,a.birth):'<div class="placeholder-banner"><p>当前不收集出生日期，年度策略暂不自动生成。</p></div>';}
 }
 
 function toggleSynastry(){
@@ -1470,6 +1438,16 @@ function generateReport(){
   const printReport=()=>setTimeout(()=>w.print(),300);
   if(w.document.readyState==='complete') printReport();
   else w.addEventListener('load',printReport,{once:true});
+}
+
+function addAuxRow(prefix,num=''){
+  const box=document.getElementById(prefix+'AuxRows');
+  if(!box||box.children.length>=2) return;
+  const row=document.createElement('div');
+  row.className='select-row auxiliary-row';
+  row.innerHTML=`<select class="auxiliary-talent" onchange="syncAuxResonance('${prefix}')">${auxiliaryTalentOptions(num)}</select><button type="button" class="icon-btn" title="删除" onclick="removeBuilderRow(this,'${prefix}')">×</button>`;
+  box.appendChild(row);
+  syncAuxResonance(prefix);
 }
 
 function buildReportHTML(a){
@@ -1543,7 +1521,7 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
 </style><link rel="stylesheet" href="${reportCssHref}"></head><body>`;
 
   // ══ 封面 ══
-  html+=`<div class="cover report-cover"><div class="cover-seal">识己</div><div class="cover-kicker">SHI JI · TALENT REPORT</div><h1>天赋职业解读报告</h1><p class="cover-edition">个人专属版</p><div class="cover-person"><strong>${esc(a.name)}</strong><span>${esc(formatBirthValue(a.birth))}</span></div><div class="cover-meta"><div><span>核心天赋</span><strong>${esc(mainNames)||'—'}</strong></div><div><span>辅助天赋</span><strong>${esc(auxNames)||'无'}</strong></div><div><span>潜能天赋</span><strong>${esc(potentialSummary)}</strong></div></div><div class="cover-foot">识己天赋测评体系 · 报告生成日期：${dateStr}</div></div>`;
+  html+=`<div class="cover report-cover"><div class="cover-seal">识己</div><div class="cover-kicker">SHI JI · TALENT REPORT</div><h1>天赋职业解读报告</h1><p class="cover-edition">个人专属版</p><div class="cover-person"><strong>${esc(a.name)}</strong></div><div class="cover-meta"><div><span>核心天赋</span><strong>${esc(mainNames)||'—'}</strong></div><div><span>辅助天赋</span><strong>${esc(auxNames)||'无'}</strong></div><div><span>潜能天赋</span><strong>${esc(potentialSummary)}</strong></div></div><div class="cover-foot">识己天赋测评体系 · 报告生成日期：${dateStr}</div></div>`;
 
   // ══ 阅读摘要 ══
   html+=`<section class="executive-summary"><div class="summary-kicker">REPORT SUMMARY</div><h2>报告摘要</h2><p class="summary-lead">你的天赋结构以<strong>${maxEName}</strong>为主导，核心优势集中在<strong>${esc(mains.slice(0,3).map(t=>t.name).join('、'))}</strong>。建议先从优势最集中的方向建立专业成果，再结合潜能天赋持续拓宽成长边界。</p><div class="summary-grid"><div class="summary-item"><span>主导能量</span><strong>${maxEName}</strong><small>${pcts[maxE]}%</small></div><div class="summary-item"><span>核心天赋</span><strong>${esc(mains.slice(0,3).map(t=>t.name).join('、'))||'—'}</strong><small>优先发展</small></div><div class="summary-item"><span>潜能课题</span><strong>${esc(potentialSummary)}</strong><small>持续突破</small></div></div><div class="reading-guide"><strong>阅读建议</strong><span>先看“天赋总览”和“职业方向推荐”形成整体判断，再结合“核心天赋深度解读”与“成长路径建议”制定行动计划。</span></div></section>`;
@@ -1650,7 +1628,7 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
       html+=`<div class="note"><strong>突破关键：</strong>${pd.key}</div></article>`;
     }
     // 关联辅助天赋
-    for(let t of allTs){
+    for(let t of auxs){
       const aux=AUX_TO_POTENTIAL[t.num]; if(!aux||!aux.potential) continue;
       if(a.potentialNums.includes(aux.potential.num)){
         html+=`<article class="report-block potential-block"><h3>辅助天赋面向：${t.name}——${aux.auxName}</h3>`;
@@ -1660,21 +1638,8 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
     html+=`</div>`;
   }
 
-  // ══ 五、年度能量 ══
-  html+=`<div class="section"><h2>五、年度能量策略</h2>`;
-  const yearLabels=['本年度','下一年度','后年'];
-  for(let i=0;i<a.years.length;i++){
-    const y=a.years[i]; if(!y||!ANNUAL_STRATEGY[y]) continue;
-    const s=ANNUAL_STRATEGY[y];
-    html+=`<article class="report-block year-block year-${s.type}"><h3>5.${i+1} ${yearLabels[i]}：${ANNUAL_NAMES[y]} · ${s.title}</h3>`;
-    html+=`<p><strong>能量属性：</strong>${s.type==='expand'?'开拓能量年':'沉淀能量年'}</p>`;
-    html+=`<p>${s.state}</p><p><strong>年度策略：</strong></p><ul>${s.tips.map(t=>'<li>'+esc(t)+'</li>').join('')}</ul>`;
-    html+=`<div class="note"><strong>策略提示：</strong>${s.tip}</div></article>`;
-  }
-  html+=`</div>`;
-
-  // ══ 六、职业方向推荐 ══
-  html+=`<div class="section"><h2>六、职业方向推荐</h2><p>基于你的天赋组合、能量格局与组合天赋协同效应，以下是五个与你的天赋体系高度契合的职业方向。</p>`;
+  // ══ 五、职业方向推荐 ══
+  html+=`<div class="section"><h2>五、职业方向推荐</h2><p>基于你的天赋组合、能量格局与组合天赋协同效应，以下是五个与你的天赋体系高度契合的职业方向。</p>`;
   
   // 加权统计职业方向（乘数越高权重越大，组合天赋单独加分）
   const careerScore={}, careerTalents={};
@@ -1718,8 +1683,8 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
   }
   html+=`</div>`;
 
-  // ══ 七、成长路径建议 ══
-  html+=`<div class="section"><h2>七、成长路径建议</h2><p>天赋不是终点，而是起点。以下是基于你的天赋能量格局定制的发展建议。</p>`;
+  // ══ 六、成长路径建议 ══
+  html+=`<div class="section"><h2>六、成长路径建议</h2><p>天赋不是终点，而是起点。以下是基于你的天赋能量格局定制的发展建议。</p>`;
   
   // 根据主导能量定制成长路径
   const domEnergy=energyOrder.find(e=>a.counts[e.k]===maxV);
@@ -1750,8 +1715,8 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
   html+=`</ul></article>`;
   html+=`</div>`;
 
-  // ══ 八、总结寄语 ══
-  html+=`<div class="section closing-section"><h2>八、总结寄语</h2><div class="closing-copy">`;
+  // ══ 七、总结寄语 ══
+  html+=`<div class="section closing-section"><h2>七、总结寄语</h2><div class="closing-copy">`;
   html+=`<p>你的天赋组合——<strong>${esc(mains.map(t=>t.name+(t.multiplier>=3?'×'+t.multiplier+'倍':t.multiplier>=2?'×'+t.multiplier+'倍':'')).join('、'))}</strong>${auxs.length>0?'，辅以'+esc(auxs.map(t=>t.name+'×'+t.multiplier+'倍').join('、')):''}——这构成了你独一无二的天赋版图。</p>`;
   html+=`<p>${mains.length>0?TALENT_DETAIL[mains[0].num].core:''}</p>`;
   if(a.zeros.length>0){
@@ -1838,15 +1803,14 @@ function exportCareerImage(){
   if(!a){alert('请先进行天赋职业解读');return;}
   if(window._analysisDirty){alert('客户信息已经修改，请重新点击“开始解读”后再导出');return;}
   const mains=[...a.talents].filter(t=>t.role!=='aux').sort((x,y)=>y.multiplier-x.multiplier);
-  const aux=a.talents.find(t=>t.role==='aux');
-  const auxData=aux?AUX_TO_POTENTIAL[aux.num]:null;
+  const auxs=a.talents.filter(t=>t.role==='aux');
   const directions=getCareerDirections(a.talents,a.combos);
   const energyTop=292;
   const energyBottom=energyTop+174;
   const zeroHeight=a.zeros.length?50+a.zeros.length*66:0;
   const structureTop=energyBottom+zeroHeight+38;
   const talentGridHeight=mains.length*116;
-  const auxHeight=auxData?144:0;
+  const auxHeight=auxs.length*144;
   const potentialHeight=a.potentialNums.length?a.potentialNums.length*104:0;
   const careerTop=structureTop+54+talentGridHeight+auxHeight+potentialHeight+30;
   const canvasHeight=careerTop+54+directions.length*84+92;
@@ -1863,7 +1827,7 @@ function exportCareerImage(){
   canvasInkMountains(ctx,620,66,360,132);
   ctx.textBaseline='top';ctx.fillStyle='#a33d36';ctx.font=IMAGE_FONTS.hero;ctx.fillText('天赋职业全览',92,76);
   ctx.fillStyle='#a33d36';ctx.fillRect(94,139,70,3);
-  ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.meta;ctx.fillText(`识己天赋测试  ·  ${a.name}  ·  ${formatBirthValue(a.birth)}`,94,157);
+  ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.meta;ctx.fillText(`识己天赋测试  ·  ${a.name}`,94,157);
   canvasBrandSeal(ctx,922,78);
   ctx.fillStyle='#96702f';ctx.fillRect(88,211,904,2);
   ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.footer;ctx.fillText('以天赋为镜，看见更适合自己的生长方向',88,226);
@@ -1912,7 +1876,9 @@ function exportCareerImage(){
   });
 
   let detailY=structureTop+48+talentGridHeight;
-  if(auxData){
+  auxs.forEach(aux=>{
+    const auxData=AUX_TO_POTENTIAL[aux.num];
+    if(!auxData)return;
     const auxResonant=a.ranking.resonantNums?.has(aux.num);
     const auxCareers=TALENT_DETAIL[aux.num].careers.slice(0,3).join('、');
     const auxEnergy=ENERGY_TYPES[TALENT_DETAIL[aux.num].energy];
@@ -1927,7 +1893,7 @@ function exportCareerImage(){
     ctx.fillStyle='#96702f';ctx.font=IMAGE_FONTS.badge;
     canvasWrappedText(ctx,`发展建议：${auxData.auxPath}`,106,detailY+110,866,IMAGE_LINE_HEIGHT,1);
     detailY+=144;
-  }
+  });
   if(a.potentialNums.length){
     a.potentialNums.forEach((num,index)=>{
       const p=POTENTIAL_DIRECT[num],y=detailY+index*104;
@@ -1961,14 +1927,11 @@ function exportCareerImage(){
 }
 
 window.addEventListener('DOMContentLoaded',()=>{
-  initChineseDateSelect('birth','birthDate',updateAutoYears);
-  initChineseDateSelect('partner','partnerBirth');
   renderStructuredTalentForm('client');
   renderStructuredTalentForm('partner');
   restoreInputDraft();
   enableInputDraftAutosave();
   window.addEventListener('pagehide',saveInputDraft);
-  updateAutoYears();
 });
 </script>
 </body>
