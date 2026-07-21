@@ -1467,7 +1467,9 @@ function generateReport(){
   const w=window.open('','_blank','width=900,height=700');
   w.document.write(R);
   w.document.close();
-  setTimeout(()=>w.print(),600);
+  const printReport=()=>setTimeout(()=>w.print(),300);
+  if(w.document.readyState==='complete') printReport();
+  else w.addEventListener('load',printReport,{once:true});
 }
 
 function buildReportHTML(a){
@@ -1487,6 +1489,11 @@ function buildReportHTML(a){
   // 主天赋摘要
   const mainNames=mains.map(t=>t.name+(t.multiplier>=3?'×'+t.multiplier+'倍':t.multiplier>=2?'×'+t.multiplier+'倍':'')).join(' + ');
   const auxNames=auxs.map(t=>t.name+'×'+t.multiplier+'倍').join(' | ');
+  let maxE='wind',maxV=a.counts.wind;
+  for(let e of energyOrder){if(a.counts[e.k]>maxV){maxV=a.counts[e.k];maxE=e.k;}}
+  const maxEName=ENERGY_TYPES[maxE].name;
+  const potentialSummary=a.potentialNums&&a.potentialNums.length?a.potentialNums.map(n=>POTENTIAL_NAMES[n]||'').filter(Boolean).join('、'):'暂未设置';
+  const reportCssHref=esc(new URL('report.css',window.location.href).href);
   
   let html=`<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>识己天赋测评报告 - ${esc(a.name)}</title><style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -1533,19 +1540,19 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
 .tag-c,.zero-box,.note{background:#fcece6;color:#332f29;border-color:#edc9bd}
 .highlight{background:#f7eedb}
 .signature{font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#332f29}
-</style></head><body>`;
+</style><link rel="stylesheet" href="${reportCssHref}"></head><body>`;
 
   // ══ 封面 ══
-  html+=`<div class="cover"><h1>天赋职业测评</h1><p style="font-size:16px;color:#c04040;letter-spacing:3px">—— 个人专属版 ——</p><div class="info"><strong>${esc(a.name)}</strong></div><div class="info">出生日期：${esc(formatBirthValue(a.birth))}</div><div class="info">核心天赋：${esc(mainNames)}</div><div class="info">辅助天赋：${esc(auxNames)||'无'}</div>${a.potentialNums&&a.potentialNums.length?`<div class="info">潜能天赋（人生课题）：${a.potentialNums.map(n=>POTENTIAL_NAMES[n]||'').filter(Boolean).join('、')}</div>`:''}<div class="sub">识己天赋测评体系 · 基于天赋职业解读框架<br>报告生成日期：${dateStr}</div></div>`;
+  html+=`<div class="cover report-cover"><div class="cover-seal">识己</div><div class="cover-kicker">SHI JI · TALENT REPORT</div><h1>天赋职业解读报告</h1><p class="cover-edition">个人专属版</p><div class="cover-person"><strong>${esc(a.name)}</strong><span>${esc(formatBirthValue(a.birth))}</span></div><div class="cover-meta"><div><span>核心天赋</span><strong>${esc(mainNames)||'—'}</strong></div><div><span>辅助天赋</span><strong>${esc(auxNames)||'无'}</strong></div><div><span>潜能天赋</span><strong>${esc(potentialSummary)}</strong></div></div><div class="cover-foot">识己天赋测评体系 · 报告生成日期：${dateStr}</div></div>`;
+
+  // ══ 阅读摘要 ══
+  html+=`<section class="executive-summary"><div class="summary-kicker">REPORT SUMMARY</div><h2>报告摘要</h2><p class="summary-lead">你的天赋结构以<strong>${maxEName}</strong>为主导，核心优势集中在<strong>${esc(mains.slice(0,3).map(t=>t.name).join('、'))}</strong>。建议先从优势最集中的方向建立专业成果，再结合潜能天赋持续拓宽成长边界。</p><div class="summary-grid"><div class="summary-item"><span>主导能量</span><strong>${maxEName}</strong><small>${pcts[maxE]}%</small></div><div class="summary-item"><span>核心天赋</span><strong>${esc(mains.slice(0,3).map(t=>t.name).join('、'))||'—'}</strong><small>优先发展</small></div><div class="summary-item"><span>潜能课题</span><strong>${esc(potentialSummary)}</strong><small>持续突破</small></div></div><div class="reading-guide"><strong>阅读建议</strong><span>先看“天赋总览”和“职业方向推荐”形成整体判断，再结合“核心天赋深度解读”与“成长路径建议”制定行动计划。</span></div></section>`;
 
   // ══ 一、天赋总览 ══
   html+=`<div class="section"><h2>一、天赋总览</h2>`;
   const energyDesc=[];
-  let maxE='wind',maxV=a.counts.wind;
-  for(let e of energyOrder){if(a.counts[e.k]>maxV){maxV=a.counts[e.k];maxE=e.k;}}
-  const maxEName=ENERGY_TYPES[maxE].name;
   energyDesc.push(`你的天赋组合呈现出鲜明的「${maxEName}主导」格局，以${esc(mains.map(t=>t.name).join('、'))}为核心驱动。`);
-  html+=`<p>${energyDesc.join('')}</p>`;
+  html+=`<p class="section-lead">${energyDesc.join('')}</p>`;
   
   // 能量表格
   html+=`<h3>1.1 天赋能量分布</h3><table><tr><th>能量类型</th><th>包含天赋</th><th>倍数合计</th><th>占比</th><th>能量解读</th></tr>`;
@@ -1572,7 +1579,7 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
     const d=TALENT_DETAIL[t.num]; if(!d) continue;
     const e=ENERGY_TYPES[d.energy];
     const mulLabel=t.multiplier>=3?'三倍出现，这是你天赋体系中最强大的驱动力':t.multiplier+'倍出现';
-    html+=`<h3>2.${secIdx} ${d.name} ×${t.multiplier}倍${t.multiplier>=3?'（核心天赋）':''}</h3>`;
+    html+=`<article class="report-block talent-block"><h3>2.${secIdx} ${d.name} ×${t.multiplier}倍${t.multiplier>=3?'（核心天赋）':''}</h3>`;
     html+=`<p><strong>能量归属：${e.name}（${e.symbol}）</strong></p>`;
     html+=`<p>${d.name}${mulLabel}。${d.core}</p>`;
     
@@ -1601,7 +1608,7 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
     html+=`<ul>${d.careers.slice(0,3).map(c=>'<li>'+esc(c)+'</li>').join('')}</ul>`;
     
     // 培养路径
-    html+=`<p><strong>培养路径</strong></p><p>${d.path}</p>`;
+    html+=`<p><strong>培养路径</strong></p><p>${d.path}</p></article>`;
     secIdx++;
   }
   
@@ -1609,11 +1616,11 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
   for(let t of auxs){
     const d=TALENT_DETAIL[t.num]; if(!d) continue;
     const e=ENERGY_TYPES[d.energy];
-    html+=`<h3>2.${secIdx} ${d.name} ×${t.multiplier}倍（辅助天赋）</h3>`;
+    html+=`<article class="report-block talent-block auxiliary-block"><h3>2.${secIdx} ${d.name} ×${t.multiplier}倍（辅助天赋）</h3>`;
     html+=`<p><strong>能量归属：${e.name}（${e.symbol}）</strong></p>`;
     html+=`<p>${d.core}</p>`;
     html+=`<p><strong>职业应用：</strong>${d.careers.slice(0,2).join('、')}</p>`;
-    html+=`<p><strong>培养建议：</strong>${d.path}</p>`;
+    html+=`<p><strong>培养建议：</strong>${d.path}</p></article>`;
     secIdx++;
   }
   html+=`</div>`;
@@ -1623,10 +1630,11 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
     html+=`<div class="section"><h2>三、组合天赋能量</h2><p>当多个天赋同时出现时，它们之间会产生协同增效，形成超越单一天赋的组合能量。</p>`;
     let ci=1;
     for(let c of a.combos){
-      html+=`<h3>3.${ci} ${c.name}</h3><p>${c.desc}</p>`;
+      html+=`<article class="report-block combo-block"><h3>3.${ci} ${c.name}</h3><p>${c.desc}</p>`;
       if(c.careers&&c.careers.length){
         html+=`<p><strong>适合方向：</strong>${c.careers.join('、')}</p>`;
       }
+      html+=`</article>`;
       ci++;
     }
     html+=`</div>`;
@@ -1637,16 +1645,16 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
     html+=`<div class="section"><h2>四、潜能天赋（人生课题）</h2>`;
     for(let pn of a.potentialNums){
       const pd=POTENTIAL_DIRECT[pn]; if(!pd) continue;
-      html+=`<h3>${pd.name} · ${pd.proto}</h3>`;
+      html+=`<article class="report-block potential-block"><h3>${pd.name} · ${pd.proto}</h3>`;
       html+=`<p><strong>核心课题：</strong>${pd.theme}</p>`;
-      html+=`<div class="note"><strong>突破关键：</strong>${pd.key}</div>`;
+      html+=`<div class="note"><strong>突破关键：</strong>${pd.key}</div></article>`;
     }
     // 关联辅助天赋
     for(let t of allTs){
       const aux=AUX_TO_POTENTIAL[t.num]; if(!aux||!aux.potential) continue;
       if(a.potentialNums.includes(aux.potential.num)){
-        html+=`<h3>辅助天赋面向：${t.name}——${aux.auxName}</h3>`;
-        html+=`<p>${aux.auxCore}</p><p><strong>突破路径：</strong>${aux.auxPath}</p>`;
+        html+=`<article class="report-block potential-block"><h3>辅助天赋面向：${t.name}——${aux.auxName}</h3>`;
+        html+=`<p>${aux.auxCore}</p><p><strong>突破路径：</strong>${aux.auxPath}</p></article>`;
       }
     }
     html+=`</div>`;
@@ -1658,10 +1666,10 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
   for(let i=0;i<a.years.length;i++){
     const y=a.years[i]; if(!y||!ANNUAL_STRATEGY[y]) continue;
     const s=ANNUAL_STRATEGY[y];
-    html+=`<h3>5.${i+1} ${yearLabels[i]}：${ANNUAL_NAMES[y]} · ${s.title}</h3>`;
+    html+=`<article class="report-block year-block year-${s.type}"><h3>5.${i+1} ${yearLabels[i]}：${ANNUAL_NAMES[y]} · ${s.title}</h3>`;
     html+=`<p><strong>能量属性：</strong>${s.type==='expand'?'开拓能量年':'沉淀能量年'}</p>`;
     html+=`<p>${s.state}</p><p><strong>年度策略：</strong></p><ul>${s.tips.map(t=>'<li>'+esc(t)+'</li>').join('')}</ul>`;
-    html+=`<div class="note">职业规划师提示：${s.tip}</div>`;
+    html+=`<div class="note"><strong>策略提示：</strong>${s.tip}</div></article>`;
   }
   html+=`</div>`;
 
@@ -1695,8 +1703,8 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
     const ratio=score/maxScore;
     const stars=ratio>=0.8?'★★★★★':ratio>=0.6?'★★★★☆':ratio>=0.4?'★★★☆☆':'★★★';
     const relTs=careerTalents[career]||[];
-    html+=`<h3>方向${['一','二','三','四','五'][di-1]}：${esc(career)}</h3>`;
-    html+=`<p><strong>天赋匹配度：${stars}</strong>（契合分数：${score}）</p>`;
+    html+=`<article class="report-block career-block"><h3>方向${['一','二','三','四','五'][di-1]}：${esc(career)}</h3>`;
+    html+=`<p class="match-line"><strong>天赋匹配度：${stars}</strong><span>契合分数：${score}</span></p>`;
     html+=`<p>该方向深度契合你的<strong>${esc(relTs.slice(0,3).join('、'))}</strong>${relTs.length>3?'等':''}天赋，能充分发挥你的核心竞争优势。</p>`;
     
     // 找该方向对应的能量类型
@@ -1705,6 +1713,7 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
       const e=ENERGY_TYPES[TALENT_DETAIL[matchingT.num].energy];
       html+=`<p style="color:#5c5240;font-size:13px">该方向属于<strong>${e.name}</strong>领域，与你${a.counts[TALENT_DETAIL[matchingT.num].energy]>1?'在该领域的深厚积累':''}天然匹配。</p>`;
     }
+    html+=`</article>`;
     di++;
   }
   html+=`</div>`;
@@ -1717,32 +1726,32 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
   const domName=domEnergy?domEnergy.n:'综合';
   html+=`<p>你的能量格局以<strong>${domName}</strong>为主导${a.zeros.length>0?'，同时'+a.zeros.map(z=>ENERGY_TYPES[z].name).join('、')+'能量为零，需要注意该领域的建设性补充':''}。以下是三阶段成长建议：</p>`;
   
-  html+=`<h3>第一阶段：建立根基（0–2年）</h3><ul>`;
+  html+=`<article class="report-block stage-block"><h3>第一阶段：建立根基（0–2年）</h3><ul>`;
   html+=`<li>选定一个主方向深耕——建议从<strong>${esc(topCareers.length>0?topCareers[0][0]:'你的核心天赋领域')}</strong>切入，专注积累而非贪多</li>`;
   if(mains.length>0) html+=`<li>用<strong>${esc(mains[0].name)}</strong>建立专业壁垒：${TALENT_DETAIL[mains[0].num]?.path.substring(0,40)||'持续积累代表作'}……</li>`;
   if(a.zeros.includes('earth')) html+=`<li>搭配结构化工具（清单、模板、日程表）作为外部辅助，弥补构建能量的不足</li>`;
   html+=`<li>有意识地每周至少一次公开表达——分享专业见解，让核心天赋在实战中成长</li>`;
-  html+=`</ul>`;
+  html+=`</ul></article>`;
   
-  html+=`<h3>第二阶段：深化影响（2–5年）</h3><ul>`;
+  html+=`<article class="report-block stage-block"><h3>第二阶段：深化影响（2–5年）</h3><ul>`;
   html+=`<li>将影响力从一对一扩展到一对多——开发课程、带领社群、做培训项目</li>`;
   if(a.combos.length>0) html+=`<li>激活组合天赋能量——${a.combos[0].name}的协同效应将在此阶段全面显现</li>`;
   if(a.zeros.includes('earth')) html+=`<li>与构建能量强的伙伴协作互补，或系统学习项目管理方法，让落地不再依赖直觉</li>`;
   html+=`<li>打造个人品牌视觉与内容体系，用<strong>${esc(mains.map(t=>t.name).join('、'))}</strong>的天赋组合建立独特定位</li>`;
-  html+=`</ul>`;
+  html+=`</ul></article>`;
   
-  html+=`<h3>第三阶段：构建生态（5年以上）</h3><ul>`;
+  html+=`<article class="report-block stage-block"><h3>第三阶段：构建生态（5年以上）</h3><ul>`;
   html+=`<li>从"做事者"进化为"建构者"——搭建团队、培育传承体系、打造可持续的影响力生态</li>`;
   if(a.potentialNums&&a.potentialNums.length>0){
     const pn=a.potentialNums[0];
     html+=`<li><strong>${POTENTIAL_NAMES[pn]||''}</strong>（潜能天赋）在此阶段将全面开花——从个人突破到系统赋能</li>`;
   }
   html+=`<li>长期布局，成为行业标杆——你的天赋组合的终极形态是：一个让人信任、追随、受益的思想引领者</li>`;
-  html+=`</ul>`;
+  html+=`</ul></article>`;
   html+=`</div>`;
 
   // ══ 八、总结寄语 ══
-  html+=`<div class="section"><h2>八、总结寄语</h2>`;
+  html+=`<div class="section closing-section"><h2>八、总结寄语</h2><div class="closing-copy">`;
   html+=`<p>你的天赋组合——<strong>${esc(mains.map(t=>t.name+(t.multiplier>=3?'×'+t.multiplier+'倍':t.multiplier>=2?'×'+t.multiplier+'倍':'')).join('、'))}</strong>${auxs.length>0?'，辅以'+esc(auxs.map(t=>t.name+'×'+t.multiplier+'倍').join('、')):''}——这构成了你独一无二的天赋版图。</p>`;
   html+=`<p>${mains.length>0?TALENT_DETAIL[mains[0].num].core:''}</p>`;
   if(a.zeros.length>0){
@@ -1755,11 +1764,11 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
     const pn=a.potentialNums[0]; const pd=POTENTIAL_DIRECT[pn];
     html+=`<p>而<strong>${POTENTIAL_NAMES[pn]||''}</strong>——你的人生课题——是一份藏在深处的礼物。${pd?pd.key:''}它不是需要克服的弱点，而是等待你开采的内在资源。</p>`;
   }
-  html+=`<p>你不是普通人。你的天赋组合是来这个世界完成特定使命的。相信这一点，然后，大步向前。</p>`;
-  html+=`<div class="signature">—— 识己天赋测评体系 · 专属报告</div>`;
+  html+=`<p class="closing-highlight">你不是普通人。你的天赋组合是来这个世界完成特定使命的。相信这一点，然后，大步向前。</p>`;
+  html+=`</div><div class="signature">—— 识己天赋测评体系 · 专属报告</div>`;
   html+=`</div>`;
 
-  html+=`<p style="text-align:center;color:#999183;font-size:12px;margin-top:40px">※ 以上解读基于识己天赋体系生成，仅供个人成长参考，不构成职业决策依据。</p>`;
+  html+=`<p class="report-disclaimer">※ 以上解读基于识己天赋体系生成，仅供个人成长参考，不构成职业决策依据。</p><div class="report-footer">识己天赋测试 · 专属职业解读报告</div>`;
   html+=`</body></html>`;
   return html;
 }
