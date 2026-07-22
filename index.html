@@ -504,6 +504,7 @@ body::after{content:'';position:fixed;left:0;right:0;top:0;height:5px;z-index:3;
   </div>
 
   <div class="growth-context-note"><strong>关于天赋发挥</strong><span>成长环境与人生经历，会影响天赋的发挥。发展好任一项天赋，人生会更加顺流。</span></div>
+  <div class="wechat-download-tip" id="wechatDownloadTip" role="alert" hidden><strong>请在浏览器中下载</strong><span>当前页面在微信内打开。请点击右上角“…” → 选择“在浏览器打开” → 再点击“生成详细报告”下载PDF。</span></div>
 
   <div class="input-panel" id="inputPanel">
     <h2>客户信息</h2>
@@ -520,7 +521,6 @@ body::after{content:'';position:fixed;left:0;right:0;top:0;height:5px;z-index:3;
       <button class="btn btn-export" id="reportBtn" onclick="generateReport()">生成详细报告</button>
     </div>
     <div class="report-ai-tip"><strong>进阶使用</strong><span>生成并导出PDF详细报告后，可将报告与个人简历一并提交给AI，进一步分析优势能力、适配岗位与职业选择。</span></div>
-    <div class="wechat-download-tip" id="wechatDownloadTip" role="status" hidden><strong>微信下载提示</strong><span>微信内无法直接保存PDF报告。请点击右上角“…”并选择“在浏览器打开”，再生成和下载详细报告。</span></div>
     <div class="analysis-state-notice" id="analysisStateNotice" role="status">输入信息已经修改，请重新点击“开始解读”后再导出。</div>
 
     <!-- 合盘区域 -->
@@ -1502,7 +1502,10 @@ function isWeChatBrowser(){
 
 function initWechatDownloadGuide(){
   const tip=document.getElementById('wechatDownloadTip');
-  if(tip&&isWeChatBrowser())tip.hidden=false;
+  if(tip&&isWeChatBrowser()){
+    tip.hidden=false;
+    document.body.classList.add('wechat-browser');
+  }
 }
 
 function addAuxRow(prefix,num=''){
