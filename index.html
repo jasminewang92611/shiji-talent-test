@@ -1508,6 +1508,30 @@ function initWechatDownloadGuide(){
   }
 }
 
+function initMobileCompact(){
+  if(window.innerWidth>760) return;
+  const panel=document.getElementById('inputPanel');
+  if(!panel) return;
+  panel.classList.add('mobile-compact');
+  // 折叠除第一步外的所有构建器步骤
+  const steps=panel.querySelectorAll('.builder-step');
+  if(steps.length<=1) return;
+  // 只在初始无数据时折叠（用户未选择任何天赋）
+  const hasData=panel.querySelector('select.talent-select')?.value;
+  if(hasData) return;
+  steps.forEach((s,i)=>{ if(i>0) s.classList.add('collapsed'); });
+  // 添加展开按钮
+  const btn=document.createElement('button');
+  btn.className='btn btn-outline btn-small mobile-expand-btn';
+  btn.textContent='展开全部选项 ▾';
+  btn.onclick=function(){
+    steps.forEach(s=>s.classList.remove('collapsed'));
+    this.remove();
+  };
+  const h2=panel.querySelector('h2');
+  if(h2) h2.after(btn);
+}
+
 function addAuxRow(prefix,num=''){
   const box=document.getElementById(prefix+'AuxRows');
   if(!box||box.children.length>=2) return;
@@ -1979,6 +2003,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   enableInputDraftAutosave();
   window.addEventListener('pagehide',saveInputDraft);
   initWechatDownloadGuide();
+  initMobileCompact();
 });
 </script>
 </body>
