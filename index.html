@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>识己天赋测试</title>
-<link rel="stylesheet" href="print.css" media="print">
+
 <style>
 /* ============================================
    识己 · 东方美学视觉体系
@@ -493,8 +493,1236 @@ body::after{content:'';position:fixed;left:0;right:0;top:0;height:5px;z-index:3;
     #results .talent-reading-row,#results .talent-reading-row.talent-reading-primary-row{grid-template-columns:96px minmax(0,1fr)!important;column-gap:10px!important}
   }
 }
+
+/* === design.css === */
+/*
+ * 识己天赋测试 · 现代东方书册
+ * 仅负责屏幕视觉，不改动任何业务逻辑与内容结构。
+ */
+
+:root{
+  --sj-paper:#f3efe7;
+  --sj-paper-deep:#ece4d7;
+  --sj-sheet:#fffdf9;
+  --sj-sheet-soft:#faf6ef;
+  --sj-ink:#332f29;
+  --sj-ink-2:#5f5950;
+  --sj-ink-3:#8a8175;
+  --sj-red:#a33d36;
+  --sj-red-deep:#812d27;
+  --sj-red-soft:#f8ebe7;
+  --sj-gold:#96702f;
+  --sj-gold-deep:#795821;
+  --sj-gold-soft:#f5eddd;
+  --sj-line:#ded3c2;
+  --sj-line-light:#ebe3d7;
+  --sj-wind:#5f9272;
+  --sj-wind-soft:#e8f1e8;
+  --sj-fire:#c46855;
+  --sj-fire-soft:#f8e9e4;
+  --sj-water:#4f829b;
+  --sj-water-soft:#e8f0f4;
+  --sj-earth:#a37a3e;
+  --sj-earth-soft:#f4ecdc;
+  --sj-gray-soft:#eeece7;
+  --sj-year-expand:#fbf4e2;
+  --sj-year-settle:#edf4f1;
+  --sj-settle:#6f897a;
+  --sj-font:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",Arial,sans-serif;
+  --sj-radius:8px;
+  --sj-shadow:0 16px 44px rgba(56,43,27,.08),0 2px 8px rgba(56,43,27,.04);
+  --sj-shadow-small:0 8px 24px rgba(56,43,27,.06);
+}
+
+html{background:var(--sj-paper)!important}
+body,body *,body *::before,body *::after{
+  box-sizing:border-box;
+  font-family:var(--sj-font)!important;
+  font-style:normal!important;
+}
+body{
+  margin:0!important;
+  min-height:100vh;
+  background:
+    radial-gradient(ellipse 52% 25% at 50% -4%,rgba(155,117,54,.12),transparent 72%),
+    linear-gradient(90deg,rgba(159,58,50,.018),transparent 18%,transparent 82%,rgba(159,58,50,.018)),
+    var(--sj-paper)!important;
+  color:var(--sj-ink)!important;
+  font-size:15px!important;
+  line-height:1.75!important;
+  letter-spacing:.01em!important;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:""!important;
+  position:fixed!important;
+  inset:0!important;
+  z-index:0!important;
+  pointer-events:none!important;
+  background:repeating-linear-gradient(0deg,rgba(68,52,33,.014) 0,rgba(68,52,33,.014) 1px,transparent 1px,transparent 7px)!important;
+  opacity:.65!important;
+}
+body::after{
+  content:""!important;
+  position:fixed!important;
+  left:0!important;
+  right:0!important;
+  top:0!important;
+  height:4px!important;
+  z-index:10!important;
+  background:linear-gradient(90deg,var(--sj-red) 0 44%,var(--sj-gold) 44% 56%,var(--sj-red) 56%)!important;
+}
+::selection{background:rgba(159,58,50,.16)!important;color:var(--sj-ink)!important}
+
+body,body *{color:var(--sj-ink)!important}
+a{color:var(--sj-red)!important}
+button,input,select,textarea{font:inherit!important}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid rgba(155,117,54,.4)!important;
+  outline-offset:2px!important;
+}
+
+/* 页面骨架 */
+.app{
+  position:relative!important;
+  z-index:1!important;
+  width:min(100%,1000px)!important;
+  max-width:1000px!important;
+  margin:0 auto!important;
+  padding:36px 28px 96px!important;
+}
+.header{
+  position:relative!important;
+  padding:54px 20px 48px!important;
+  text-align:center!important;
+}
+.header::after{
+  content:""!important;
+  display:block!important;
+  width:88px!important;
+  height:1px!important;
+  margin:20px auto 0!important;
+  background:linear-gradient(90deg,transparent,var(--sj-gold),transparent)!important;
+}
+.header h1{
+  display:inline-block!important;
+  position:relative!important;
+  margin:0!important;
+  color:var(--sj-red)!important;
+  font-size:32px!important;
+  font-weight:600!important;
+  line-height:1.35!important;
+  letter-spacing:.14em!important;
+  text-shadow:none!important;
+}
+.header h1::before{
+  content:"识\A己"!important;
+  white-space:pre!important;
+  position:absolute!important;
+  left:-50px!important;
+  top:-6px!important;
+  width:32px!important;
+  height:42px!important;
+  padding-top:4px!important;
+  border-radius:2px!important;
+  background:var(--sj-red)!important;
+  box-shadow:inset 0 0 0 1px rgba(255,250,238,.7)!important;
+  color:#fffaf0!important;
+  font-size:12px!important;
+  font-weight:600!important;
+  line-height:16px!important;
+  letter-spacing:0!important;
+  transform:none!important;
+}
+.header .sub{
+  margin-top:13px!important;
+  color:var(--sj-ink-3)!important;
+  font-size:13px!important;
+  font-weight:400!important;
+  line-height:1.6!important;
+  letter-spacing:.24em!important;
+}
+
+.growth-context-note{
+  display:grid!important;
+  grid-template-columns:104px minmax(0,1fr)!important;
+  gap:14px!important;
+  margin:0 0 16px!important;
+  padding:13px 17px!important;
+  border:1px solid var(--sj-line)!important;
+  border-left:3px solid var(--sj-gold)!important;
+  border-radius:0 5px 5px 0!important;
+  background:rgba(249,244,234,.88)!important;
+  color:var(--sj-ink-2)!important;
+  font-size:14px!important;
+  line-height:1.75!important;
+}
+.growth-context-note strong{color:var(--sj-gold-deep)!important;font-weight:600!important}
+.growth-context-note span{min-width:0}
+
+/* 输入资料 */
+.input-panel{
+  position:relative!important;
+  overflow:hidden!important;
+  margin:0 0 24px!important;
+  padding:28px 32px 30px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:var(--sj-radius)!important;
+  background:var(--sj-sheet)!important;
+  box-shadow:var(--sj-shadow)!important;
+}
+.input-panel::before{
+  content:""!important;
+  position:absolute!important;
+  top:0!important;
+  left:0!important;
+  width:100%!important;
+  height:3px!important;
+  background:linear-gradient(90deg,var(--sj-red) 0 76%,var(--sj-gold) 76%)!important;
+}
+.input-panel::after{display:none!important}
+.input-panel h2{
+  position:relative!important;
+  margin:0 0 18px!important;
+  padding:0 0 10px 14px!important;
+  border:0!important;
+  border-bottom:1px solid var(--sj-line-light)!important;
+  color:var(--sj-red)!important;
+  font-size:19px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+  letter-spacing:.05em!important;
+}
+.input-panel h2::before{
+  content:""!important;
+  position:absolute!important;
+  left:0!important;
+  top:.38em!important;
+  width:3px!important;
+  height:18px!important;
+  background:var(--sj-red)!important;
+}
+.input-panel h2::after{display:none!important}
+.input-panel>h2[onclick]{margin-top:18px!important;margin-bottom:13px!important;padding-bottom:8px!important}
+.input-row{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:14px!important;
+  margin-bottom:13px!important;
+}
+.input-group{flex:1!important;min-width:210px!important}
+.input-group label{
+  display:block!important;
+  margin:0 0 6px!important;
+  color:var(--sj-gold-deep)!important;
+  font-size:13px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+  letter-spacing:.04em!important;
+}
+.input-group input,.input-group textarea,.input-group select,
+.talent-builder select{
+  width:100%!important;
+  min-height:40px!important;
+  padding:8px 12px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:5px!important;
+  background:#fff!important;
+  color:var(--sj-ink)!important;
+  box-shadow:none!important;
+  font-size:15px!important;
+  line-height:1.5!important;
+  transition:border-color .18s ease,box-shadow .18s ease,background .18s ease!important;
+}
+.input-group input:hover,.input-group textarea:hover,.input-group select:hover,
+.talent-builder select:hover{border-color:#cbb998!important}
+.input-group input:focus,.input-group textarea:focus,.input-group select:focus,
+.talent-builder select:focus{
+  border-color:var(--sj-gold)!important;
+  background:#fffefb!important;
+  box-shadow:0 0 0 3px rgba(155,117,54,.1)!important;
+  outline:none!important;
+}
+.talent-builder select:disabled{opacity:1!important;cursor:default!important;background:#fbfaf6!important;color:var(--sj-ink-2)!important}
+.input-group .hint,.field-note{
+  margin-top:5px!important;
+  color:var(--sj-ink-3)!important;
+  font-size:12px!important;
+  font-weight:400!important;
+  line-height:1.55!important;
+  letter-spacing:0!important;
+}
+.date-selects{display:grid!important;grid-template-columns:1.35fr 1fr 1fr!important;gap:8px!important}
+
+.talent-builder{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  column-gap:24px!important;
+  row-gap:0!important;
+}
+.builder-step{
+  position:relative!important;
+  margin:0!important;
+  padding:13px 0 14px!important;
+  border:0!important;
+  border-bottom:1px solid var(--sj-line-light)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.builder-step:nth-child(-n+2){padding-top:2px!important}
+.builder-step:nth-child(3){grid-column:1/-1!important}
+.builder-summary{grid-column:1/-1!important}
+.builder-step-title{
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+  margin:0 0 9px!important;
+  color:var(--sj-gold-deep)!important;
+  font-size:15px!important;
+  font-weight:600!important;
+  line-height:1.55!important;
+  letter-spacing:.02em!important;
+}
+.step-no{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:23px!important;
+  height:23px!important;
+  flex:0 0 23px!important;
+  border-radius:50%!important;
+  background:var(--sj-red)!important;
+  color:#fff!important;
+  font-size:11px!important;
+  font-weight:600!important;
+  line-height:1!important;
+}
+.builder-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+.select-row{display:grid!important;grid-template-columns:minmax(0,1fr) 100px 38px!important;gap:8px!important;margin-top:7px!important;align-items:center!important}
+.select-row.potential-row,.select-row.auxiliary-row{grid-template-columns:minmax(0,1fr) 38px!important}
+.icon-btn{
+  width:38px!important;
+  height:38px!important;
+  padding:0!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:4px!important;
+  background:var(--sj-sheet-soft)!important;
+  color:var(--sj-ink-2)!important;
+  font-size:16px!important;
+  line-height:36px!important;
+  cursor:pointer!important;
+}
+.icon-btn:hover{border-color:#dfb9b4!important;background:var(--sj-red-soft)!important;color:var(--sj-red)!important}
+.add-row-btn{
+  margin-top:8px!important;
+  padding:7px 12px!important;
+  border:1px dashed #cbb998!important;
+  border-radius:4px!important;
+  background:transparent!important;
+  color:var(--sj-gold-deep)!important;
+  font-size:13px!important;
+  font-weight:500!important;
+  line-height:1.5!important;
+  cursor:pointer!important;
+}
+.add-row-btn:hover{border-color:var(--sj-gold)!important;background:var(--sj-gold-soft)!important}
+.builder-summary{
+  margin-top:12px!important;
+  padding:10px 14px!important;
+  border:0!important;
+  border-left:3px solid var(--sj-gold)!important;
+  border-radius:0 4px 4px 0!important;
+  background:var(--sj-gold-soft)!important;
+  color:var(--sj-ink-2)!important;
+  font-size:13px!important;
+  line-height:1.75!important;
+}
+.report-ai-tip{
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:9px!important;
+  max-width:760px!important;
+  margin:12px auto 0!important;
+  padding:9px 13px!important;
+  border-left:3px solid var(--sj-gold)!important;
+  border-radius:0 4px 4px 0!important;
+  background:var(--sj-gold-soft)!important;
+  color:var(--sj-ink-2)!important;
+  font-size:13px!important;
+  line-height:1.75!important;
+}
+.report-ai-tip strong{flex:0 0 auto;color:var(--sj-gold-deep)!important;font-weight:600!important}
+.report-ai-tip span{min-width:0}
+.wechat-download-tip{
+  position:fixed!important;
+  top:0!important;
+  left:0!important;
+  right:0!important;
+  z-index:100!important;
+  display:flex!important;
+  align-items:flex-start!important;
+  gap:9px!important;
+  width:100%!important;
+  margin:0!important;
+  padding:11px 18px!important;
+  border:0!important;
+  border-bottom:2px solid var(--sj-red)!important;
+  border-radius:0!important;
+  background:var(--sj-red-soft)!important;
+  color:var(--sj-ink-2)!important;
+  font-size:13px!important;
+  line-height:1.75!important;
+  box-shadow:0 4px 16px rgba(159,58,50,.15)!important;
+}
+.wechat-download-tip[hidden]{display:none!important}
+.wechat-download-tip strong{flex:0 0 auto;color:var(--sj-red)!important;font-weight:600!important}
+.wechat-download-tip span{min-width:0}
+.wechat-browser .app{padding-top:62px!important}
+.auto-combo-result{
+  min-height:40px!important;
+  padding:9px 12px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:4px!important;
+  background:rgba(255,253,248,.72)!important;
+  color:var(--sj-ink-2)!important;
+  font-size:13px!important;
+  line-height:1.7!important;
+}
+.auto-combo-result.has-combo{
+  border-color:#d5bd8c!important;
+  background:var(--sj-gold-soft)!important;
+  color:var(--sj-gold-deep)!important;
+  font-weight:600!important;
+}
+.talent-builder select.auto-combo-result.has-combo{border-color:#d5bd8c!important;background:var(--sj-gold-soft)!important;color:var(--sj-gold-deep)!important;font-weight:600!important}
+.auto-years{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  gap:10px!important;
+  width:100%!important;
+  padding:0!important;
+  color:var(--sj-ink-2)!important;
+  font-size:15px!important;
+}
+.auto-years strong{color:var(--sj-gold-deep)!important;font-weight:600!important}
+.auto-years .yr-badge{
+  display:inline-block!important;
+  padding:5px 11px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:4px!important;
+  font-size:12px!important;
+  font-weight:600!important;
+  line-height:1.45!important;
+}
+.auto-years .yr-badge small{
+  display:block!important;
+  margin-top:2px!important;
+  color:inherit!important;
+  font-size:11px!important;
+  font-weight:400!important;
+  line-height:1.45!important;
+  white-space:nowrap!important;
+}
+.yr-expand{border-left:3px solid var(--sj-gold)!important;background:var(--sj-year-expand)!important;color:var(--sj-gold-deep)!important}
+.yr-settle{border-left:3px solid var(--sj-settle)!important;background:var(--sj-year-settle)!important;color:var(--sj-ink-2)!important}
+
+.btn-row{display:flex!important;flex-wrap:wrap!important;justify-content:flex-start!important;gap:9px!important;margin-top:16px!important}
+.btn{
+  min-height:42px!important;
+  padding:10px 20px!important;
+  border:1px solid transparent!important;
+  border-radius:4px!important;
+  box-shadow:none!important;
+  font-size:14px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+  letter-spacing:.02em!important;
+  cursor:pointer!important;
+  transition:background .18s ease,border-color .18s ease,color .18s ease,transform .18s ease!important;
+}
+.btn:hover{transform:translateY(-1px)!important}
+.btn-primary{
+  border-color:var(--sj-red)!important;
+  background:var(--sj-red)!important;
+  color:#fff!important;
+}
+.btn-primary:hover{border-color:var(--sj-red-deep)!important;background:var(--sj-red-deep)!important}
+.btn-export{
+  border-color:var(--sj-gold-deep)!important;
+  background:var(--sj-gold-deep)!important;
+  color:#fff!important;
+}
+.btn-export:hover{border-color:#654617!important;background:#654617!important}
+.btn-outline{
+  border-color:#bca989!important;
+  background:transparent!important;
+  color:var(--sj-gold-deep)!important;
+}
+.btn-outline:hover{border-color:var(--sj-gold)!important;background:var(--sj-gold-soft)!important}
+.btn:disabled{opacity:.45!important;transform:none!important;cursor:not-allowed!important}
+.btn-small{min-height:36px!important;padding:7px 16px!important;font-size:13px!important}
+.analysis-state-notice{
+  display:none!important;
+  margin:14px 0 0!important;
+  padding:10px 13px!important;
+  border:0!important;
+  border-left:3px solid var(--sj-red)!important;
+  border-radius:0 4px 4px 0!important;
+  background:var(--sj-red-soft)!important;
+  color:#7f3932!important;
+  font-size:12px!important;
+  line-height:1.78!important;
+  text-align:left!important;
+}
+.analysis-state-notice.show{display:block!important}
+.synastry-actions{margin-top:16px!important}
+
+/* 主导航 */
+.tabs{
+  display:grid!important;
+  grid-template-columns:repeat(3,1fr)!important;
+  gap:0!important;
+  overflow:hidden!important;
+  margin:0 0 24px!important;
+  padding:5px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:var(--sj-radius)!important;
+  background:rgba(255,253,249,.92)!important;
+  box-shadow:var(--sj-shadow-small)!important;
+}
+.tab{
+  position:relative!important;
+  min-height:44px!important;
+  padding:10px 8px!important;
+  border:0!important;
+  border-radius:4px!important;
+  background:transparent!important;
+  color:var(--sj-ink-2)!important;
+  font-size:14px!important;
+  font-weight:500!important;
+  line-height:1.5!important;
+  letter-spacing:.04em!important;
+  cursor:pointer!important;
+}
+.tab::after{
+  content:""!important;
+  position:absolute!important;
+  left:50%!important;
+  bottom:5px!important;
+  width:0!important;
+  height:2px!important;
+  background:var(--sj-red)!important;
+  transform:translateX(-50%)!important;
+  transition:width .18s ease!important;
+}
+.tab:hover{color:var(--sj-red)!important}
+.tab.active{background:var(--sj-gold-soft)!important;color:var(--sj-red)!important;font-weight:600!important}
+.tab.active::after{width:22px!important}
+
+/* 结果书页 */
+#results{display:block!important}
+#results .card{
+  position:relative!important;
+  overflow:hidden!important;
+  margin:0 0 26px!important;
+  padding:38px 42px 42px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:var(--sj-radius)!important;
+  background:var(--sj-sheet)!important;
+  box-shadow:var(--sj-shadow)!important;
+}
+#results .card::before{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  width:100%!important;
+  height:3px!important;
+  border:0!important;
+  background:linear-gradient(90deg,var(--sj-red) 0 78%,var(--sj-gold) 78%)!important;
+  opacity:1!important;
+}
+#results .card::after{display:none!important}
+#results .card-header{
+  display:block!important;
+  margin:0 0 30px!important;
+  padding:0 0 17px!important;
+  border:0!important;
+  border-bottom:1px solid var(--sj-line)!important;
+}
+#results .card-icon{display:none!important}
+#results .card-title{
+  margin:0!important;
+  color:var(--sj-red)!important;
+  font-size:22px!important;
+  font-weight:600!important;
+  line-height:1.45!important;
+  letter-spacing:.05em!important;
+}
+#results .card-client{
+  margin-top:5px!important;
+  color:var(--sj-ink-3)!important;
+  font-size:15px!important;
+  font-weight:400!important;
+  line-height:1.65!important;
+}
+#results .card-client strong{color:var(--sj-ink-2)!important;font-weight:600!important}
+#results p,#results li{
+  color:var(--sj-ink-2)!important;
+  font-size:15px!important;
+  line-height:1.82!important;
+  letter-spacing:.005em!important;
+}
+#results h3{
+  position:relative!important;
+  margin:0 0 16px!important;
+  padding:0 0 0 13px!important;
+  color:var(--sj-red)!important;
+  font-size:19px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+  letter-spacing:.035em!important;
+}
+#results h3::before{
+  content:""!important;
+  position:absolute!important;
+  left:0!important;
+  top:.35em!important;
+  width:3px!important;
+  height:18px!important;
+  border-radius:0!important;
+  background:var(--sj-red)!important;
+  transform:none!important;
+}
+#results h4{
+  color:var(--sj-gold-deep)!important;
+  font-size:16px!important;
+  font-weight:600!important;
+  line-height:1.65!important;
+}
+
+/* 四大能量 */
+#results .energy-section,#results .ranking-section,#results .talent-detail{margin:0 0 32px!important}
+#results .energy-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:10px!important;
+}
+#results .energy-item{
+  position:relative!important;
+  overflow:hidden!important;
+  min-height:124px!important;
+  padding:18px 16px!important;
+  border:1px solid transparent!important;
+  border-radius:6px!important;
+  box-shadow:none!important;
+  text-align:left!important;
+  transform:none!important;
+}
+#results .energy-item::after{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  right:-22px!important;
+  bottom:-27px!important;
+  width:70px!important;
+  height:70px!important;
+  border:1px solid currentColor!important;
+  border-radius:50%!important;
+  opacity:.08!important;
+}
+#results .energy-item.wind{background:var(--sj-wind-soft)!important;border-color:#cadcca!important;color:var(--sj-wind)!important}
+#results .energy-item.fire{background:var(--sj-fire-soft)!important;border-color:#e7c8bf!important;color:var(--sj-fire)!important}
+#results .energy-item.water{background:var(--sj-water-soft)!important;border-color:#c8dbe4!important;color:var(--sj-water)!important}
+#results .energy-item.earth{background:var(--sj-earth-soft)!important;border-color:#deceaf!important;color:var(--sj-earth)!important}
+#results .energy-item .energy-name{
+  margin:0 0 8px!important;
+  font-size:16px!important;
+  font-weight:600!important;
+  line-height:1.45!important;
+  letter-spacing:.02em!important;
+}
+#results .energy-item.wind .energy-name,#results .energy-item.wind>div:nth-child(2){color:var(--sj-wind)!important}
+#results .energy-item.fire .energy-name,#results .energy-item.fire>div:nth-child(2){color:var(--sj-fire)!important}
+#results .energy-item.water .energy-name,#results .energy-item.water>div:nth-child(2){color:var(--sj-water)!important}
+#results .energy-item.earth .energy-name,#results .energy-item.earth>div:nth-child(2){color:var(--sj-earth)!important}
+#results .energy-item>div:nth-child(2){font-size:24px!important;font-weight:600!important;line-height:1.3!important}
+#results .energy-bar-wrap{
+  width:100%!important;
+  height:5px!important;
+  margin:14px 0 0!important;
+  border-radius:99px!important;
+  background:rgba(47,44,39,.09)!important;
+}
+#results .energy-bar{height:100%!important;border-radius:99px!important}
+#results .wind-bar{background:var(--sj-wind)!important}
+#results .fire-bar{background:var(--sj-fire)!important}
+#results .water-bar{background:var(--sj-water)!important}
+#results .earth-bar{background:var(--sj-earth)!important}
+#results .energy-zero-alert{
+  margin:14px 0 0!important;
+  padding:15px 17px!important;
+  border:0!important;
+  border-left:3px solid var(--sj-red)!important;
+  border-radius:0 4px 4px 0!important;
+  background:var(--sj-red-soft)!important;
+  color:var(--sj-ink-2)!important;
+}
+#results .energy-zero-alert h4{margin:0 0 7px!important;color:var(--sj-red)!important;font-size:15px!important}
+#results .energy-zero-alert p{margin-bottom:6px!important;font-size:14px!important;line-height:1.75!important}
+
+/* 强弱排序 */
+#results .ranking-section>div{
+  padding:4px 0!important;
+  border:0!important;
+  border-top:1px solid var(--sj-line)!important;
+  border-bottom:1px solid var(--sj-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  font-size:14px!important;
+  line-height:1.8!important;
+}
+#results .ranking-section>div>div{
+  margin:0!important;
+  padding:9px 4px!important;
+  border:0!important;
+  border-bottom:1px solid var(--sj-line-light)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--sj-ink-2)!important;
+  font-size:14px!important;
+  line-height:1.75!important;
+}
+#results .ranking-section>div>div:last-child{border-bottom:0!important}
+#results .ranking-section>div>div[style*="margin-top:10px"]{
+  margin:10px 0 6px!important;
+  padding:12px 14px!important;
+  border:0!important;
+  border-left:3px solid var(--sj-gold)!important;
+  background:var(--sj-gold-soft)!important;
+}
+
+/* 天赋详解：编号独立，标签与内容整齐对齐 */
+#results .talent-reading-list{display:grid!important;gap:10px!important}
+#results .talent-reading-card{
+  position:relative!important;
+  display:grid!important;
+  grid-template-columns:42px minmax(0,1fr)!important;
+  column-gap:0!important;
+  align-items:start!important;
+  overflow:hidden!important;
+  margin:0!important;
+  padding:18px 20px 19px 22px!important;
+  border:0!important;
+  border-left:3px solid var(--talent-accent,var(--sj-gold))!important;
+  border-radius:5px!important;
+  background:var(--talent-wash,var(--sj-sheet-soft))!important;
+  box-shadow:none!important;
+  filter:none!important;
+}
+#results .talent-reading-card::before,#results .talent-reading-card::after{display:none!important}
+#results .talent-reading-card-no{
+  grid-column:1!important;
+  grid-row:1!important;
+  display:block!important;
+  padding:2px 0 0!important;
+  color:var(--sj-red)!important;
+  font-size:13px!important;
+  font-weight:600!important;
+  line-height:1.62!important;
+  letter-spacing:.04em!important;
+}
+#results .talent-reading-rows{
+  grid-column:2!important;
+  display:grid!important;
+  min-width:0!important;
+  gap:9px!important;
+}
+#results .talent-reading-row,#results .talent-reading-row.talent-reading-primary-row{
+  display:grid!important;
+  grid-template-columns:116px minmax(0,1fr)!important;
+  column-gap:15px!important;
+  align-items:start!important;
+  margin:0!important;
+  padding:0!important;
+}
+#results .talent-reading-primary-label,#results .talent-reading-inline-label{
+  display:block!important;
+  min-width:0!important;
+  margin:0!important;
+  color:var(--sj-gold-deep)!important;
+  font-size:14px!important;
+  font-weight:600!important;
+  line-height:1.72!important;
+  letter-spacing:.01em!important;
+}
+#results .talent-reading-primary-label{font-size:16px!important;line-height:1.62!important;white-space:nowrap!important}
+#results .talent-reading-multiplier{
+  display:inline!important;
+  margin-left:4px!important;
+  color:var(--sj-gold)!important;
+  font-size:inherit!important;
+  font-weight:inherit!important;
+  line-height:inherit!important;
+  white-space:nowrap!important;
+}
+#results .talent-reading-inline-value{
+  display:block!important;
+  min-width:0!important;
+  margin:0!important;
+  color:var(--sj-ink-2)!important;
+  font-size:15px!important;
+  font-weight:400!important;
+  line-height:1.78!important;
+}
+#results .talent-reading-inline-value strong{color:var(--sj-ink)!important;font-weight:600!important}
+
+/* 综合职业方向：编辑式列表，不堆叠卡框 */
+#results .career-summary{
+  position:relative!important;
+  overflow:visible!important;
+  margin:38px 0 0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+#results .career-summary::before,#results .career-summary::after{display:none!important}
+#results .career-summary-head{
+  position:relative!important;
+  margin:0!important;
+  padding:0 0 14px!important;
+  border:0!important;
+  border-bottom:1px solid var(--sj-line)!important;
+  background:transparent!important;
+}
+#results .career-summary-seal,#results .career-summary-kicker,#results .career-summary-intro{display:none!important}
+#results .career-summary h3{margin:0!important}
+#results .career-direction-list{display:grid!important;gap:0!important}
+#results .career-direction{
+  display:grid!important;
+  grid-template-columns:44px minmax(0,1fr)!important;
+  gap:14px!important;
+  align-items:start!important;
+  margin:0!important;
+  padding:18px 0 19px!important;
+  border:0!important;
+  border-bottom:1px solid var(--sj-line-light)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  transform:none!important;
+}
+#results .career-direction::after{display:none!important}
+#results .career-direction-no{
+  display:block!important;
+  width:auto!important;
+  height:auto!important;
+  padding:1px 0 0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:var(--sj-red)!important;
+  font-size:13px!important;
+  font-weight:600!important;
+  line-height:1.78!important;
+  text-align:left!important;
+}
+#results .career-direction-title{
+  margin:0!important;
+  color:var(--sj-gold-deep)!important;
+  font-size:16px!important;
+  font-weight:600!important;
+  line-height:1.62!important;
+  letter-spacing:.01em!important;
+}
+#results .career-direction-core{
+  margin:5px 0 0!important;
+  color:var(--sj-ink-2)!important;
+  font-size:15px!important;
+  font-weight:400!important;
+  line-height:1.78!important;
+}
+#results .career-direction-meta{
+  display:grid!important;
+  grid-template-columns:72px minmax(0,1fr)!important;
+  gap:5px 10px!important;
+  align-items:baseline!important;
+  margin-top:9px!important;
+  padding:0!important;
+  border:0!important;
+  font-size:15px!important;
+  line-height:1.78!important;
+}
+#results .career-direction-label{
+  margin:0!important;
+  color:var(--sj-gold)!important;
+  font-size:15px!important;
+  font-weight:600!important;
+  line-height:1.78!important;
+  white-space:nowrap!important;
+}
+#results .career-examples,#results .career-sources{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:0!important;
+}
+#results .career-example,#results .career-source{
+  display:inline!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--sj-ink-2)!important;
+  font-size:15px!important;
+  font-weight:400!important;
+  line-height:1.78!important;
+}
+#results .career-example+.career-example::before,#results .career-source+.career-source::before{
+  content:"·"!important;
+  display:inline!important;
+  margin:0 7px!important;
+  color:#b5a993!important;
+}
+#results .career-summary-advice{
+  margin:14px 0 0!important;
+  padding:12px 14px!important;
+  border:0!important;
+  border-left:3px solid var(--sj-gold)!important;
+  border-radius:0 4px 4px 0!important;
+  background:var(--sj-gold-soft)!important;
+  color:var(--sj-ink-2)!important;
+  font-size:13px!important;
+  line-height:1.75!important;
+}
+#results .career-summary-advice::before{display:none!important}
+
+/* 年度策略 */
+#results .annual-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important}
+#results .annual-card{
+  position:relative!important;
+  overflow:hidden!important;
+  min-width:0!important;
+  padding:18px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:6px!important;
+  box-shadow:none!important;
+}
+#results .annual-card::before{
+  content:""!important;
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  width:100%!important;
+  height:3px!important;
+}
+#results .annual-card.annual-expand{background:var(--sj-year-expand)!important;border-color:#e2ce9f!important}
+#results .annual-card.annual-expand::before{background:var(--sj-gold)!important}
+#results .annual-card.annual-settle{background:var(--sj-year-settle)!important;border-color:#cdded6!important}
+#results .annual-card.annual-settle::before{background:var(--sj-settle)!important}
+#results .year-tag{
+  display:inline-block!important;
+  margin:0 0 12px!important;
+  padding:4px 8px!important;
+  border:0!important;
+  border-radius:3px!important;
+  font-size:12px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+}
+#results .tag-expand{background:rgba(155,117,54,.1)!important;color:var(--sj-gold-deep)!important}
+#results .tag-settle{background:rgba(111,137,122,.12)!important;color:#50685b!important}
+#results .annual-card h4{margin:0 0 8px!important;font-size:16px!important;line-height:1.6!important}
+#results .annual-card li{margin:0 0 5px!important;font-size:14px!important;line-height:1.75!important}
+#results .annual-card>p:last-child{
+  margin-top:12px!important;
+  padding:9px 10px!important;
+  border-radius:4px!important;
+  background:rgba(255,255,255,.5)!important;
+  font-size:13px!important;
+  line-height:1.7!important;
+}
+#results .annual-compare{
+  margin-top:16px!important;
+  padding:18px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:6px!important;
+  background:var(--sj-sheet-soft)!important;
+}
+#results .annual-compare-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+#results .annual-compare-panel{
+  padding:14px 16px!important;
+  border:0!important;
+  border-radius:4px!important;
+  box-shadow:none!important;
+}
+#results .annual-compare-panel.expand{background:var(--sj-year-expand)!important}
+#results .annual-compare-panel.settle{background:var(--sj-year-settle)!important}
+#results .annual-compare-panel strong{font-size:14px!important;font-weight:600!important}
+#results .annual-compare-panel.expand strong{color:var(--sj-gold-deep)!important}
+#results .annual-compare-panel.settle strong{color:var(--sj-ink)!important}
+#results .annual-compare-panel li{font-size:13px!important;line-height:1.7!important}
+
+/* 关系、金钱与合盘 */
+.relation-expression-list{
+  margin:0!important;
+  border-top:1px solid var(--sj-line)!important;
+}
+.relation-expression-row{
+  display:grid!important;
+  grid-template-columns:150px minmax(0,1fr)!important;
+  gap:18px!important;
+  align-items:start!important;
+  padding:13px 4px!important;
+  border-bottom:1px solid var(--sj-line)!important;
+}
+.relation-expression-row strong{
+  color:var(--sj-gold-deep)!important;
+  font-size:15px!important;
+  font-weight:600!important;
+  line-height:1.9!important;
+  white-space:nowrap!important;
+}
+.relation-expression-row span{
+  color:var(--sj-ink-2)!important;
+  font-size:15px!important;
+  line-height:1.9!important;
+}
+#results .card>h4{margin:20px 0 8px!important}
+#results .card>ul{padding-left:20px!important}
+#results .card>div[style*="background:#fff8f3"],
+#results .card>div[style*="background:#eaf6f8"],
+#results .card>div[style*="background:#f5efe6"]{
+  margin-top:16px!important;
+  padding:13px 15px!important;
+  border:0!important;
+  border-left:3px solid var(--sj-gold)!important;
+  border-radius:0 4px 4px 0!important;
+  background:var(--sj-gold-soft)!important;
+  color:var(--sj-ink-2)!important;
+  font-size:14px!important;
+  line-height:1.75!important;
+}
+#results .match-level{
+  margin:0 0 18px!important;
+  padding:18px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:6px!important;
+  box-shadow:none!important;
+  text-align:center!important;
+  font-size:18px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+}
+#results .match-high{background:var(--sj-wind-soft)!important;color:#466d56!important}
+#results .match-mid{background:var(--sj-gold-soft)!important;color:var(--sj-gold-deep)!important}
+#results .tag{
+  display:inline-block!important;
+  margin:3px 5px 3px 0!important;
+  padding:3px 9px!important;
+  border-radius:3px!important;
+  color:var(--sj-ink-2)!important;
+  font-size:12px!important;
+  font-weight:500!important;
+  line-height:1.5!important;
+}
+#results .tag-wind{background:var(--sj-wind-soft)!important}
+#results .tag-fire{background:var(--sj-fire-soft)!important}
+#results .tag-water{background:var(--sj-water-soft)!important}
+#results .tag-earth{background:var(--sj-earth-soft)!important}
+
+/* 辅助信息 */
+#results .disclaimer{
+  margin:18px 0 0!important;
+  padding:12px 0 0!important;
+  border:0!important;
+  border-top:1px solid var(--sj-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--sj-ink-3)!important;
+  font-size:12px!important;
+  line-height:1.75!important;
+  text-align:left!important;
+}
+.placeholder-banner{
+  margin:0!important;
+  padding:44px 24px!important;
+  border:1px dashed #c9b896!important;
+  border-radius:var(--sj-radius)!important;
+  background:rgba(255,253,249,.7)!important;
+  box-shadow:none!important;
+  text-align:center!important;
+}
+.placeholder-banner p{margin:0!important;color:var(--sj-ink-3)!important;font-size:14px!important}
+
+@media(max-width:760px){
+  .app{padding:14px 10px 52px!important}
+  .header{padding:22px 14px 18px!important}
+  .header h1{font-size:26px!important}
+  .header .sub{font-size:12px!important;letter-spacing:.16em!important;margin-top:8px!important}
+  .growth-context-note{grid-template-columns:1fr!important;gap:2px!important;margin-bottom:8px!important;padding:8px 10px!important;font-size:12px!important;line-height:1.55!important}
+  .input-panel{padding:13px 14px 14px!important;margin-bottom:18px!important}
+  .input-panel::before{height:2px!important}
+  .input-panel h2{margin-bottom:6px!important;padding-bottom:5px!important;font-size:18px!important}
+  .input-panel>h2[onclick]{margin-top:10px!important;margin-bottom:6px!important}
+  .input-row{gap:5px!important;margin-bottom:4px!important}
+  .input-group label{margin-bottom:3px!important;font-size:12px!important}
+  .date-selects{gap:5px!important}
+  .auto-years{align-items:flex-start!important;gap:4px!important;font-size:12px!important;padding:8px 0!important}
+  .auto-years strong{width:100%!important}
+  .auto-years .yr-badge{padding:3px 8px!important;font-size:11px!important}
+  .talent-builder{grid-template-columns:1fr!important;gap:4px!important}
+  .builder-step:nth-child(3),.builder-summary{grid-column:auto!important}
+  .builder-step,.builder-step:nth-child(-n+2){padding:4px 0 5px!important}
+  .builder-step-title{gap:5px!important;margin-bottom:4px!important;font-size:13px!important}
+  .step-no{width:18px!important;height:18px!important;flex-basis:18px!important;font-size:10px!important}
+  .builder-grid{gap:5px!important}
+  .input-group input,.input-group textarea,.input-group select,.talent-builder select{min-height:32px!important;padding:4px 7px!important;font-size:13px!important}
+  .select-row{gap:4px!important;margin-top:2px!important}
+  .select-row{grid-template-columns:minmax(0,1fr) 88px 30px!important}
+  .select-row.potential-row,.select-row.auxiliary-row{grid-template-columns:minmax(0,1fr) 30px!important}
+  .icon-btn{width:30px!important;height:30px!important;line-height:28px!important}
+  .add-row-btn{margin-top:3px!important;padding:3px 7px!important;font-size:12px!important}
+  .input-group .hint,.field-note{margin-top:2px!important;font-size:11px!important;line-height:1.4!important}
+  .builder-summary{margin-top:4px!important;padding:6px 8px!important;font-size:12px!important;line-height:1.5!important}
+  .btn-row{margin-top:6px!important;gap:6px!important}
+  .btn{min-height:38px!important;padding:8px 16px!important;font-size:13px!important}
+  .report-ai-tip{margin-top:5px!important;padding:6px 8px!important;font-size:11px!important;line-height:1.5!important}
+  .wechat-download-tip{margin:0!important;padding:7px 10px!important;font-size:11px!important;line-height:1.45!important}
+  .wechat-browser .app{padding-top:48px!important}
+  #results .card{padding:26px 20px 28px!important}
+  #results .energy-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #results .annual-grid{grid-template-columns:1fr!important}
+}
+
+@media(max-width:560px){
+  body{font-size:14px!important}
+  .app{padding:12px 8px 52px!important}
+  .header{padding:21px 10px 17px!important}
+  .header h1{font-size:25px!important;letter-spacing:.1em!important}
+  .header h1::before{left:-42px!important;width:28px!important;height:38px!important;font-size:11px!important;line-height:14px!important}
+  .header .sub{font-size:12px!important;letter-spacing:.18em!important}
+  .growth-context-note{padding:8px 10px!important;margin-bottom:8px!important}
+  .input-panel{padding:13px 10px 15px!important}
+  .input-row{display:block!important;margin-bottom:5px!important}
+  .input-group{min-width:0!important;margin-bottom:5px!important}
+  .input-group label{margin-bottom:3px!important}
+  .builder-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:5px!important}
+  .select-row{grid-template-columns:minmax(0,1fr) 66px 32px!important;gap:4px!important}
+  .select-row.potential-row,.select-row.auxiliary-row{grid-template-columns:minmax(0,1fr) 32px!important}
+  .field-note,.builder-summary{display:none!important}
+  .auto-years{margin:4px 0 0!important}
+  .auto-years .yr-badge{padding:4px 8px!important}
+  .btn-row{display:grid!important;grid-template-columns:1fr 1fr!important}
+  .btn{width:100%!important;min-height:38px!important;padding:8px 7px!important;font-size:13px!important}
+  .report-ai-tip{display:block!important}
+  .report-ai-tip strong{display:block!important;margin-bottom:2px!important}
+  .wechat-download-tip{display:block!important;padding:7px 8px!important;font-size:11px!important}
+  .wechat-download-tip strong{display:block!important;margin-bottom:2px!important}
+  .wechat-browser .app{padding-top:44px!important}
+  .tabs{position:sticky!important;top:8px!important;z-index:8!important}
+  .tab{font-size:13px!important;letter-spacing:0!important}
+  #results .card{padding:27px 17px 30px!important}
+  #results .card-title{font-size:20px!important}
+  #results h3{font-size:18px!important}
+  #results .energy-item{min-height:112px!important;padding:15px 13px!important}
+  #results .talent-reading-card{grid-template-columns:31px minmax(0,1fr)!important;padding:16px 12px 17px 14px!important}
+  #results .talent-reading-row,#results .talent-reading-row.talent-reading-primary-row{grid-template-columns:92px minmax(0,1fr)!important;column-gap:9px!important}
+  #results .talent-reading-primary-label{font-size:14px!important;white-space:normal!important}
+  #results .talent-reading-inline-label{font-size:13px!important}
+  #results .talent-reading-inline-value{font-size:14px!important;line-height:1.75!important}
+  #results .career-direction{grid-template-columns:31px minmax(0,1fr)!important;gap:8px!important}
+  #results .career-direction-meta{grid-template-columns:64px minmax(0,1fr)!important;gap:4px 8px!important}
+  #results .career-direction-title{font-size:15px!important}
+  #results .career-direction-core{font-size:14px!important}
+  #results .annual-compare-grid{grid-template-columns:1fr!important}
+  .relation-expression-row{grid-template-columns:112px minmax(0,1fr)!important;gap:10px!important;padding:11px 2px!important}
+  .relation-expression-row strong,.relation-expression-row span{font-size:14px!important;line-height:1.85!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+}
+
+
+/* === print.css === */
+@media print{
+@page{size:A4;margin:18mm 16mm 20mm}
+*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+html,body{background:#fff!important;color:#27231d;font-size:10.5pt}
+body::before,body::after{display:none!important}
+.app{max-width:none;margin:0;padding:0}
+.header,.input-panel,.tabs,.btn-row,.analysis-state-notice,.synastry-actions,#synastryPanel{display:none!important}
+#results{display:block}
+.report-cover{height:248mm;margin:0;padding:34mm 22mm 24mm;display:flex!important;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:1px solid #cbb993;position:relative;page-break-after:always;break-after:page}
+.report-cover::before{content:'识\A己';white-space:pre;display:flex;align-items:center;justify-content:center;position:absolute;top:24mm;width:17mm;height:21mm;background:#a33b32;color:#fff9ec;font:700 16pt/1.15 var(--font-song);box-shadow:inset 0 0 0 1.2mm rgba(255,249,236,.55)}
+.report-cover::after{content:'SHI JI TALENT REPORT';position:absolute;bottom:20mm;color:#9b8d77;font-size:7.5pt;letter-spacing:.28em}
+.report-cover h2{font-family:var(--font-song);font-size:25pt;letter-spacing:.16em;color:#263b34;margin:0 0 9mm;padding-bottom:8mm;border-bottom:1px solid #b99a61}
+.report-cover p{font-size:10pt;color:#695f51;letter-spacing:.08em;line-height:2;margin:0}
+.report-cover .report-subtitle{margin-top:8mm;font-family:var(--font-song);font-size:11pt;color:#8c6a32;letter-spacing:.16em}
+.print-report-footer{display:block;position:fixed;left:0;right:0;bottom:-12mm;padding-top:2mm;border-top:.3mm solid #d8ccb8;color:#8a8071;font-size:7.5pt;text-align:center;letter-spacing:.08em}
+.print-report-footer .page-number::after{content:counter(page)}
+.card{background:#fff!important;box-shadow:none!important;break-inside:auto;page-break-inside:auto;margin:0 0 12mm;padding:0 0 10mm;border:none;border-bottom:.5mm solid #d8ccb8;border-radius:0;overflow:visible}
+.card::before,.card::after{display:none}
+.card-header{break-after:avoid;page-break-after:avoid;margin:0 0 8mm;padding:0 0 4mm;border-bottom:.6mm solid #a33b32}
+.card-icon{display:none}
+.card-title{font-family:var(--font-song);font-size:17pt;letter-spacing:.1em;color:#263b34}
+.card-client{font-size:8.5pt;color:#7d7364;margin-top:1.5mm}
+.energy-section,.ranking-section,.talent-detail{margin-bottom:10mm}
+.energy-section h3,.ranking-section h3,.talent-detail h3{break-after:avoid;page-break-after:avoid;margin-bottom:5mm;font-size:12pt}
+.energy-grid{grid-template-columns:repeat(4,1fr);gap:3mm}
+.energy-item{break-inside:avoid;padding:5mm 3mm;background:#faf8f2!important;border:.3mm solid #ded3bf;box-shadow:none!important}
+.energy-item .energy-name{font-size:20pt;margin-bottom:4mm}
+.energy-bar-wrap{height:1.5mm}
+.energy-zero-alert,.ranking-section>div,.talent-reading-card,.annual-card,.career-direction,.match-level{break-inside:avoid;page-break-inside:avoid}
+.talent-reading-list{gap:5mm}
+.talent-reading-card{padding:6mm 7mm;background:#fff!important;border:.3mm solid #d8ccb8;box-shadow:none!important}
+.talent-reading-card::after{display:none}
+.talent-reading-head{margin-bottom:4mm;padding-bottom:3mm}
+.talent-reading-core{font-size:9pt!important;line-height:1.8!important}
+.talent-reading-careers,.talent-reading-path{margin-top:4mm;padding-top:3mm}
+.career-tag{padding:1.5mm 3mm;font-size:8pt;box-shadow:none}
+.career-summary{break-inside:auto;page-break-inside:auto;margin-top:9mm;padding:8mm;background:#faf8f2!important;border:.3mm solid #d8ccb8;box-shadow:none}
+.career-summary::before{display:none}
+.career-direction-list{gap:4mm}
+.career-direction{padding:5mm;background:#fff!important;box-shadow:none!important}
+.annual-grid{grid-template-columns:repeat(3,1fr);gap:4mm}
+.annual-card{padding:6mm 5mm;background:#faf8f2!important;box-shadow:none!important}
+.annual-card li{list-style-type:'— '}
+.disclaimer{break-inside:avoid;page-break-inside:avoid;margin-top:7mm;padding:4mm 0 0;background:transparent!important;border:none;border-top:.3mm solid #d8ccb8;text-align:left}
+.match-level{box-shadow:none}
+}
+
+/* 与网页和导出卡片一致的正式中国风报告体系 */
+html,body{font-family:"Microsoft YaHei","PingFang SC",sans-serif!important;background:#fffdf9!important;color:#332f29!important}
+.report-cover{background:#fffdf9!important;border-color:#a33d36!important}
+.report-cover::before{background:#a33d36!important;font-family:"Microsoft YaHei","PingFang SC",sans-serif!important;font-weight:400!important}
+.report-cover h2,.card-title{font-family:"Microsoft YaHei","PingFang SC",sans-serif!important;color:#a33d36!important;font-weight:400!important}
+.report-cover p,.card-client,.print-report-footer{color:#332f29!important}
+.report-cover .report-subtitle{font-family:"Microsoft YaHei","PingFang SC",sans-serif!important;color:#96702f!important}
+.card-header{border-color:#a33d36!important}
+.energy-section h3,.ranking-section h3,.talent-detail h3{color:#a33d36!important}
+.energy-item{background:#f7eedb!important;border-color:#e1d3be!important}
+.energy-item.wind{background:#e9f3e9!important;border-color:#c7dec9!important}
+.energy-item.fire{background:#fcece6!important;border-color:#edc9bd!important}
+.energy-item.water{background:#e8f1f7!important;border-color:#c7dbe8!important}
+.energy-item.earth{background:#f7eedb!important;border-color:#e2cfaa!important}
+.talent-reading-card,.career-direction{background:#fffdf9!important;border-color:#e1d3be!important}
+.career-summary,.annual-card.annual-expand,.annual-compare,.annual-compare-panel.expand{background:#fbf4e2!important;border-color:#e2ce9f!important}
+.annual-card.annual-settle,.annual-compare-panel.settle{background:#edf4f1!important;border-color:#cdded6!important}
+.talent-reading-title,.career-direction-title,.annual-card h4,.year-tag,.annual-compare-panel.expand strong{color:#96702f!important}
+.annual-card.annual-settle h4,.annual-card.annual-settle .year-tag,.annual-compare-panel.settle strong{color:#332f29!important}
+.talent-reading-core,.talent-reading-path p,.career-direction-core,.annual-card p,.annual-card li,.disclaimer{color:#332f29!important}
+
 </style>
-<link rel="stylesheet" href="design.css" media="screen">
+
 </head>
 <body>
 <div class="app">
@@ -1116,6 +2344,12 @@ function renderEnergySection(counts,zeros){
     h+=`<div class="energy-item ${key}${isZero?' zero':''}"><div class="energy-name" style="color:${et.color}">${et.name}</div><div style="font-size:1.3rem;font-weight:700;color:${isZero?'#ccc':et.color}">${pct}%</div><div class="energy-bar-wrap"><div class="energy-bar ${key}-bar" style="width:${Math.max(pct,4)}%"></div></div></div>`;
   }
   h+='</div>';
+  h+='<div class="energy-explanation-section"><h4>四大能量说明</h4><div class="energy-explanation-grid">';
+  for(let key of ['wind','fire','water','earth']){
+    const et=ENERGY_TYPES[key];
+    h+=`<article class="energy-explanation-card ${key}"><strong>${et.name}</strong><p>${et.desc}</p></article>`;
+  }
+  h+='</div></div>';
   if(zeros.length>0){
     h+='<div class="energy-zero-alert" style="margin-top:20px"><h4 style="color:var(--accent);margin-bottom:10px">⚠ 零能量区域 · 特别关注</h4>';
     for(let z of zeros){const et=ENERGY_TYPES[z];h+=`<p style="margin-bottom:6px;line-height:1.7"><strong>${et.name}：</strong>${et.zeroMsg}</p>`;}
@@ -1523,6 +2757,7 @@ function buildReportHTML(a){
   const displayName=a.name||'未署名';
   const mains=a.talents.filter(t=>t.role!=='aux'&&t.source!=='combo');
   const auxs=a.talents.filter(t=>t.role==='aux'&&t.source!=='combo');
+  const reportAuxs=auxs.filter(t=>!t.absorbedByResonance);
   const comboTs=a.talents.filter(t=>t.source==='combo');
   const allTs=[...mains,...auxs,...comboTs];
   const orderedMains=[...mains].sort((x,y)=>y.multiplier-x.multiplier);
@@ -1537,7 +2772,7 @@ function buildReportHTML(a){
   
   // 主天赋摘要
   const mainNames=orderedMains.map(t=>`${t.name}×${t.multiplier}倍`).join(' + ');
-  const auxNames=auxs.map(t=>t.name+'×'+t.multiplier+'倍').join(' | ');
+  const auxNames=reportAuxs.map(t=>t.name+'×'+t.multiplier+'倍').join(' | ');
   let maxE='wind',maxV=a.counts.wind;
   for(let e of energyOrder){if(a.counts[e.k]>maxV){maxV=a.counts[e.k];maxE=e.k;}}
   const maxEName=ENERGY_TYPES[maxE].name;
@@ -1590,6 +2825,1234 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
 .tag-c,.zero-box,.note{background:#fcece6;color:#332f29;border-color:#edc9bd}
 .highlight{background:#f7eedb}
 .signature{font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#332f29}
+
+/* === design.css === */
+/*
+ * 识己天赋测试 · 现代东方书册
+ * 仅负责屏幕视觉，不改动任何业务逻辑与内容结构。
+ */
+
+:root{
+  --sj-paper:#f3efe7;
+  --sj-paper-deep:#ece4d7;
+  --sj-sheet:#fffdf9;
+  --sj-sheet-soft:#faf6ef;
+  --sj-ink:#332f29;
+  --sj-ink-2:#5f5950;
+  --sj-ink-3:#8a8175;
+  --sj-red:#a33d36;
+  --sj-red-deep:#812d27;
+  --sj-red-soft:#f8ebe7;
+  --sj-gold:#96702f;
+  --sj-gold-deep:#795821;
+  --sj-gold-soft:#f5eddd;
+  --sj-line:#ded3c2;
+  --sj-line-light:#ebe3d7;
+  --sj-wind:#5f9272;
+  --sj-wind-soft:#e8f1e8;
+  --sj-fire:#c46855;
+  --sj-fire-soft:#f8e9e4;
+  --sj-water:#4f829b;
+  --sj-water-soft:#e8f0f4;
+  --sj-earth:#a37a3e;
+  --sj-earth-soft:#f4ecdc;
+  --sj-gray-soft:#eeece7;
+  --sj-year-expand:#fbf4e2;
+  --sj-year-settle:#edf4f1;
+  --sj-settle:#6f897a;
+  --sj-font:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",Arial,sans-serif;
+  --sj-radius:8px;
+  --sj-shadow:0 16px 44px rgba(56,43,27,.08),0 2px 8px rgba(56,43,27,.04);
+  --sj-shadow-small:0 8px 24px rgba(56,43,27,.06);
+}
+
+html{background:var(--sj-paper)!important}
+body,body *,body *::before,body *::after{
+  box-sizing:border-box;
+  font-family:var(--sj-font)!important;
+  font-style:normal!important;
+}
+body{
+  margin:0!important;
+  min-height:100vh;
+  background:
+    radial-gradient(ellipse 52% 25% at 50% -4%,rgba(155,117,54,.12),transparent 72%),
+    linear-gradient(90deg,rgba(159,58,50,.018),transparent 18%,transparent 82%,rgba(159,58,50,.018)),
+    var(--sj-paper)!important;
+  color:var(--sj-ink)!important;
+  font-size:15px!important;
+  line-height:1.75!important;
+  letter-spacing:.01em!important;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:""!important;
+  position:fixed!important;
+  inset:0!important;
+  z-index:0!important;
+  pointer-events:none!important;
+  background:repeating-linear-gradient(0deg,rgba(68,52,33,.014) 0,rgba(68,52,33,.014) 1px,transparent 1px,transparent 7px)!important;
+  opacity:.65!important;
+}
+body::after{
+  content:""!important;
+  position:fixed!important;
+  left:0!important;
+  right:0!important;
+  top:0!important;
+  height:4px!important;
+  z-index:10!important;
+  background:linear-gradient(90deg,var(--sj-red) 0 44%,var(--sj-gold) 44% 56%,var(--sj-red) 56%)!important;
+}
+::selection{background:rgba(159,58,50,.16)!important;color:var(--sj-ink)!important}
+
+body,body *{color:var(--sj-ink)!important}
+a{color:var(--sj-red)!important}
+button,input,select,textarea{font:inherit!important}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid rgba(155,117,54,.4)!important;
+  outline-offset:2px!important;
+}
+
+/* 页面骨架 */
+.app{
+  position:relative!important;
+  z-index:1!important;
+  width:min(100%,1000px)!important;
+  max-width:1000px!important;
+  margin:0 auto!important;
+  padding:36px 28px 96px!important;
+}
+.header{
+  position:relative!important;
+  padding:54px 20px 48px!important;
+  text-align:center!important;
+}
+.header::after{
+  content:""!important;
+  display:block!important;
+  width:88px!important;
+  height:1px!important;
+  margin:20px auto 0!important;
+  background:linear-gradient(90deg,transparent,var(--sj-gold),transparent)!important;
+}
+.header h1{
+  display:inline-block!important;
+  position:relative!important;
+  margin:0!important;
+  color:var(--sj-red)!important;
+  font-size:32px!important;
+  font-weight:600!important;
+  line-height:1.35!important;
+  letter-spacing:.14em!important;
+  text-shadow:none!important;
+}
+.header h1::before{
+  content:"识\A己"!important;
+  white-space:pre!important;
+  position:absolute!important;
+  left:-50px!important;
+  top:-6px!important;
+  width:32px!important;
+  height:42px!important;
+  padding-top:4px!important;
+  border-radius:2px!important;
+  background:var(--sj-red)!important;
+  box-shadow:inset 0 0 0 1px rgba(255,250,238,.7)!important;
+  color:#fffaf0!important;
+  font-size:12px!important;
+  font-weight:600!important;
+  line-height:16px!important;
+  letter-spacing:0!important;
+  transform:none!important;
+}
+.header .sub{
+  margin-top:13px!important;
+  color:var(--sj-ink-3)!important;
+  font-size:13px!important;
+  font-weight:400!important;
+  line-height:1.6!important;
+  letter-spacing:.24em!important;
+}
+
+.growth-context-note{
+  display:grid!important;
+  grid-template-columns:104px minmax(0,1fr)!important;
+  gap:14px!important;
+  margin:0 0 16px!important;
+  padding:13px 17px!important;
+  border:1px solid var(--sj-line)!important;
+  border-left:3px solid var(--sj-gold)!important;
+  border-radius:0 5px 5px 0!important;
+  background:rgba(249,244,234,.88)!important;
+  color:var(--sj-ink-2)!important;
+  font-size:14px!important;
+  line-height:1.75!important;
+}
+.growth-context-note strong{color:var(--sj-gold-deep)!important;font-weight:600!important}
+.growth-context-note span{min-width:0}
+
+/* 输入资料 */
+.input-panel{
+  position:relative!important;
+  overflow:hidden!important;
+  margin:0 0 24px!important;
+  padding:28px 32px 30px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:var(--sj-radius)!important;
+  background:var(--sj-sheet)!important;
+  box-shadow:var(--sj-shadow)!important;
+}
+.input-panel::before{
+  content:""!important;
+  position:absolute!important;
+  top:0!important;
+  left:0!important;
+  width:100%!important;
+  height:3px!important;
+  background:linear-gradient(90deg,var(--sj-red) 0 76%,var(--sj-gold) 76%)!important;
+}
+.input-panel::after{display:none!important}
+.input-panel h2{
+  position:relative!important;
+  margin:0 0 18px!important;
+  padding:0 0 10px 14px!important;
+  border:0!important;
+  border-bottom:1px solid var(--sj-line-light)!important;
+  color:var(--sj-red)!important;
+  font-size:19px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+  letter-spacing:.05em!important;
+}
+.input-panel h2::before{
+  content:""!important;
+  position:absolute!important;
+  left:0!important;
+  top:.38em!important;
+  width:3px!important;
+  height:18px!important;
+  background:var(--sj-red)!important;
+}
+.input-panel h2::after{display:none!important}
+.input-panel>h2[onclick]{margin-top:18px!important;margin-bottom:13px!important;padding-bottom:8px!important}
+.input-row{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:14px!important;
+  margin-bottom:13px!important;
+}
+.input-group{flex:1!important;min-width:210px!important}
+.input-group label{
+  display:block!important;
+  margin:0 0 6px!important;
+  color:var(--sj-gold-deep)!important;
+  font-size:13px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+  letter-spacing:.04em!important;
+}
+.input-group input,.input-group textarea,.input-group select,
+.talent-builder select{
+  width:100%!important;
+  min-height:40px!important;
+  padding:8px 12px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:5px!important;
+  background:#fff!important;
+  color:var(--sj-ink)!important;
+  box-shadow:none!important;
+  font-size:15px!important;
+  line-height:1.5!important;
+  transition:border-color .18s ease,box-shadow .18s ease,background .18s ease!important;
+}
+.input-group input:hover,.input-group textarea:hover,.input-group select:hover,
+.talent-builder select:hover{border-color:#cbb998!important}
+.input-group input:focus,.input-group textarea:focus,.input-group select:focus,
+.talent-builder select:focus{
+  border-color:var(--sj-gold)!important;
+  background:#fffefb!important;
+  box-shadow:0 0 0 3px rgba(155,117,54,.1)!important;
+  outline:none!important;
+}
+.talent-builder select:disabled{opacity:1!important;cursor:default!important;background:#fbfaf6!important;color:var(--sj-ink-2)!important}
+.input-group .hint,.field-note{
+  margin-top:5px!important;
+  color:var(--sj-ink-3)!important;
+  font-size:12px!important;
+  font-weight:400!important;
+  line-height:1.55!important;
+  letter-spacing:0!important;
+}
+.date-selects{display:grid!important;grid-template-columns:1.35fr 1fr 1fr!important;gap:8px!important}
+
+.talent-builder{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  column-gap:24px!important;
+  row-gap:0!important;
+}
+.builder-step{
+  position:relative!important;
+  margin:0!important;
+  padding:13px 0 14px!important;
+  border:0!important;
+  border-bottom:1px solid var(--sj-line-light)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.builder-step:nth-child(-n+2){padding-top:2px!important}
+.builder-step:nth-child(3){grid-column:1/-1!important}
+.builder-summary{grid-column:1/-1!important}
+.builder-step-title{
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+  margin:0 0 9px!important;
+  color:var(--sj-gold-deep)!important;
+  font-size:15px!important;
+  font-weight:600!important;
+  line-height:1.55!important;
+  letter-spacing:.02em!important;
+}
+.step-no{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:23px!important;
+  height:23px!important;
+  flex:0 0 23px!important;
+  border-radius:50%!important;
+  background:var(--sj-red)!important;
+  color:#fff!important;
+  font-size:11px!important;
+  font-weight:600!important;
+  line-height:1!important;
+}
+.builder-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+.select-row{display:grid!important;grid-template-columns:minmax(0,1fr) 100px 38px!important;gap:8px!important;margin-top:7px!important;align-items:center!important}
+.select-row.potential-row,.select-row.auxiliary-row{grid-template-columns:minmax(0,1fr) 38px!important}
+.icon-btn{
+  width:38px!important;
+  height:38px!important;
+  padding:0!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:4px!important;
+  background:var(--sj-sheet-soft)!important;
+  color:var(--sj-ink-2)!important;
+  font-size:16px!important;
+  line-height:36px!important;
+  cursor:pointer!important;
+}
+.icon-btn:hover{border-color:#dfb9b4!important;background:var(--sj-red-soft)!important;color:var(--sj-red)!important}
+.add-row-btn{
+  margin-top:8px!important;
+  padding:7px 12px!important;
+  border:1px dashed #cbb998!important;
+  border-radius:4px!important;
+  background:transparent!important;
+  color:var(--sj-gold-deep)!important;
+  font-size:13px!important;
+  font-weight:500!important;
+  line-height:1.5!important;
+  cursor:pointer!important;
+}
+.add-row-btn:hover{border-color:var(--sj-gold)!important;background:var(--sj-gold-soft)!important}
+.builder-summary{
+  margin-top:12px!important;
+  padding:10px 14px!important;
+  border:0!important;
+  border-left:3px solid var(--sj-gold)!important;
+  border-radius:0 4px 4px 0!important;
+  background:var(--sj-gold-soft)!important;
+  color:var(--sj-ink-2)!important;
+  font-size:13px!important;
+  line-height:1.75!important;
+}
+.report-ai-tip{
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:9px!important;
+  max-width:760px!important;
+  margin:12px auto 0!important;
+  padding:9px 13px!important;
+  border-left:3px solid var(--sj-gold)!important;
+  border-radius:0 4px 4px 0!important;
+  background:var(--sj-gold-soft)!important;
+  color:var(--sj-ink-2)!important;
+  font-size:13px!important;
+  line-height:1.75!important;
+}
+.report-ai-tip strong{flex:0 0 auto;color:var(--sj-gold-deep)!important;font-weight:600!important}
+.report-ai-tip span{min-width:0}
+.wechat-download-tip{
+  position:fixed!important;
+  top:0!important;
+  left:0!important;
+  right:0!important;
+  z-index:100!important;
+  display:flex!important;
+  align-items:flex-start!important;
+  gap:9px!important;
+  width:100%!important;
+  margin:0!important;
+  padding:11px 18px!important;
+  border:0!important;
+  border-bottom:2px solid var(--sj-red)!important;
+  border-radius:0!important;
+  background:var(--sj-red-soft)!important;
+  color:var(--sj-ink-2)!important;
+  font-size:13px!important;
+  line-height:1.75!important;
+  box-shadow:0 4px 16px rgba(159,58,50,.15)!important;
+}
+.wechat-download-tip[hidden]{display:none!important}
+.wechat-download-tip strong{flex:0 0 auto;color:var(--sj-red)!important;font-weight:600!important}
+.wechat-download-tip span{min-width:0}
+.wechat-browser .app{padding-top:62px!important}
+.auto-combo-result{
+  min-height:40px!important;
+  padding:9px 12px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:4px!important;
+  background:rgba(255,253,248,.72)!important;
+  color:var(--sj-ink-2)!important;
+  font-size:13px!important;
+  line-height:1.7!important;
+}
+.auto-combo-result.has-combo{
+  border-color:#d5bd8c!important;
+  background:var(--sj-gold-soft)!important;
+  color:var(--sj-gold-deep)!important;
+  font-weight:600!important;
+}
+.talent-builder select.auto-combo-result.has-combo{border-color:#d5bd8c!important;background:var(--sj-gold-soft)!important;color:var(--sj-gold-deep)!important;font-weight:600!important}
+.auto-years{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  gap:10px!important;
+  width:100%!important;
+  padding:0!important;
+  color:var(--sj-ink-2)!important;
+  font-size:15px!important;
+}
+.auto-years strong{color:var(--sj-gold-deep)!important;font-weight:600!important}
+.auto-years .yr-badge{
+  display:inline-block!important;
+  padding:5px 11px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:4px!important;
+  font-size:12px!important;
+  font-weight:600!important;
+  line-height:1.45!important;
+}
+.auto-years .yr-badge small{
+  display:block!important;
+  margin-top:2px!important;
+  color:inherit!important;
+  font-size:11px!important;
+  font-weight:400!important;
+  line-height:1.45!important;
+  white-space:nowrap!important;
+}
+.yr-expand{border-left:3px solid var(--sj-gold)!important;background:var(--sj-year-expand)!important;color:var(--sj-gold-deep)!important}
+.yr-settle{border-left:3px solid var(--sj-settle)!important;background:var(--sj-year-settle)!important;color:var(--sj-ink-2)!important}
+
+.btn-row{display:flex!important;flex-wrap:wrap!important;justify-content:flex-start!important;gap:9px!important;margin-top:16px!important}
+.btn{
+  min-height:42px!important;
+  padding:10px 20px!important;
+  border:1px solid transparent!important;
+  border-radius:4px!important;
+  box-shadow:none!important;
+  font-size:14px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+  letter-spacing:.02em!important;
+  cursor:pointer!important;
+  transition:background .18s ease,border-color .18s ease,color .18s ease,transform .18s ease!important;
+}
+.btn:hover{transform:translateY(-1px)!important}
+.btn-primary{
+  border-color:var(--sj-red)!important;
+  background:var(--sj-red)!important;
+  color:#fff!important;
+}
+.btn-primary:hover{border-color:var(--sj-red-deep)!important;background:var(--sj-red-deep)!important}
+.btn-export{
+  border-color:var(--sj-gold-deep)!important;
+  background:var(--sj-gold-deep)!important;
+  color:#fff!important;
+}
+.btn-export:hover{border-color:#654617!important;background:#654617!important}
+.btn-outline{
+  border-color:#bca989!important;
+  background:transparent!important;
+  color:var(--sj-gold-deep)!important;
+}
+.btn-outline:hover{border-color:var(--sj-gold)!important;background:var(--sj-gold-soft)!important}
+.btn:disabled{opacity:.45!important;transform:none!important;cursor:not-allowed!important}
+.btn-small{min-height:36px!important;padding:7px 16px!important;font-size:13px!important}
+.analysis-state-notice{
+  display:none!important;
+  margin:14px 0 0!important;
+  padding:10px 13px!important;
+  border:0!important;
+  border-left:3px solid var(--sj-red)!important;
+  border-radius:0 4px 4px 0!important;
+  background:var(--sj-red-soft)!important;
+  color:#7f3932!important;
+  font-size:12px!important;
+  line-height:1.78!important;
+  text-align:left!important;
+}
+.analysis-state-notice.show{display:block!important}
+.synastry-actions{margin-top:16px!important}
+
+/* 主导航 */
+.tabs{
+  display:grid!important;
+  grid-template-columns:repeat(3,1fr)!important;
+  gap:0!important;
+  overflow:hidden!important;
+  margin:0 0 24px!important;
+  padding:5px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:var(--sj-radius)!important;
+  background:rgba(255,253,249,.92)!important;
+  box-shadow:var(--sj-shadow-small)!important;
+}
+.tab{
+  position:relative!important;
+  min-height:44px!important;
+  padding:10px 8px!important;
+  border:0!important;
+  border-radius:4px!important;
+  background:transparent!important;
+  color:var(--sj-ink-2)!important;
+  font-size:14px!important;
+  font-weight:500!important;
+  line-height:1.5!important;
+  letter-spacing:.04em!important;
+  cursor:pointer!important;
+}
+.tab::after{
+  content:""!important;
+  position:absolute!important;
+  left:50%!important;
+  bottom:5px!important;
+  width:0!important;
+  height:2px!important;
+  background:var(--sj-red)!important;
+  transform:translateX(-50%)!important;
+  transition:width .18s ease!important;
+}
+.tab:hover{color:var(--sj-red)!important}
+.tab.active{background:var(--sj-gold-soft)!important;color:var(--sj-red)!important;font-weight:600!important}
+.tab.active::after{width:22px!important}
+
+/* 结果书页 */
+#results{display:block!important}
+#results .card{
+  position:relative!important;
+  overflow:hidden!important;
+  margin:0 0 26px!important;
+  padding:38px 42px 42px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:var(--sj-radius)!important;
+  background:var(--sj-sheet)!important;
+  box-shadow:var(--sj-shadow)!important;
+}
+#results .card::before{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  width:100%!important;
+  height:3px!important;
+  border:0!important;
+  background:linear-gradient(90deg,var(--sj-red) 0 78%,var(--sj-gold) 78%)!important;
+  opacity:1!important;
+}
+#results .card::after{display:none!important}
+#results .card-header{
+  display:block!important;
+  margin:0 0 30px!important;
+  padding:0 0 17px!important;
+  border:0!important;
+  border-bottom:1px solid var(--sj-line)!important;
+}
+#results .card-icon{display:none!important}
+#results .card-title{
+  margin:0!important;
+  color:var(--sj-red)!important;
+  font-size:22px!important;
+  font-weight:600!important;
+  line-height:1.45!important;
+  letter-spacing:.05em!important;
+}
+#results .card-client{
+  margin-top:5px!important;
+  color:var(--sj-ink-3)!important;
+  font-size:15px!important;
+  font-weight:400!important;
+  line-height:1.65!important;
+}
+#results .card-client strong{color:var(--sj-ink-2)!important;font-weight:600!important}
+#results p,#results li{
+  color:var(--sj-ink-2)!important;
+  font-size:15px!important;
+  line-height:1.82!important;
+  letter-spacing:.005em!important;
+}
+#results h3{
+  position:relative!important;
+  margin:0 0 16px!important;
+  padding:0 0 0 13px!important;
+  color:var(--sj-red)!important;
+  font-size:19px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+  letter-spacing:.035em!important;
+}
+#results h3::before{
+  content:""!important;
+  position:absolute!important;
+  left:0!important;
+  top:.35em!important;
+  width:3px!important;
+  height:18px!important;
+  border-radius:0!important;
+  background:var(--sj-red)!important;
+  transform:none!important;
+}
+#results h4{
+  color:var(--sj-gold-deep)!important;
+  font-size:16px!important;
+  font-weight:600!important;
+  line-height:1.65!important;
+}
+
+/* 四大能量 */
+#results .energy-section,#results .ranking-section,#results .talent-detail{margin:0 0 32px!important}
+#results .energy-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:10px!important;
+}
+#results .energy-item{
+  position:relative!important;
+  overflow:hidden!important;
+  min-height:124px!important;
+  padding:18px 16px!important;
+  border:1px solid transparent!important;
+  border-radius:6px!important;
+  box-shadow:none!important;
+  text-align:left!important;
+  transform:none!important;
+}
+#results .energy-item::after{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  right:-22px!important;
+  bottom:-27px!important;
+  width:70px!important;
+  height:70px!important;
+  border:1px solid currentColor!important;
+  border-radius:50%!important;
+  opacity:.08!important;
+}
+#results .energy-item.wind{background:var(--sj-wind-soft)!important;border-color:#cadcca!important;color:var(--sj-wind)!important}
+#results .energy-item.fire{background:var(--sj-fire-soft)!important;border-color:#e7c8bf!important;color:var(--sj-fire)!important}
+#results .energy-item.water{background:var(--sj-water-soft)!important;border-color:#c8dbe4!important;color:var(--sj-water)!important}
+#results .energy-item.earth{background:var(--sj-earth-soft)!important;border-color:#deceaf!important;color:var(--sj-earth)!important}
+#results .energy-item .energy-name{
+  margin:0 0 8px!important;
+  font-size:16px!important;
+  font-weight:600!important;
+  line-height:1.45!important;
+  letter-spacing:.02em!important;
+}
+#results .energy-item.wind .energy-name,#results .energy-item.wind>div:nth-child(2){color:var(--sj-wind)!important}
+#results .energy-item.fire .energy-name,#results .energy-item.fire>div:nth-child(2){color:var(--sj-fire)!important}
+#results .energy-item.water .energy-name,#results .energy-item.water>div:nth-child(2){color:var(--sj-water)!important}
+#results .energy-item.earth .energy-name,#results .energy-item.earth>div:nth-child(2){color:var(--sj-earth)!important}
+#results .energy-item>div:nth-child(2){font-size:24px!important;font-weight:600!important;line-height:1.3!important}
+#results .energy-bar-wrap{
+  width:100%!important;
+  height:5px!important;
+  margin:14px 0 0!important;
+  border-radius:99px!important;
+  background:rgba(47,44,39,.09)!important;
+}
+#results .energy-bar{height:100%!important;border-radius:99px!important}
+#results .wind-bar{background:var(--sj-wind)!important}
+#results .fire-bar{background:var(--sj-fire)!important}
+#results .water-bar{background:var(--sj-water)!important}
+#results .earth-bar{background:var(--sj-earth)!important}
+#results .energy-zero-alert{
+  margin:14px 0 0!important;
+  padding:15px 17px!important;
+  border:0!important;
+  border-left:3px solid var(--sj-red)!important;
+  border-radius:0 4px 4px 0!important;
+  background:var(--sj-red-soft)!important;
+  color:var(--sj-ink-2)!important;
+}
+#results .energy-zero-alert h4{margin:0 0 7px!important;color:var(--sj-red)!important;font-size:15px!important}
+#results .energy-zero-alert p{margin-bottom:6px!important;font-size:14px!important;line-height:1.75!important}
+
+/* 强弱排序 */
+#results .ranking-section>div{
+  padding:4px 0!important;
+  border:0!important;
+  border-top:1px solid var(--sj-line)!important;
+  border-bottom:1px solid var(--sj-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  font-size:14px!important;
+  line-height:1.8!important;
+}
+#results .ranking-section>div>div{
+  margin:0!important;
+  padding:9px 4px!important;
+  border:0!important;
+  border-bottom:1px solid var(--sj-line-light)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--sj-ink-2)!important;
+  font-size:14px!important;
+  line-height:1.75!important;
+}
+#results .ranking-section>div>div:last-child{border-bottom:0!important}
+#results .ranking-section>div>div[style*="margin-top:10px"]{
+  margin:10px 0 6px!important;
+  padding:12px 14px!important;
+  border:0!important;
+  border-left:3px solid var(--sj-gold)!important;
+  background:var(--sj-gold-soft)!important;
+}
+
+/* 天赋详解：编号独立，标签与内容整齐对齐 */
+#results .talent-reading-list{display:grid!important;gap:10px!important}
+#results .talent-reading-card{
+  position:relative!important;
+  display:grid!important;
+  grid-template-columns:42px minmax(0,1fr)!important;
+  column-gap:0!important;
+  align-items:start!important;
+  overflow:hidden!important;
+  margin:0!important;
+  padding:18px 20px 19px 22px!important;
+  border:0!important;
+  border-left:3px solid var(--talent-accent,var(--sj-gold))!important;
+  border-radius:5px!important;
+  background:var(--talent-wash,var(--sj-sheet-soft))!important;
+  box-shadow:none!important;
+  filter:none!important;
+}
+#results .talent-reading-card::before,#results .talent-reading-card::after{display:none!important}
+#results .talent-reading-card-no{
+  grid-column:1!important;
+  grid-row:1!important;
+  display:block!important;
+  padding:2px 0 0!important;
+  color:var(--sj-red)!important;
+  font-size:13px!important;
+  font-weight:600!important;
+  line-height:1.62!important;
+  letter-spacing:.04em!important;
+}
+#results .talent-reading-rows{
+  grid-column:2!important;
+  display:grid!important;
+  min-width:0!important;
+  gap:9px!important;
+}
+#results .talent-reading-row,#results .talent-reading-row.talent-reading-primary-row{
+  display:grid!important;
+  grid-template-columns:116px minmax(0,1fr)!important;
+  column-gap:15px!important;
+  align-items:start!important;
+  margin:0!important;
+  padding:0!important;
+}
+#results .talent-reading-primary-label,#results .talent-reading-inline-label{
+  display:block!important;
+  min-width:0!important;
+  margin:0!important;
+  color:var(--sj-gold-deep)!important;
+  font-size:14px!important;
+  font-weight:600!important;
+  line-height:1.72!important;
+  letter-spacing:.01em!important;
+}
+#results .talent-reading-primary-label{font-size:16px!important;line-height:1.62!important;white-space:nowrap!important}
+#results .talent-reading-multiplier{
+  display:inline!important;
+  margin-left:4px!important;
+  color:var(--sj-gold)!important;
+  font-size:inherit!important;
+  font-weight:inherit!important;
+  line-height:inherit!important;
+  white-space:nowrap!important;
+}
+#results .talent-reading-inline-value{
+  display:block!important;
+  min-width:0!important;
+  margin:0!important;
+  color:var(--sj-ink-2)!important;
+  font-size:15px!important;
+  font-weight:400!important;
+  line-height:1.78!important;
+}
+#results .talent-reading-inline-value strong{color:var(--sj-ink)!important;font-weight:600!important}
+
+/* 综合职业方向：编辑式列表，不堆叠卡框 */
+#results .career-summary{
+  position:relative!important;
+  overflow:visible!important;
+  margin:38px 0 0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+#results .career-summary::before,#results .career-summary::after{display:none!important}
+#results .career-summary-head{
+  position:relative!important;
+  margin:0!important;
+  padding:0 0 14px!important;
+  border:0!important;
+  border-bottom:1px solid var(--sj-line)!important;
+  background:transparent!important;
+}
+#results .career-summary-seal,#results .career-summary-kicker,#results .career-summary-intro{display:none!important}
+#results .career-summary h3{margin:0!important}
+#results .career-direction-list{display:grid!important;gap:0!important}
+#results .career-direction{
+  display:grid!important;
+  grid-template-columns:44px minmax(0,1fr)!important;
+  gap:14px!important;
+  align-items:start!important;
+  margin:0!important;
+  padding:18px 0 19px!important;
+  border:0!important;
+  border-bottom:1px solid var(--sj-line-light)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  transform:none!important;
+}
+#results .career-direction::after{display:none!important}
+#results .career-direction-no{
+  display:block!important;
+  width:auto!important;
+  height:auto!important;
+  padding:1px 0 0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:var(--sj-red)!important;
+  font-size:13px!important;
+  font-weight:600!important;
+  line-height:1.78!important;
+  text-align:left!important;
+}
+#results .career-direction-title{
+  margin:0!important;
+  color:var(--sj-gold-deep)!important;
+  font-size:16px!important;
+  font-weight:600!important;
+  line-height:1.62!important;
+  letter-spacing:.01em!important;
+}
+#results .career-direction-core{
+  margin:5px 0 0!important;
+  color:var(--sj-ink-2)!important;
+  font-size:15px!important;
+  font-weight:400!important;
+  line-height:1.78!important;
+}
+#results .career-direction-meta{
+  display:grid!important;
+  grid-template-columns:72px minmax(0,1fr)!important;
+  gap:5px 10px!important;
+  align-items:baseline!important;
+  margin-top:9px!important;
+  padding:0!important;
+  border:0!important;
+  font-size:15px!important;
+  line-height:1.78!important;
+}
+#results .career-direction-label{
+  margin:0!important;
+  color:var(--sj-gold)!important;
+  font-size:15px!important;
+  font-weight:600!important;
+  line-height:1.78!important;
+  white-space:nowrap!important;
+}
+#results .career-examples,#results .career-sources{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:0!important;
+}
+#results .career-example,#results .career-source{
+  display:inline!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--sj-ink-2)!important;
+  font-size:15px!important;
+  font-weight:400!important;
+  line-height:1.78!important;
+}
+#results .career-example+.career-example::before,#results .career-source+.career-source::before{
+  content:"·"!important;
+  display:inline!important;
+  margin:0 7px!important;
+  color:#b5a993!important;
+}
+#results .career-summary-advice{
+  margin:14px 0 0!important;
+  padding:12px 14px!important;
+  border:0!important;
+  border-left:3px solid var(--sj-gold)!important;
+  border-radius:0 4px 4px 0!important;
+  background:var(--sj-gold-soft)!important;
+  color:var(--sj-ink-2)!important;
+  font-size:13px!important;
+  line-height:1.75!important;
+}
+#results .career-summary-advice::before{display:none!important}
+
+/* 年度策略 */
+#results .annual-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important}
+#results .annual-card{
+  position:relative!important;
+  overflow:hidden!important;
+  min-width:0!important;
+  padding:18px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:6px!important;
+  box-shadow:none!important;
+}
+#results .annual-card::before{
+  content:""!important;
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  width:100%!important;
+  height:3px!important;
+}
+#results .annual-card.annual-expand{background:var(--sj-year-expand)!important;border-color:#e2ce9f!important}
+#results .annual-card.annual-expand::before{background:var(--sj-gold)!important}
+#results .annual-card.annual-settle{background:var(--sj-year-settle)!important;border-color:#cdded6!important}
+#results .annual-card.annual-settle::before{background:var(--sj-settle)!important}
+#results .year-tag{
+  display:inline-block!important;
+  margin:0 0 12px!important;
+  padding:4px 8px!important;
+  border:0!important;
+  border-radius:3px!important;
+  font-size:12px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+}
+#results .tag-expand{background:rgba(155,117,54,.1)!important;color:var(--sj-gold-deep)!important}
+#results .tag-settle{background:rgba(111,137,122,.12)!important;color:#50685b!important}
+#results .annual-card h4{margin:0 0 8px!important;font-size:16px!important;line-height:1.6!important}
+#results .annual-card li{margin:0 0 5px!important;font-size:14px!important;line-height:1.75!important}
+#results .annual-card>p:last-child{
+  margin-top:12px!important;
+  padding:9px 10px!important;
+  border-radius:4px!important;
+  background:rgba(255,255,255,.5)!important;
+  font-size:13px!important;
+  line-height:1.7!important;
+}
+#results .annual-compare{
+  margin-top:16px!important;
+  padding:18px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:6px!important;
+  background:var(--sj-sheet-soft)!important;
+}
+#results .annual-compare-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+#results .annual-compare-panel{
+  padding:14px 16px!important;
+  border:0!important;
+  border-radius:4px!important;
+  box-shadow:none!important;
+}
+#results .annual-compare-panel.expand{background:var(--sj-year-expand)!important}
+#results .annual-compare-panel.settle{background:var(--sj-year-settle)!important}
+#results .annual-compare-panel strong{font-size:14px!important;font-weight:600!important}
+#results .annual-compare-panel.expand strong{color:var(--sj-gold-deep)!important}
+#results .annual-compare-panel.settle strong{color:var(--sj-ink)!important}
+#results .annual-compare-panel li{font-size:13px!important;line-height:1.7!important}
+
+/* 关系、金钱与合盘 */
+.relation-expression-list{
+  margin:0!important;
+  border-top:1px solid var(--sj-line)!important;
+}
+.relation-expression-row{
+  display:grid!important;
+  grid-template-columns:150px minmax(0,1fr)!important;
+  gap:18px!important;
+  align-items:start!important;
+  padding:13px 4px!important;
+  border-bottom:1px solid var(--sj-line)!important;
+}
+.relation-expression-row strong{
+  color:var(--sj-gold-deep)!important;
+  font-size:15px!important;
+  font-weight:600!important;
+  line-height:1.9!important;
+  white-space:nowrap!important;
+}
+.relation-expression-row span{
+  color:var(--sj-ink-2)!important;
+  font-size:15px!important;
+  line-height:1.9!important;
+}
+#results .card>h4{margin:20px 0 8px!important}
+#results .card>ul{padding-left:20px!important}
+#results .card>div[style*="background:#fff8f3"],
+#results .card>div[style*="background:#eaf6f8"],
+#results .card>div[style*="background:#f5efe6"]{
+  margin-top:16px!important;
+  padding:13px 15px!important;
+  border:0!important;
+  border-left:3px solid var(--sj-gold)!important;
+  border-radius:0 4px 4px 0!important;
+  background:var(--sj-gold-soft)!important;
+  color:var(--sj-ink-2)!important;
+  font-size:14px!important;
+  line-height:1.75!important;
+}
+#results .match-level{
+  margin:0 0 18px!important;
+  padding:18px!important;
+  border:1px solid var(--sj-line)!important;
+  border-radius:6px!important;
+  box-shadow:none!important;
+  text-align:center!important;
+  font-size:18px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+}
+#results .match-high{background:var(--sj-wind-soft)!important;color:#466d56!important}
+#results .match-mid{background:var(--sj-gold-soft)!important;color:var(--sj-gold-deep)!important}
+#results .tag{
+  display:inline-block!important;
+  margin:3px 5px 3px 0!important;
+  padding:3px 9px!important;
+  border-radius:3px!important;
+  color:var(--sj-ink-2)!important;
+  font-size:12px!important;
+  font-weight:500!important;
+  line-height:1.5!important;
+}
+#results .tag-wind{background:var(--sj-wind-soft)!important}
+#results .tag-fire{background:var(--sj-fire-soft)!important}
+#results .tag-water{background:var(--sj-water-soft)!important}
+#results .tag-earth{background:var(--sj-earth-soft)!important}
+
+/* 辅助信息 */
+#results .disclaimer{
+  margin:18px 0 0!important;
+  padding:12px 0 0!important;
+  border:0!important;
+  border-top:1px solid var(--sj-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--sj-ink-3)!important;
+  font-size:12px!important;
+  line-height:1.75!important;
+  text-align:left!important;
+}
+.placeholder-banner{
+  margin:0!important;
+  padding:44px 24px!important;
+  border:1px dashed #c9b896!important;
+  border-radius:var(--sj-radius)!important;
+  background:rgba(255,253,249,.7)!important;
+  box-shadow:none!important;
+  text-align:center!important;
+}
+.placeholder-banner p{margin:0!important;color:var(--sj-ink-3)!important;font-size:14px!important}
+
+@media(max-width:760px){
+  .app{padding:14px 10px 52px!important}
+  .header{padding:22px 14px 18px!important}
+  .header h1{font-size:26px!important}
+  .header .sub{font-size:12px!important;letter-spacing:.16em!important;margin-top:8px!important}
+  .growth-context-note{grid-template-columns:1fr!important;gap:2px!important;margin-bottom:8px!important;padding:8px 10px!important;font-size:12px!important;line-height:1.55!important}
+  .input-panel{padding:13px 14px 14px!important;margin-bottom:18px!important}
+  .input-panel::before{height:2px!important}
+  .input-panel h2{margin-bottom:6px!important;padding-bottom:5px!important;font-size:18px!important}
+  .input-panel>h2[onclick]{margin-top:10px!important;margin-bottom:6px!important}
+  .input-row{gap:5px!important;margin-bottom:4px!important}
+  .input-group label{margin-bottom:3px!important;font-size:12px!important}
+  .date-selects{gap:5px!important}
+  .auto-years{align-items:flex-start!important;gap:4px!important;font-size:12px!important;padding:8px 0!important}
+  .auto-years strong{width:100%!important}
+  .auto-years .yr-badge{padding:3px 8px!important;font-size:11px!important}
+  .talent-builder{grid-template-columns:1fr!important;gap:4px!important}
+  .builder-step:nth-child(3),.builder-summary{grid-column:auto!important}
+  .builder-step,.builder-step:nth-child(-n+2){padding:4px 0 5px!important}
+  .builder-step-title{gap:5px!important;margin-bottom:4px!important;font-size:13px!important}
+  .step-no{width:18px!important;height:18px!important;flex-basis:18px!important;font-size:10px!important}
+  .builder-grid{gap:5px!important}
+  .input-group input,.input-group textarea,.input-group select,.talent-builder select{min-height:32px!important;padding:4px 7px!important;font-size:13px!important}
+  .select-row{gap:4px!important;margin-top:2px!important}
+  .select-row{grid-template-columns:minmax(0,1fr) 88px 30px!important}
+  .select-row.potential-row,.select-row.auxiliary-row{grid-template-columns:minmax(0,1fr) 30px!important}
+  .icon-btn{width:30px!important;height:30px!important;line-height:28px!important}
+  .add-row-btn{margin-top:3px!important;padding:3px 7px!important;font-size:12px!important}
+  .input-group .hint,.field-note{margin-top:2px!important;font-size:11px!important;line-height:1.4!important}
+  .builder-summary{margin-top:4px!important;padding:6px 8px!important;font-size:12px!important;line-height:1.5!important}
+  .btn-row{margin-top:6px!important;gap:6px!important}
+  .btn{min-height:38px!important;padding:8px 16px!important;font-size:13px!important}
+  .report-ai-tip{margin-top:5px!important;padding:6px 8px!important;font-size:11px!important;line-height:1.5!important}
+  .wechat-download-tip{margin:0!important;padding:7px 10px!important;font-size:11px!important;line-height:1.45!important}
+  .wechat-browser .app{padding-top:48px!important}
+  #results .card{padding:26px 20px 28px!important}
+  #results .energy-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #results .annual-grid{grid-template-columns:1fr!important}
+}
+
+@media(max-width:560px){
+  body{font-size:14px!important}
+  .app{padding:12px 8px 52px!important}
+  .header{padding:21px 10px 17px!important}
+  .header h1{font-size:25px!important;letter-spacing:.1em!important}
+  .header h1::before{left:-42px!important;width:28px!important;height:38px!important;font-size:11px!important;line-height:14px!important}
+  .header .sub{font-size:12px!important;letter-spacing:.18em!important}
+  .growth-context-note{padding:8px 10px!important;margin-bottom:8px!important}
+  .input-panel{padding:13px 10px 15px!important}
+  .input-row{display:block!important;margin-bottom:5px!important}
+  .input-group{min-width:0!important;margin-bottom:5px!important}
+  .input-group label{margin-bottom:3px!important}
+  .builder-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:5px!important}
+  .select-row{grid-template-columns:minmax(0,1fr) 66px 32px!important;gap:4px!important}
+  .select-row.potential-row,.select-row.auxiliary-row{grid-template-columns:minmax(0,1fr) 32px!important}
+  .field-note,.builder-summary{display:none!important}
+  .auto-years{margin:4px 0 0!important}
+  .auto-years .yr-badge{padding:4px 8px!important}
+  .btn-row{display:grid!important;grid-template-columns:1fr 1fr!important}
+  .btn{width:100%!important;min-height:38px!important;padding:8px 7px!important;font-size:13px!important}
+  .report-ai-tip{display:block!important}
+  .report-ai-tip strong{display:block!important;margin-bottom:2px!important}
+  .wechat-download-tip{display:block!important;padding:7px 8px!important;font-size:11px!important}
+  .wechat-download-tip strong{display:block!important;margin-bottom:2px!important}
+  .wechat-browser .app{padding-top:44px!important}
+  .tabs{position:sticky!important;top:8px!important;z-index:8!important}
+  .tab{font-size:13px!important;letter-spacing:0!important}
+  #results .card{padding:27px 17px 30px!important}
+  #results .card-title{font-size:20px!important}
+  #results h3{font-size:18px!important}
+  #results .energy-item{min-height:112px!important;padding:15px 13px!important}
+  #results .talent-reading-card{grid-template-columns:31px minmax(0,1fr)!important;padding:16px 12px 17px 14px!important}
+  #results .talent-reading-row,#results .talent-reading-row.talent-reading-primary-row{grid-template-columns:92px minmax(0,1fr)!important;column-gap:9px!important}
+  #results .talent-reading-primary-label{font-size:14px!important;white-space:normal!important}
+  #results .talent-reading-inline-label{font-size:13px!important}
+  #results .talent-reading-inline-value{font-size:14px!important;line-height:1.75!important}
+  #results .career-direction{grid-template-columns:31px minmax(0,1fr)!important;gap:8px!important}
+  #results .career-direction-meta{grid-template-columns:64px minmax(0,1fr)!important;gap:4px 8px!important}
+  #results .career-direction-title{font-size:15px!important}
+  #results .career-direction-core{font-size:14px!important}
+  #results .annual-compare-grid{grid-template-columns:1fr!important}
+  .relation-expression-row{grid-template-columns:112px minmax(0,1fr)!important;gap:10px!important;padding:11px 2px!important}
+  .relation-expression-row strong,.relation-expression-row span{font-size:14px!important;line-height:1.85!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+}
+
+
+/* === print.css === */
+@media print{
+@page{size:A4;margin:18mm 16mm 20mm}
+*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+html,body{background:#fff!important;color:#27231d;font-size:10.5pt}
+body::before,body::after{display:none!important}
+.app{max-width:none;margin:0;padding:0}
+.header,.input-panel,.tabs,.btn-row,.analysis-state-notice,.synastry-actions,#synastryPanel{display:none!important}
+#results{display:block}
+.report-cover{height:248mm;margin:0;padding:34mm 22mm 24mm;display:flex!important;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:1px solid #cbb993;position:relative;page-break-after:always;break-after:page}
+.report-cover::before{content:'识\A己';white-space:pre;display:flex;align-items:center;justify-content:center;position:absolute;top:24mm;width:17mm;height:21mm;background:#a33b32;color:#fff9ec;font:700 16pt/1.15 var(--font-song);box-shadow:inset 0 0 0 1.2mm rgba(255,249,236,.55)}
+.report-cover::after{content:'SHI JI TALENT REPORT';position:absolute;bottom:20mm;color:#9b8d77;font-size:7.5pt;letter-spacing:.28em}
+.report-cover h2{font-family:var(--font-song);font-size:25pt;letter-spacing:.16em;color:#263b34;margin:0 0 9mm;padding-bottom:8mm;border-bottom:1px solid #b99a61}
+.report-cover p{font-size:10pt;color:#695f51;letter-spacing:.08em;line-height:2;margin:0}
+.report-cover .report-subtitle{margin-top:8mm;font-family:var(--font-song);font-size:11pt;color:#8c6a32;letter-spacing:.16em}
+.print-report-footer{display:block;position:fixed;left:0;right:0;bottom:-12mm;padding-top:2mm;border-top:.3mm solid #d8ccb8;color:#8a8071;font-size:7.5pt;text-align:center;letter-spacing:.08em}
+.print-report-footer .page-number::after{content:counter(page)}
+.card{background:#fff!important;box-shadow:none!important;break-inside:auto;page-break-inside:auto;margin:0 0 12mm;padding:0 0 10mm;border:none;border-bottom:.5mm solid #d8ccb8;border-radius:0;overflow:visible}
+.card::before,.card::after{display:none}
+.card-header{break-after:avoid;page-break-after:avoid;margin:0 0 8mm;padding:0 0 4mm;border-bottom:.6mm solid #a33b32}
+.card-icon{display:none}
+.card-title{font-family:var(--font-song);font-size:17pt;letter-spacing:.1em;color:#263b34}
+.card-client{font-size:8.5pt;color:#7d7364;margin-top:1.5mm}
+.energy-section,.ranking-section,.talent-detail{margin-bottom:10mm}
+.energy-section h3,.ranking-section h3,.talent-detail h3{break-after:avoid;page-break-after:avoid;margin-bottom:5mm;font-size:12pt}
+.energy-grid{grid-template-columns:repeat(4,1fr);gap:3mm}
+.energy-item{break-inside:avoid;padding:5mm 3mm;background:#faf8f2!important;border:.3mm solid #ded3bf;box-shadow:none!important}
+.energy-item .energy-name{font-size:20pt;margin-bottom:4mm}
+.energy-bar-wrap{height:1.5mm}
+.energy-zero-alert,.ranking-section>div,.talent-reading-card,.annual-card,.career-direction,.match-level{break-inside:avoid;page-break-inside:avoid}
+.talent-reading-list{gap:5mm}
+.talent-reading-card{padding:6mm 7mm;background:#fff!important;border:.3mm solid #d8ccb8;box-shadow:none!important}
+.talent-reading-card::after{display:none}
+.talent-reading-head{margin-bottom:4mm;padding-bottom:3mm}
+.talent-reading-core{font-size:9pt!important;line-height:1.8!important}
+.talent-reading-careers,.talent-reading-path{margin-top:4mm;padding-top:3mm}
+.career-tag{padding:1.5mm 3mm;font-size:8pt;box-shadow:none}
+.career-summary{break-inside:auto;page-break-inside:auto;margin-top:9mm;padding:8mm;background:#faf8f2!important;border:.3mm solid #d8ccb8;box-shadow:none}
+.career-summary::before{display:none}
+.career-direction-list{gap:4mm}
+.career-direction{padding:5mm;background:#fff!important;box-shadow:none!important}
+.annual-grid{grid-template-columns:repeat(3,1fr);gap:4mm}
+.annual-card{padding:6mm 5mm;background:#faf8f2!important;box-shadow:none!important}
+.annual-card li{list-style-type:'— '}
+.disclaimer{break-inside:avoid;page-break-inside:avoid;margin-top:7mm;padding:4mm 0 0;background:transparent!important;border:none;border-top:.3mm solid #d8ccb8;text-align:left}
+.match-level{box-shadow:none}
+}
+
+/* 与网页和导出卡片一致的正式中国风报告体系 */
+html,body{font-family:"Microsoft YaHei","PingFang SC",sans-serif!important;background:#fffdf9!important;color:#332f29!important}
+.report-cover{background:#fffdf9!important;border-color:#a33d36!important}
+.report-cover::before{background:#a33d36!important;font-family:"Microsoft YaHei","PingFang SC",sans-serif!important;font-weight:400!important}
+.report-cover h2,.card-title{font-family:"Microsoft YaHei","PingFang SC",sans-serif!important;color:#a33d36!important;font-weight:400!important}
+.report-cover p,.card-client,.print-report-footer{color:#332f29!important}
+.report-cover .report-subtitle{font-family:"Microsoft YaHei","PingFang SC",sans-serif!important;color:#96702f!important}
+.card-header{border-color:#a33d36!important}
+.energy-section h3,.ranking-section h3,.talent-detail h3{color:#a33d36!important}
+.energy-item{background:#f7eedb!important;border-color:#e1d3be!important}
+.energy-item.wind{background:#e9f3e9!important;border-color:#c7dec9!important}
+.energy-item.fire{background:#fcece6!important;border-color:#edc9bd!important}
+.energy-item.water{background:#e8f1f7!important;border-color:#c7dbe8!important}
+.energy-item.earth{background:#f7eedb!important;border-color:#e2cfaa!important}
+.talent-reading-card,.career-direction{background:#fffdf9!important;border-color:#e1d3be!important}
+.career-summary,.annual-card.annual-expand,.annual-compare,.annual-compare-panel.expand{background:#fbf4e2!important;border-color:#e2ce9f!important}
+.annual-card.annual-settle,.annual-compare-panel.settle{background:#edf4f1!important;border-color:#cdded6!important}
+.talent-reading-title,.career-direction-title,.annual-card h4,.year-tag,.annual-compare-panel.expand strong{color:#96702f!important}
+.annual-card.annual-settle h4,.annual-card.annual-settle .year-tag,.annual-compare-panel.settle strong{color:#332f29!important}
+.talent-reading-core,.talent-reading-path p,.career-direction-core,.annual-card p,.annual-card li,.disclaimer{color:#332f29!important}
+
 </style><link rel="stylesheet" href="${reportCssHref}"></head><body>`;
 
   // ══ 封面 ══
@@ -1598,7 +4061,7 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
   // ══ 阅读摘要 ══
   html+=`<section class="executive-summary"><div class="summary-kicker">REPORT SUMMARY</div><h2>报告摘要</h2><p class="summary-lead">你的天赋结构以<strong>${maxEName}</strong>为主导。优先能力集中在<strong>${esc(orderedMains.slice(0,3).map(t=>t.name).join('、'))}</strong>。建议先选择一个最有现实基础的职业方向，持续形成作品、案例与专业成果。</p><div class="summary-grid"><div class="summary-item"><span>主导能量</span><strong>${maxEName}</strong><small>占比 ${pcts[maxE]}%</small></div><div class="summary-item"><span>优先能力</span><strong>${esc(orderedMains.slice(0,3).map(t=>t.name).join('、'))||'—'}</strong><small>先形成可见成果</small></div><div class="summary-item"><span>潜能课题</span><strong>${esc(potentialSummary)}</strong><small>持续突破与整合</small></div></div>`;
   html+=`<div class="summary-energy-chart"><h3>四大能量速览</h3>${energyOrder.map(e=>`<div class="report-energy-row"><span>${e.n.replace(/（.*?）/g,'')}</span><div class="report-energy-track"><i style="width:${pcts[e.k]}%"></i></div><strong>${pcts[e.k]}%</strong></div>`).join('')}</div>`;
-  html+=`<div class="reading-guide"><strong>阅读顺序</strong><span>先看“天赋总览”和“职业方向推荐”，建立整体判断；再看单项天赋与潜能突破；最后把报告与个人简历、教育背景和真实经历一起交给AI做进一步分析。</span></div></section>`;
+  html+=`<div class="reading-guide"><strong>阅读顺序</strong><span>先看“天赋总览”和“核心天赋深度解读”，理解自己的优势结构；再看辅助天赋、潜能天赋、年度策略、职业方向与关系综合；最后结合个人简历、教育背景和真实经历做进一步分析。</span></div></section>`;
 
   // ══ 一、天赋总览 ══
   html+=`<div class="section"><h2>一、天赋总览</h2>`;
@@ -1630,68 +4093,92 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
   }
   html+=`</div>`;
 
-  // ══ 二、核心天赋深度解读 ══
-  html+=`<div class="section"><h2>二、核心天赋深度解读</h2>`;
-  let secIdx=1;
-  for(let t of orderedMains){
-    const d=TALENT_DETAIL[t.num]; if(!d) continue;
+  const renderReportMainTalent=(t,number,stageLabel)=>{
+    const d=TALENT_DETAIL[t.num]; if(!d) return '';
     const e=ENERGY_TYPES[d.energy];
     const relatedCombos=a.combos.filter(c=>c.nums.includes(t.num));
     const sameEnergy=allTs.filter(ot=>ot.num!==t.num&&TALENT_DETAIL[ot.num]?.energy===d.energy);
     const synergy=relatedCombos.length
       ?`参与「${relatedCombos.map(c=>c.name).join('、')}」组合，可与其他天赋形成更完整的协同能力。`
       :(sameEnergy.length?`与${sameEnergy.map(ot=>ot.name).join('、')}同属${e.name}，适合一起发展。`:'适合通过真实任务持续验证和积累。');
-    html+=`<article class="report-block talent-block"><div class="report-block-heading"><h3>2.${secIdx} ${d.name} ×${t.multiplier}倍</h3><span>${t.multiplier>=3?'优先发展':'稳定发展'} · ${e.name}</span></div>`;
-    html+=`<p class="talent-core-statement"><strong>具备能力：</strong>${d.core}</p>`;
-    html+=`<div class="report-fact-grid"><div><span>职业价值</span><p>适合把这项能力用于${d.careers.slice(0,3).join('、')}等工作场景，形成清晰、可见的专业成果。</p></div><div><span>联动优势</span><p>${synergy}</p></div><div class="fact-wide"><span>培养路径</span><p>${d.path}</p></div></div>`;
-    html+=`<div class="report-chip-row"><strong>适合职业</strong>${d.careers.slice(0,3).map(c=>`<span>${esc(c)}</span>`).join('')}</div></article>`;
-    secIdx++;
-  }
-  
-  // 辅助天赋 —— 与主天赋同级，各有独立h3
-  for(let t of auxs){
-    const d=TALENT_DETAIL[t.num]; if(!d) continue;
-    const e=ENERGY_TYPES[d.energy];
-    const ad=AUX_TO_POTENTIAL[t.num];
-    const auxCore=ad?.auxCore||d.core,auxPath=ad?.auxPath||d.path;
-    html+=`<article class="report-block talent-block auxiliary-block"><div class="report-block-heading"><h3>2.${secIdx} ${d.name} ×${t.multiplier}倍</h3><span>辅助天赋 · ${e.name}</span></div>`;
-    html+=`<p class="talent-core-statement"><strong>发展面向：</strong>${auxCore}</p><div class="report-fact-grid"><div><span>职业应用</span><p>${d.careers.slice(0,3).join('、')}</p></div><div><span>发挥方式</span><p>把辅助天赋作为补充视角，与主天赋共同用于真实任务，而不是单独承担全部职业定位。</p></div><div class="fact-wide"><span>培养路径</span><p>${auxPath}</p></div></div></article>`;
-    secIdx++;
+    let block=`<article class="report-block talent-block"><div class="report-block-heading"><h3>${number} ${d.name} ×${t.multiplier}倍</h3><span>${stageLabel}</span></div>`;
+    block+=`<p class="talent-energy-belonging"><strong>所属四大能量</strong><span>${e.name}</span></p>`;
+    block+=`<p class="talent-core-statement"><strong>具备能力：</strong>${d.core}</p>`;
+    block+=`<div class="report-fact-grid"><div><span>职业价值</span><p>适合把这项能力用于${d.careers.slice(0,3).join('、')}等工作场景，形成清晰、可见的专业成果。</p></div><div><span>联动优势</span><p>${synergy}</p></div><div class="fact-wide"><span>培养路径</span><p>${d.path}</p></div></div>`;
+    block+=`<div class="report-chip-row"><strong>适合职业</strong>${d.careers.slice(0,3).map(c=>`<span>${esc(c)}</span>`).join('')}</div></article>`;
+    return block;
+  };
+
+  const rankingNums=items=>new Set((items||[]).map(t=>t.num));
+  const coreNums=rankingNums(a.ranking.core);
+  const overlapNums=rankingNums(a.ranking.overlap);
+  const singleNums=rankingNums(a.ranking.single);
+  const coreTalents=orderedMains.filter(t=>coreNums.has(t.num));
+  const overlapTalents=orderedMains.filter(t=>overlapNums.has(t.num)&&!coreNums.has(t.num));
+  const singleTalents=orderedMains.filter(t=>singleNums.has(t.num)&&!coreNums.has(t.num)&&!overlapNums.has(t.num));
+
+  // ══ 二、核心天赋深度解读 ══
+  html+=`<div class="section core-report-section"><h2>二、核心天赋深度解读</h2><p class="section-intro">本章按照天赋的实际优先级展开：先看共振天赋，再看组合天赋、重叠天赋与单个主天赋。</p>`;
+  html+=`<div class="report-subsection"><h3 class="report-subsection-title">2.1 共振天赋</h3><p class="report-subsection-intro">主天赋与同名辅助天赋形成的共振最先呈现；原始强度达到 ×3 的核心主天赋也同属最高优先级。</p>`;
+  if(coreTalents.length){
+    coreTalents.forEach((t,index)=>{html+=renderReportMainTalent(t,`2.1.${index+1}`,a.ranking.resonantNums?.has(t.num)?'主辅共振':'核心天赋');});
+  }else{
+    html+=`<div class="report-empty-state"><strong>本次没有共振天赋</strong><span>这属于正常情况，其他主天赋仍会按照组合、重叠与单项强度发挥作用。</span></div>`;
   }
   html+=`</div>`;
 
-  // ══ 三、组合天赋 ══
-  html+=`<div class="section"><h2>三、组合天赋能量</h2><p>组合天赋由主天赋自动识别，呈现多项能力共同工作时形成的协同价值。</p>`;
-  if(a.combos.length>0){
-    let ci=1;
-    for(let c of a.combos){
-      html+=`<article class="report-block combo-block"><div class="report-block-heading"><h3>3.${ci} ${c.name}</h3><span>${c.nums.map(n=>TALENT_NAMES[n]).join('＋')}</span></div><p><strong>协同方式：</strong>${c.desc}</p><div class="report-chip-row"><strong>适合方向</strong>${(c.careers||[]).map(career=>`<span>${career}</span>`).join('')}</div></article>`;
-      ci++;
-    }
+  html+=`<div class="report-subsection"><h3 class="report-subsection-title">2.2 组合天赋</h3><p class="report-subsection-intro">组合天赋由主天赋自动识别，呈现多项能力共同工作时形成的协同价值。</p>`;
+  if(a.combos.length){
+    a.combos.forEach((c,index)=>{html+=`<article class="report-block combo-block"><div class="report-block-heading"><h3>2.2.${index+1} ${c.name}</h3><span>${c.nums.map(n=>TALENT_NAMES[n]).join('＋')}</span></div><p><strong>协同方式：</strong>${c.desc}</p><div class="report-chip-row"><strong>适合方向</strong>${(c.careers||[]).map(career=>`<span>${esc(career)}</span>`).join('')}</div></article>`;});
   }else{
     html+=`<div class="report-empty-state"><strong>本次未识别到组合天赋</strong><span>这属于正常情况。单项主天赋仍会按照各自的强度与联动关系发挥作用。</span></div>`;
   }
   html+=`</div>`;
 
-  // ══ 四、潜能天赋 ══
-  if(a.potentialNums&&a.potentialNums.length>0){
-    html+=`<div class="section"><h2>四、潜能天赋（人生课题）</h2>`;
-    for(let pn of a.potentialNums){
-      const pd=POTENTIAL_DIRECT[pn]; if(!pd) continue;
-      html+=`<article class="report-block potential-block"><h3>${pd.name} · ${pd.proto}</h3>`;
-      html+=`<p><strong>核心课题：</strong>${pd.theme}</p>`;
-      html+=`<div class="note"><strong>突破关键：</strong>${pd.key}</div></article>`;
-    }
-    // 关联辅助天赋
-    for(let t of auxs){
-      const aux=AUX_TO_POTENTIAL[t.num]; if(!aux||!aux.potential) continue;
-      if(a.potentialNums.includes(aux.potential.num)){
-        html+=`<article class="report-block potential-block"><h3>辅助天赋面向：${t.name}——${aux.auxName}</h3>`;
-        html+=`<p>${aux.auxCore}</p><p><strong>突破路径：</strong>${aux.auxPath}</p></article>`;
-      }
-    }
-    html+=`</div>`;
+  html+=`<div class="report-subsection"><h3 class="report-subsection-title">2.3 重叠天赋</h3><p class="report-subsection-intro">重复出现的主天赋具有更稳定的存在感，适合持续投入并形成个人辨识度。</p>`;
+  if(overlapTalents.length){
+    overlapTalents.forEach((t,index)=>{html+=renderReportMainTalent(t,`2.3.${index+1}`,'重叠天赋');});
+  }else{
+    html+=`<div class="report-empty-state"><strong>本次没有重叠天赋</strong><span>这属于正常情况，请继续阅读单个主天赋的具体表现。</span></div>`;
   }
+  html+=`</div>`;
+
+  html+=`<div class="report-subsection"><h3 class="report-subsection-title">2.4 单个主天赋</h3><p class="report-subsection-intro">单个主天赋代表可被持续培养的基础优势，会与前面的核心能力共同构成完整的职业画像。</p>`;
+  if(singleTalents.length){
+    singleTalents.forEach((t,index)=>{html+=renderReportMainTalent(t,`2.4.${index+1}`,'单个主天赋');});
+  }else{
+    html+=`<div class="report-empty-state"><strong>本次没有单个主天赋</strong><span>你的主天赋已经集中在共振、组合或重叠结构中。</span></div>`;
+  }
+  html+=`</div></div>`;
+
+  // ══ 三、辅助天赋 ══
+  html+=`<div class="section auxiliary-report-section"><h2>三、辅助天赋解读</h2><p class="section-intro">辅助天赋提供补充视角与协同方式，帮助主天赋在真实任务中发挥得更完整。已形成主辅共振的辅助面向已归入 2.1，不在本章重复解读。</p>`;
+  if(reportAuxs.length){
+    reportAuxs.forEach((t,index)=>{
+      const d=TALENT_DETAIL[t.num]; if(!d) return;
+      const e=ENERGY_TYPES[d.energy];
+      const ad=AUX_TO_POTENTIAL[t.num];
+      const auxCore=ad?.auxCore||d.core,auxPath=ad?.auxPath||d.path;
+      html+=`<article class="report-block talent-block auxiliary-block"><div class="report-block-heading"><h3>3.${index+1} ${d.name} ×${t.multiplier}倍</h3><span>辅助天赋</span></div>`;
+      html+=`<p class="talent-energy-belonging"><strong>所属四大能量</strong><span>${e.name}</span></p>`;
+      html+=`<p class="talent-core-statement"><strong>发展面向：</strong>${auxCore}</p><div class="report-fact-grid"><div><span>职业应用</span><p>${d.careers.slice(0,3).join('、')}</p></div><div><span>发挥方式</span><p>把辅助天赋作为补充视角，与主天赋共同用于真实任务，而不是单独承担全部职业定位。</p></div><div class="fact-wide"><span>培养路径</span><p>${auxPath}</p></div></div></article>`;
+    });
+  }else{
+    html+=`<div class="report-empty-state"><strong>本次未设置辅助天赋</strong><span>报告会继续依据主天赋与潜能天赋完成整体解读。</span></div>`;
+  }
+  html+=`</div>`;
+
+  // ══ 四、潜能天赋 ══
+  html+=`<div class="section potential-report-section"><h2>四、潜能天赋解读</h2><p class="section-intro">潜能天赋呈现需要持续理解与突破的人生课题。它与辅助天赋分开解读，避免两种作用混淆。</p>`;
+  if(a.potentialNums&&a.potentialNums.length){
+    a.potentialNums.forEach((pn,index)=>{
+      const pd=POTENTIAL_DIRECT[pn]; if(!pd) return;
+      html+=`<article class="report-block potential-block"><div class="report-block-heading"><h3>4.${index+1} ${pd.name}</h3><span>${pd.proto}</span></div><p><strong>核心课题：</strong>${pd.theme}</p><div class="note"><strong>突破关键：</strong>${pd.key}</div></article>`;
+    });
+  }else{
+    html+=`<div class="report-empty-state"><strong>本次未设置潜能天赋</strong><span>补充潜能天赋后，可获得对应的人生课题与突破指引。</span></div>`;
+  }
+  html+=`</div>`;
 
   // ══ 五、三年年度策略 ══
   html+=`<div class="section annual-report-section"><h2>五、三年年度策略</h2><p class="section-intro">年度策略从本年度生日开始计算，到下一年度生日结束。它用于提示每一阶段更适合的行动节奏，不代表好坏或高低。</p>`;
@@ -1719,41 +4206,45 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
   });
   html+=`</div>`;
 
-  // ══ 七、成长路径建议 ══
-  html+=`<div class="section"><h2>七、成长路径建议</h2><p>天赋不是终点，而是起点。以下是基于你的天赋能量格局定制的发展建议。</p>`;
-  
-  // 根据主导能量定制成长路径
-  const domEnergy=energyOrder.find(e=>a.counts[e.k]===maxV);
-  const domName=domEnergy?domEnergy.n:'综合';
-  html+=`<p>你的能量格局以<strong>${domName}</strong>为主导${a.zeros.length>0?'，同时'+a.zeros.map(z=>ENERGY_TYPES[z].name).join('、')+'能量为零，需要注意该领域的建设性补充':''}。以下是三阶段成长建议：</p>`;
-  
-  html+=`<article class="report-block stage-block"><h3>第一阶段：建立根基（0–2年）</h3><ul>`;
-  html+=`<li>选定一个主方向深耕。建议从<strong>${esc(careerDirections[0]?.title||'你的核心天赋领域')}</strong>切入，先积累真实项目与代表案例。</li>`;
-  if(mains.length>0) html+=`<li>用<strong>${esc(mains[0].name)}</strong>建立专业壁垒：${TALENT_DETAIL[mains[0].num]?.path.substring(0,40)||'持续积累代表作'}……</li>`;
-  if(a.zeros.includes('earth')) html+=`<li>搭配结构化工具（清单、模板、日程表）作为外部辅助，弥补构建能量的不足</li>`;
-  html+=`<li>有意识地每周至少一次公开表达——分享专业见解，让核心天赋在实战中成长</li>`;
-  html+=`</ul></article>`;
-  
-  html+=`<article class="report-block stage-block"><h3>第二阶段：深化影响（2–5年）</h3><ul>`;
-  html+=`<li>将影响力从一对一扩展到一对多——开发课程、带领社群、做培训项目</li>`;
-  if(a.combos.length>0) html+=`<li>激活组合天赋能量——${a.combos[0].name}的协同效应将在此阶段全面显现</li>`;
-  if(a.zeros.includes('earth')) html+=`<li>与构建能量强的伙伴协作互补，或系统学习项目管理方法，让落地不再依赖直觉</li>`;
-  html+=`<li>打造个人品牌视觉与内容体系，用<strong>${esc(mains.map(t=>t.name).join('、'))}</strong>的天赋组合建立独特定位</li>`;
-  html+=`</ul></article>`;
-  
-  html+=`<article class="report-block stage-block"><h3>第三阶段：构建生态（5年以上）</h3><ul>`;
-  html+=`<li>从"做事者"进化为"建构者"——搭建团队、培育传承体系、打造可持续的影响力生态</li>`;
-  if(a.potentialNums&&a.potentialNums.length>0){
-    const pn=a.potentialNums[0];
-    html+=`<li><strong>${POTENTIAL_NAMES[pn]||''}</strong>（潜能天赋）在此阶段将全面开花——从个人突破到系统赋能</li>`;
-  }
-  html+=`<li>长期布局，成为行业标杆——你的天赋组合的终极形态是：一个让人信任、追随、受益的思想引领者</li>`;
-  html+=`</ul></article>`;
-  html+=`</div>`;
+  // ══ 七、关系综合 ══
+  const relationTalents=orderedMains.slice(0,4);
+  const relationAge=getAgeFromBirth(a.birth);
+  const relationIsChild=relationAge!==null&&relationAge<18;
+  const loveIntro=(a.counts.water||0)>0
+    ?'你善于感知关系中的细微变化。真诚回应与清晰边界，能让这份细腻成为稳定的连接力。'
+    :'你更习惯用思考、行动与承诺表达在意。清晰直接的沟通，会让彼此更容易读懂这份心意。';
+  const parentIntro=relationAge===null
+    ?'从天赋本身出发，看见更合适的培养方式。既可用于理解和支持孩子，也可用于重新培养自己。'
+    :(relationIsChild
+      ?'从孩子自身的天赋出发，重点不是贴标签，而是提供适合他的环境、支持与真实体验。'
+      :'亲子维度也可以用来重新理解和培养自己，为天赋补充更合适的环境、练习与成长方式。');
+  const parentPractice=relationAge===null
+    ?'先看见兴趣、感受与真实节奏，再提供适量选择和持续练习；让鼓励、边界、自主空间与安全试错同时存在。'
+    :(relationIsChild
+      ?'先看见兴趣和感受，再提供适量选择；用具体体验代替催促，让鼓励、边界与自主空间同时存在。'
+      :'像培养一个珍贵的孩子一样培养自己：尊重真实节奏，给优势持续练习的空间，也允许自己在安全范围内试错。');
+  const parentPracticeLabel=relationAge===null?'培养提醒':(relationIsChild?'培养提醒':'自我培养练习');
+  const moneyIntro=(a.counts.earth||0)>0
+    ?'你具备把想法转化为计划并持续积累的能力，适合用长期视角管理收入与支出。'
+    :'你的财富路径更偏向创意、人际或行动驱动，加入自动储蓄与定期复盘，会让成果更稳定。';
+  const relationGroups=[
+    {number:'7.1',title:'亲密关系',tag:'连接与边界',intro:loveIntro,dimension:'love',practiceLabel:'关系练习',practice:'把期待说清楚、把欣赏说出来，并为彼此保留独立成长的空间。'},
+    {number:'7.2',title:'亲子关系与天赋培养',tag:relationIsChild?'成长培养':'自我培养',intro:parentIntro,dimension:'parent',practiceLabel:parentPracticeLabel,practice:parentPractice},
+    {number:'7.3',title:'金钱关系',tag:'价值与积累',intro:moneyIntro,dimension:'money',practiceLabel:'财富练习',practice:'明确年度目标、保留安全储备、定期复盘，并让每一笔重要投入服务于长期价值。'}
+  ];
+  html+=`<div class="section relation-report-section"><h2>七、关系综合</h2><p class="section-intro">关系中的表达方式，也来自天赋。以下从亲密关系、天赋培养与金钱关系三个维度，呈现核心能力在生活中的具体作用。</p>`;
+  relationGroups.forEach(group=>{
+    html+=`<article class="report-block relation-report-block"><div class="report-block-heading"><h3>${group.number} ${group.title}</h3><span>${group.tag}</span></div><p class="direction-statement">${group.intro}</p>`;
+    if(relationTalents.length){
+      html+=`<div class="relation-report-list">${relationTalents.map(t=>`<div><strong>${t.name} ×${t.multiplier}</strong><p>${RELATION_GUIDE[t.num]?.[group.dimension]||'在这一关系维度中，适合通过真实沟通与持续练习发挥这项天赋。'}</p></div>`).join('')}</div>`;
+    }
+    html+=`<div class="relation-report-action"><strong>${group.practiceLabel}</strong><p>${group.practice}</p></div></article>`;
+  });
+  html+=`<p class="relationship-disclaimer">金钱关系内容仅用于自我觉察，不构成任何投资或理财建议。</p></div>`;
 
   // ══ 八、总结寄语 ══
   html+=`<div class="section closing-section"><h2>八、总结寄语</h2><div class="closing-copy">`;
-  html+=`<p>你的天赋组合——<strong>${esc(mains.map(t=>t.name+(t.multiplier>=3?'×'+t.multiplier+'倍':t.multiplier>=2?'×'+t.multiplier+'倍':'')).join('、'))}</strong>${auxs.length>0?'，辅以'+esc(auxs.map(t=>t.name+'×'+t.multiplier+'倍').join('、')):''}——这构成了你独一无二的天赋版图。</p>`;
+  html+=`<p>你的天赋组合——<strong>${esc(mains.map(t=>t.name+(t.multiplier>=3?'×'+t.multiplier+'倍':t.multiplier>=2?'×'+t.multiplier+'倍':'')).join('、'))}</strong>${reportAuxs.length>0?'，辅以'+esc(reportAuxs.map(t=>t.name+'×'+t.multiplier+'倍').join('、')):''}——这构成了你独一无二的天赋版图。</p>`;
   html+=`<p>${mains.length>0?TALENT_DETAIL[mains[0].num].core:''}</p>`;
   if(a.zeros.length>0){
     html+=`<p>${a.zeros.map(z=>ENERGY_TYPES[z].name).join('、')}的零能量并非弱点，而是指引——它告诉你在哪些领域需要借助外部工具或搭档的力量。完美从不存在，完整才是方向。</p>`;
@@ -1779,7 +4270,15 @@ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 if(typeof escapeHtml==='undefined'){var escapeHtml=esc;}
 
 function canvasRoundRect(ctx,x,y,w,h,r,fill,stroke){
-  ctx.beginPath();ctx.roundRect(x,y,w,h,r);
+  ctx.beginPath();
+  if(ctx.roundRect){ctx.roundRect(x,y,w,h,r);}
+  else{
+    // fallback for browsers without roundRect
+    ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.arcTo(x+w,y,x+w,y+r,r);
+    ctx.lineTo(x+w,y+h-r);ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
+    ctx.lineTo(x+r,y+h);ctx.arcTo(x,y+h,x,y+h-r,r);
+    ctx.lineTo(x,y+r);ctx.arcTo(x,y,x+r,y,r);ctx.closePath();
+  }
   if(fill){ctx.fillStyle=fill;ctx.fill();}
   if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.stroke();}
 }
@@ -1796,36 +4295,11 @@ function canvasWrappedText(ctx,text,x,y,maxWidth,lineHeight,maxLines=2){
   return lines.length*lineHeight;
 }
 
-const IMAGE_FONTS={
-  hero:'400 42px "Microsoft YaHei"',
-  meta:'400 18px "Microsoft YaHei"',
-  section:'400 24px "Microsoft YaHei"',
-  cardTitle:'400 18px "Microsoft YaHei"',
-  body:'400 16px "Microsoft YaHei"',
-  bodyStrong:'400 16px "Microsoft YaHei"',
-  badge:'400 16px "Microsoft YaHei"',
-  footer:'400 15px "Microsoft YaHei"'
-};
-const IMAGE_LINE_HEIGHT=22;
-
 function canvasSectionTitle(ctx,title,x,y,color='#a33d36'){
   canvasRoundRect(ctx,x,y+2,9,29,2,'#a33d36');
-  ctx.fillStyle=color;ctx.font=IMAGE_FONTS.section;ctx.fillText(title,x+23,y);
+  ctx.fillStyle=color;ctx.font='400 24px "Microsoft YaHei"';ctx.fillText(title,x+23,y);
   const textWidth=ctx.measureText(title).width;
   ctx.fillStyle='#c7aa70';ctx.fillRect(x+31+textWidth,y+18,850-textWidth,1);
-}
-
-function canvasInkMountains(ctx,x,y,w,h){
-  ctx.save();
-  ctx.globalAlpha=.07;ctx.fillStyle='#5d9675';
-  ctx.beginPath();ctx.moveTo(x,y+h);
-  ctx.bezierCurveTo(x+w*.12,y+h*.66,x+w*.2,y+h*.2,x+w*.32,y+h*.62);
-  ctx.bezierCurveTo(x+w*.42,y+h*.94,x+w*.49,y+h*.3,x+w*.59,y+h*.57);
-  ctx.bezierCurveTo(x+w*.71,y+h*.86,x+w*.78,y+h*.44,x+w,y+h*.7);
-  ctx.lineTo(x+w,y+h);ctx.closePath();ctx.fill();
-  ctx.globalAlpha=.05;ctx.fillStyle='#a77a37';
-  ctx.beginPath();ctx.moveTo(x,y+h);ctx.bezierCurveTo(x+w*.2,y+h*.72,x+w*.34,y+h*.45,x+w*.52,y+h*.79);ctx.bezierCurveTo(x+w*.69,y+h*.98,x+w*.8,y+h*.58,x+w,y+h*.83);ctx.lineTo(x+w,y+h);ctx.closePath();ctx.fill();
-  ctx.restore();
 }
 
 function canvasBrandSeal(ctx,x,y){
@@ -1836,137 +4310,159 @@ function canvasBrandSeal(ctx,x,y){
 }
 
 function exportCareerImage(){
-  const a=window._analysis;
-  if(!a){alert('请先进行天赋职业解读');return;}
-  if(window._analysisDirty){alert('客户信息已经修改，请重新点击“开始解读”后再导出');return;}
-  const mains=[...a.talents].filter(t=>t.role!=='aux').sort((x,y)=>y.multiplier-x.multiplier);
-  const auxs=a.talents.filter(t=>t.role==='aux');
-  const directions=getCareerDirections(a.talents,a.combos);
-  const displayName=a.name||'未署名';
-  const identityLine=[displayName,formatBirthValue(a.birth)].filter(Boolean).join(' · ');
-  const energyTop=292;
-  const energyBottom=energyTop+78;
-  const zeroHeight=a.zeros.length?50+a.zeros.length*66:0;
-  const structureTop=energyBottom+zeroHeight+38;
-  const talentGridHeight=mains.length*116;
-  const auxHeight=auxs.length*144;
-  const potentialHeight=a.potentialNums.length?a.potentialNums.length*104:0;
-  const hasSupportTalents=auxs.length>0||a.potentialNums.length>0;
-  const supportSectionTop=structureTop+48+talentGridHeight+20;
-  const careerTop=hasSupportTalents?supportSectionTop+48+auxHeight+potentialHeight+30:structureTop+48+talentGridHeight+30;
-  const canvasHeight=careerTop+54+directions.length*84+92;
-  const canvas=document.createElement('canvas');canvas.width=1080;canvas.height=canvasHeight;
-  const ctx=canvas.getContext('2d');
-  ctx.fillStyle='#f6f1e8';ctx.fillRect(0,0,1080,canvasHeight);
-  ctx.fillStyle='rgba(51,47,41,.018)';
-  for(let py=0;py<canvasHeight;py+=8)ctx.fillRect(0,py,1080,1);
-  ctx.fillStyle='#a33d36';ctx.fillRect(0,0,1080,8);
-  ctx.shadowColor='rgba(48,40,28,.16)';ctx.shadowBlur=34;ctx.shadowOffsetY=12;
-  canvasRoundRect(ctx,40,34,1000,canvasHeight-62,22,'#fffdf9','#e1d3be');
-  ctx.shadowColor='transparent';ctx.shadowBlur=0;ctx.shadowOffsetY=0;
-  ctx.strokeStyle='rgba(150,112,47,.42)';ctx.lineWidth=1;ctx.strokeRect(57,51,966,canvasHeight-96);
-  canvasInkMountains(ctx,620,66,360,132);
-  ctx.textBaseline='top';ctx.fillStyle='#a33d36';ctx.font=IMAGE_FONTS.hero;ctx.fillText('天赋职业全览',92,76);
-  ctx.fillStyle='#a33d36';ctx.fillRect(94,139,70,3);
-  ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.meta;ctx.fillText(`识己天赋测试  ·  ${identityLine}`,94,157);
-  canvasBrandSeal(ctx,922,78);
-  ctx.fillStyle='#96702f';ctx.fillRect(88,211,904,2);
-  ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.footer;ctx.fillText('以天赋为镜，看见更适合自己的生长方向',88,226);
+  try{
+    const a=window._analysis;
+    if(!a){alert("请先进行天赋职业解读");return;}
+    if(window._analysisDirty){alert("客户信息已经修改，请重新点击\"开始解读\"后再导出");return;}
+    const mains=[...a.talents].filter(t=>t.role!=="aux").sort((x,y)=>y.multiplier-x.multiplier);
+    const auxs=a.talents.filter(t=>t.role==="aux");
+    const potentials=a.potentialNums||[];
+    const directions=getCareerDirections(a.talents,a.combos).slice(0,5);
+    for(const fallback of CAREER_ARCHETYPES){
+      if(directions.length>=5)break;
+      if(!directions.some(item=>item.id===fallback.id))directions.push({...fallback,contributors:mains.slice(0,2).map(t=>t.name)});
+    }
+    const displayName=a.name||"未署名";
+    const cardTitle=displayName+" · 天赋职业全览";
+    const birthLine=formatBirthValue(a.birth);
+    const C={paper:"#faf6ed",sheet:"#fffdf9",ink:"#332f29",ink2:"#5f5950",ink3:"#8a8175",red:"#a33d36",gold:"#96702f",goldDeep:"#795821",goldSoft:"#fbf4e2",redSoft:"#fcece6",line:"#e1d3be"};
+    const total=Object.values(a.counts).reduce((s,n)=>s+n,0)||1;
+    const energyKeys=["wind","fire","water","earth"];
+    const now=new Date();
+    const dateText=now.getFullYear()+"年"+(now.getMonth()+1)+"月"+now.getDate()+"日";
 
-  canvasSectionTitle(ctx,'四大天赋占比',88,252);
-  const total=Object.values(a.counts).reduce((s,n)=>s+n,0)||1;
-  const energyKeys=['wind','fire','water','earth'];
-  energyKeys.forEach((key,i)=>{
-    const et=ENERGY_TYPES[key],pct=Math.round((a.counts[key]||0)/total*100);
-    const x=88+i*228,y=energyTop;
-    canvasRoundRect(ctx,x,y,220,68,7,et.light,'#e1d3be');
-    ctx.fillStyle=et.color;ctx.fillRect(x,y,4,68);
-    ctx.fillStyle=et.color;ctx.font=IMAGE_FONTS.cardTitle;ctx.fillText(et.name,x+14,y+9);
-    ctx.fillStyle=et.color;ctx.textAlign='right';ctx.fillText(`${pct}%`,x+204,y+9);ctx.textAlign='left';
-    canvasRoundRect(ctx,x+14,y+44,190,7,4,'#e8dfd1');
-    if(pct>0)canvasRoundRect(ctx,x+14,y+44,Math.max(7,190*pct/100),7,4,et.color);
-  });
+    // 1080px逻辑版式以2倍像素导出：手机查看字体更大，放大后依然清晰。
+    const SCALE=2;
+    const px=value=>Math.round(value*SCALE);
+    const font=(size,weight=400)=>`${weight} ${px(size)}px "Microsoft YaHei","PingFang SC",sans-serif`;
+    const PAGE_W=1080,LEFT=72,CONTENT_W=936;
+    const sectionTitleHeight=46,headerHeight=180,mainStep=170,auxStep=202,potentialStep=144,careerStep=122;
+    let logicalHeight=LEFT+headerHeight+34;
+    logicalHeight+=sectionTitleHeight+104+34;
+    if(a.zeros.length)logicalHeight+=sectionTitleHeight+a.zeros.length*76+20;
+    logicalHeight+=24+sectionTitleHeight+mains.length*mainStep+24;
+    if(auxs.length||potentials.length)logicalHeight+=sectionTitleHeight+auxs.length*auxStep+potentials.length*potentialStep+30;
+    logicalHeight+=34+sectionTitleHeight+directions.length*careerStep+112;
 
-  if(a.zeros.length){
-    let zeroY=energyBottom+10;
-    canvasSectionTitle(ctx,'0能量提醒',88,zeroY,'#a77a37');
-    zeroY+=42;
-    a.zeros.forEach(key=>{
-      const et=ENERGY_TYPES[key];
-      canvasRoundRect(ctx,88,zeroY,904,56,7,'#fcece6','#edc9bd');
-      ctx.fillStyle='#a33d36';ctx.fillRect(88,zeroY,4,56);
-      ctx.fillStyle='#96702f';ctx.font=IMAGE_FONTS.cardTitle;ctx.fillText(`${et.name}：`,106,zeroY+9);
-      ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.body;canvasWrappedText(ctx,et.zeroMsg,220,zeroY+8,748,IMAGE_LINE_HEIGHT,2);
-      zeroY+=66;
+    const canvas=document.createElement("canvas");
+    canvas.width=px(PAGE_W);canvas.height=px(logicalHeight);
+    const ctx=canvas.getContext("2d");ctx.textBaseline="top";
+    const wrapped=(text,x,y,width,lineHeight,maxLines=2)=>canvasWrappedText(ctx,text,px(x),px(y),px(width),px(lineHeight),maxLines);
+    const card=(x,y,w,h,fill,accent=C.gold,stroke=null)=>{
+      canvasRoundRect(ctx,px(x),px(y),px(w),px(h),px(7),fill,stroke);
+      ctx.fillStyle=accent;ctx.fillRect(px(x),px(y),px(4),px(h));
+    };
+    const sectionTitle=(title,y)=>{
+      canvasRoundRect(ctx,px(LEFT),px(y+5),px(9),px(31),px(2),C.red);
+      ctx.fillStyle=C.ink;ctx.font=font(32,600);ctx.fillText(title,px(LEFT+24),px(y));
+      const titleWidth=ctx.measureText(title).width;
+      ctx.fillStyle=C.line;ctx.fillRect(px(LEFT+36)+titleWidth,px(y+23),Math.max(px(20),px(CONTENT_W-52)-titleWidth),px(1));
+    };
+
+    ctx.fillStyle=C.paper;ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="rgba(51,47,41,.008)";for(let py=0;py<logicalHeight;py+=8)ctx.fillRect(0,px(py),canvas.width,px(1));
+    ctx.fillStyle=C.red;ctx.fillRect(0,0,canvas.width,px(4));
+    ctx.fillStyle=C.gold;ctx.fillRect(px(PAGE_W*.35),0,px(PAGE_W*.3),px(4));
+    ctx.shadowColor="rgba(48,40,28,.08)";ctx.shadowBlur=px(28);ctx.shadowOffsetY=px(8);
+    canvasRoundRect(ctx,px(LEFT-16),px(24),px(PAGE_W-(LEFT-16)*2),px(logicalHeight-48),px(10),C.sheet);
+    ctx.shadowColor="transparent";ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+    ctx.strokeStyle=C.line;ctx.lineWidth=px(.7);ctx.strokeRect(px(LEFT-16),px(24),px(PAGE_W-(LEFT-16)*2),px(logicalHeight-48));
+    ctx.strokeStyle="rgba(150,112,47,.20)";ctx.strokeRect(px(LEFT),px(40),px(CONTENT_W),px(logicalHeight-80));
+
+    let y=LEFT;
+    let titleSize=56;
+    ctx.font=font(titleSize,600);
+    while(titleSize>38&&ctx.measureText(cardTitle).width>px(820)){titleSize-=2;ctx.font=font(titleSize,600);}
+    ctx.fillStyle=C.red;ctx.fillText(cardTitle,px(LEFT),px(y));
+    const headingWidth=ctx.measureText(cardTitle).width;
+    ctx.fillStyle=C.red;ctx.fillRect(px(LEFT),px(y+66),headingWidth,px(3));
+    ctx.fillStyle=C.ink2;ctx.font=font(26);ctx.fillText([birthLine,"生成日期："+dateText].filter(Boolean).join("  ·  "),px(LEFT),px(y+82));
+    canvasRoundRect(ctx,px(918),px(y),px(66),px(78),px(4),C.red,"#8f312b");
+    ctx.strokeStyle="rgba(255,247,232,.72)";ctx.lineWidth=px(1);ctx.strokeRect(px(924),px(y+6),px(54),px(66));
+    ctx.fillStyle="#fff8ea";ctx.font=font(21,600);ctx.textAlign="center";ctx.fillText("识",px(951),px(y+12));ctx.fillText("己",px(951),px(y+42));ctx.textAlign="left";
+    ctx.fillStyle=C.gold;ctx.fillRect(px(LEFT),px(y+126),px(CONTENT_W),px(1));
+    ctx.fillStyle=C.ink3;ctx.font=font(22);ctx.fillText("以天赋为镜，看见更适合自己的生长方向",px(LEFT),px(y+140));
+    y+=headerHeight+34;
+
+    sectionTitle("四大天赋占比",y);y+=sectionTitleHeight;
+    const energyGap=8,energyWidth=(CONTENT_W-energyGap*3)/4;
+    energyKeys.forEach((key,index)=>{
+      const pct=Math.round((a.counts[key]||0)/total*100),x=LEFT+index*(energyWidth+energyGap);
+      card(x,y,energyWidth,94,"#faf6ed",C.gold);
+      ctx.fillStyle=C.ink;ctx.font=font(27,600);ctx.fillText(ENERGY_TYPES[key].name,px(x+15),px(y+14));
+      ctx.textAlign="right";ctx.fillText(pct+"%",px(x+energyWidth-15),px(y+14));ctx.textAlign="left";
+      canvasRoundRect(ctx,px(x+15),px(y+59),px(energyWidth-30),px(8),px(4),"rgba(51,47,41,.07)");
+      if(pct>0)canvasRoundRect(ctx,px(x+15),px(y+59),Math.max(px(8),px((energyWidth-30)*pct/100)),px(8),px(4),C.red);
     });
-  }
+    y+=104+34;
 
-  canvasSectionTitle(ctx,'主天赋',88,structureTop);
-  if(a.combos.length){
-    ctx.fillStyle='#9a763b';ctx.font=IMAGE_FONTS.bodyStrong;ctx.fillText(`组合天赋：${a.combos.map(c=>c.name).join('、')}`,360,structureTop+6);
-  }
-  const getRankLabel=t=>a.ranking.core.some(x=>x.num===t.num)?'核心天赋':a.ranking.overlap.some(x=>x.num===t.num)?'重叠天赋':'主天赋';
-  mains.forEach((t,i)=>{
-    const d=TALENT_DETAIL[t.num],x=88,y=structureTop+48+i*116;
-    const et=ENERGY_TYPES[d.energy];
-    canvasRoundRect(ctx,x,y,904,106,8,et.light,'#e1d3be');
-    ctx.fillStyle=et.color;ctx.fillRect(x,y,5,106);
-    ctx.fillStyle=et.color;ctx.font=IMAGE_FONTS.cardTitle;ctx.fillText(`${t.name}×${t.multiplier} · ${getRankLabel(t)}`,106,y+10);
-    ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.body;canvasWrappedText(ctx,`具备能力：${d.core.split('。')[0]}。`,106,y+40,866,IMAGE_LINE_HEIGHT,2);
-    ctx.fillStyle='#a33d36';ctx.font=IMAGE_FONTS.bodyStrong;canvasWrappedText(ctx,`适合职业：${d.careers.slice(0,3).join('、')}`,106,y+82,866,IMAGE_LINE_HEIGHT,1);
-  });
+    if(a.zeros.length){
+      sectionTitle("关注区域",y);y+=sectionTitleHeight;
+      a.zeros.forEach(key=>{
+        const energy=ENERGY_TYPES[key];card(LEFT,y,CONTENT_W,66,C.redSoft,C.red,"#edc9bd");
+        ctx.fillStyle=C.red;ctx.font=font(27,600);ctx.fillText(energy.name+"：",px(LEFT+16),px(y+16));
+        ctx.fillStyle=C.ink2;ctx.font=font(24);wrapped(energy.zeroMsg,LEFT+125,y+15,CONTENT_W-145,30,2);y+=76;
+      });
+      y+=20;
+    }
 
-  let detailY=supportSectionTop+48;
-  if(hasSupportTalents)canvasSectionTitle(ctx,'辅助与潜能天赋',88,supportSectionTop);
-  auxs.forEach(aux=>{
-    const auxData=AUX_TO_POTENTIAL[aux.num];
-    if(!auxData)return;
-    const auxResonant=a.ranking.resonantNums?.has(aux.num);
-    const auxCareers=TALENT_DETAIL[aux.num].careers.slice(0,3).join('、');
-    const auxEnergy=ENERGY_TYPES[TALENT_DETAIL[aux.num].energy];
-    canvasRoundRect(ctx,88,detailY,904,134,8,auxEnergy.light,'#e1d3be');
-    ctx.fillStyle=auxEnergy.color;ctx.fillRect(88,detailY,5,134);
-    ctx.fillStyle=auxEnergy.color;ctx.font=IMAGE_FONTS.cardTitle;
-    ctx.fillText(`${aux.name}×${aux.multiplier} · 辅助天赋${auxResonant?'（主辅共振）':''}`,106,detailY+10);
-    ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.body;
-    canvasWrappedText(ctx,`具备能力：${auxData.auxCore}`,106,detailY+40,866,IMAGE_LINE_HEIGHT,2);
-    ctx.fillStyle='#a33d36';ctx.font=IMAGE_FONTS.bodyStrong;
-    canvasWrappedText(ctx,`适合职业：${auxCareers}`,106,detailY+86,866,IMAGE_LINE_HEIGHT,1);
-    ctx.fillStyle='#96702f';ctx.font=IMAGE_FONTS.badge;
-    canvasWrappedText(ctx,`发展建议：${auxData.auxPath}`,106,detailY+110,866,IMAGE_LINE_HEIGHT,1);
-    detailY+=144;
-  });
-  if(a.potentialNums.length){
-    a.potentialNums.forEach((num,index)=>{
-      const p=POTENTIAL_DIRECT[num],y=detailY+index*104;
-      if(!p)return;
-      canvasRoundRect(ctx,88,y,904,94,8,'#f7eedb','#e2cfaa');
-      ctx.fillStyle='#96702f';ctx.fillRect(88,y,5,94);
-      ctx.fillStyle='#96702f';ctx.font=IMAGE_FONTS.cardTitle;
-      ctx.fillText(`潜能天赋：${p.name}`,106,y+10);
-      ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.body;
-      canvasWrappedText(ctx,`突破方式：${p.key}`,106,y+40,866,IMAGE_LINE_HEIGHT,2);
+    y+=24;sectionTitle("主天赋",y);y+=sectionTitleHeight;
+    const grade=talent=>a.ranking.core.some(item=>item.num===talent.num)?"核心天赋":a.ranking.overlap.some(item=>item.num===talent.num)?"重叠天赋":"主天赋";
+    mains.forEach(talent=>{
+      const detail=TALENT_DETAIL[talent.num];card(LEFT,y,CONTENT_W,158,"#fdfbf7",C.gold);
+      ctx.fillStyle=C.ink;ctx.font=font(32,600);ctx.fillText(talent.name+"  ×"+talent.multiplier+"  ·  "+grade(talent),px(LEFT+17),px(y+14));
+      ctx.fillStyle=C.ink2;ctx.font=font(30);wrapped(detail.core.split("。")[0]+"。",LEFT+17,y+55,CONTENT_W-34,38,2);
+      ctx.fillStyle=C.red;ctx.font=font(29,600);wrapped("适合职业："+detail.careers.slice(0,3).join("、"),LEFT+17,y+126,CONTENT_W-34,36,1);
+      y+=mainStep;
     });
-  }
+    y+=24;
 
-  canvasSectionTitle(ctx,'五种综合职业选择',88,careerTop);
-  directions.forEach((d,i)=>{
-    const y=careerTop+48+i*84;
-    const directionEnergy=ENERGY_TYPES[energyKeys[i%energyKeys.length]];
-    canvasRoundRect(ctx,88,y,904,70,0,directionEnergy.light,null);
-    ctx.fillStyle=directionEnergy.color;ctx.fillRect(88,y,4,70);
-    ctx.fillStyle='#a33d36';ctx.font=IMAGE_FONTS.badge;ctx.fillText(`${String(i+1).padStart(2,'0')}`,104,y+12);
-    ctx.fillStyle='#96702f';ctx.font=IMAGE_FONTS.cardTitle;ctx.fillText(d.title,146,y+9);
-    ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.body;canvasWrappedText(ctx,`职业案例：${d.examples.slice(0,3).join('、')}`,146,y+40,820,IMAGE_LINE_HEIGHT,1);
-  });
+    if(auxs.length||potentials.length){
+      sectionTitle("辅助与潜能天赋",y);y+=sectionTitleHeight;
+      auxs.forEach(aux=>{
+        const detail=AUX_TO_POTENTIAL[aux.num];if(!detail)return;
+        const resonant=a.ranking.resonantNums?.has(aux.num),careerText=TALENT_DETAIL[aux.num].careers.slice(0,3).join("、");
+        card(LEFT,y,CONTENT_W,190,"#fdfbf7",C.goldDeep);
+        ctx.fillStyle=C.ink;ctx.font=font(32,600);ctx.fillText(aux.name+" ×"+aux.multiplier+"  ·  辅助天赋"+(resonant?"（主辅共振）":""),px(LEFT+17),px(y+14));
+        ctx.fillStyle=C.ink2;ctx.font=font(29);wrapped(detail.auxCore,LEFT+17,y+55,CONTENT_W-34,37,2);
+        ctx.fillStyle=C.red;ctx.font=font(28,600);wrapped("职业参考："+careerText,LEFT+17,y+127,CONTENT_W-34,35,1);
+        ctx.fillStyle=C.goldDeep;ctx.font=font(25);wrapped("发展建议："+detail.auxPath,LEFT+17,y+158,CONTENT_W-34,31,1);y+=auxStep;
+      });
+      potentials.forEach(num=>{
+        const potential=POTENTIAL_DIRECT[num];if(!potential)return;
+        card(LEFT,y,CONTENT_W,132,C.goldSoft,C.gold);
+        ctx.fillStyle=C.ink;ctx.font=font(31,600);ctx.fillText("潜能天赋："+potential.name+"  ·  "+potential.proto,px(LEFT+17),px(y+15));
+        ctx.fillStyle=C.ink2;ctx.font=font(28);wrapped("核心课题："+potential.theme+"　　突破关键："+potential.key,LEFT+17,y+60,CONTENT_W-34,36,2);y+=potentialStep;
+      });
+      y+=30;
+    }
 
-  ctx.fillStyle='#96702f';ctx.fillRect(110,canvasHeight-72,860,1);
-  ctx.fillStyle='#332f29';ctx.font=IMAGE_FONTS.footer;ctx.textAlign='center';ctx.fillText('识己天赋测试  ·  仅供个人成长与职业探索参考，不构成职业决策依据',540,canvasHeight-54);ctx.textAlign='left';
+    y+=34;sectionTitle("五种综合职业选择",y);y+=sectionTitleHeight;
+    directions.forEach((direction,index)=>{
+      card(LEFT,y,CONTENT_W,110,"#fdfbf7",C.gold);
+      ctx.fillStyle=C.red;ctx.font=font(30,600);ctx.fillText(String(index+1).padStart(2,"0"),px(LEFT+17),px(y+14));
+      ctx.fillStyle=C.ink;ctx.font=font(31,600);ctx.fillText(direction.title,px(LEFT+66),px(y+14));
+      ctx.fillStyle=C.ink2;ctx.font=font(29);wrapped("职业示例："+(direction.examples||[]).slice(0,3).join("、"),LEFT+66,y+59,CONTENT_W-92,36,1);y+=careerStep;
+    });
 
-  const link=document.createElement('a');
-  link.download=`识己-${displayName}-天赋职业全览.png`;
-  link.href=canvas.toDataURL('image/png');
-  link.click();
+    y+=28;ctx.fillStyle=C.gold;ctx.fillRect(px(LEFT+40),px(y),px(CONTENT_W-80),px(1));
+    ctx.fillStyle=C.ink3;ctx.font=font(22);ctx.textAlign="center";
+    ctx.fillText("识己天赋测试  ·  仅供个人成长与职业探索参考，不构成职业决策依据",px(PAGE_W/2),px(y+24));ctx.textAlign="left";
+
+    const link=document.createElement("a");link.download="识己-"+displayName+"-天赋职业全览.png";link.href=canvas.toDataURL("image/png");link.click();
+  }catch(e){alert("导出出错: "+e.message);console.error(e);}
+}
+
+function dsT(ct,t,x,y,c="#a33d36"){const S=1.4,rs=s=>Math.round(s*S);canvasRoundRect(ct,x,y+rs(3),rs(8),rs(24),rs(2),c);ct.fillStyle="#332f29";ct.font="400 "+rs(21)+"px 'Microsoft YaHei'";ct.fillText(t,x+rs(20),y);const tw=ct.measureText(t).width;ct.fillStyle="#e1d3be";ct.fillRect(x+rs(28)+tw,y+rs(16),rs(900)-tw,1);}
+
+function dsT(ct,t,x,y,c="#a33d36"){canvasRoundRect(ct,x,y+3,8,24,2,c);ct.fillStyle="#332f29";ct.font="400 21px 'Microsoft YaHei'";ct.fillText(t,x+20,y);const tw=ct.measureText(t).width;ct.fillStyle="#e1d3be";ct.fillRect(x+28+tw,y+16,900-tw,1);}
+
+function drawSectionTitle(ctx,title,x,y,color='#a33d36'){
+  canvasRoundRect(ctx,x,y+3,8,26,2,color);
+  ctx.fillStyle='#332f29';ctx.font='400 22px "Microsoft YaHei"';
+  ctx.fillText(title,x+22,y);
+  const tw=ctx.measureText(title).width;
+  ctx.fillStyle='#e1d3be';ctx.fillRect(x+30+tw,y+16,900-tw,1);
 }
 
 window.addEventListener('DOMContentLoaded',()=>{
