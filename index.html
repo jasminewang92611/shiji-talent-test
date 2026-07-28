@@ -2835,7 +2835,821 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
 .tag-c,.zero-box,.note{background:#fcece6;color:#332f29;border-color:#edc9bd}
 .highlight{background:#f7eedb}
 .signature{font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#332f29}
-</style><link rel="stylesheet" href="${reportCssHref}"></head><body>`;
+
+/* report.css (内联) */
+/* 识己天赋测试 · 正式职业解读报告 */
+
+@page{
+  size:A4;
+  margin:16mm 15mm 18mm;
+}
+
+*{
+  box-sizing:border-box!important;
+  -webkit-print-color-adjust:exact!important;
+  print-color-adjust:exact!important;
+}
+
+:root{
+  --report-paper:#fffdf9;
+  --report-paper-soft:#f8f3ea;
+  --report-ink:#332f29;
+  --report-text:#5e574e;
+  --report-muted:#8a8175;
+  --report-red:#a33d36;
+  --report-red-soft:#f8ebe7;
+  --report-gold:#96702f;
+  --report-gold-soft:#f5eddd;
+  --report-year-expand:#fbf4e2;
+  --report-year-settle:#edf4f1;
+  --report-settle:#6f897a;
+  --report-line:#dfd3c1;
+  --report-line-light:#ebe3d7;
+  --report-font:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",Arial,sans-serif;
+}
+
+html{
+  background:#e9e5de!important;
+}
+
+body,body *{
+  font-family:var(--report-font)!important;
+}
+
+body{
+  width:210mm!important;
+  max-width:210mm!important;
+  min-height:297mm!important;
+  margin:18px auto!important;
+  padding:16mm 15mm 19mm!important;
+  background:var(--report-paper)!important;
+  color:var(--report-text)!important;
+  box-shadow:0 16px 48px rgba(45,36,25,.16)!important;
+  font-size:10.7pt!important;
+  line-height:1.76!important;
+  letter-spacing:.008em!important;
+}
+
+p,li,td{
+  color:var(--report-text)!important;
+  font-size:10.7pt!important;
+  line-height:1.8!important;
+  orphans:3!important;
+  widows:3!important;
+}
+
+p{
+  margin:0 0 2.2mm!important;
+}
+
+strong{
+  color:var(--report-ink)!important;
+  font-weight:600!important;
+}
+
+/* 封面 */
+.cover.report-cover{
+  position:relative!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:248mm!important;
+  margin:0!important;
+  padding:24mm 16mm 20mm!important;
+  border:1px solid #cbb991!important;
+  border-top:4px solid var(--report-red)!important;
+  background:
+    radial-gradient(ellipse 62% 30% at 50% 0,rgba(150,112,47,.11),transparent 72%),
+    var(--report-paper)!important;
+  text-align:center!important;
+  break-after:page!important;
+  page-break-after:always!important;
+}
+
+.cover.report-cover::before,.cover.report-cover::after{
+  content:""!important;
+  position:absolute!important;
+  width:20mm!important;
+  height:20mm!important;
+  pointer-events:none!important;
+}
+
+.cover.report-cover::before{
+  left:7mm!important;
+  top:7mm!important;
+  border-left:1px solid rgba(150,112,47,.55)!important;
+  border-top:1px solid rgba(150,112,47,.55)!important;
+}
+
+.cover.report-cover::after{
+  right:7mm!important;
+  bottom:7mm!important;
+  border-right:1px solid rgba(150,112,47,.55)!important;
+  border-bottom:1px solid rgba(150,112,47,.55)!important;
+}
+
+.cover-seal{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:18mm!important;
+  height:18mm!important;
+  margin:0 0 9mm!important;
+  border:1px solid #8c2f29!important;
+  border-radius:2px!important;
+  background:var(--report-red)!important;
+  box-shadow:inset 0 0 0 1mm rgba(255,249,236,.62)!important;
+  color:#fff9ec!important;
+  font-size:14pt!important;
+  font-weight:600!important;
+  line-height:1!important;
+  letter-spacing:.12em!important;
+}
+
+.cover-kicker{
+  margin-bottom:4mm!important;
+  color:var(--report-gold)!important;
+  font-size:8pt!important;
+  font-weight:600!important;
+  line-height:1.4!important;
+  letter-spacing:.25em!important;
+}
+
+.cover.report-cover h1{
+  margin:0!important;
+  padding:0 0 6mm!important;
+  border:0!important;
+  border-bottom:1px solid #c7aa70!important;
+  color:var(--report-red)!important;
+  font-size:25pt!important;
+  font-weight:600!important;
+  line-height:1.35!important;
+  letter-spacing:.11em!important;
+}
+
+.cover-edition{
+  margin:5mm 0 11mm!important;
+  color:var(--report-gold)!important;
+  font-size:10pt!important;
+  font-weight:500!important;
+  line-height:1.5!important;
+  letter-spacing:.18em!important;
+}
+
+.cover-person{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  gap:1mm!important;
+  margin-bottom:10mm!important;
+}
+
+.cover-person strong{
+  color:var(--report-ink)!important;
+  font-size:18pt!important;
+  font-weight:600!important;
+  line-height:1.45!important;
+  letter-spacing:.08em!important;
+}
+
+.cover-person span{
+  color:var(--report-muted)!important;
+  font-size:9pt!important;
+  line-height:1.6!important;
+}
+
+.cover-meta{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  width:100%!important;
+  max-width:126mm!important;
+  border-top:1px solid var(--report-line)!important;
+}
+
+.cover-meta>div{
+  display:grid!important;
+  grid-template-columns:26mm minmax(0,1fr)!important;
+  gap:4mm!important;
+  padding:3.2mm 2mm!important;
+  border-bottom:1px solid var(--report-line-light)!important;
+  text-align:left!important;
+}
+
+.cover-meta span{
+  color:var(--report-gold)!important;
+  font-size:8.5pt!important;
+  font-weight:600!important;
+}
+
+.cover-meta strong{
+  color:var(--report-ink)!important;
+  font-size:9pt!important;
+  font-weight:500!important;
+}
+
+.cover-foot{
+  position:absolute!important;
+  left:0!important;
+  right:0!important;
+  bottom:14mm!important;
+  color:var(--report-muted)!important;
+  font-size:7.5pt!important;
+  line-height:1.5!important;
+  letter-spacing:.08em!important;
+}
+
+/* 报告摘要 */
+.executive-summary{
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  min-height:246mm!important;
+  margin:0!important;
+  padding:12mm 4mm!important;
+  break-after:page!important;
+  page-break-after:always!important;
+}
+
+.summary-kicker{
+  margin-bottom:2mm!important;
+  color:var(--report-gold)!important;
+  font-size:8pt!important;
+  font-weight:600!important;
+  letter-spacing:.22em!important;
+}
+
+.executive-summary h2{
+  margin:0 0 7mm!important;
+  padding:0 0 4mm!important;
+  border:0!important;
+  border-bottom:1px solid var(--report-line)!important;
+  color:var(--report-red)!important;
+  font-size:20pt!important;
+  font-weight:600!important;
+  line-height:1.4!important;
+  letter-spacing:.08em!important;
+}
+
+.summary-lead{
+  margin:0 0 8mm!important;
+  color:var(--report-ink)!important;
+  font-size:12pt!important;
+  line-height:1.85!important;
+}
+
+.summary-energy-chart{
+  margin:0 0 7mm!important;
+  padding:5mm 6mm!important;
+  border:1px solid var(--report-line)!important;
+  background:#fff!important;
+}
+.summary-energy-chart h3{
+  margin:0 0 3.5mm!important;
+  color:var(--report-gold)!important;
+  font-size:10pt!important;
+  font-weight:600!important;
+}
+.report-energy-row{
+  display:grid!important;
+  grid-template-columns:25mm minmax(0,1fr) 12mm!important;
+  gap:3mm!important;
+  align-items:center!important;
+  margin:0 0 2.2mm!important;
+}
+.report-energy-row:last-child{margin-bottom:0!important}
+.report-energy-row>span,.report-energy-row>strong{font-size:8.5pt!important;line-height:1.4!important}
+.report-energy-row>span{color:var(--report-text)!important}
+.report-energy-row>strong{color:var(--report-red)!important;text-align:right!important}
+.report-energy-track{
+  height:2.3mm!important;
+  overflow:hidden!important;
+  border-radius:9mm!important;
+  background:#eae2d6!important;
+}
+.report-energy-track i{display:block!important;height:100%!important;border-radius:9mm!important;background:linear-gradient(90deg,var(--report-gold),#c5a86c)!important}
+
+.summary-lead strong{
+  color:var(--report-red)!important;
+  font-weight:600!important;
+}
+
+.summary-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:3mm!important;
+  margin-bottom:8mm!important;
+}
+
+.summary-item{
+  min-height:36mm!important;
+  padding:5mm!important;
+  border:1px solid var(--report-line)!important;
+  border-top:2px solid var(--report-gold)!important;
+  background:var(--report-paper-soft)!important;
+}
+
+.summary-item span{
+  display:block!important;
+  margin-bottom:3mm!important;
+  color:var(--report-gold)!important;
+  font-size:8pt!important;
+  font-weight:600!important;
+  letter-spacing:.06em!important;
+}
+
+.summary-item strong{
+  display:block!important;
+  color:var(--report-ink)!important;
+  font-size:11pt!important;
+  font-weight:600!important;
+  line-height:1.55!important;
+}
+
+.summary-item small{
+  display:block!important;
+  margin-top:2mm!important;
+  color:var(--report-muted)!important;
+  font-size:7.5pt!important;
+  line-height:1.5!important;
+}
+
+.reading-guide{
+  display:grid!important;
+  grid-template-columns:24mm minmax(0,1fr)!important;
+  gap:4mm!important;
+  padding:5mm 6mm!important;
+  border-left:3px solid var(--report-red)!important;
+  background:var(--report-red-soft)!important;
+}
+
+.reading-guide strong{
+  color:var(--report-red)!important;
+  font-size:9pt!important;
+}
+
+.reading-guide span{
+  color:var(--report-text)!important;
+  font-size:9pt!important;
+  line-height:1.75!important;
+}
+
+/* 正文结构 */
+.section{
+  margin:0 0 10mm!important;
+  padding:0!important;
+  break-inside:auto!important;
+  page-break-inside:auto!important;
+}
+
+.section h2{
+  position:relative!important;
+  margin:0 0 6mm!important;
+  padding:3mm 0 3mm 6mm!important;
+  border:0!important;
+  border-bottom:1px solid var(--report-line)!important;
+  color:var(--report-red)!important;
+  font-size:16pt!important;
+  font-weight:600!important;
+  line-height:1.45!important;
+  letter-spacing:.04em!important;
+  break-after:avoid!important;
+  page-break-after:avoid!important;
+}
+
+.section h2::before{
+  content:""!important;
+  position:absolute!important;
+  left:0!important;
+  top:4mm!important;
+  width:1.1mm!important;
+  height:6mm!important;
+  background:var(--report-red)!important;
+}
+
+.section h3{
+  margin:0 0 3mm!important;
+  color:var(--report-gold)!important;
+  font-size:12pt!important;
+  font-weight:600!important;
+  line-height:1.55!important;
+  break-after:avoid!important;
+  page-break-after:avoid!important;
+}
+
+.section-lead{
+  margin:0 0 5mm!important;
+  padding:4mm 5mm!important;
+  border-left:3px solid var(--report-gold)!important;
+  background:var(--report-gold-soft)!important;
+  color:var(--report-ink)!important;
+  font-size:11pt!important;
+  line-height:1.75!important;
+}
+
+.section-intro{
+  margin:0 0 5mm!important;
+  color:var(--report-text)!important;
+}
+
+.energy-profile-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:3.5mm!important;
+  margin:0 0 6mm!important;
+}
+.energy-profile-card{
+  padding:4mm!important;
+  border:1px solid var(--report-line)!important;
+  border-top:2px solid var(--report-gold)!important;
+  background:#fff!important;
+  break-inside:avoid!important;
+  page-break-inside:avoid!important;
+}
+.energy-profile-head{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:4mm!important;margin-bottom:2.5mm!important}
+.energy-profile-head strong{color:var(--report-ink)!important;font-size:10pt!important}
+.energy-profile-head b{color:var(--report-red)!important;font-size:12pt!important}
+.energy-profile-card .report-energy-track{margin-bottom:3mm!important}
+.energy-profile-card p{margin-bottom:2mm!important;font-size:8.8pt!important;line-height:1.65!important}
+.energy-profile-card p:last-child{margin-bottom:0!important}
+.energy-profile-card p span{display:block!important;margin-bottom:.8mm!important;color:var(--report-gold)!important;font-size:7.8pt!important;font-weight:600!important}
+
+.structure-map{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:0!important;
+  margin:0 0 6mm!important;
+  border:1px solid var(--report-line)!important;
+}
+.structure-map>div{display:grid!important;grid-template-columns:24mm minmax(0,1fr)!important;gap:3mm!important;padding:3mm 3.5mm!important;border-right:1px solid var(--report-line-light)!important;border-bottom:1px solid var(--report-line-light)!important;background:#fff!important}
+.structure-map>div:nth-child(2n){border-right:0!important}
+.structure-map>div:nth-last-child(-n+2){border-bottom:0!important}
+.structure-map span{color:var(--report-gold)!important;font-size:8.5pt!important;font-weight:600!important}
+.structure-map strong{font-size:8.8pt!important;font-weight:500!important;line-height:1.6!important}
+
+.section ul{
+  margin:2mm 0 3mm!important;
+  padding-left:5.5mm!important;
+}
+
+.section li{
+  margin:0 0 1.4mm!important;
+  padding-left:1mm!important;
+  list-style-type:"•"!important;
+}
+
+.report-block{
+  margin:0 0 4mm!important;
+  padding:5mm 5.5mm!important;
+  border:1px solid var(--report-line)!important;
+  border-left:3px solid var(--report-gold)!important;
+  border-radius:1.5mm!important;
+  background:var(--report-paper-soft)!important;
+  break-inside:avoid!important;
+  page-break-inside:avoid!important;
+}
+
+.report-block-heading{
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:space-between!important;
+  gap:5mm!important;
+  margin:0 0 3mm!important;
+  padding-bottom:2.5mm!important;
+  border-bottom:1px solid var(--report-line-light)!important;
+}
+.report-block-heading h3{margin:0!important;min-width:0!important}
+.report-block-heading>span{flex:0 0 auto!important;padding:1.2mm 2.5mm!important;border-radius:8mm!important;background:var(--report-gold-soft)!important;color:var(--report-gold)!important;font-size:7.8pt!important;font-weight:600!important;line-height:1.35!important}
+.talent-energy-belonging{
+  display:flex!important;
+  align-items:center!important;
+  gap:2.5mm!important;
+  margin:0 0 2.8mm!important;
+  font-size:8.5pt!important;
+  line-height:1.45!important;
+}
+.talent-energy-belonging strong{color:var(--report-gold)!important;font-weight:600!important}
+.talent-energy-belonging span{padding:1mm 2.4mm!important;border-radius:8mm!important;background:var(--report-gold-soft)!important;color:var(--report-red)!important;font-weight:600!important}
+.talent-core-statement,.direction-statement{margin:0 0 3.5mm!important;color:var(--report-ink)!important;font-size:10.5pt!important;line-height:1.78!important}
+.report-fact-grid,.career-evidence-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:2.5mm 4mm!important;
+  margin-top:3mm!important;
+}
+.report-fact-grid>div,.career-evidence-grid>div{padding:3mm 3.5mm!important;border:1px solid var(--report-line-light)!important;background:#fff!important}
+.report-fact-grid .fact-wide,.career-evidence-grid .fact-wide{grid-column:1/-1!important}
+.report-fact-grid span,.career-evidence-grid span{display:block!important;margin-bottom:1mm!important;color:var(--report-gold)!important;font-size:8pt!important;font-weight:600!important}
+.report-fact-grid p,.career-evidence-grid p{margin:0!important;font-size:9.2pt!important;line-height:1.68!important}
+.report-chip-row{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:2mm!important;margin-top:3.5mm!important}
+.report-chip-row strong{margin-right:1mm!important;color:var(--report-gold)!important;font-size:8.5pt!important}
+.report-chip-row span{padding:1.2mm 2.5mm!important;border:1px solid var(--report-line)!important;border-radius:8mm!important;background:#fff!important;color:var(--report-ink)!important;font-size:8.2pt!important;line-height:1.35!important}
+.report-empty-state{display:grid!important;grid-template-columns:38mm minmax(0,1fr)!important;gap:4mm!important;padding:5mm!important;border:1px dashed var(--report-line)!important;background:var(--report-paper-soft)!important}
+.report-empty-state strong{color:var(--report-gold)!important;font-size:9.5pt!important}
+.report-empty-state span{font-size:9.5pt!important;line-height:1.7!important}
+
+.report-subsection{
+  margin:0 0 8mm!important;
+}
+.report-subsection:last-child{margin-bottom:0!important}
+.report-subsection-title{
+  margin:0 0 2mm!important;
+  padding:0 0 2.2mm!important;
+  border-bottom:1px solid var(--report-line)!important;
+  color:var(--report-gold)!important;
+  font-size:12pt!important;
+  letter-spacing:.8pt!important;
+  break-after:avoid!important;
+  page-break-after:avoid!important;
+}
+.report-subsection-intro{
+  margin:0 0 4mm!important;
+  color:var(--report-muted)!important;
+  font-size:9.2pt!important;
+  line-height:1.7!important;
+  break-after:avoid!important;
+  page-break-after:avoid!important;
+}
+
+.report-block p:last-child,.report-block ul:last-child,.report-block .note:last-child{
+  margin-bottom:0!important;
+}
+
+.talent-block h3,.career-block h3{
+  color:var(--report-red)!important;
+}
+
+.auxiliary-block{
+  border-left-color:#8a8175!important;
+  background:#f3f1ed!important;
+}
+
+.combo-block{
+  border-left-color:#5f9272!important;
+  background:#edf4ed!important;
+}
+
+.potential-block{
+  border-left-color:var(--report-gold)!important;
+  background:var(--report-gold-soft)!important;
+}
+
+.year-block{
+  position:relative!important;
+  padding-top:6mm!important;
+}
+
+.year-block::before{
+  content:""!important;
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  width:100%!important;
+  height:1.1mm!important;
+  border-radius:1.5mm 1.5mm 0 0!important;
+}
+
+.year-expand::before{background:var(--report-gold)!important}
+.year-expand{background:var(--report-year-expand)!important}
+.year-settle::before{background:var(--report-settle)!important}
+.year-settle{border-left-color:var(--report-settle)!important;background:var(--report-year-settle)!important}
+
+.annual-report-section{break-before:page!important;page-break-before:always!important}
+
+.career-block{
+  background:#fffdf9!important;
+}
+
+.career-report-section{break-before:page!important;page-break-before:always!important}
+.career-fit-row{display:grid!important;grid-template-columns:27mm minmax(0,1fr) 12mm!important;gap:3mm!important;align-items:center!important;margin:0 0 3mm!important}
+.career-fit-row>span,.career-fit-row>strong{font-size:8.2pt!important;line-height:1.4!important}
+.career-fit-row>span{color:var(--report-gold)!important;font-weight:600!important}
+.career-fit-row>strong{color:var(--report-red)!important;text-align:right!important}
+.career-fit-row>div{height:2.5mm!important;overflow:hidden!important;border-radius:8mm!important;background:#eae2d6!important}
+.career-fit-row i{display:block!important;height:100%!important;border-radius:8mm!important;background:var(--report-red)!important}
+
+.relation-report-section{
+  break-before:page!important;
+  page-break-before:always!important;
+}
+.relation-report-block{background:#fffdf9!important}
+.relation-report-list{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:2.5mm 4mm!important;
+  margin:3mm 0!important;
+}
+.relation-report-list>div{
+  padding:3mm 3.5mm!important;
+  border:1px solid var(--report-line-light)!important;
+  background:#fff!important;
+}
+.relation-report-list strong{
+  display:block!important;
+  margin-bottom:1mm!important;
+  color:var(--report-gold)!important;
+  font-size:8.6pt!important;
+}
+.relation-report-list p{
+  margin:0!important;
+  color:var(--report-ink)!important;
+  font-size:9.1pt!important;
+  line-height:1.68!important;
+}
+.relation-report-action{
+  display:grid!important;
+  grid-template-columns:25mm minmax(0,1fr)!important;
+  gap:3mm!important;
+  margin-top:3mm!important;
+  padding:3mm 3.5mm!important;
+  border-left:2px solid var(--report-gold)!important;
+  background:var(--report-gold-soft)!important;
+}
+.relation-report-action strong{color:var(--report-gold)!important;font-size:8.6pt!important}
+.relation-report-action p{margin:0!important;font-size:9.1pt!important;line-height:1.68!important}
+.relationship-disclaimer{margin-top:2mm!important;color:var(--report-muted)!important;font-size:8pt!important}
+
+.match-line{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:5mm!important;
+  margin:0 0 3mm!important;
+  padding:2.5mm 3mm!important;
+  background:var(--report-gold-soft)!important;
+}
+
+.match-line strong{
+  color:var(--report-gold)!important;
+  font-size:9.5pt!important;
+}
+
+.match-line span{
+  color:var(--report-muted)!important;
+  font-size:8pt!important;
+}
+
+.stage-block{
+  padding-left:7mm!important;
+}
+
+.stage-block h3{
+  color:var(--report-red)!important;
+}
+
+.note{
+  margin:3mm 0 0!important;
+  padding:3.5mm 4mm!important;
+  border:0!important;
+  border-left:2px solid var(--report-red)!important;
+  border-radius:0 1mm 1mm 0!important;
+  background:var(--report-red-soft)!important;
+  color:var(--report-text)!important;
+  font-size:9.5pt!important;
+  line-height:1.72!important;
+}
+
+.note strong{
+  color:var(--report-red)!important;
+}
+
+.zero-box{
+  margin:0 0 3mm!important;
+  padding:4mm 5mm!important;
+  border:1px solid #e7c8bf!important;
+  border-left:3px solid var(--report-red)!important;
+  border-radius:1mm!important;
+  background:var(--report-red-soft)!important;
+  color:var(--report-text)!important;
+  font-size:9.5pt!important;
+  line-height:1.72!important;
+  break-inside:avoid!important;
+  page-break-inside:avoid!important;
+}
+
+/* 表格 */
+table{
+  width:100%!important;
+  margin:3mm 0 5mm!important;
+  border-collapse:separate!important;
+  border-spacing:0!important;
+  border:1px solid var(--report-line)!important;
+  border-radius:1.5mm!important;
+  overflow:hidden!important;
+  font-size:8.5pt!important;
+  line-height:1.55!important;
+}
+
+thead{display:table-header-group!important}
+tr{break-inside:avoid!important;page-break-inside:avoid!important}
+th,td{
+  padding:2.7mm 2.8mm!important;
+  border:0!important;
+  border-right:1px solid var(--report-line-light)!important;
+  border-bottom:1px solid var(--report-line-light)!important;
+  vertical-align:top!important;
+  text-align:left!important;
+  font-size:8.5pt!important;
+  line-height:1.55!important;
+}
+
+th:last-child,td:last-child{border-right:0!important}
+tr:last-child td{border-bottom:0!important}
+th{
+  background:var(--report-gold-soft)!important;
+  color:var(--report-gold)!important;
+  font-weight:600!important;
+}
+td{background:#fff!important;color:var(--report-text)!important}
+
+/* 结尾 */
+.closing-section{
+  break-before:page!important;
+  page-break-before:always!important;
+  break-inside:auto!important;
+  page-break-inside:auto!important;
+}
+
+.closing-copy{
+  padding:6mm!important;
+  border:1px solid var(--report-line)!important;
+  background:var(--report-paper-soft)!important;
+}
+
+.closing-highlight{
+  margin:5mm 0 0!important;
+  padding:4mm 5mm!important;
+  border-left:3px solid var(--report-red)!important;
+  background:var(--report-red-soft)!important;
+  color:var(--report-red)!important;
+  font-weight:600!important;
+}
+
+.signature{
+  margin:7mm 0 0!important;
+  padding:4mm 0 0!important;
+  border-top:1px solid var(--report-line)!important;
+  color:var(--report-gold)!important;
+  font-size:9pt!important;
+  text-align:right!important;
+}
+
+.report-disclaimer{
+  margin:12mm 0 0!important;
+  padding:4mm 0 0!important;
+  border-top:1px solid var(--report-line)!important;
+  color:var(--report-muted)!important;
+  font-size:8pt!important;
+  line-height:1.65!important;
+  text-align:center!important;
+  break-inside:avoid!important;
+}
+
+.report-next-step{
+  margin:9mm 0 0!important;
+  padding:5mm 6mm!important;
+  border:1px solid #d7c49f!important;
+  border-left:3px solid var(--report-gold)!important;
+  background:var(--report-gold-soft)!important;
+  break-inside:avoid!important;
+  page-break-inside:avoid!important;
+}
+.report-next-step strong{display:block!important;margin-bottom:2mm!important;color:var(--report-red)!important;font-size:11pt!important}
+.report-next-step p{margin:0!important;color:var(--report-text)!important;font-size:9.5pt!important;line-height:1.75!important}
+
+.report-footer{
+  display:none!important;
+}
+
+@media print{
+  html{background:#fff!important}
+  body{
+    width:auto!important;
+    max-width:none!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:0!important;
+    background:#fff!important;
+    box-shadow:none!important;
+  }
+  .report-footer{
+    display:block!important;
+    position:fixed!important;
+    left:0!important;
+    right:0!important;
+    bottom:0!important;
+    padding-top:2mm!important;
+    border-top:.25mm solid var(--report-line)!important;
+    color:var(--report-muted)!important;
+    font-size:7pt!important;
+    line-height:1.4!important;
+    letter-spacing:.05em!important;
+    text-align:center!important;
+  }
+  .report-footer::after{content:""!important}
+}
+
+</style></head><body>`;
 
   // ══ 封面 ══
   html+=`<div class="cover report-cover"><div class="cover-seal">识己</div><div class="cover-kicker">SHI JI · TALENT REPORT</div><h1>天赋职业解读报告</h1><p class="cover-edition">个人专属版</p><div class="cover-person"><strong>${esc(displayName)}</strong><span>${esc(formatBirthValue(a.birth))}</span></div><div class="cover-meta"><div><span>核心天赋</span><strong>${esc(mainNames)||'—'}</strong></div><div><span>辅助天赋</span><strong>${esc(auxNames)||'无'}</strong></div><div><span>潜能天赋</span><strong>${esc(potentialSummary)}</strong></div></div><div class="cover-foot">识己天赋测评体系 · 报告生成日期：${dateStr}</div></div>`;
