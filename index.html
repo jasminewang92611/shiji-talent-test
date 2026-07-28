@@ -1885,7 +1885,16 @@ const AUX_TO_POTENTIAL={
   3:{auxName:'魅力竞争者',auxCore:'容易从优秀同伴身上获得成长动力；把关注点放回自身的持续精进，更能形成稳定而独特的魅力。',auxPath:'以「园丁精神」精进外在条件；发展美学相关事业，将优势转化为变现能力。',potential:{num:12,proto:'母亲原型',theme:'自我滋养',key:'在关爱他人的同时照顾自己的需要，让付出来自真诚与丰盈'}},
   12:{auxName:'情感交换者',auxCore:'付出时期待被理解和回应；练习把需要直接说清楚，能让关系中的给予与接受更加轻松。',auxPath:'理解付出与回报常不平等；学会直接表达需求，而非期待对方猜测。',potential:null},
   6:{auxName:'关系调和者',auxCore:'珍惜关系和整体和谐，常愿意先照顾他人感受；清晰表达自己的选择，会让关系更平衡。',auxPath:'练习温和而坚定地表达「不」；在关系智慧中成长，学会得体拒绝。',potential:{num:15,proto:'隐藏欲望原型',theme:'真实需求',key:'确认自己已经足够好，并以直接表达建立更真诚的关系'}},
-  9:{auxName:'真相直言者',auxCore:'重视真实与独立判断，表达观点时加入对方容易接收的方式，会让洞察产生更大的帮助。',auxPath:'先找优点再给观点；成为指引他人的智者，减少「独醒」的孤独感。',potential:{num:18,proto:'视角转化原型',theme:'主动选择',key:'接纳不同意见，把关注点转向自己能够推动的解决方案'}}
+  9:{auxName:'真相直言者',auxCore:'重视真实与独立判断，表达观点时加入对方容易接收的方式，会让洞察产生更大的帮助。',auxPath:'先找优点再给观点；成为指引他人的智者，减少「独醒」的孤独感。',potential:{num:18,proto:'视角转化原型',theme:'主动选择',key:'接纳不同意见，把关注点转向自己能够推动的解决方案'}},
+  13:{auxName:'深度钻研者',auxCore:'执着于深度探索与专业技能的精进，有强烈的自我超越动力；享受专注带来的心流体验。',auxPath:'将执着用于有意义的长期积累，而非死守单一方法；定期回顾目标是否仍然匹配自身方向。',potential:null},
+  14:{auxName:'跨域连接者',auxCore:'天生对异域文化、国际视野或跨领域交流有敏锐度，擅长在差异中建立桥梁。',auxPath:'主动拓展国际化或跨领域的交流圈，将涉外能力转化为跨界创新的资源优势。',potential:null},
+  15:{auxName:'全局统筹者',auxCore:'擅长从复杂信息中识别关键路径，以系统思维规划长短期目标；善于为团队制定清晰的行动方向。',auxPath:'多分享策略构想以获取反馈，避免独自陷入过度分析；让执行层充分理解策略意图。',potential:null},
+  16:{auxName:'高效践行者',auxCore:'动手能力和执行力突出，擅长把想法快速转化为可见成果；喜欢在行动中学习和调整。',auxPath:'在行动前做必要的方向确认，避免低效重复；学会阶段性复盘，让每一次尝试都成为成长台阶。',potential:null},
+  17:{auxName:'先知洞见者',auxCore:'对趋势、人际和潜在的变量有敏锐觉察，能提前预见可能的变化与风险。',auxPath:'把洞察用温和的方式表达，避免因先见之明而被误解为好为人师；记录洞察日志以提升判断精准度。',potential:null},
+  18:{auxName:'心灵感知者',auxCore:'对能量场、情绪氛围和隐性信息有高度敏感，能捕捉他人不易察觉的细微变化。',auxPath:'建立个人能量管理习惯，防止高敏感带来的过度消耗；学会区分「他人的情绪」与「自己的感受」。',potential:null},
+  19:{auxName:'资源链接者',auxCore:'善于发现和整合人、财、物各类资源，擅于将零散资源编织成可用的支持网络。',auxPath:'建立资源记录与分类系统，定期维护关键关系；避免因过度索取而消耗关系资本。',potential:null},
+  20:{auxName:'系统构建者',auxCore:'擅长制定流程、标准和时间表，让复杂任务变得有条不紊；习惯用计划降低不确定性。',auxPath:'在规划中保留弹性空间，允许自己和他人有调整的余地；避免因计划被打乱而产生焦虑。',potential:null},
+  21:{auxName:'规则守护者',auxCore:'尊重传统与既有规则，在规范中找到安全感与权威感；有很强的责任感和使命感。',auxPath:'在尊重传统的同时保持开放心态，适当融合现代思维；避免因过度守旧而错失发展机会。',potential:null}
 };
 
 // 潜能天赋去数字化名称
@@ -1934,7 +1943,8 @@ function talentOptions(selected=''){
 }
 
 function auxiliaryTalentOptions(selected=''){
-  return '<option value="">请选择辅助天赋</option>'+Object.keys(AUX_TO_POTENTIAL).map(num=>`<option value="${num}" ${String(selected)===num?'selected':''}>${TALENT_NAMES[num]}（辅助面向：${AUX_TO_POTENTIAL[num].auxName}）</option>`).join('');
+  const isNewAux=num=>Number(num)>=13;
+  return '<option value="">请选择辅助天赋</option>'+Object.keys(AUX_TO_POTENTIAL).map(num=>`<option value="${num}" ${String(selected)===num?'selected':''}>${TALENT_NAMES[num]}${isNewAux(num)?'（和主天赋必成主辅共振）':'（辅助面向：'+AUX_TO_POTENTIAL[num].auxName+'）'}</option>`).join('');
 }
 
 function potentialOptions(selected=''){
