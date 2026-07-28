@@ -2533,7 +2533,7 @@ function renderCareerSummary(talents,combos){
   h+=ranked.map((d,i)=>`<article class="career-direction"><div class="career-direction-no">${String(i+1).padStart(2,'0')}</div><div class="career-direction-body"><div class="career-direction-title">${d.title}</div><p class="career-direction-core">${d.core}</p><div class="career-direction-meta"><span class="career-direction-label">职业案例</span><div class="career-examples">${d.examples.slice(0,3).map(example=>`<span class="career-example">${example}</span>`).join('')}</div><span class="career-direction-label">天赋来源</span><div class="career-sources">${d.contributors.map(source=>`<span class="career-source">${source}</span>`).join('')}</div></div></div></article>`).join('');
   h+='</div>';
   h+='<p class="career-summary-advice">建议先选择最有兴趣的两个内核方向，再结合既有经验、教育背景和市场机会缩小到具体行业与岗位。</p>';
-  h+='<div class="disclaimer">本测评属于趣味性自我探索工具，结论仅供娱乐参考。免责声明：以上内容基于识己天赋体系生成，仅供个人成长与职业探索参考，不构成职业、心理、医疗、法律或投资决策依据。请结合个人经历、教育背景、现实条件与专业意见综合判断。</div>';
+  h+='<div class="disclaimer">本测评属于趣味性自我探索工具，结论仅供参考。免责声明：以上内容基于识己天赋体系生成，仅供个人成长与职业探索参考，不构成职业、心理、医疗、法律或投资决策依据。请结合个人经历、教育背景、现实条件与专业意见综合判断。</div>';
   h+='</section>';
   return h;
 }
@@ -3652,7 +3652,7 @@ td{background:#fff!important;color:var(--report-text)!important}
 </style></head><body>`;
 
   // ══ 封面 ══
-  html+=`<div class="cover report-cover"><div class="cover-seal">识己</div><div class="cover-kicker">SHI JI · TALENT REPORT</div><h1>天赋职业解读报告</h1><p class="cover-edition">个人专属版</p><div class="cover-person"><strong>${esc(displayName)}</strong><span>${esc(formatBirthValue(a.birth))}</span></div><div class="cover-meta"><div><span>核心天赋</span><strong>${esc(mainNames)||'—'}</strong></div><div><span>辅助天赋</span><strong>${esc(auxNames)||'无'}</strong></div><div><span>潜能天赋</span><strong>${esc(potentialSummary)}</strong></div></div><div class="cover-foot">识己天赋测评体系 · 报告生成日期：${dateStr}</div></div>`;
+  html+=`<div class="cover report-cover"><div class="cover-seal">识己</div><div class="cover-kicker">SHI JI · TALENT REPORT</div><h1>天赋职业解读报告</h1><p class="cover-edition">个人专属版</p><div class="cover-person"><strong>${esc(displayName)}</strong><span>${esc(formatBirthValue(a.birth))}</span></div><div class="cover-meta"><div><span>核心天赋</span><strong>${esc(mainNames)||'—'}</strong></div><div><span>辅助天赋</span><strong>${esc(auxNames)||'无'}</strong></div><div><span>潜能天赋</span><strong>${esc(potentialSummary)}</strong></div></div><div class="cover-foot">识己天赋测评体系 · 报告生成日期：${dateStr}</div><p style="margin-top:24px;font-size:10pt;color:var(--report-muted);letter-spacing:.04em">本测评属于趣味性自我探索工具，结论仅供参考。</p></div>`;
 
   // ══ 阅读摘要 ══
   html+=`<section class="executive-summary"><div class="summary-kicker">REPORT SUMMARY</div><h2>报告摘要</h2><p class="summary-lead">你的天赋结构以<strong>${maxEName}</strong>为主导。优先能力集中在<strong>${esc(orderedMains.slice(0,3).map(t=>t.name).join('、'))}</strong>。建议先选择一个最有现实基础的职业方向，持续形成作品、案例与专业成果。</p><div class="summary-grid"><div class="summary-item"><span>主导能量</span><strong>${maxEName}</strong><small>占比 ${pcts[maxE]}%</small></div><div class="summary-item"><span>优先能力</span><strong>${esc(orderedMains.slice(0,3).map(t=>t.name).join('、'))||'—'}</strong><small>先形成可见成果</small></div><div class="summary-item"><span>潜能课题</span><strong>${esc(potentialSummary)}</strong><small>持续突破与整合</small></div></div>`;
@@ -3857,7 +3857,7 @@ td{background:#fff!important;color:var(--report-text)!important}
   html+=`</div>`;
 
   html+=`<div class="report-next-step"><strong>下一步 · 结合简历深入分析</strong><p>可将本PDF报告与个人简历一并提交给AI，并补充当前行业、工作年限、教育背景、收入目标与生活方式偏好，进一步分析优势能力、适配岗位和职业选择。</p></div>`;
-  html+=`<p class="report-disclaimer">本测评属于趣味性自我探索工具，结论仅供娱乐参考。※ 以上解读基于识己天赋体系生成，仅供个人成长与职业探索参考，不构成职业、心理、医疗、法律或投资决策依据。请结合个人经历、现实条件与专业意见综合判断。</p><div class="report-footer">识己天赋测试 · 专属职业解读报告</div>`;
+  html+=`<p class="report-disclaimer">本测评属于趣味性自我探索工具，结论仅供参考。※ 以上解读基于识己天赋体系生成，仅供个人成长与职业探索参考，不构成职业、心理、医疗、法律或投资决策依据。请结合个人经历、现实条件与专业意见综合判断。</p><div class="report-footer">识己天赋测试 · 专属职业解读报告</div>`;
   html+=`</body></html>`;
   return html;
 }
@@ -4043,7 +4043,7 @@ function exportCareerImage(){
 
     y+=28;ctx.fillStyle=C.gold;ctx.fillRect(px(LEFT+40),px(y),px(CONTENT_W-80),px(1));
     ctx.fillStyle=C.ink3;ctx.font=font(22);ctx.textAlign="center";
-    ctx.fillText("识己天赋测试  ·  本测评属于趣味性自我探索工具，结论仅供娱乐参考",px(PAGE_W/2),px(y+24));ctx.textAlign="left";
+    ctx.fillText("识己天赋测试  ·  本测评属于趣味性自我探索工具，结论仅供参考",px(PAGE_W/2),px(y+24));ctx.textAlign="left";
 
     const fileName="识己-"+displayName+"-天赋职业全览.png";
     canvas.toBlob(function(blob){
