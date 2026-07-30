@@ -322,7 +322,7 @@ body::after{content:'';position:fixed;left:0;right:0;top:0;height:5px;z-index:3;
   .energy-item.earth{background:#f7eedb!important;border-color:#e2cfaa!important}
 }
 
-/* 最终统一视觉系统：宣纸底、朱红标题、泥金小标题、黑灰正文、风火水土浅底 */
+/* 最终统一视觉系统：宣纸底、朱红标题、泥金小标题、黑灰正文、四色浅底 */
 @media screen{
   :root{
     --ui-paper:#f6f1e8;--ui-panel:#fffdf9;--ui-ink:#332f29;--ui-red:#a33d36;--ui-gold:#96702f;
@@ -467,7 +467,7 @@ body::after{content:'';position:fixed;left:0;right:0;top:0;height:5px;z-index:3;
   }
 }
 
-/* 潜能天赋与综合职业方向采用同一字级比例，避免两块阅读感割裂 */
+/* 人生课题与综合职业方向采用同一字级比例，避免两块阅读感割裂 */
 @media screen{
   #results .talent-detail h3,#results .career-summary h3{font-size:19px!important;font-weight:600!important;line-height:1.5!important}
   #results .talent-reading-primary-label,#results .career-direction-title{font-size:16px!important;font-weight:600!important;line-height:1.62!important}
@@ -1105,7 +1105,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   line-height:1.65!important;
 }
 
-/* 四大能量 */
+/* 四类能力 */
 #results .energy-section,#results .ranking-section,#results .talent-detail{margin:0 0 32px!important}
 #results .energy-grid{
   display:grid!important;
@@ -1495,6 +1495,11 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   font-size:15px!important;
   line-height:1.9!important;
 }
+.relation-expression-row span strong{
+  color:var(--sj-ink)!important;
+  font-size:inherit!important;
+  font-weight:700!important;
+}
 #results .card>h4{margin:20px 0 8px!important}
 #results .card>ul{padding-left:20px!important}
 #results .card>div[style*="background:#fff8f3"],
@@ -1778,10 +1783,10 @@ html,body{font-family:"Microsoft YaHei","PingFang SC",sans-serif!important;backg
 const TALENT_NAMES={0:'创意天赋',1:'整合天赋',2:'敏锐天赋',3:'美育天赋',4:'挑战天赋',5:'价值天赋',6:'面相天赋',7:'家庭天赋',8:'教练天赋',9:'穿透天赋',10:'显化天赋',11:'悟性天赋',12:'趋势天赋',13:'执着天赋',14:'涉外天赋',15:'策略天赋',16:'执行天赋',17:'洞察天赋',18:'感知天赋',19:'资源天赋',20:'计划天赋',21:'传统天赋'};
 
 const ENERGY_TYPES={
-  wind:{name:'认知能量',symbol:'风',color:'#5d9675',light:'#e9f3e9',desc:'具备快速、多元的学习能力，擅长将知识转化为可变现的输出。思维灵活，表达逻辑清晰，天然适合知识型、顾问型工作。核心驱动力在于「学习—整合—输出」的循环。',nums:[0,1,6,11,17,20],zeroMsg:'您拥有广阔的思维空间，适合发展独特的认知风格。建议多肯定自己的贡献与价值，寻找欣赏您独特视角的导师或搭档，让思想的火花更有信心地绽放。'},
-  fire:{name:'行动能量',symbol:'火',color:'#c86b58',light:'#fcece6',desc:'充满干劲，企图心强，直觉决断，适合竞争性、目标导向的工作环境。是天生的行动者，属于「竞争型人才」，最适合能够自主发挥的岗位。',nums:[4,8,14,16,19],zeroMsg:'您的行动节奏偏从容优雅，更适合深思熟虑后的精准出击。建议与行动力强的伙伴搭档，借助外部目标和协作关系，优雅地激活内在的行动潜能。'},
-  water:{name:'情绪能量',symbol:'水',color:'#4e89a8',light:'#e8f1f7',desc:'以人为本，同理心强，情感连接能力卓越。擅长销售、活动、策划等需要「以情动人」的工作，属于「渗透型人才」，善于在无形中建立信任与影响力。',nums:[2,3,7,12,13,18],zeroMsg:'您的情绪感知灵敏而内敛，以理性思考见长。建议多与情感表达能力出色的伙伴交流，在合作中自然补充情感沟通的维度，让理性与感性相得益彰。'},
-  earth:{name:'构建能量',symbol:'土',color:'#a77a37',light:'#f7eedb',desc:'擅长结构性思考，做事有计划且落地，善于提供解决方案。注重实效、讲究细节，金钱能量强，是组织和团队中的「落实型人才」。',nums:[5,9,10,15,21],zeroMsg:'您拥有开放灵动的思维特质，创意和灵感是其天然优势。建议搭配结构化工具辅助执行落地，或与擅长构建的伙伴协作，让灵感找到扎根的土壤。'}
+  wind:{name:'认知能力',color:'#5d9675',light:'#e9f3e9',desc:'具备快速、多元的学习能力，擅长将知识转化为可变现的输出。思维灵活，表达逻辑清晰，天然适合知识型、顾问型工作。核心驱动力在于「学习—整合—输出」的循环。',nums:[0,1,6,11,17,20],zeroMsg:'您拥有广阔的思维空间，适合发展独特的认知风格。建议多肯定自己的贡献与价值，寻找欣赏您独特视角的导师或搭档，让想法更有信心地表达出来。'},
+  fire:{name:'行动能力',color:'#c86b58',light:'#fcece6',desc:'充满干劲，企图心强，直觉决断，适合竞争性、目标导向的工作环境。是天生的行动者，属于「竞争型人才」，最适合能够自主发挥的岗位。',nums:[4,8,14,16,19],zeroMsg:'您的行动节奏偏从容优雅，更适合深思熟虑后的精准出击。建议与行动力强的伙伴搭档，借助外部目标和协作关系，逐步激活内在的行动潜力。'},
+  water:{name:'情感能力',color:'#4e89a8',light:'#e8f1f7',desc:'以人为本，同理心强，情感连接能力卓越。擅长销售、活动、策划等需要「以情动人」的工作，属于「渗透型人才」，善于在无形中建立信任与影响力。',nums:[2,3,7,12,13,18],zeroMsg:'您的感受表达偏理性内敛。建议多与情感表达能力出色的伙伴交流，在合作中自然补充情感沟通的维度，让理性与感性相得益彰。'},
+  earth:{name:'构建能力',color:'#a77a37',light:'#f7eedb',desc:'擅长结构性思考，做事有计划且落地，善于提供解决方案。注重实效、讲究细节，积累能力强，是组织和团队中的「落实型人才」。',nums:[5,9,10,15,21],zeroMsg:'您拥有开放灵动的思维特质，创意和灵感是天然优势。建议搭配结构化工具辅助执行落地，或与擅长规划的伙伴协作，让想法更稳妥地转化为成果。'}
 };
 
 const TALENT_DETAIL={
@@ -1823,29 +1828,66 @@ const COMBOS=[
 
 // 关系解读使用具体天赋生成，全部采用发展性、正向表达。
 const RELATION_GUIDE={
-  0:{love:'珍视自由与新鲜感，适合以共同探索维持关系活力。',parent:'重点培养想象力与创造力，并通过小作品、小项目让创意逐步落地。',money:'适合从创新项目与新兴领域发现收入机会。'},
-  1:{love:'重视思想交流，持续学习与共同成长会增强吸引力。',parent:'重点培养知识整合与表达能力，可通过复述、写作或分享完成从输入到输出。',money:'知识、写作与课程产品是值得积累的长期资产。'},
-  2:{love:'重视忠诚与安全感，细腻回应能让关系更稳固。',parent:'重点培养情绪觉察与安全感，先确认真实感受，再练习清晰表达自己的需要。',money:'重要财务决定适合在情绪平稳时完成。'},
-  3:{love:'擅长创造仪式感与审美体验，让日常保持温度。',parent:'重点培养审美感受与创造表达，可通过艺术、空间布置和生活观察积累美感。',money:'审美、品牌与内容影响力可转化为价值。'},
-  4:{love:'表达直接而有行动力，也需要彼此尊重与欣赏。',parent:'重点培养目标感与健康的挑战精神，在有选择空间的任务中学习坚持与复盘。',money:'创业、业绩与拓展型机会能激活财富动力。'},
-  5:{love:'希望价值观同频，坦诚讨论期待会更有安全感。',parent:'重点培养价值判断与自我肯定，多看见过程中的努力，并练习有依据地表达观点。',money:'说服力与价值传递能力适合发展专业服务。'},
-  6:{love:'亲和力强，关系需要陪伴、新鲜感与清晰回应。',parent:'重点培养公开表达与社交自信，可从讲述、展示和真实互动中建立个人影响力。',money:'个人品牌、人际连接与公开表达可形成收入入口。'},
-  7:{love:'重视家庭归属与长期承诺，守护是重要的爱之语言。',parent:'重点培养责任感与生活秩序，同时保留自主选择和适度调整规则的空间。',money:'家居、生活服务与家庭场景相关领域值得关注。'},
-  8:{love:'愿意支持伴侣成长，被看见贡献会更有动力。',parent:'重点培养鼓励他人和带领练习的能力，同时建立边界，让付出与自我成长保持平衡。',money:'培训、教练与团队发展经验可以产品化。'},
-  9:{love:'需要独立空间与高质量沟通，尊重边界会更亲密。',parent:'重点培养深度观察与问题分析能力，先看见已有成果，再练习提出清晰、可行的建议。',money:'诊断问题与提供解决方案是核心变现能力。'},
-  10:{love:'重视共同愿景与生活品质，适合一起拓展视野。',parent:'重点培养资源连接与长期视野，通过多元体验认识世界，再逐步形成自己的方向。',money:'高质量人脉、海外视野与资源连接是重要优势。'},
-  11:{love:'看重内涵、原则与精神共鸣，欣赏彼此专业会更靠近。',parent:'重点培养求知欲与专业深度，在追寻答案的同时，也允许多元观点和持续修正。',money:'专业认证、权威知识与高价值服务有利于稳定积累。'},
-  12:{love:'重视付出与回应的平衡，直接说出需要更容易被理解。',parent:'重点培养趋势感知与兴趣辨别能力，通过比较、选择和体验找到真正愿意长期投入的方向。',money:'选品、趋势判断与品牌代理是可发展的方向。'},
-  13:{love:'投入而专注，稳定的信任与温柔表达能滋养关系。',parent:'重点培养专注力与深度学习能力，也要为试错、休息和转换视角保留空间。',money:'在冷门或专业细分领域长期深耕更容易建立壁垒。'},
-  14:{love:'喜欢共同旅行与成长，开放沟通能保持关系活力。',parent:'重点培养语言、表达与跨文化视野，通过旅行、阅读和公开分享拓宽经验边界。',money:'跨文化传播、海外业务与演讲表达可形成价值。'},
-  15:{love:'善于规划关系未来，也需要练习表达真实感受与需要。',parent:'重点培养规划与策略思维，把长远目标拆成阶段行动，并为变化预留弹性。',money:'商业模式、策略咨询与幕后规划是优势领域。'},
-  16:{love:'热情果断，及时沟通与稳定释放压力有助于长久相处。',parent:'重点培养行动力与实践能力，在真实任务中边做边学，同时建立适合自己的节奏。',money:'执行、运营、销售与技能型成果适合快速转化。'},
-  17:{love:'追求深度与灵魂共鸣，同时珍视得体的个人空间。',parent:'重点培养识人、识己与潜力发现能力，通过真实表达和深入交流增强连接感。',money:'人才媒合、公益项目与资源对接能发挥洞察优势。'},
-  18:{love:'感受细腻，稳定陪伴与明确回应能带来安心。',parent:'重点培养细腻感知与身心表达，可通过艺术、自然和感官体验形成稳定的内在连接。',money:'身心健康、体验服务与精细手作适合长期深耕。'},
-  19:{love:'温暖有感染力，彼此关注与共同目标会增强连接。',parent:'重点培养群体参与与组织能力，在共同任务和团队体验中建立自信与影响力。',money:'人脉经营、团队管理与资源整合能放大机会。'},
-  20:{love:'可靠而贴心，清晰分工能让照顾与独立保持平衡。',parent:'重点培养计划意识与稳定执行力，让自己参与制定步骤，并在完成中积累安全感。',money:'计划、风控与长期积累是财富安全感的来源。'},
-  21:{love:'看重责任、秩序与可见的承诺，稳定行动最能表达爱。',parent:'重点培养规律、时间观念与责任意识，在清晰边界中保留协商和自主安排的空间。',money:'制度管理、传统行业与长期经营更容易沉淀成果。'}
+  0:{love:'关系里需要一定的自由和新鲜感。一起尝试新事物，同时给彼此独立空间，会相处得更轻松。',parent:'重点培养想象力与创造力，并通过小作品、小项目让创意逐步落地。',money:'适合从创新项目与新兴领域发现收入机会。'},
+  1:{love:'喜欢和伴侣交流想法。愿意认真听彼此的观点，一起学习新东西，会更有共同话题。',parent:'重点培养知识整合与表达能力，可通过复述、写作或分享完成从输入到输出。',money:'知识、写作与课程产品是值得积累的长期资产。'},
+  2:{love:'很在意忠诚和安全感。及时回应、说清楚态度，比让对方猜测更能稳定关系。',parent:'重点培养情绪觉察与安全感，先确认真实感受，再练习清晰表达自己的需要。',money:'重要财务决定适合在情绪平稳时完成。'},
+  3:{love:'会通过用心安排和生活细节表达在意。保留一些两个人固定的小仪式，能让关系更有温度。',parent:'重点培养审美感受与创造表达，可通过艺术、空间布置和生活观察积累美感。',money:'审美、品牌与内容影响力可转化为价值。'},
+  4:{love:'感情里专一、专情，认定后愿意认真投入；表达直接而有行动力，也需要彼此尊重与欣赏。',parent:'重点培养目标感与健康的挑战精神，在有选择空间的任务中学习坚持与复盘。',money:'创业、业绩与拓展型机会能激活财富动力。'},
+  5:{love:'很在意两个人是否认同相近的生活原则。把期待、底线和重要选择说清楚，会更安心。',parent:'重点培养价值判断与自我肯定，多看见过程中的努力，并练习有依据地表达观点。',money:'说服力与价值传递能力适合发展专业服务。'},
+  6:{love:'容易主动靠近和照顾气氛，也需要对方有明确回应。固定留出相处时间，关系会更稳定。',parent:'重点培养公开表达与社交自信，可从讲述、展示和真实互动中建立个人影响力。',money:'个人品牌、人际连接与公开表达可形成收入入口。'},
+  7:{love:'重视家庭感和长期承诺。除了照顾对方，也要把自己的需要说出来，避免一个人承担太多。',parent:'重点培养责任感与生活秩序，同时保留自主选择和适度调整规则的空间。',money:'家居、生活服务与家庭场景相关领域值得关注。'},
+  8:{love:'愿意鼓励和支持伴侣。直接告诉对方你希望怎样被肯定，也能减少付出后没有回应的失落。',parent:'重点培养鼓励他人和带领练习的能力，同时建立边界，让付出与自我成长保持平衡。',money:'培训、教练与团队发展经验可以产品化。'},
+  9:{love:'需要独立思考的空间，也重视有内容的沟通。讨论问题前先确认对方想被倾听还是想要建议。',parent:'重点培养深度观察与问题分析能力，先看见已有成果，再练习提出清晰、可行的建议。',money:'诊断问题与提供解决方案是核心变现能力。'},
+  10:{love:'希望两个人对未来有共同方向。定期聊生活计划和现实安排，能减少各走各路的感觉。',parent:'重点培养资源连接与长期视野，通过多元体验认识世界，再逐步形成自己的方向。',money:'高质量人脉、海外视野与资源连接是重要优势。'},
+  11:{love:'重视原则、知识和认真交流。彼此尊重对方擅长的事，有分歧时愿意把理由讲清楚，更容易建立信任。',parent:'重点培养求知欲与专业深度，在追寻答案的同时，也允许多元观点和持续修正。',money:'专业认证、权威知识与高价值服务有利于稳定积累。'},
+  12:{love:'在意付出有没有得到回应。与其等待对方猜到，不如直接说明自己需要什么、能做到什么。',parent:'重点培养趋势感知与兴趣辨别能力，通过比较、选择和体验找到真正愿意长期投入的方向。',money:'选品、趋势判断与品牌代理是可发展的方向。'},
+  13:{love:'认定关系后会投入很多。保持稳定联系，也给彼此休息和调整的空间，会比一味黏紧更长久。',parent:'重点培养专注力与深度学习能力，也要为试错、休息和转换视角保留空间。',money:'在冷门或专业细分领域长期深耕更容易建立壁垒。'},
+  14:{love:'喜欢一起见识新事物。旅行、学习或共同体验都能增加话题，但重要决定仍要提前商量。',parent:'重点培养语言、表达与跨文化视野，通过旅行、阅读和公开分享拓宽经验边界。',money:'跨文化传播、海外业务与演讲表达可形成价值。'},
+  15:{love:'习惯提前考虑两个人的未来。做计划时也要问问彼此当下的感受和需要，不要只讨论安排。',parent:'重点培养规划与策略思维，把长远目标拆成阶段行动，并为变化预留弹性。',money:'商业模式、策略咨询与幕后规划是优势领域。'},
+  16:{love:'表达直接、行动很快。情绪上来时先缓一缓，再把问题说清楚，能减少冲动争执。',parent:'重点培养行动力与实践能力，在真实任务中边做边学，同时建立适合自己的节奏。',money:'执行、运营、销售与技能型成果适合快速转化。'},
+  17:{love:'希望关系有深度，也需要保留自己的空间。把真实想法说出来，比默默观察和猜测更容易靠近。',parent:'重点培养识人、识己与潜力发现能力，通过真实表达和深入交流增强连接感。',money:'人才媒合、公益项目与资源对接能发挥洞察优势。'},
+  18:{love:'很容易察觉对方的情绪变化。先确认事实、再回应感受，可以减少把对方情绪都背在自己身上。',parent:'重点培养细腻感知与身心表达，可通过艺术、自然和感官体验形成稳定的内在连接。',money:'身心健康、体验服务与精细手作适合长期深耕。'},
+  19:{love:'喜欢一起参与事情，也愿意带动气氛。除了共同目标，也要留出只属于两个人的交流时间。',parent:'重点培养群体参与与组织能力，在共同任务和团队体验中建立自信与影响力。',money:'人脉经营、团队管理与资源整合能放大机会。'},
+  20:{love:'会通过安排和照顾表达在意。提前说清分工，不把所有责任揽在自己身上，关系会更轻松。',parent:'重点培养计划意识与稳定执行力，让自己参与制定步骤，并在完成中积累安全感。',money:'计划、风控与长期积累是财富安全感的来源。'},
+  21:{love:'重视承诺和稳定行动。规则需要双方商量，而不是默认对方应该照做，这样更容易长期相处。',parent:'重点培养规律、时间观念与责任意识，在清晰边界中保留协商和自主安排的空间。',money:'制度管理、传统行业与长期经营更容易沉淀成果。'}
 };
+
+const RELATION_EMPHASIS={
+  love:[
+    '共同探索','独立空间','认真听彼此的观点','一起学习新东西','及时回应','说清楚态度',
+    '固定的小仪式','彼此尊重与欣赏','期待、底线和重要选择','明确回应','留出相处时间',
+    '把自己的需要说出来','直接告诉对方','独立思考的空间','先确认对方想被倾听还是想要建议',
+    '共同方向','生活计划和现实安排','把理由讲清楚','直接说明自己需要什么、能做到什么',
+    '稳定联系','休息和调整的空间','提前商量','当下的感受和需要','先缓一缓','把问题说清楚',
+    '把真实想法说出来','先确认事实、再回应感受','只属于两个人的交流时间','提前说清分工',
+    '双方商量','稳定行动'
+  ],
+  parent:[
+    '想象力与创造力','知识整合与表达能力','情绪觉察与安全感','审美感受与创造表达',
+    '目标感与健康的挑战精神','价值判断与自我肯定','公开表达与社交自信','责任感与生活秩序',
+    '鼓励他人和带领练习的能力','深度观察与问题分析能力','资源连接与长期视野',
+    '求知欲与专业深度','趋势感知与兴趣辨别能力','专注力与深度学习能力','语言、表达与跨文化视野',
+    '规划与策略思维','行动力与实践能力','识人、识己与潜力发现能力','细腻感知与身心表达',
+    '群体参与与组织能力','计划意识与稳定执行力','规律、时间观念与责任意识'
+  ],
+  money:[
+    '创新项目与新兴领域','知识、写作与课程产品','情绪平稳时','审美、品牌与内容影响力',
+    '创业、业绩与拓展型机会','说服力与价值传递能力','个人品牌、人际连接与公开表达',
+    '家居、生活服务与家庭场景','培训、教练与团队发展经验','诊断问题与提供解决方案',
+    '高质量人脉、海外视野与资源连接','专业认证、权威知识与高价值服务',
+    '选品、趋势判断与品牌代理','冷门或专业细分领域','跨文化传播、海外业务与演讲表达',
+    '商业模式、策略咨询与幕后规划','执行、运营、销售与技能型成果',
+    '人才媒合、公益项目与资源对接','身心健康、体验服务与精细手作',
+    '人脉经营、团队管理与资源整合','计划、风控与长期积累','制度管理、传统行业与长期经营'
+  ]
+};
+
+function formatRelationGuide(text,dimension){
+  const phrases=(RELATION_EMPHASIS[dimension]||[]).filter(phrase=>text.includes(phrase)).sort((a,b)=>b.length-a.length);
+  if(!phrases.length)return text;
+  const pattern=new RegExp(phrases.map(phrase=>phrase.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|'),'g');
+  return text.replace(pattern,match=>`<strong>${match}</strong>`);
+}
 
 // 综合职业先归纳“工作内核”，再给出不同落地形态，避免同义岗位重复占位。
 const CAREER_ARCHETYPES=[
@@ -1940,24 +1982,24 @@ const AUX_TO_POTENTIAL={
   21:{auxName:'规则守护者',auxCore:'尊重传统与既有规则，在规范中找到安全感与权威感；有很强的责任感和使命感。',auxPath:'在尊重传统的同时保持开放心态，适当融合现代思维；避免因过度守旧而错失发展机会。',potential:null}
 };
 
-// 潜能天赋去数字化名称
+// 人生课题去数字化名称
 const POTENTIAL_NAMES={0:'寻找意义',11:'悦纳不完美',12:'学会自爱',13:'放下执念',14:'拥抱成长',15:'正视自我需求',16:'直接沟通',17:'展露真实',18:'转化视角',19:'学会借力',20:'从容前行',21:'建立界限'};
 const POTENTIAL_NAME_TO_NUM={'寻找意义':0,'悦纳不完美':11,'学会自爱':12,'放下执念':13,'拥抱成长':14,'正视自我需求':15,'直接沟通':16,'展露真实':17,'转化视角':18,'学会借力':19,'从容前行':20,'建立界限':21};
 
-// 潜能天赋详细信息（用新名称，不显示数字）
+// 人生课题详细信息（用新名称，不显示数字）
 const POTENTIAL_DIRECT={
-  0:{name:'寻找意义',proto:'业余玩家原型',theme:'意义驱动',key:'学会为平凡工作创造意义，或选择真正热爱的领域深耕'},
-  11:{name:'悦纳不完美',proto:'法官原型',theme:'高敏感与评判',key:'接纳不完美，理解「足够好」的价值'},
-  12:{name:'学会自爱',proto:'母亲原型',theme:'无条件奉献',key:'区分真我付出与交换式付出，学会先爱自己'},
-  13:{name:'放下执念',proto:'父亲原型',theme:'证明导向',key:'放下「对错执念」，允许他人有自己的答案'},
-  14:{name:'拥抱成长',proto:'倡导者原型',theme:'成长勇气',key:'把每一次尝试都视为积累经验的阶梯，让行动带来持续成长'},
-  15:{name:'正视自我需求',proto:'隐藏欲望原型',theme:'压抑真实需求',key:'告诉自己「我已经足够好」，无需用交换换取爱'},
-  16:{name:'直接沟通',proto:'运动家原型',theme:'沟通蓄力',key:'在感受出现时及时说出来，用直接而温和的沟通增进理解'},
-  17:{name:'展露真实',proto:'导师原型',theme:'真实表达',key:'接纳自己的完整状态，适度表达真实想法与感受'},
-  18:{name:'转化视角',proto:'视角转化原型',theme:'主动选择',key:'接纳不同意见，把关注点转向自己能够推动的解决方案'},
-  19:{name:'学会借力',proto:'英雄原型',theme:'个人主义倾向',key:'学会在团队中借力，用合作代替独撑'},
-  20:{name:'从容前行',proto:'工程师原型',theme:'完美焦虑',key:'理解「完成比完美更重要」，允许自己和他人犯错'},
-  21:{name:'建立界限',proto:'享乐主义原型',theme:'自由恐惧',key:'建立健康的界限感，选择真正想要的自由'}
+  0:{name:'寻找意义',proto:'业余玩家原型',theme:'没有意义便难以持续',pattern:'你可能很在意一件事“为什么值得做”。当现实任务暂时看不到价值时，容易反复寻找方向、忙于周边事项，或在真正需要长期磨练时失去动力。',trigger:'重复性工作、成果尚未显现、所做之事与个人价值感脱节时。',impact:'如果一直等到“完全想明白”才投入，兴趣会很多，真正沉淀成能力与作品的却可能不够。',key:'不必等宏大答案出现，先为眼前工作建立一个与你有关的小意义。',actions:['选定一项值得积累的能力，连续完成一个30天最小作品计划。','每周写下“这件事帮助了谁、让我多会了什么”，让价值变得可见。','若长期仍无认同感，再依据作品与真实体验调整方向，而不是只凭想象更换。']},
+  11:{name:'悦纳不完美',proto:'法官原型',theme:'敏感、评判与高标准',pattern:'你可能很快看见问题、差距和不合理之处，也容易把同样严格的标准用在自己身上。被评价时，可能先防御、反驳，或因担心不够专业而低估自己的价值。',trigger:'公开评价、规则模糊、他人做法不符合标准，或需要在准备不足时交付。',impact:'高标准能保证质量，但若演变成非黑即白，容易增加内耗，也让合作中的弹性与理解变少。',key:'把“判断谁对谁错”转换成“确认事实、修正一小步”，接受阶段性的足够好。',actions:['收到意见时先复述事实，再区分“可验证的问题”和“个人偏好”。','为任务预设合格线与优秀线，先按时完成合格版本。','每天记录一件虽不完美但有效的行动，训练对进步的识别。']},
+  12:{name:'学会自爱',proto:'母亲原型',theme:'用付出换取认可',pattern:'你可能很自然地照顾、支持别人，却不一定直接表达自己的需要；付出没有被看见或回报不如预期时，容易委屈、失望，觉得一直是自己在单方面维系。',trigger:'关系缺乏回应、担心失去关注，或身边人需要帮助时。',impact:'持续牺牲会透支情绪，也可能让善意夹带未说出口的期待，彼此都感到压力。',key:'付出前先确认自己的意愿与余量；想要被回应时，直接提出请求。',actions:['答应帮助前问自己：我愿意吗、我有余力吗、我期待什么。','把“你应该懂我”改成具体请求，例如需要陪伴、分工或一句确认。','固定安排只为自己补充能量的时间，用书写、运动或创作照顾情绪。']},
+  13:{name:'放下执念',proto:'父亲原型',theme:'通过结果证明自己正确',pattern:'你可能对目标、名声和结果有较强要求，认定一件事重要时会全力推进；压力下也可能过度介入他人的选择，希望用成果证明自己的判断与存在价值。',trigger:'权威受到质疑、目标受阻、别人不按你的方式执行，或感到自己不被重视时。',impact:'坚定能带来结果，但若把不同意见理解成否定自己，容易控制过多、关系紧张，也让成功变成永远不能停下的证明。',key:'把“证明我是对的”改为“共同验证什么有效”，允许别人拥有自己的节奏和答案。',actions:['重大决定前主动寻找一条反方证据，并写出可调整的条件。','协作时只明确目标、边界和验收标准，给对方保留方法选择。','用阶段成果复盘能力，不用输赢评价自我价值。']},
+  14:{name:'拥抱成长',proto:'倡导者原型',theme:'害怕犯错与被推翻',pattern:'你可能希望表达有影响力、事情走在正确轨道上，因此会提前搜集对自己有利的意见；尚无把握时，容易迟疑、反复确认，或开了头却因担心做错而难以持续。',trigger:'公开表达、陌生任务、立场被挑战，或结果无法预先保证时。',impact:'谨慎能减少风险，但若把错误等同于能力不足，就会错过试验、反馈与建立影响力的机会。',key:'允许小范围犯错，用可控试验获得真实反馈，让行动修正观点。',actions:['把新想法先做成低成本试验，只验证一个关键假设。','表达前写清事实、观点和不确定处，减少含糊与过度防御。','每次复盘同时记录“哪里有效”和“下次改什么”，不做全盘否定。']},
+  15:{name:'正视自我需求',proto:'隐藏欲望原型',theme:'压抑真实需要以维持关系',pattern:'你可能很在意关系是否稳定，担心真实欲望、拒绝或不满会让自己不被喜欢，于是先忍耐、迎合或交换；积累到一定程度后，又可能通过消费、情绪或突然抽离来补偿。',trigger:'需要拒绝别人、关系可能冲突、担心自己不够好，或长期得不到满足时。',impact:'隐藏需求短期保住和气，长期却会模糊边界，让你难以分辨自己真正想要什么，也增加关系中的猜测。',key:'承认欲望并不等于自私；用清楚、得体的方式表达选择，不以交换证明自己值得被爱。具体可以先从低风险的小事开始，直接说出一个需要、一个选择或一次拒绝，并观察真实沟通带来的结果。',actions:['每天辨认一个身体或情绪信号，并补全句子“我现在需要……”。','从低风险关系开始练习一次明确拒绝或提出一个具体请求。','冲动补偿前暂停24小时，判断这是实际需要，还是压抑后的反扑。']},
+  16:{name:'直接沟通',proto:'运动家原型',theme:'压抑愤怒与隐性规则',pattern:'你可能有清楚的标准和底线，却不习惯及时说出来；不满时先忍耐、冷下来或减少回应，直到超过承受范围才集中爆发。',trigger:'别人越界、承诺落空、规则被破坏，或家庭关系要求你一再退让时。',impact:'忍耐看似避免冲突，实际上会让对方无法理解你的边界，也让愤怒转向内耗、冷战或突然断裂。',key:'在情绪仍可沟通时，说清事实、感受、边界和下一步，不让别人猜你的规则。',actions:['使用句式：“当……发生，我感到……，我希望……，否则我会……”。','提前告诉重要他人自己的底线和雷区，而不是等越界后再解释。','通过运动、书写或规律休息疏导情绪；持续影响睡眠或身体时寻求专业支持。']},
+  17:{name:'展露真实',proto:'导师原型',theme:'隐藏真实感受与自我怀疑',pattern:'你可能能敏锐感受他人的美好，却容易怀疑自己的能力与成果；为了不冲突或维持某种状态，可能隐藏真实感受，并把当下情绪当成对未来的判断。',trigger:'被比较、成果未获肯定、关系可能冲突，或处于事业与经济低潮时。',impact:'适度保护自己是必要的，但长期只展示安全的一面，会削弱自我信任，也让别人难以真正支持你。',key:'区分“我此刻的感受”和“客观事实”，逐步让真实的需要、局限与成果都被看见。',actions:['做决定前分别写下感受、事实和可验证证据。','每周向可信任的人表达一次真实想法，不用先包装成正确答案。','建立成果清单，用作品和完成记录校准自我评价，而不是只靠他人表扬。']},
+  18:{name:'转化视角',proto:'受害者原型',theme:'敏感、防备与权益计较',pattern:'你可能很快觉察不公平、弦外之音和他人的评价；在重视的人面前也容易过度照顾。受伤时，可能反复推测对方动机、计算自己失去了什么，外表冷静，内在情绪却持续累积。',trigger:'资源分配不均、被忽略或误解、别人否定你的感受，或付出没有得到回应时。',impact:'敏锐能保护权益，但若长期停在“别人如何对我”，会让主动选择变少，防备和反扑也可能扩大原本的问题。',key:'先承认受伤，再把注意力移向可核实的事实、可表达的权益和可采取的行动。',actions:['情绪升高时写下三栏：事实、我的解释、另一种可能解释。','权益受损时直接提出具体诉求、期限和替代方案。','减少替别人预判恶意；重要判断先向当事人求证。']},
+  19:{name:'学会借力',proto:'英雄原型',theme:'不信任与独自承担',pattern:'你可能习惯靠努力赢得一切，不愿麻烦别人，也担心求助会显得能力不足；方向不清或压力很大时，仍倾向一个人扛、持续学习，却不一定把知识变成作品或资源连接。',trigger:'需要曝光自己、进入更高层级圈子、任务超出个人能力，或必须信任别人交付时。',impact:'独立让你可靠，但长期独撑会掏空精力、限制视野，也错过被帮助与团队放大的机会。',key:'把求助视为资源协作而非示弱，用小范围合作逐步建立信任。',actions:['列出本月一个可明确委托的任务，写清结果、期限和检查点。','每周主动向一位更有经验的人提出一个具体问题，并回报实践结果。','把学到的内容转成文章、课程、案例或工具，让能力被看见并连接资源。']},
+  20:{name:'从容前行',proto:'工程师原型',theme:'担心做不好而过度控制',pattern:'你可能重视安全、流程和完成质量，也很想为别人安排一条稳妥的路；担心出错时，容易反复检查、挑剔细节、包办他人的部分，或因怕分配不好而自己承担。',trigger:'职责不清、计划变化、他人做法不够稳妥，或成果会被公开评价时。',impact:'严谨能构建可靠系统，但过度担心会增加内耗，忽略关系中的感受，也让团队难以真正承担责任。',key:'先完成可用版本，再逐轮改善；用清晰分工代替包办，用理解代替完美。',actions:['为任务设定截止时间、最低可交付标准和最多两轮修改。','分工时说明目标与验收点，不替对方决定每个步骤。','计划中预留20%的变化空间，出现偏差时先调整系统，不先责备人。']},
+  21:{name:'建立界限',proto:'享乐主义原型',theme:'害怕限制与责任期待',pattern:'你可能很看重自由，不喜欢被固定形式、承诺或他人的期待绑住；压力变大时，容易拖延决定、让时间与事务变得杂乱，或用逃避保持“随时可以离开”的感觉。',trigger:'长期承诺、严格规范、关系控制、同时承担多项责任，或担心选择后失去其他可能时。',impact:'自由感能带来创造力，但缺少界限与结构时，时间和精力会被分散，真正想要的生活反而难以实现。',key:'自由不是没有规则，而是主动选择值得承担的责任，并明确哪些限制不接受。',actions:['只保留三项当前最重要的承诺，为每项划定时间与资源上限。','接受邀请前设置考虑期，不因一时兴奋或压力立刻答应。','在关系和工作中明确可协商项、不可接受项与退出条件。']}
 };
 
 // 年度策略名称映射（去数字）
@@ -1991,7 +2033,7 @@ function auxiliaryTalentOptions(selected=''){
 }
 
 function potentialOptions(selected=''){
-  return '<option value="">请选择潜能天赋</option>'+Object.entries(POTENTIAL_NAMES).map(([num,name])=>`<option value="${num}" ${String(selected)===num?'selected':''}>${name}</option>`).join('');
+  return '<option value="">请选择人生课题</option>'+Object.entries(POTENTIAL_NAMES).map(([num,name])=>`<option value="${num}" ${String(selected)===num?'selected':''}>${name}</option>`).join('');
 }
 
 function findCombosByMainNums(mainNums=[]){
@@ -2004,10 +2046,10 @@ function renderStructuredTalentForm(prefix){
   if(!el) return;
   el.innerHTML=`<div class="talent-builder">
     <div class="builder-step"><div class="builder-step-title"><span class="step-no">1</span>最强共振天赋</div><div class="builder-grid"><select id="${prefix}ResonanceMode" disabled><option value="no">已确认：无最强共振</option><option value="yes">已确认：有最强共振</option></select><select id="${prefix}ResonanceTalent" disabled>${talentOptions()}</select></div><div class="field-note">系统会先比对辅助天赋与主天赋：名称相同即自动确认为最强共振，没有相同则显示“无”。</div></div>
-    <div class="builder-step"><div class="builder-step-title"><span class="step-no">2</span>组合天赋 · 自动识别</div><div class="builder-grid"><select id="${prefix}ComboMode" disabled><option>待确认：请完成主天赋</option></select><select class="auto-combo-result" id="${prefix}ComboDisplay" disabled><option>系统将自动识别</option></select></div><div class="field-note">仅根据5—7个主天赋判断；辅助天赋和潜能天赋不参与个人组合天赋识别。</div></div>
+    <div class="builder-step"><div class="builder-step-title"><span class="step-no">2</span>组合天赋 · 自动识别</div><div class="builder-grid"><select id="${prefix}ComboMode" disabled><option>待确认：请完成主天赋</option></select><select class="auto-combo-result" id="${prefix}ComboDisplay" disabled><option>系统将自动识别</option></select></div><div class="field-note">仅根据5—7个主天赋判断；辅助天赋和人生课题不参与个人组合天赋识别。</div></div>
     <div class="builder-step"><div class="builder-step-title"><span class="step-no">3</span>主天赋（5—7个）</div><div id="${prefix}MainRows"></div><button type="button" class="add-row-btn" onclick="addMainRow('${prefix}')">＋ 添加主天赋</button></div>
     <div class="builder-step"><div class="builder-step-title"><span class="step-no">4</span>辅助天赋（1—2个 · 每个×0.5）</div><div id="${prefix}AuxRows"></div><button type="button" class="add-row-btn" onclick="addAuxRow('${prefix}')">＋ 添加辅助天赋</button><div class="field-note">括号内是辅助天赋特有的成长面向，与同名主天赋的外显优势有所区别。</div></div>
-    <div class="builder-step"><div class="builder-step-title"><span class="step-no">5</span>潜能天赋（1—2个）</div><div id="${prefix}PotentialRows"></div><button type="button" class="add-row-btn" onclick="addPotentialRow('${prefix}')">＋ 添加潜能天赋</button><div class="field-note">仅显示描述性名称，客户卡片和报告中不会出现内部数字。</div></div>
+    <div class="builder-step"><div class="builder-step-title"><span class="step-no">5</span>人生课题（1—2个 · 重点突破）</div><div id="${prefix}PotentialRows"></div><button type="button" class="add-row-btn" onclick="addPotentialRow('${prefix}')">＋ 添加人生课题</button><div class="field-note">这是需要持续面对和突破的重要人生课题，不作为天赋能力计算。</div></div>
     <div class="builder-summary" id="${prefix}BuilderSummary">请依次完成天赋选择，生成前系统会检查数量、重复项与组合关系。</div>
   </div>`;
   for(let i=0;i<5;i++) addMainRow(prefix);
@@ -2243,7 +2285,7 @@ function updateBuilderSummary(prefix){
     comboDisplay.innerHTML=`<option>${comboText}</option>`;
     comboDisplay.classList.toggle('has-combo',d.combos.length>0);
   }
-  el.textContent=`已选主天赋 ${d.mains.length}/5—7 · 辅助天赋 ${d.auxs.length}/1—2 · 潜能天赋 ${d.potentials.length}/1—2 · 组合天赋：${comboName}`;
+  el.textContent=`已选主天赋 ${d.mains.length}/5—7 · 辅助天赋 ${d.auxs.length}/1—2 · 人生课题 ${d.potentials.length}/1—2 · 组合天赋：${comboName}`;
 }
 
 function collectStructuredTalent(prefix,showAlert=true){
@@ -2254,8 +2296,8 @@ function collectStructuredTalent(prefix,showAlert=true){
   if(new Set(mainNums).size!==mainNums.length) return fail('主天赋不能重复，请检查选择');
   if(d.auxs.length<1||d.auxs.length>2) return fail('请选择1—2个辅助天赋');
   if(new Set(d.auxs).size!==d.auxs.length) return fail('辅助天赋不能重复，请检查选择');
-  if(d.potentials.length<1||d.potentials.length>2) return fail('请选择1—2个潜能天赋');
-  if(new Set(d.potentials).size!==d.potentials.length) return fail('潜能天赋不能重复，请检查选择');
+  if(d.potentials.length<1||d.potentials.length>2) return fail('请选择1—2个人生课题');
+  if(new Set(d.potentials).size!==d.potentials.length) return fail('人生课题不能重复，请检查选择');
   const auxNums=d.auxs.map(Number);
   const talents=d.mains.map(x=>({num:Number(x.num),name:TALENT_NAMES[Number(x.num)],multiplier:x.multiplier,role:'main',source:'select'}));
   talents.push(...auxNums.map(auxNum=>({num:auxNum,name:TALENT_NAMES[auxNum],multiplier:.5,role:'aux',source:'select'})));
@@ -2370,7 +2412,7 @@ function analyzeEnergy(talents){
 }
 
 function findCombos(talents=[]){
-  // 个人组合只根据主天赋自动判断；辅助天赋与潜能天赋均不参与。
+  // 个人组合只根据主天赋自动判断；辅助天赋与人生课题均不参与。
   const mainNums=talents.filter(t=>t.role!=='aux'&&t.source!=='combo').map(t=>t.num);
   return findCombosByMainNums(mainNums);
 }
@@ -2390,14 +2432,14 @@ function getEnergyRanking(talents,combos,potentialNums){
 // ==================== 渲染引擎 ====================
 function renderEnergySection(counts,zeros){
   const total=Object.values(counts).reduce((a,b)=>a+b,0)||1;
-  let h='<div class="energy-section"><h3>四大能量占比</h3>';
+  let h='<div class="energy-section"><h3>四类能力占比</h3>';
   h+='<div class="energy-grid">';
   for(let key of ['wind','fire','water','earth']){
     const et=ENERGY_TYPES[key],count=counts[key],pct=Math.round(count/total*100),isZero=count===0;
     h+=`<div class="energy-item ${key}${isZero?' zero':''}"><div class="energy-name" style="color:${et.color}">${et.name}</div><div style="font-size:1.3rem;font-weight:700;color:${isZero?'#ccc':et.color}">${pct}%</div><div class="energy-bar-wrap"><div class="energy-bar ${key}-bar" style="width:${Math.max(pct,4)}%"></div></div></div>`;
   }
   h+='</div>';
-  h+='<div class="energy-explanation-section"><h4>四大能量说明</h4><div class="energy-explanation-grid">';
+  h+='<div class="energy-explanation-section"><h4>四类能力说明</h4><div class="energy-explanation-grid">';
   for(let key of ['wind','fire','water','earth']){
     const et=ENERGY_TYPES[key];
     h+=`<article class="energy-explanation-card ${key}"><strong>${et.name}</strong><p>${et.desc}</p></article>`;
@@ -2427,7 +2469,7 @@ function renderRankingSection(ranking,potentialNums=[]){
   for(let l of lines) h+=`<div style="padding:4px 0;border-bottom:1px solid #f0ece6">${l}</div>`;
   for(const potentialNum of potentialNums){
     const p=POTENTIAL_DIRECT[potentialNum]; if(!p) continue;
-    h+=`<div style="padding:8px 12px;margin-top:10px;background:#fff8f3;border-radius:8px;font-size:.85rem;line-height:1.8">💡 潜能天赋：<strong>${p.name}</strong><br><strong>突破方式：</strong>${p.key}</div>`;
+    h+=`<div style="padding:8px 12px;margin-top:10px;background:#fff8f3;border-radius:8px;font-size:.85rem;line-height:1.8">💡 人生课题（重点突破）：<strong>${p.name}</strong><br><strong>突破方式：</strong>${p.key}</div>`;
   }
   h+='</div></div>';
   return h;
@@ -2468,7 +2510,7 @@ function renderAuxiliaryDetail(talents){
 function renderPotentialBreakthrough(potentialNums=[],talents){
   if(!potentialNums.length) return '';
   const idxBase=1+talents.filter(t=>t.role!=='aux').length+talents.filter(t=>t.role==='aux').length; // 编号接在全部辅助后面
-  let h='<div class="talent-detail"><h3>潜能天赋 · 突破指引</h3><div class="talent-reading-list">';
+  let h='<div class="talent-detail"><h3>人生课题 · 重点突破指引</h3><div class="talent-reading-list">';
   for(let i=0;i<potentialNums.length;i++){
     const potentialNum=potentialNums[i];
     const p=POTENTIAL_DIRECT[potentialNum]; if(!p) continue;
@@ -2477,12 +2519,11 @@ function renderPotentialBreakthrough(potentialNums=[],talents){
     for(let t of talents.filter(t=>t.role==='aux')){
       const ad=AUX_TO_POTENTIAL[t.num];
       if(ad&&ad.potential&&ad.potential.num===potentialNum){
-        auxContexts.push(`该潜能与<strong>${ad.auxName}</strong>（${TALENT_NAMES[t.num]}的辅助面向）相关联。${ad.auxCore}`);
+        auxContexts.push(`该人生课题与<strong>${ad.auxName}</strong>（${TALENT_NAMES[t.num]}的辅助面向）相关联。${ad.auxCore}`);
       }
     }
     const auxContext=auxContexts.join('<br>');
-    const potentialReading=`核心课题围绕「${p.theme}」展开。${p.key}，这会帮助你把内在觉察转化为更稳定的成长力量。`;
-    h+=`<article class="talent-reading-card" style="--talent-accent:var(--earth);--talent-wash:var(--earth-ghost)"><span class="talent-reading-card-no">${String(idxBase+i).padStart(2,'0')}</span><div class="talent-reading-rows"><div class="talent-reading-row talent-reading-primary-row"><span class="talent-reading-primary-label">${p.name}</span><span class="talent-reading-inline-value">${potentialReading}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">突破指引</span><span class="talent-reading-inline-value">${p.key}</span></div>${auxContext?`<div class="talent-reading-row"><span class="talent-reading-inline-label">关联辅助</span><span class="talent-reading-inline-value">${auxContext}</span></div>`:''}</div></article>`;
+    h+=`<article class="talent-reading-card" style="--talent-accent:var(--earth);--talent-wash:var(--earth-ghost)"><span class="talent-reading-card-no">${String(idxBase+i).padStart(2,'0')}</span><div class="talent-reading-rows"><div class="talent-reading-row talent-reading-primary-row"><span class="talent-reading-primary-label">${p.name}</span><span class="talent-reading-inline-value"><strong>${p.theme}</strong><br>${p.pattern}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">需要留意</span><span class="talent-reading-inline-value">${p.impact}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">突破关键</span><span class="talent-reading-inline-value">${p.key}</span></div>${auxContext?`<div class="talent-reading-row"><span class="talent-reading-inline-label">关联辅助</span><span class="talent-reading-inline-value">${auxContext}</span></div>`:''}</div></article>`;
   }
   return h+'</div></div>';
 }
@@ -2491,7 +2532,7 @@ function renderAnnualCard(years,birth){
   const nowY=new Date().getFullYear();
   let month=1,day=1;
   if(birth){const d=parseBirthDate(birth);month=d.month;day=d.day;}
-  let h=`<div class="card"><div class="card-header"><div class="card-icon" style="background:var(--primary-light)">📅</div><div><div class="card-title">三年年度策略</div><div class="card-client">基于年度节律的个性化行动指南（${nowY}-${nowY+2}年）</div></div></div><div class="annual-grid">`;
+  let h=`<div class="card"><div class="card-header"><div class="card-icon" style="background:var(--primary-light)">📅</div><div><div class="card-title">三年年度策略</div><div class="card-client">行动节奏参考（${nowY}-${nowY+2}年）</div></div></div><div class="energy-zero-alert"><strong>阅读提示：</strong>年度策略依据固定规则生成，用于帮助你安排阶段性的行动与沉淀节奏，不是对未来事件、运气或结果的预测。请结合现实情况灵活调整。</div><div class="annual-grid">`;
   const labels=['本年度','下一年度','后年'];
   for(let i=0;i<years.length;i++){
     const y=years[i]; if(!y||!ANNUAL_STRATEGY[y]) continue;
@@ -2618,17 +2659,17 @@ function renderCareerCard(name,talents,counts,zeros,ranking,combos,potentialNums
 
 // ==================== 关系模块 ====================
 function renderRelationRows(talents,dimension){
-  return `<div class="relation-expression-list">${talents.map(t=>`<div class="relation-expression-row"><strong>${t.name} ×${t.multiplier}</strong><span>${RELATION_GUIDE[t.num][dimension]}</span></div>`).join('')}</div>`;
+  return `<div class="relation-expression-list">${talents.map(t=>`<div class="relation-expression-row"><strong>${t.name} ×${t.multiplier}</strong><span>${formatRelationGuide(RELATION_GUIDE[t.num][dimension],dimension)}</span></div>`).join('')}</div>`;
 }
 
 function renderLoveCard(name,counts,talents,waterCount){
-  const top=[...talents].filter(t=>t.role!=='aux').sort((a,b)=>b.multiplier-a.multiplier).slice(0,4);
+  const top=[...talents].filter(t=>t.role!=='aux'&&t.source!=='combo').sort((a,b)=>b.multiplier-a.multiplier);
   const base=waterCount>0?'您善于感知关系中的细微变化，真诚回应与清晰边界能让这份细腻成为稳定的连接力。':'您更习惯用思考、行动与承诺表达爱，清晰直接的沟通能让彼此更容易读懂这份在意。';
   return `<div class="card"><div class="card-header"><div class="card-icon" style="background:#fdf0eb">💕</div><div><div class="card-title">亲密关系解读</div>${name?`<div class="card-client">属于 <strong>${escapeHtml(name)}</strong> 的情感画像</div>`:''}</div></div><p style="font-size:.87rem;line-height:1.8;margin-bottom:16px">${base}</p><h4 style="color:var(--accent);margin-bottom:8px">天赋在关系中的表达</h4>${renderRelationRows(top,'love')}<div style="margin-top:16px;padding:14px 16px;background:#fff8f3;border-radius:10px;font-size:.84rem;line-height:1.8"><strong>关系练习：</strong>把期待说清楚、把欣赏说出来，并为彼此保留独立成长的空间。</div></div>`;
 }
 
 function renderParentCard(name,talents,counts,birth){
-  const top=[...talents].filter(t=>t.role!=='aux').sort((a,b)=>b.multiplier-a.multiplier).slice(0,4);
+  const top=[...talents].filter(t=>t.role!=='aux'&&t.source!=='combo').sort((a,b)=>b.multiplier-a.multiplier);
   const age=getAgeFromBirth(birth),isChild=age!==null&&age<18;
   const profile=age===null?'天赋培养画像':(isChild?'成长培养画像':'自我培养画像');
   const intro=age===null
@@ -2646,7 +2687,7 @@ function renderParentCard(name,talents,counts,birth){
 }
 
 function renderMoneyCard(name,talents,counts){
-  const top=[...talents].filter(t=>t.role!=='aux').sort((a,b)=>b.multiplier-a.multiplier).slice(0,4);
+  const top=[...talents].filter(t=>t.role!=='aux'&&t.source!=='combo').sort((a,b)=>b.multiplier-a.multiplier);
   const stable=(counts.earth||0)>0?'您具备把想法转化为计划并持续积累的能力，适合用长期视角管理收入与支出。':'您的财富路径更偏向创意、人际或行动驱动，加入自动储蓄与定期复盘会让成果更稳定。';
   return `<div class="card"><div class="card-header"><div class="card-icon" style="background:#f5efe6">💰</div><div><div class="card-title">金钱关系解读</div>${name?`<div class="card-client">属于 <strong>${escapeHtml(name)}</strong> 的财富画像</div>`:''}</div></div><p style="font-size:.87rem;line-height:1.8;margin-bottom:16px">${stable}</p><h4 style="color:var(--earth);margin-bottom:8px">天赋带来的价值路径</h4>${renderRelationRows(top,'money')}<div style="margin-top:16px;padding:14px 16px;background:#f5efe6;border-radius:10px;font-size:.84rem;line-height:1.8"><strong>财富练习：</strong>明确年度目标、保留安全储备、定期复盘，并让每一笔重要投入服务于长期价值。</div><div class="disclaimer">金钱关系内容仅用于自我觉察，不构成任何投资或理财建议。</div></div>`;
 }
@@ -2663,37 +2704,49 @@ function analyzeSynastry(analysis1,analysis2){
   
   let reasons=[],score=0;
   
-  // 规则1：主天赋×辅助天赋匹配
+  // 规则1：一方主天赋与另一方尚未形成自身共振的辅助天赋相同
   const matchPairs=[];
-  for(let m of mains1){for(let a of auxs2){if(m.num===a.num){matchPairs.push(`${escapeHtml(name1)}的${m.name}（主）↔ ${escapeHtml(name2)}的${a.name}（辅）`);score+=3;}}}
-  for(let m of mains2){for(let a of auxs1){if(m.num===a.num){matchPairs.push(`${escapeHtml(name2)}的${m.name}（主）↔ ${escapeHtml(name1)}的${a.name}（辅）`);score+=3;}}}
-  if(matchPairs.length>0) reasons.push({title:'主辅共振',detail:'双方的主要天赋与辅助天赋互相呼应，能自然形成互补与滋养的关系。',pairs:matchPairs});
+  const mainNums1=new Set(mains1.map(t=>t.num)),mainNums2=new Set(mains2.map(t=>t.num));
+  for(let m of mains1){for(let a of auxs2){if(m.num===a.num&&!mainNums2.has(a.num)){matchPairs.push(`${escapeHtml(name1)}的${m.name}（主）↔ ${escapeHtml(name2)}的${a.name}（辅助）`);score+=3;}}}
+  for(let m of mains2){for(let a of auxs1){if(m.num===a.num&&!mainNums1.has(a.num)){matchPairs.push(`${escapeHtml(name2)}的${m.name}（主）↔ ${escapeHtml(name1)}的${a.name}（辅助）`);score+=3;}}}
+  reasons.push({
+    title:'1 互为共振关系',
+    detail:matchPairs.length?'一方自然外显的主天赋，正好对应另一方尚待发展的辅助面向。彼此容易在这项能力上形成带动、理解和补充。':'本次未发现“一方主天赋与另一方未形成自身共振的辅助天赋相同”的情况。',
+    pairs:matchPairs
+  });
   
-  // 规则2：合并后形成组合天赋
-  const allNums1=new Set(t1.map(t=>t.num)),allNums2=new Set(t2.map(t=>t.num));
-  const combinedNums=new Set([...allNums1,...allNums2]);
+  // 规则2：双方主天赋共同、且缺一方不可地组成组合天赋
+  const combinedNums=new Set([...mainNums1,...mainNums2]);
   const comboMatch=[];
   for(let c of COMBOS){
     const completeTogether=c.nums.every(n=>combinedNums.has(n));
-    const completeByFirst=c.nums.every(n=>allNums1.has(n));
-    const completeBySecond=c.nums.every(n=>allNums2.has(n));
-    const bothContribute=c.nums.some(n=>allNums1.has(n))&&c.nums.some(n=>allNums2.has(n));
+    const completeByFirst=c.nums.every(n=>mainNums1.has(n));
+    const completeBySecond=c.nums.every(n=>mainNums2.has(n));
+    const bothContribute=c.nums.some(n=>mainNums1.has(n))&&c.nums.some(n=>mainNums2.has(n));
     if(completeTogether&&!completeByFirst&&!completeBySecond&&bothContribute)comboMatch.push(c);
   }
-  if(comboMatch.length>0){score+=5;reasons.push({title:'组合天赋契合',detail:'双方天赋合并后形成了完整的组合能量，在一起时能激发超越各自单独时的协同效应。',combos:comboMatch});}
+  if(comboMatch.length>0)score+=5;
+  reasons.push({
+    title:'2 互为组合天赋关系',
+    detail:comboMatch.length?'双方各自贡献的主天赋恰好拼成完整组合。共同做事时，容易把彼此不同的长处连接成一套更完整的能力。':'本次未发现需要双方分别贡献主天赋才能成立的组合天赋。',
+    combos:comboMatch
+  });
   
-  // 规则3：同能量类型重合
-  const e1={},e2={};
-  for(let t of t1){if(t.absorbedByResonance)continue;const e=TALENT_DETAIL[t.num]?.energy;if(e){if(!e1[e])e1[e]=0;e1[e]+=t.multiplier;}}
-  for(let t of t2){if(t.absorbedByResonance)continue;const e=TALENT_DETAIL[t.num]?.energy;if(e){if(!e2[e])e2[e]=0;e2[e]+=t.multiplier;}}
-  const sharedEnergy=[];
-  for(let e of ['wind','fire','water','earth']){if((e1[e]||0)>0&&(e2[e]||0)>0) sharedEnergy.push(ENERGY_TYPES[e].name);}
-  if(sharedEnergy.length>=2){score+=sharedEnergy.length;reasons.push({title:'能量共鸣',detail:`双方在${sharedEnergy.join('、')}等领域有共同的能量语言，沟通更顺畅，理解更深入。`});}
+  // 规则3：双方拥有相同主天赋
+  const sharedMains=[...mainNums1].filter(num=>mainNums2.has(num)).map(num=>({
+    num,name:TALENT_NAMES[num],relation:RELATION_GUIDE[num]?.love||'这项相同能力会让双方更容易理解彼此的反应方式。'
+  }));
+  if(sharedMains.length)score+=sharedMains.length*2;
+  reasons.push({
+    title:'3 相同的主天赋',
+    detail:sharedMains.length?'相同主天赋意味着双方在某些反应、重视的事情和表达方式上比较接近。相似会带来理解，也要留意同一种坚持可能同时被放大。':'本次未发现双方拥有相同的主天赋。',
+    sharedMains
+  });
   
   let level,levelClass,desc;
   if(score>=6){level='💎 高度契合';levelClass='match-high';desc='你们的天赋组合在亲密关系和亲子协作上展现出难得的高度和谐。在情感连接上能互相深度理解与滋养，在共同养育或教育孩子时能形成天然互补——一方擅长的恰好是另一方需要支持的领域。是非常理想的伴侣或亲子协作拍档。';}
   else if(score>=3){level='🌟 良好契合';levelClass='match-mid';desc='你们之间存在明显的天赋共振点。在亲密关系中能通过特定领域的共鸣建立深度连接；在亲子协作方面也有良好的互补基础。建议在契合度高的方向上多投入，用默契消解分歧。';}
-  else{level='🤝 一般契合';levelClass='match-note';desc='你们的天赋分布在不同的能量领域，各有独特优势。在亲密关系中需要更多的主动沟通来弥合理解差异，差异可以带来新鲜视角和成长空间。在亲子协作上建议多多互相倾听、发挥各自所长。';}
+  else{level='🤝 一般契合';levelClass='match-note';desc='你们暂时没有明显的主辅呼应、跨人组合或相同主天赋，这不代表关系不好。差异可以带来新的视角，也需要更多主动沟通、清晰表达与共同投入。';}
   
   return {level,levelClass,desc,reasons,score};
 }
@@ -2741,6 +2794,7 @@ function renderSynastryCard(a,b){
     h+=`<div style="margin-bottom:16px;padding:16px;background:#fdfcf9;border-radius:10px;border:1px solid #f0ece6"><h4 style="color:var(--accent);margin-bottom:8px">${r.title}</h4><p style="font-size:.84rem;line-height:1.7">${r.detail}</p>`;
     if(r.pairs) h+='<ul style="padding-left:20px;font-size:.82rem;line-height:1.8;margin-top:8px">'+r.pairs.map(p=>'<li>'+p+'</li>').join('')+'</ul>';
     if(r.combos) h+='<div style="margin-top:8px;font-size:.82rem">'+r.combos.map(c=>'<span class="tag tag-earth">'+c.name+'</span>').join(' ')+'</div>';
+    if(r.sharedMains) h+='<ul style="padding-left:20px;font-size:.82rem;line-height:1.8;margin-top:8px">'+r.sharedMains.map(item=>'<li><strong>'+item.name+'：</strong>'+item.relation+'</li>').join('')+'</ul>';
     h+='</div>';
   }
   h+='<div class="disclaimer">合盘用于理解互动优势与沟通方向，不用于判定关系好坏。关系质量仍取决于尊重、沟通、边界与共同投入。</div></div>';
@@ -2849,7 +2903,7 @@ function buildReportHTML(a){
   const pcts={};
   for(let k of ['wind','fire','water','earth']) pcts[k]=Math.round(a.counts[k]/totalEnergy*100);
   
-  const energyOrder=[{k:'wind',n:'认知能量（风）'},{k:'fire',n:'行动能量（火）'},{k:'water',n:'情绪能量（水）'},{k:'earth',n:'构建能量（土）'}];
+  const energyOrder=[{k:'wind',n:'认知能力'},{k:'fire',n:'行动能力'},{k:'water',n:'情感能力'},{k:'earth',n:'构建能力'}];
   
   // 主天赋摘要
   const mainNames=orderedMains.map(t=>`${t.name}×${t.multiplier}倍`).join(' + ');
@@ -2859,8 +2913,6 @@ function buildReportHTML(a){
   const maxEName=ENERGY_TYPES[maxE].name;
   const potentialSummary=a.potentialNums&&a.potentialNums.length?a.potentialNums.map(n=>POTENTIAL_NAMES[n]||'').filter(Boolean).join('、'):'暂未设置';
   const birthInfo=parseBirthDate(a.birth);
-  const reportCssHref=esc(new URL('report.css',window.location.href).href);
-  
   let html=`<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>识己天赋测评报告 - ${esc(displayName)}</title><style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;color:#2c2416;line-height:1.9;max-width:780px;margin:0 auto;padding:0 20px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -2888,7 +2940,7 @@ td{color:#5c5240}
 .note{padding:14px 18px;background:#fef9f4;border-left:3px solid #c04040;margin:12px 0;font-size:13px;color:#8b3a3a;border-radius:0 6px 6px 0}
 .zero-box{padding:16px 20px;background:#fef5f5;border:1px solid #f0d0d0;border-radius:6px;margin:14px 0;font-size:13px;color:#8b3a3a}
 .signature{text-align:right;margin-top:50px;padding-top:30px;border-top:1px solid #d8ceb8;font-size:14px;color:#5c5240;font-family:"Noto Serif SC","SimSun",serif}
-/* 与网页、职业卡统一：朱红大标题、暗金小标题、黑灰正文、风火水土浅色 */
+/* 与网页、职业卡统一：朱红大标题、暗金小标题、黑灰正文、四色浅色 */
 body,body *{font-family:"Microsoft YaHei","PingFang SC",sans-serif!important;color:#332f29;line-height:1.72}
 body{font-size:14px}
 .cover h1{font-size:26px}.cover .info,.section p,.section li,table{font-size:14px}.cover .sub{font-size:13px}
@@ -2912,7 +2964,7 @@ th{background:#f7eedb;color:#96702f;font-weight:400}
 
 @page{
   size:A4;
-  margin:16mm 15mm 18mm;
+  margin:16mm 15mm 23mm;
 }
 
 *{
@@ -3394,6 +3446,9 @@ strong{
   margin:0 0 5mm!important;
   color:var(--report-text)!important;
 }
+.section>h2 + .section-intro{break-after:avoid!important;page-break-after:avoid!important}
+.annual-reference-note,.universal-career-note{break-after:avoid!important;page-break-after:avoid!important}
+.section-opening{break-inside:avoid!important;page-break-inside:avoid!important}
 
 .energy-profile-grid{
   display:grid!important;
@@ -3451,6 +3506,21 @@ strong{
   break-inside:avoid!important;
   page-break-inside:avoid!important;
 }
+.talent-block,.career-block{
+  break-inside:auto!important;
+  page-break-inside:auto!important;
+  margin-bottom:6mm!important;
+  padding:4mm 0 5mm 5mm!important;
+  border-top:0!important;
+  border-right:0!important;
+  border-bottom:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.talent-block .report-block-heading,.talent-block .talent-energy-belonging,.talent-block .talent-core-statement,
+.career-block .report-block-heading,.career-block .direction-statement,.career-block .career-fit-row,
+.report-fact-grid>div,.career-evidence-grid>div,.report-chip-row{break-inside:avoid!important;page-break-inside:avoid!important}
 
 .report-block-heading{
   display:flex!important;
@@ -3495,6 +3565,12 @@ strong{
   margin:0 0 8mm!important;
 }
 .report-subsection:last-child{margin-bottom:0!important}
+.report-subsection:has(.report-empty-state){margin-bottom:4mm!important}
+.report-subsection:has(.report-empty-state) .report-subsection-intro{display:none!important}
+.report-subsection:has(.report-empty-state) .report-empty-state{
+  grid-template-columns:36mm minmax(0,1fr)!important;
+  padding:3mm 4mm!important;
+}
 .report-subsection-title{
   margin:0 0 2mm!important;
   padding:0 0 2.2mm!important;
@@ -3535,7 +3611,20 @@ strong{
 .potential-block{
   border-left-color:var(--report-gold)!important;
   background:var(--report-gold-soft)!important;
+  break-inside:avoid!important;
+  page-break-inside:avoid!important;
 }
+.potential-report-section{break-before:page!important;page-break-before:always!important}
+.potential-block .report-block-heading,.potential-block .talent-core-statement,.potential-block .note,.potential-practice{break-inside:avoid!important;page-break-inside:avoid!important}
+.potential-detail-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:4mm!important;margin:4mm 0!important}
+.potential-detail-grid>div{padding:4mm 4.5mm!important;border:1px solid var(--report-line-light)!important;background:#fff!important;break-inside:avoid!important;page-break-inside:avoid!important}
+.potential-detail-grid .potential-wide{grid-column:1/-1!important}
+.potential-detail-grid span{display:block!important;margin-bottom:1.2mm!important;color:var(--report-gold)!important;font-size:10pt!important;font-weight:600!important}
+.potential-detail-grid p{margin:0!important;font-size:11.2pt!important;line-height:1.84!important}
+.potential-practice{margin-top:4mm!important;padding:4.5mm 5mm!important;border:1px solid var(--report-line)!important;background:#fff!important}
+.potential-practice>strong{display:block!important;margin-bottom:2mm!important;color:var(--report-red)!important;font-size:11pt!important}
+.potential-practice ol{margin:0!important;padding-left:6mm!important}
+.potential-practice li{margin-bottom:1.8mm!important;list-style-type:decimal!important}
 
 .year-block{
   position:relative!important;
@@ -3558,12 +3647,41 @@ strong{
 .year-settle{border-left-color:var(--report-settle)!important;background:var(--report-year-settle)!important}
 
 .annual-report-section{break-before:page!important;page-break-before:always!important}
+.annual-reference-note{margin:0 0 5mm!important;padding:4mm 5mm!important;border-left:3px solid var(--report-red)!important;background:var(--report-red-soft)!important;color:var(--report-text)!important;font-size:11.2pt!important;line-height:1.82!important}
 
 .career-block{
   background:#fffdf9!important;
+  margin-bottom:3mm!important;
+  padding-top:3mm!important;
+  padding-bottom:3mm!important;
+}
+.career-block .report-block-heading{
+  margin-bottom:2mm!important;
+  padding-bottom:1.5mm!important;
+}
+.career-block .direction-statement,
+.career-block>p{
+  margin-top:0!important;
+  margin-bottom:2mm!important;
+  line-height:1.65!important;
+}
+.career-block .career-fit-row{margin-bottom:2mm!important}
+.career-block .career-evidence-grid{
+  margin-top:2mm!important;
+  row-gap:2mm!important;
+}
+.career-block .career-evidence-grid>div{
+  padding-top:2mm!important;
+  padding-bottom:2mm!important;
+}
+.career-block .report-chip-row{margin-top:2mm!important}
+.career-block .report-chip-row span{
+  padding-top:.8mm!important;
+  padding-bottom:.8mm!important;
 }
 
 .career-report-section{break-before:page!important;page-break-before:always!important}
+.universal-career-note{margin:0 0 6mm!important;padding:4mm 5mm!important;border-left:3px solid var(--report-gold)!important;background:var(--report-gold-soft)!important;color:var(--report-text)!important;font-size:11.2pt!important;line-height:1.82!important}
 .career-fit-row{display:grid!important;grid-template-columns:27mm minmax(0,1fr) 12mm!important;gap:3mm!important;align-items:center!important;margin:0 0 3mm!important}
 .career-fit-row>span,.career-fit-row>strong{font-size:8.2pt!important;line-height:1.4!important}
 .career-fit-row>span{color:var(--report-gold)!important;font-weight:600!important}
@@ -3587,7 +3705,7 @@ strong{
   border:1px solid var(--report-line-light)!important;
   background:#fff!important;
 }
-.relation-report-list strong{
+.relation-report-list>div>strong{
   display:block!important;
   margin-bottom:1mm!important;
   color:var(--report-gold)!important;
@@ -3598,6 +3716,13 @@ strong{
   color:var(--report-ink)!important;
   font-size:9.1pt!important;
   line-height:1.68!important;
+}
+.relation-report-list p strong{
+  display:inline!important;
+  margin:0!important;
+  color:var(--report-ink)!important;
+  font-size:inherit!important;
+  font-weight:700!important;
 }
 .relation-report-action{
   display:grid!important;
@@ -3678,7 +3803,7 @@ table{
   border-spacing:0!important;
   border:1px solid var(--report-line)!important;
   border-radius:1.5mm!important;
-  overflow:hidden!important;
+  overflow:visible!important;
   font-size:8.5pt!important;
   line-height:1.55!important;
 }
@@ -3780,6 +3905,119 @@ td{background:#fff!important;color:var(--report-text)!important}
 }
 .report-next-step strong{display:block!important;margin-bottom:2.5mm!important;color:var(--report-red)!important;font-size:13pt!important}
 .report-next-step p{margin:0!important;color:var(--report-ink)!important;font-size:10.5pt!important;line-height:1.85!important}
+.next-step-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:3mm!important;margin-top:7mm!important}
+.next-step-grid>div{padding:4mm!important;border:1px solid rgba(163,61,54,.24)!important;background:#fff!important}
+.next-step-grid span{display:block!important;margin-bottom:1.5mm!important;color:var(--report-red)!important;font-size:9.5pt!important;font-weight:600!important}
+.next-step-grid p{font-size:10pt!important;line-height:1.75!important}
+.ai-prompt-template{margin-top:7mm!important;padding:5mm 5.5mm!important;border:1px dashed rgba(163,61,54,.46)!important;background:#fff!important}
+.ai-prompt-template>strong{display:block!important;margin-bottom:2.5mm!important;color:var(--report-red)!important;font-size:11.5pt!important}
+.ai-prompt-template p{margin:0!important;color:var(--report-text)!important;font-size:10.2pt!important;line-height:1.78!important;white-space:pre-line!important}
+.ai-prompt-page{min-height:0!important;margin:6mm 0 0!important;padding:8mm!important;break-before:auto!important;page-break-before:auto!important}
+.ai-prompt-page .report-disclaimer{margin-top:9mm!important}
+
+/* 精简版报告：删除跨章节重复信息，保留能力、成长与行动结论。 */
+.executive-summary{display:none!important}
+.cover.report-cover{
+  min-height:145mm!important;
+  padding:12mm 14mm 10mm!important;
+  break-after:auto!important;
+  page-break-after:auto!important;
+}
+.cover-seal{margin-bottom:4mm!important}
+.cover.report-cover h1{padding-bottom:3mm!important;font-size:22pt!important}
+.cover-edition{margin:3mm 0 4mm!important}
+.cover-person{margin-bottom:4mm!important}
+.cover-meta>div{padding:2mm!important}
+.cover-foot{bottom:5mm!important}
+.cover.report-cover>p:last-child{margin-top:3mm!important}
+.report-toc{
+  min-height:0!important;
+  padding:5mm 5mm 8mm!important;
+  break-after:page!important;
+  page-break-after:always!important;
+}
+.report-toc h2{margin-bottom:2mm!important;padding-bottom:2mm!important;font-size:15pt!important}
+.toc-kicker,.toc-intro{display:none!important}
+.toc-list{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:1mm 3mm!important}
+.toc-item{min-height:10mm!important;padding:1.3mm 1.8mm!important;grid-template-columns:7mm minmax(0,1fr)!important}
+.toc-item b{font-size:8.5pt!important}
+.toc-item span{font-size:9pt!important}
+.toc-item small{font-size:7.3pt!important;line-height:1.35!important}
+.report-subsection-intro{display:none!important}
+.energy-profile-card p:last-child{display:none!important}
+.talent-block .report-fact-grid>div:first-child{display:block!important;grid-column:1/-1!important}
+.talent-block .report-fact-grid>div:nth-child(2){display:none!important}
+.talent-block .report-fact-grid>.fact-wide{grid-column:1/-1!important}
+.talent-block .report-chip-row{display:none!important}
+.career-block .career-evidence-grid>.fact-wide{display:none!important}
+.year-block .report-fact-grid li:nth-child(n+4){display:none!important}
+.year-block .report-fact-grid{
+  display:block!important;
+  margin-top:2mm!important;
+}
+.year-block .report-fact-grid>div{
+  margin:0 0 2mm!important;
+  padding:2.5mm 3.5mm!important;
+}
+.zero-box{font-size:13pt!important;line-height:1.78!important}
+.potential-block .note{font-size:13pt!important;line-height:1.78!important}
+
+/* 手机阅读友好：进一步扩大正文，同时增加卡片间距与内边距保持舒展 */
+body{font-size:13.2pt!important;line-height:1.78!important}
+p,li,td{font-size:13pt!important;line-height:1.78!important}
+.summary-lead{font-size:13.8pt!important;line-height:1.94!important}
+.toc-intro,.reading-guide strong,.reading-guide span,.report-growth-reminder{font-size:10.5pt!important}
+.toc-item span{font-size:11.5pt!important}
+.toc-item small{font-size:9.5pt!important;line-height:1.55!important}
+.summary-item span{font-size:9.5pt!important}
+.summary-item strong{font-size:12pt!important;line-height:1.65!important}
+.summary-item small{font-size:9pt!important}
+.report-energy-row>span,.report-energy-row>strong{font-size:10pt!important}
+.section{margin-bottom:11mm!important}
+.section h2{margin-bottom:5mm!important}
+.section-lead,.section-intro{font-size:12pt!important;line-height:1.74!important}
+.energy-profile-grid,.report-fact-grid,.career-evidence-grid{gap:3.5mm!important}
+.energy-profile-card,.report-block{padding:5.8mm!important}
+.energy-profile-head strong{font-size:11.5pt!important}
+.energy-profile-head b{font-size:13pt!important}
+.energy-profile-card p{font-size:10.5pt!important;line-height:1.68!important}
+.energy-profile-card p span{font-size:9.5pt!important}
+.structure-map>div{padding:3.5mm 4mm!important}
+.structure-map span{font-size:9.8pt!important}
+.structure-map strong{font-size:10.5pt!important;line-height:1.72!important}
+.report-block-heading{margin-bottom:4.5mm!important}
+.report-block-heading>span{font-size:9.5pt!important}
+.talent-energy-belonging{font-size:10pt!important;line-height:1.6!important}
+.talent-core-statement,.direction-statement{font-size:12.5pt!important;line-height:1.76!important}
+.report-fact-grid span,.career-evidence-grid span{font-size:9.5pt!important}
+.report-fact-grid p,.career-evidence-grid p{font-size:11.5pt!important;line-height:1.72!important}
+.report-chip-row{gap:2mm!important;margin-top:4mm!important}
+.report-chip-row strong{font-size:10pt!important}
+.report-chip-row span{padding:1.7mm 3mm!important;font-size:9.6pt!important}
+.report-empty-state{padding:5mm 6mm!important}
+.report-empty-state strong,.report-empty-state span{font-size:10.8pt!important;line-height:1.78!important}
+.relation-report-list>div{padding:4mm 4.5mm!important}
+.relation-report-list>div>strong,.relation-report-action strong{font-size:10pt!important}
+.relation-report-list p,.relation-report-action p{font-size:10.8pt!important;line-height:1.7!important}
+.relationship-disclaimer,.report-disclaimer{font-size:9.5pt!important;line-height:1.75!important}
+.closing-copy{padding:7mm!important}
+.closing-copy p{margin-bottom:3mm!important}
+.report-next-step{margin-top:11mm!important;padding:7mm 8mm!important}
+.report-next-step strong{font-size:14pt!important}
+.report-next-step p{font-size:11.5pt!important;line-height:1.9!important}
+.potential-report-section,.annual-report-section,.career-report-section,.relation-report-section{
+  break-before:auto!important;
+  page-break-before:auto!important;
+}
+.closing-section + .report-next-step{
+  min-height:0!important;
+  margin-top:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  break-before:page!important;
+  page-break-before:always!important;
+}
 
 .report-footer{
   display:none!important;
@@ -3802,8 +4040,9 @@ td{background:#fff!important;color:var(--report-text)!important}
     left:0!important;
     right:0!important;
     bottom:0!important;
-    padding-top:2mm!important;
-    border-top:.25mm solid var(--report-line)!important;
+    padding-top:1.5mm!important;
+    border:0!important;
+    background:#fff!important;
     color:var(--report-muted)!important;
     font-size:7pt!important;
     line-height:1.4!important;
@@ -3811,26 +4050,149 @@ td{background:#fff!important;color:var(--report-text)!important}
     text-align:center!important;
   }
   .report-footer::after{content:""!important}
+
+  /*
+   * Chromium 会在分页处重复绘制“不可拆分卡片”的边框：内容较长时，
+   * 既容易把整块推到下一页形成大留白，也可能让边框横穿分页文字。
+   * 打印时只保留左侧章节引导线，并让长内容按内部语义模块自然分页。
+   */
+  .section-opening{
+    break-inside:auto!important;
+    page-break-inside:auto!important;
+  }
+  .structure-map{
+    break-inside:avoid!important;
+    page-break-inside:avoid!important;
+  }
+  /*
+   * 不把小节标题与整张长卡片绑定。不同测评结果的文字长度不同，
+   * 若标题强制跟随整个卡片，Chromium 会把两者一起推到下一页，
+   * 从而在上一页留下大块空白。
+   */
+  .report-subsection,
+  .talent-block{
+    break-inside:auto!important;
+    page-break-inside:auto!important;
+  }
+  .report-subsection-title{
+    break-after:auto!important;
+    page-break-after:auto!important;
+  }
+  .talent-block .report-block-heading{
+    break-after:avoid!important;
+    page-break-after:avoid!important;
+  }
+  .talent-block .talent-core-statement{
+    break-after:auto!important;
+    page-break-after:auto!important;
+  }
+  /*
+   * 天赋卡内只保护每一个完整信息格，允许在“职业价值”和“培养路径”
+   * 之间分页。横线始终属于信息格自身，不会跨页压住下一段文字。
+   */
+  .talent-block .report-fact-grid{
+    display:block!important;
+    margin-top:2mm!important;
+  }
+  .talent-block .report-fact-grid>div{
+    margin:0 0 2mm!important;
+    break-inside:avoid!important;
+    page-break-inside:avoid!important;
+  }
+  .talent-block .report-fact-grid>div:last-child{margin-bottom:0!important}
+  .career-block{
+    width:auto!important;
+    max-width:none!important;
+    margin:0 0 3mm!important;
+    padding:3mm 5mm!important;
+    break-inside:avoid!important;
+    page-break-inside:avoid!important;
+  }
+  .universal-career-note{
+    break-after:auto!important;
+    page-break-after:auto!important;
+  }
+  .potential-block,.relation-report-block,.year-block{
+    break-inside:auto!important;
+    page-break-inside:auto!important;
+    padding:4mm 0 5mm 5mm!important;
+    border-top:0!important;
+    border-right:0!important;
+    border-bottom:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+  }
+  .potential-detail-grid,.relation-report-list{
+    display:block!important;
+    margin:3mm 0!important;
+  }
+  .potential-detail-grid>div,.relation-report-list>div{
+    margin:0 0 2mm!important;
+    break-inside:auto!important;
+    page-break-inside:auto!important;
+  }
+  .potential-detail-grid>div:last-child,.relation-report-list>div:last-child{
+    margin-bottom:0!important;
+  }
+  .potential-detail-grid>div>span,.relation-report-list>div>strong,
+  .potential-practice>strong,.relation-report-action>strong{
+    break-after:avoid!important;
+    page-break-after:avoid!important;
+  }
+  .potential-practice,.relation-report-action{
+    break-inside:auto!important;
+    page-break-inside:auto!important;
+  }
+  .closing-section{
+    break-before:auto!important;
+    page-break-before:auto!important;
+  }
+  .closing-copy{
+    break-inside:auto!important;
+    page-break-inside:auto!important;
+    padding:5mm 0!important;
+    border:0!important;
+    background:transparent!important;
+  }
+  .closing-section + .report-next-step{
+    break-before:auto!important;
+    page-break-before:auto!important;
+    min-height:0!important;
+    justify-content:center!important;
+  }
+  .ai-prompt-page{
+    break-before:auto!important;
+    page-break-before:auto!important;
+  }
+  table{
+    border:0!important;
+    border-radius:0!important;
+  }
+  thead,tbody,tr,th,td{
+    box-decoration-break:clone!important;
+    -webkit-box-decoration-break:clone!important;
+  }
 }
 
 </style></head><body>`;
 
   // ══ 封面 ══
-  html+=`<div class="cover report-cover"><div class="cover-seal">识己</div><div class="cover-kicker">SHI JI · TALENT REPORT</div><h1>天赋能力解读报告</h1><p class="cover-edition">个人专属版</p><div class="cover-person"><strong>${esc(displayName)}</strong><span>${esc(formatBirthValue(a.birth))}</span></div><div class="cover-meta"><div><span>核心天赋</span><strong>${esc(mainNames)||'—'}</strong></div><div><span>辅助天赋</span><strong>${esc(auxNames)||'无'}</strong></div><div><span>潜能天赋</span><strong>${esc(potentialSummary)}</strong></div></div><div class="cover-foot">识己天赋测评体系 · 报告生成日期：${dateStr}</div><p style="margin-top:24px;font-size:10pt;color:var(--report-muted);letter-spacing:.04em">本测评属于趣味性自我探索工具，结论仅供参考。</p></div>`;
+  html+=`<div class="cover report-cover"><div class="cover-seal">识己</div><div class="cover-kicker">SHI JI · TALENT REPORT</div><h1>天赋能力解读报告</h1><p class="cover-edition">个人专属版</p><div class="cover-person"><strong>${esc(displayName)}</strong><span>${esc(formatBirthValue(a.birth))}</span></div><div class="cover-meta"><div><span>核心天赋</span><strong>${esc(mainNames)||'—'}</strong></div><div><span>辅助天赋</span><strong>${esc(auxNames)||'无'}</strong></div><div><span>人生课题 · 重点突破</span><strong>${esc(potentialSummary)}</strong></div></div><div class="cover-foot">识己天赋测评体系 · 报告生成日期：${dateStr}</div><p style="margin-top:24px;font-size:10pt;color:var(--report-muted);letter-spacing:.04em">本测评属于趣味性自我探索工具，结论仅供参考。</p></div>`;
 
   // ══ 目录 ══
-  html+=`<nav class="report-toc" aria-label="报告目录"><div class="toc-kicker">CONTENTS</div><h2>目录</h2><p class="toc-intro">点击目录标题可在电子版报告中跳转。</p><div class="toc-list"><a class="toc-item" href="#chapter-1"><b>一</b><span>天赋总览<small>四大能量与整体结构</small></span></a><a class="toc-item" href="#chapter-2"><b>二</b><span>核心天赋深度解读<small>共振、组合与主天赋优势</small></span></a><a class="toc-item" href="#chapter-3"><b>三</b><span>辅助天赋解读<small>补充视角与协同方式</small></span></a><a class="toc-item" href="#chapter-4"><b>四</b><span>潜能天赋解读<small>人生课题与突破方向</small></span></a><a class="toc-item" href="#chapter-5"><b>五</b><span>三年年度策略<small>阶段节奏与行动重点</small></span></a><a class="toc-item" href="#chapter-6"><b>六</b><span>职业方向推荐<small>能力依据与职业案例</small></span></a><a class="toc-item" href="#chapter-7"><b>七</b><span>副业方向推荐<small>天赋延伸与适配赛道</small></span></a><a class="toc-item" href="#chapter-8"><b>八</b><span>关系综合<small>亲密关系、天赋培养与金钱关系</small></span></a><a class="toc-item" href="#chapter-9"><b>九</b><span>总结寄语<small>整合优势与成长方向</small></span></a></div></nav>`;
+  html+=`<nav class="report-toc" aria-label="报告目录"><div class="toc-kicker">CONTENTS</div><h2>目录</h2><p class="toc-intro">点击目录标题可在电子版报告中跳转。</p><div class="toc-list"><a class="toc-item" href="#chapter-1"><b>一</b><span>天赋总览<small>四类能力与整体结构</small></span></a><a class="toc-item" href="#chapter-2"><b>二</b><span>核心天赋深度解读<small>共振、组合与主天赋优势</small></span></a><a class="toc-item" href="#chapter-3"><b>三</b><span>辅助天赋解读<small>补充视角与协同方式</small></span></a><a class="toc-item" href="#chapter-4"><b>四</b><span>人生课题 · 重点突破<small>重大课题与突破方向</small></span></a><a class="toc-item" href="#chapter-5"><b>五</b><span>三年年度策略<small>阶段节奏与行动重点</small></span></a><a class="toc-item" href="#chapter-6"><b>六</b><span>职业方向推荐<small>能力依据与职业案例</small></span></a><a class="toc-item" href="#chapter-7"><b>七</b><span>副业方向推荐<small>天赋延伸与适配赛道</small></span></a><a class="toc-item" href="#chapter-8"><b>八</b><span>关系综合<small>亲密关系、天赋培养与金钱关系</small></span></a><a class="toc-item" href="#chapter-9"><b>九</b><span>总结寄语<small>整合优势与成长方向</small></span></a></div></nav>`;
 
   // ══ 阅读摘要 ══
-  html+=`<section class="executive-summary"><div class="summary-kicker">REPORT SUMMARY</div><h2>报告摘要</h2><p class="summary-lead">你的天赋结构以<strong>${maxEName}</strong>为主导。优先能力集中在<strong>${esc(orderedMains.slice(0,3).map(t=>t.name).join('、'))}</strong>。建议先选择一个最有现实基础的职业方向，持续形成作品、案例与专业成果。</p><div class="summary-grid"><div class="summary-item"><span>主导能量</span><strong>${maxEName}</strong><small>占比 ${pcts[maxE]}%</small></div><div class="summary-item"><span>优先能力</span><strong>${esc(orderedMains.slice(0,3).map(t=>t.name).join('、'))||'—'}</strong><small>先形成可见成果</small></div><div class="summary-item"><span>潜能课题</span><strong>${esc(potentialSummary)}</strong><small>持续突破与整合</small></div></div>`;
+  html+=`<section class="executive-summary"><div class="summary-kicker">REPORT SUMMARY</div><h2>报告摘要</h2><p class="summary-lead">你的能力表现以<strong>${maxEName}</strong>为主。优先能力集中在<strong>${esc(orderedMains.slice(0,3).map(t=>t.name).join('、'))}</strong>。建议先选择一个最有现实基础的职业方向，持续形成作品、案例与专业成果。</p><div class="summary-grid"><div class="summary-item"><span>主要能力</span><strong>${maxEName}</strong><small>占比 ${pcts[maxE]}%</small></div><div class="summary-item"><span>优先能力</span><strong>${esc(orderedMains.slice(0,3).map(t=>t.name).join('、'))||'—'}</strong><small>先形成可见成果</small></div><div class="summary-item"><span>人生课题</span><strong>${esc(potentialSummary)}</strong><small>需要重点突破</small></div></div>`;
   html+=`<p class="report-growth-reminder"><strong>阅读提示：</strong>成长环境与人生经历，会影响天赋的发挥。发展好任一项天赋，人生会更加顺流。</p>`;
-  html+=`<div class="summary-energy-chart"><h3>四大能量速览</h3>${energyOrder.map(e=>`<div class="report-energy-row"><span>${e.n.replace(/（.*?）/g,'')}</span><div class="report-energy-track"><i style="width:${pcts[e.k]}%"></i></div><strong>${pcts[e.k]}%</strong></div>`).join('')}</div>`;
-  html+=`<div class="reading-guide"><strong>阅读顺序</strong><span>先看“天赋总览”和“核心天赋深度解读”，理解自己的优势结构；再看辅助天赋、潜能天赋、年度策略、职业方向与关系综合；最后结合个人简历、教育背景和真实经历做进一步分析。</span></div></section>`;
+  html+=`<div class="summary-energy-chart"><h3>四类能力速览</h3>${energyOrder.map(e=>`<div class="report-energy-row"><span>${e.n}</span><div class="report-energy-track"><i style="width:${pcts[e.k]}%"></i></div><strong>${pcts[e.k]}%</strong></div>`).join('')}</div>`;
+  html+=`<div class="reading-guide"><strong>阅读顺序</strong><span>先看“天赋总览”和“核心天赋深度解读”，理解自己的优势结构；再看辅助天赋、人生课题、年度策略、职业方向与关系综合；最后结合个人简历、教育背景和真实经历做进一步分析。</span></div></section>`;
 
   // ══ 一、天赋总览 ══
   html+=`<div class="section" id="chapter-1"><h2>一、天赋总览</h2>`;
   html+=`<p class="section-lead">你的天赋组合呈现出「${maxEName}主导」格局。成长环境与人生经历，会影响天赋的发挥。发展好任一项天赋，人生会更加顺流。</p>`;
-  html+=`<h3>1.1 四大能量分布</h3><div class="energy-profile-grid">`;
+  html+=`<h3>1.1 四类能力分布</h3><div class="energy-profile-grid">`;
   for(let e of energyOrder){
     const ts=allTs.filter(t=>TALENT_DETAIL[t.num]?.energy===e.k);
     const names=ts.map(t=>t.name+(t.multiplier>1?'×'+t.multiplier:'')).join(' + ')||'—';
@@ -3844,7 +4206,7 @@ td{background:#fff!important;color:var(--report-text)!important}
     ['重叠天赋',a.ranking.overlap.map(t=>`${t.name}×${t.multiplier}`)],
     ['主天赋',a.ranking.single.map(t=>`${t.name}×${t.multiplier}`)],
     ['辅助天赋',a.ranking.aux.map(t=>`${t.name}×${t.multiplier}`)],
-    ['潜能天赋',(a.potentialNums||[]).map(n=>POTENTIAL_NAMES[n])]
+    ['人生课题 · 重点突破',(a.potentialNums||[]).map(n=>POTENTIAL_NAMES[n])]
   ];
   html+=`<h3>1.2 天赋结构层级</h3><div class="structure-map">${structureRows.map(([label,items])=>`<div><span>${label}</span><strong>${esc(items.filter(Boolean).join('、')||'无')}</strong></div>`).join('')}</div>`;
   
@@ -3865,8 +4227,7 @@ td{background:#fff!important;color:var(--report-text)!important}
     const synergy=relatedCombos.length
       ?`参与「${relatedCombos.map(c=>c.name).join('、')}」组合，可与其他天赋形成更完整的协同能力。`
       :(sameEnergy.length?`与${sameEnergy.map(ot=>ot.name).join('、')}同属${e.name}，适合一起发展。`:'适合通过真实任务持续验证和积累。');
-    let block=`<article class="report-block talent-block"><div class="report-block-heading"><h3>${number} ${d.name} ×${t.multiplier}倍</h3><span>${stageLabel}</span></div>`;
-    block+=`<p class="talent-energy-belonging"><strong>所属四大能量</strong><span>${e.name}</span></p>`;
+    let block=`<article class="report-block talent-block"><div class="report-block-heading"><h3>${number} ${d.name} ×${t.multiplier}倍</h3><span>${stageLabel} · ${e.name}</span></div>`;
     block+=`<p class="talent-core-statement"><strong>具备能力：</strong>${d.core}</p>`;
     block+=`<div class="report-fact-grid"><div><span>职业价值</span><p>适合把这项能力用于${d.careers.slice(0,3).join('、')}等工作场景，形成清晰、可见的专业成果。</p></div><div><span>联动优势</span><p>${synergy}</p></div><div class="fact-wide"><span>培养路径</span><p>${d.path}</p></div></div>`;
     block+=`<div class="report-chip-row"><strong>适合职业</strong>${d.careers.slice(0,3).map(c=>`<span>${esc(c)}</span>`).join('')}</div></article>`;
@@ -3882,7 +4243,7 @@ td{background:#fff!important;color:var(--report-text)!important}
   const singleTalents=orderedMains.filter(t=>singleNums.has(t.num)&&!coreNums.has(t.num)&&!overlapNums.has(t.num));
 
   // ══ 二、核心天赋深度解读 ══
-  html+=`<div class="section core-report-section" id="chapter-2"><h2>二、核心天赋深度解读</h2><p class="section-intro">本章按照天赋的实际优先级展开：先看共振天赋，再看组合天赋、重叠天赋与单个主天赋。</p>`;
+  html+=`<div class="section core-report-section" id="chapter-2"><h2>二、核心天赋深度解读</h2><p class="section-intro">本章按照天赋的能量强弱展开：先看共振天赋，再看组合天赋、重叠天赋与单个主天赋。</p>`;
   html+=`<div class="report-subsection"><h3 class="report-subsection-title">2.1 共振天赋</h3><p class="report-subsection-intro">主天赋与同名辅助天赋形成的共振最先呈现；原始强度达到 ×3 的核心主天赋也同属最高优先级。</p>`;
   if(coreTalents.length){
     coreTalents.forEach((t,index)=>{html+=renderReportMainTalent(t,`2.1.${index+1}`,a.ranking.resonantNums?.has(t.num)?'主辅共振':'核心天赋');});
@@ -3916,36 +4277,35 @@ td{background:#fff!important;color:var(--report-text)!important}
   html+=`</div></div>`;
 
   // ══ 三、辅助天赋 ══
-  html+=`<div class="section auxiliary-report-section" id="chapter-3"><h2>三、辅助天赋解读</h2><p class="section-intro">辅助天赋提供补充视角与协同方式，帮助主天赋在真实任务中发挥得更完整。已形成主辅共振的辅助面向已归入 2.1，不在本章重复解读。</p>`;
+  html+=`<div class="section auxiliary-report-section" id="chapter-3"><h2>三、辅助天赋解读</h2><p class="section-intro">辅助天赋是你在处理事情时自然带入的补充方式，可以让主要能力发挥得更完整。</p>`;
   if(reportAuxs.length){
     reportAuxs.forEach((t,index)=>{
       const d=TALENT_DETAIL[t.num]; if(!d) return;
       const e=ENERGY_TYPES[d.energy];
       const ad=AUX_TO_POTENTIAL[t.num];
       const auxCore=ad?.auxCore||d.core,auxPath=ad?.auxPath||d.path;
-      html+=`<article class="report-block talent-block auxiliary-block"><div class="report-block-heading"><h3>3.${index+1} ${d.name} ×${t.multiplier}倍</h3><span>辅助天赋</span></div>`;
-      html+=`<p class="talent-energy-belonging"><strong>所属四大能量</strong><span>${e.name}</span></p>`;
+      html+=`<article class="report-block talent-block auxiliary-block"><div class="report-block-heading"><h3>3.${index+1} ${d.name} ×${t.multiplier}倍</h3><span>辅助天赋 · ${e.name}</span></div>`;
       html+=`<p class="talent-core-statement"><strong>发展面向：</strong>${auxCore}</p><div class="report-fact-grid"><div><span>职业应用</span><p>${d.careers.slice(0,3).join('、')}</p></div><div><span>发挥方式</span><p>把辅助天赋作为补充视角，与主天赋共同用于真实任务，而不是单独承担全部职业定位。</p></div><div class="fact-wide"><span>培养路径</span><p>${auxPath}</p></div></div></article>`;
     });
   }else{
-    html+=`<div class="report-empty-state"><strong>本次未设置辅助天赋</strong><span>报告会继续依据主天赋与潜能天赋完成整体解读。</span></div>`;
+    html+=`<div class="report-empty-state"><strong>本次未设置辅助天赋</strong><span>报告会继续依据主天赋与人生课题完成整体解读。</span></div>`;
   }
   html+=`</div>`;
 
-  // ══ 四、潜能天赋 ══
-  html+=`<div class="section potential-report-section" id="chapter-4"><h2>四、潜能天赋解读</h2><p class="section-intro">潜能天赋呈现需要持续理解与突破的人生课题。它与辅助天赋分开解读，避免两种作用混淆。</p>`;
+  // ══ 四、人生课题 ══
+  html+=`<div class="section potential-report-section" id="chapter-4"><div class="section-opening"><h2>四、人生课题 · 重点突破</h2><p class="section-intro">这里呈现的不是一项天赋，而是人生中需要持续面对、理解并完成突破的重大课题。它与主天赋、辅助天赋分开解读。</p></div>`;
   if(a.potentialNums&&a.potentialNums.length){
     a.potentialNums.forEach((pn,index)=>{
       const pd=POTENTIAL_DIRECT[pn]; if(!pd) return;
-      html+=`<article class="report-block potential-block"><div class="report-block-heading"><h3>4.${index+1} ${pd.name}</h3><span>${pd.proto}</span></div><p><strong>核心课题：</strong>${pd.theme}</p><div class="note"><strong>突破关键：</strong>${pd.key}</div></article>`;
+      html+=`<article class="report-block potential-block"><div class="report-block-heading"><h3>4.${index+1} ${pd.name}</h3><span>${pd.proto}</span></div><p class="talent-core-statement"><strong>核心课题：</strong>${pd.theme}</p><div class="potential-detail-grid"><div class="potential-wide"><span>常见表现</span><p>${pd.pattern}</p></div><div class="potential-wide"><span>长期需要留意</span><p>${pd.impact}</p></div></div><div class="note"><strong>突破关键：</strong>${pd.key}</div></article>`;
     });
   }else{
-    html+=`<div class="report-empty-state"><strong>本次未设置潜能天赋</strong><span>补充潜能天赋后，可获得对应的人生课题与突破指引。</span></div>`;
+    html+=`<div class="report-empty-state"><strong>本次未设置人生课题</strong><span>补充人生课题后，可获得对应的重点突破指引。</span></div>`;
   }
   html+=`</div>`;
 
   // ══ 五、三年年度策略 ══
-  html+=`<div class="section annual-report-section" id="chapter-5"><h2>五、三年年度策略</h2><p class="section-intro">年度策略从本年度生日开始计算，到下一年度生日结束。它用于提示每一阶段更适合的行动节奏，不代表好坏或高低。</p>`;
+  html+=`<div class="section annual-report-section" id="chapter-5"><div class="section-opening"><h2>五、三年年度策略</h2><p class="section-intro">年度策略从本年度生日开始计算，到下一年度生日结束。它用于提示每一阶段更适合的行动节奏，不代表好坏或高低。</p><p class="annual-reference-note"><strong>重要说明：</strong>本部分依据固定规则生成，是帮助安排学习、行动与休整的节奏参考，<strong>不是对未来事件、运气或结果的预测</strong>。实际选择仍需结合个人处境、资源、目标和外部变化灵活调整。</p></div>`;
   if(a.years.length&&birthInfo){
     const annualLabels=['本生日年度','下一生日年度','第三生日年度'];
     const currentYear=new Date().getFullYear();
@@ -3962,7 +4322,7 @@ td{background:#fff!important;color:var(--report-text)!important}
   html+=`</div>`;
 
   // ══ 六、职业方向推荐 ══
-  html+=`<div class="section career-report-section" id="chapter-6"><h2>六、职业方向推荐</h2><p class="section-intro">以下方向仅供参考，天赋能力才是你的核心优势。每个方向都给出能力依据和职业案例，便于结合个人简历、经验与现实机会进一步筛选。</p>`;
+  html+=`<div class="section career-report-section" id="chapter-6"><div class="section-opening"><h2>六、职业方向推荐</h2><p class="section-intro">以下方向仅供参考，天赋能力才是你的核心优势。每个方向都给出能力依据和职业案例，便于结合个人简历、经验与现实机会进一步筛选。</p><p class="universal-career-note"><strong>适用范围说明：</strong>这里呈现的是基于本测评体系的<strong>普适性方向建议</strong>，尚未结合实时招聘市场、学历、所在地域、行业经验和个人履历。建议后续将本解读报告与个人简历一起提交给 AI，再筛选更符合现实条件的岗位、职业路径与行动方案。</p></div>`;
   const maxDirectionScore=Math.max(...careerDirections.map(d=>d.score||0),1);
   careerDirections.forEach((direction,index)=>{
     const fit=Math.round(72+Math.min(1,(direction.score||0)/maxDirectionScore)*23);
@@ -3972,14 +4332,14 @@ td{background:#fff!important;color:var(--report-text)!important}
 
   // ══ 七、副业方向推荐 ══
   const sideDirections=getSideDirections(a.talents,a.combos);
-  html+='<div class="section career-report-section" id="chapter-7"><h2>七、副业方向推荐</h2><p class="section-intro">以下副业方向基于天赋延伸，天赋能力才是你的核心优势，覆盖生活、知识、亲子、创意、商业等主流赛道。每个方向都给出典型案例和天赋来源，系统会自动排序，展示与你最匹配的前5个方向。</p>';
+  html+='<div class="section career-report-section" id="chapter-7"><div class="section-opening"><h2>七、副业方向推荐</h2><p class="section-intro">以下副业方向基于天赋延伸，天赋能力才是你的核心优势，覆盖生活、知识、亲子、创意、商业等主流赛道。每个方向都给出典型案例和天赋来源，系统会自动排序，展示与你最匹配的前5个方向。</p><p class="universal-career-note"><strong>适用范围说明：</strong>以下同样属于普适性建议，未直接纳入你的履历基础、所在地域、时间投入、平台条件与市场需求。可将报告和简历交给 AI，结合现实约束进一步缩小范围。</p></div>';
   sideDirections.forEach((direction,index)=>{
     html+='<article class="report-block career-block"><div class="report-block-heading"><h3>'+(index+1)+'. '+direction.title+'</h3><span>'+direction.contributors.join("、")+'</span></div><p>'+direction.core+'</p><div class="report-chip-row"><strong>方向案例</strong>'+direction.examples.slice(0,3).map(ex=>'<span>'+ex+'</span>').join("")+'</div></article>';
   });
   html+='</div>';
 
   // ══ 八、关系综合 ══
-  const relationTalents=orderedMains.slice(0,4);
+  const relationTalents=orderedMains;
   const relationAge=getAgeFromBirth(a.birth);
   const relationIsChild=relationAge!==null&&relationAge<18;
   const loveIntro=(a.counts.water||0)>0
@@ -4004,11 +4364,11 @@ td{background:#fff!important;color:var(--report-text)!important}
     {number:'8.2',title:'亲子关系与天赋培养',tag:relationIsChild?'成长培养':'自我培养',intro:parentIntro,dimension:'parent',practiceLabel:parentPracticeLabel,practice:parentPractice},
     {number:'8.3',title:'金钱关系',tag:'价值与积累',intro:moneyIntro,dimension:'money',practiceLabel:'财富练习',practice:'明确年度目标、保留安全储备、定期复盘，并让每一笔重要投入服务于长期价值。'}
   ];
-  html+=`<div class="section relation-report-section" id="chapter-8"><h2>八、关系综合</h2><p class="section-intro">关系中的表达方式，也来自天赋。以下从亲密关系、天赋培养与金钱关系三个维度，呈现核心能力在生活中的具体作用。</p>`;
+  html+=`<div class="section relation-report-section" id="chapter-8"><div class="section-opening"><h2>八、关系综合</h2><p class="section-intro">关系中的表达方式，也来自天赋。以下从亲密关系、天赋培养与金钱关系三个维度，呈现核心能力在生活中的具体作用。</p></div>`;
   relationGroups.forEach(group=>{
     html+=`<article class="report-block relation-report-block" id="chapter-${group.number.replace('.','-')}"><div class="report-block-heading"><h3>${group.number} ${group.title}</h3><span>${group.tag}</span></div><p class="direction-statement">${group.intro}</p>`;
     if(relationTalents.length){
-      html+=`<div class="relation-report-list">${relationTalents.map(t=>`<div><strong>${t.name} ×${t.multiplier}</strong><p>${RELATION_GUIDE[t.num]?.[group.dimension]||'在这一关系维度中，适合通过真实沟通与持续练习发挥这项天赋。'}</p></div>`).join('')}</div>`;
+      html+=`<div class="relation-report-list">${relationTalents.map(t=>`<div><strong>${t.name} ×${t.multiplier}</strong><p>${formatRelationGuide(RELATION_GUIDE[t.num]?.[group.dimension]||'在这一关系维度中，适合通过真实沟通与持续练习发挥这项天赋。',group.dimension)}</p></div>`).join('')}</div>`;
     }
     html+=`<div class="relation-report-action"><strong>${group.practiceLabel}</strong><p>${group.practice}</p></div></article>`;
   });
@@ -4045,6 +4405,27 @@ td{background:#fff!important;color:var(--report-text)!important}
     20:'做事有计划、考虑周全，能把混乱的事情安排得更稳妥',
     21:'重视规则和承诺，做事可靠，适合需要长期负责的事情'
   };
+  const closingTraitEmphasis=[
+    '新点子','不一样的做法','理清楚再讲给别人听','体会别人的感受','美感和生活细节',
+    '目标感强','拿主意、往前推','看见一件事的价值','亲和力和表达力','责任感',
+    '鼓励和带动别人','想深、看透','连接人和资源','求知欲强','趋势和选择',
+    '沉下心来','交流和拓展见识','看全局、想长远','执行力强','看见别人没有说出口的想法和潜力',
+    '感受细腻','有感染力','有计划、考虑周全','重视规则和承诺'
+  ];
+  const closingPotentialEmphasis=[
+    '不必等宏大答案出现','接受阶段性的足够好','直接提出请求','共同验证什么有效',
+    '允许小范围犯错','承认欲望并不等于自私','用清楚、得体的方式表达选择',
+    '从低风险的小事开始','说清事实、感受、边界和下一步',
+    '区分“我此刻的感受”和“客观事实”','把注意力移向可核实的事实',
+    '把求助视为资源协作而非示弱','先完成可用版本','用清晰分工代替包办',
+    '主动选择值得承担的责任'
+  ];
+  const emphasizeClosing=(text,phrases)=>{
+    const matches=phrases.filter(phrase=>text.includes(phrase)).sort((a,b)=>b.length-a.length);
+    if(!matches.length)return esc(text);
+    const pattern=new RegExp(matches.map(phrase=>phrase.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|'),'g');
+    return esc(text).replace(pattern,match=>`<strong>${match}</strong>`);
+  };
   const closingPlainTraits=orderedMains.slice(0,3).map(t=>closingPlainTalent[t.num]).filter(Boolean);
   const closingYearLabels=['第一年','第二年','第三年'];
   const closingPlainYear={
@@ -4066,10 +4447,10 @@ td{background:#fff!important;color:var(--report-text)!important}
     return closingPlainYear[year]?`<strong>${closingYearLabels[index]}</strong>，${closingPlainYear[year]}`:'';
   }).filter(Boolean);
   html+=`<div class="section closing-section" id="chapter-9"><h2>九、总结寄语</h2><div class="closing-copy">`;
-  html+=`<p>从本次测评呈现的天赋倾向来看，你可能更容易表现出这些特点：${closingPlainTraits.map(esc).join('；')}。这不是对你性格和能力的固定判断，因为成长环境与人生经历也会影响天赋如何表现。它更像是一份参考，帮助你留意哪些事情做起来比较自然、哪些长处值得继续发展。</p>`;
+  html+=`<p>从本次测评呈现的天赋倾向来看，你可能更容易表现出这些特点：${closingPlainTraits.map(trait=>emphasizeClosing(trait,closingTraitEmphasis)).join('；')}。这不是对你性格和能力的固定判断，因为<strong>成长环境与人生经历</strong>也会影响天赋如何表现。它更像是一份参考，帮助你留意哪些事情做起来比较自然、哪些长处值得继续发展。</p>`;
   html+=`<p>工作上，你可以多留意<strong>${esc(closingCareerScope)}</strong>这几类方向。不代表你只能做这些，而是这些工作里更容易用上你的长处。选工作时可以少问一句“这个职位听起来好不好”，多问一句：“<strong>这件事是不是我愿意长期做，也能越做越好的？</strong>”如果答案是肯定的，就值得用一个真实项目去试一试。</p>`;
   if(closingPotentialNum){
-    html+=`<p>你接下来比较值得练习的是<strong>${esc(POTENTIAL_NAMES[closingPotentialNum]||'持续成长')}</strong>。说得具体一点，就是：${closingPotential?esc(closingPotential.key):'遇到熟悉的问题时，先停一下，再选一个更适合现在的做法。'}不用要求自己马上做到，先从每次多想一步、多试一次开始，慢慢就会看到变化。</p>`;
+    html+=`<p>你接下来比较值得练习的是<strong>${esc(POTENTIAL_NAMES[closingPotentialNum]||'持续成长')}</strong>。说得具体一点，就是：${closingPotential?emphasizeClosing(closingPotential.key,closingPotentialEmphasis):'遇到熟悉的问题时，先停一下，再选一个更适合现在的做法。'}不用要求自己马上做到，先从<strong>每次多想一步、多试一次</strong>开始，慢慢就会看到变化。</p>`;
   }
   if(closingThreeYears.length){
     html+=`<p>接下来三年可以这样安排：${closingThreeYears.join('；')}。不用一次把三年的事都想明白，先把眼前这一年走稳，再根据真实结果调整下一步，比急着给自己定一个永远不变的答案更有用。</p>`;
@@ -4078,8 +4459,23 @@ td{background:#fff!important;color:var(--report-text)!important}
   html+=`</div><div class="signature">—— 识己天赋测评体系 · 专属报告</div>`;
   html+=`</div>`;
 
-  html+=`<div class="report-next-step"><strong>重要提醒｜请务必完成下一步分析</strong><p><strong style="display:inline!important;font-size:inherit!important">请将本 PDF 报告和个人简历一起提交给 AI</strong>，并补充当前行业、工作年限、教育背景、收入目标及生活方式偏好。报告帮助 AI 了解你的测评结果，简历则呈现真实经历；将两者结合，才能进一步分析你的优势能力、适配岗位、职业选择与具体行动方案。</p></div>`;
-  html+=`<p class="report-disclaimer">本测评属于趣味性自我探索工具，结论仅供参考。※ 以上解读基于识己天赋体系生成，仅供个人成长与职业探索参考，不构成职业、心理、医疗、法律或投资决策依据。请结合个人经历、现实条件与专业意见综合判断。</p><div class="report-footer">本测评属于趣味性自我探索工具，结论仅供参考。</div>`;
+  html+=`<div class="report-next-step"><strong>重要提醒｜请务必完成下一步分析</strong><p><strong style="display:inline!important;font-size:inherit!important">请将本 PDF 报告和个人简历一起提交给 AI</strong>，并补充行业、工作年限、教育背景、收入目标和生活方式偏好，结合真实经历进一步筛选优势能力、适配岗位、职业选择与行动方案。</p></div><div class="ai-prompt-template ai-prompt-page"><strong>可直接复制给 AI 的标准提示词</strong><p>我会提供一份《天赋能力解读报告》和我的个人简历。请把测评内容视为自我探索参考，不要把其中的描述当成固定结论，也不要只重复报告原文。
+
+我的补充信息：
+当前行业/岗位：【请填写】　工作年限：【请填写】　教育背景：【请填写】
+目前收入与三年收入目标：【请填写】　所在城市/可接受地点：【请填写】
+期待的生活方式与不能接受的条件：【请填写】　当前最想解决的问题：【请填写】
+
+请结合报告、简历和以上现实条件完成分析：
+1. 提炼我已经被真实经历证明的3—5项优势能力，并指出简历中的证据。
+2. 区分“测评显示的倾向”和“目前已经具备的能力”，说明两者一致或存在差距的地方。
+3. 推荐3—5个现实可行的岗位或职业方向，分别说明匹配依据、进入门槛、主要风险和不适配条件。
+4. 给出1—3个可低成本验证的副业或项目方向，不要建议我在没有验证前贸然离职。
+5. 结合人生课题，指出我在求职、合作和职业发展中最需要留意的行为模式，并给出具体练习。
+6. 制定未来90天行动计划，以及未来三年的阶段目标；每一步都要具体、可执行、可检查。
+
+请使用日常、客观的语言。如果资料不足，请先向我提出最多5个关键问题；不要编造经历、证书、收入或市场数据。</p><p class="report-disclaimer">本测评属于趣味性自我探索工具，结论仅供参考。※ 以上解读基于识己天赋体系生成，仅供个人成长与职业探索参考，不构成职业、心理、医疗、法律或投资决策依据。请结合个人经历、现实条件与专业意见综合判断。</p></div>`;
+  html+=`<div class="report-footer">本测评属于趣味性自我探索工具，结论仅供参考。</div>`;
   html+=`</body></html>`;
   return html;
 }
@@ -4127,7 +4523,18 @@ function canvasBrandSeal(ctx,x,y){
   ctx.fillText('识',x+27,y+10);ctx.fillText('己',x+27,y+34);ctx.textAlign='left';
 }
 
-function exportCareerImage(){
+const EXPORT_SIDE_MAP={
+  0:["AI博主","创意设计博主"],1:["学习成长","读书","知识科普"],2:["心理情感","婚恋情感咨询","日常Vlog"],
+  3:["穿搭时尚","母婴育儿","摄影美学"],4:["健身运动","创业","职场进阶"],5:["理财投资","金钱观念"],
+  6:["美妆护肤","带货推荐"],7:["家装改造","房产家居"],8:["教育升学","职场进阶","个人成长教练"],
+  9:["读书","知识科普","数码科技"],10:["带货推荐","个人成长教练"],11:["学习成长","读书","知识科普"],
+  12:["带货推荐","职场进阶","穿搭时尚"],13:["个人成长教练","健身运动"],14:["旅行探店","语言学习"],
+  15:["职场进阶","目标管理","理财投资"],16:["多方向适配"],17:["资源链接","中介对接"],
+  18:["身心灵成长","美食探店","宠物"],19:["资源链接","带货推荐"],20:["目标管理","教育升学","理财投资"],
+  21:["健康养生","三农乡村","银发生活"]
+};
+
+function exportTalentImage(mode="career"){
   try{
     const a=window._analysis;
     if(!a){alert("请先进行天赋能力解读");return;}
@@ -4135,13 +4542,16 @@ function exportCareerImage(){
     const mains=[...a.talents].filter(t=>t.role!=="aux").sort((x,y)=>y.multiplier-x.multiplier);
     const auxs=a.talents.filter(t=>t.role==="aux");
     const potentials=a.potentialNums||[];
-    const directions=getCareerDirections(a.talents,a.combos).slice(0,5);
-    for(const fallback of CAREER_ARCHETYPES){
-      if(directions.length>=5)break;
-      if(!directions.some(item=>item.id===fallback.id))directions.push({...fallback,contributors:mains.slice(0,2).map(t=>t.name)});
+    const isSide=mode==="side";
+    const directions=(isSide?getSideDirections(a.talents,a.combos):getCareerDirections(a.talents,a.combos)).slice(0,5);
+    if(!isSide){
+      for(const fallback of CAREER_ARCHETYPES){
+        if(directions.length>=5)break;
+        if(!directions.some(item=>item.id===fallback.id))directions.push({...fallback,contributors:mains.slice(0,2).map(t=>t.name)});
+      }
     }
     const displayName=a.name||"未署名";
-    const cardTitle=displayName+" · 天赋能力全览";
+    const cardTitle=displayName+(isSide?" · 副业方向推荐":" · 天赋能力全览");
     const birthLine=formatBirthValue(a.birth);
     const C={paper:"#faf6ed",sheet:"#fffdf9",ink:"#332f29",ink2:"#5f5950",ink3:"#8a8175",red:"#a33d36",gold:"#96702f",goldDeep:"#795821",goldSoft:"#fbf4e2",redSoft:"#fcece6",line:"#e1d3be"};
     const total=Object.values(a.counts).reduce((s,n)=>s+n,0)||1;
@@ -4154,13 +4564,14 @@ function exportCareerImage(){
     const px=value=>Math.round(value*SCALE);
     const font=(size,weight=400)=>`${weight} ${px(size)}px "Microsoft YaHei","PingFang SC",sans-serif`;
     const PAGE_W=1080,LEFT=72,CONTENT_W=936;
-    const sectionTitleHeight=46,headerHeight=180,mainStep=170,auxStep=202,potentialStep=144,careerStep=122;
+    const sectionTitleHeight=46,headerHeight=180,mainStep=170,auxStep=202,potentialStep=250,careerStep=122;
     let logicalHeight=LEFT+headerHeight+34;
     logicalHeight+=sectionTitleHeight+104+34;
     if(a.zeros.length)logicalHeight+=sectionTitleHeight+a.zeros.length*76+20;
     logicalHeight+=24+sectionTitleHeight+mains.length*mainStep+24;
     if(auxs.length||potentials.length)logicalHeight+=sectionTitleHeight+auxs.length*auxStep+potentials.length*potentialStep+30;
-    logicalHeight+=34+sectionTitleHeight+directions.length*(careerStep+35)+112;
+    const recommendationNoteHeight=88;
+    logicalHeight+=34+sectionTitleHeight+recommendationNoteHeight+directions.length*(careerStep+35)+112;
 
     const canvas=document.createElement("canvas");
     canvas.width=px(PAGE_W);canvas.height=px(logicalHeight);
@@ -4202,7 +4613,7 @@ function exportCareerImage(){
     ctx.fillStyle=C.ink3;ctx.font=font(20);ctx.fillText("成长环境与人生经历，会影响天赋的发挥。发展好任一项天赋，人生会更加顺流。",px(LEFT),px(y+140));
     y+=headerHeight+34;
 
-    sectionTitle("四大天赋占比",y);y+=sectionTitleHeight;
+    sectionTitle("四类能力占比",y);y+=sectionTitleHeight;
     const energyGap=8,energyWidth=(CONTENT_W-energyGap*3)/4;
     energyKeys.forEach((key,index)=>{
       const pct=Math.round((a.counts[key]||0)/total*100),x=LEFT+index*(energyWidth+energyGap);
@@ -4230,51 +4641,66 @@ function exportCareerImage(){
       const detail=TALENT_DETAIL[talent.num];card(LEFT,y,CONTENT_W,158,"#fdfbf7",C.gold);
       ctx.fillStyle=C.ink;ctx.font=font(32,600);ctx.fillText(talent.name+"  ×"+talent.multiplier+"  ·  "+grade(talent),px(LEFT+17),px(y+14));
       ctx.fillStyle=C.red;ctx.font=font(30,600);wrapped(detail.core,LEFT+17,y+55,CONTENT_W-34,38,2);
-      ctx.fillStyle=C.ink3;ctx.font=font(26);wrapped("▸ 适合职业方向："+detail.careers.slice(0,3).join("、"),LEFT+17,y+126,CONTENT_W-34,34,1);
+      const mainDirection=isSide?(EXPORT_SIDE_MAP[talent.num]||[]):detail.careers.slice(0,3);
+      const mainLabel=isSide?"▸ 副业方向推荐：":"▸ 适合职业方向：";
+      ctx.fillStyle=C.ink3;ctx.font=font(26);wrapped(mainLabel+mainDirection.join("、"),LEFT+17,y+126,CONTENT_W-34,34,1);
       y+=mainStep;
     });
     y+=24;
 
     if(auxs.length||potentials.length){
-      sectionTitle("辅助与潜能天赋",y);y+=sectionTitleHeight;
+      sectionTitle("辅助天赋与人生课题",y);y+=sectionTitleHeight;
       auxs.forEach(aux=>{
         const detail=AUX_TO_POTENTIAL[aux.num];if(!detail)return;
         const resonant=a.ranking.resonantNums?.has(aux.num),careerText=TALENT_DETAIL[aux.num].careers.slice(0,3).join("、");
         card(LEFT,y,CONTENT_W,190,"#fdfbf7",C.goldDeep);
         ctx.fillStyle=C.ink;ctx.font=font(32,600);ctx.fillText(aux.name+" ×"+aux.multiplier+"  ·  辅助天赋"+(resonant?"（主辅共振）":""),px(LEFT+17),px(y+14));
         ctx.fillStyle=C.red;ctx.font=font(29,600);wrapped(detail.auxCore,LEFT+17,y+55,CONTENT_W-34,37,2);
-        ctx.fillStyle=C.ink3;ctx.font=font(26);wrapped("▸ 职业方向："+careerText,LEFT+17,y+127,CONTENT_W-34,33,1);
+        const auxDirection=isSide?(EXPORT_SIDE_MAP[aux.num]||[]):TALENT_DETAIL[aux.num].careers.slice(0,3);
+        ctx.fillStyle=C.ink3;ctx.font=font(26);wrapped((isSide?"▸ 副业方向：":"▸ 职业方向：")+auxDirection.join("、"),LEFT+17,y+127,CONTENT_W-34,33,1);
         ctx.fillStyle=C.goldDeep;ctx.font=font(25);wrapped("发展建议："+detail.auxPath,LEFT+17,y+158,CONTENT_W-34,31,1);y+=auxStep;
       });
       potentials.forEach(num=>{
         const potential=POTENTIAL_DIRECT[num];if(!potential)return;
-        card(LEFT,y,CONTENT_W,132,C.goldSoft,C.gold);
-        ctx.fillStyle=C.ink;ctx.font=font(31,600);ctx.fillText("潜能天赋："+potential.name+"  ·  "+potential.proto,px(LEFT+17),px(y+15));
-        ctx.fillStyle=C.ink2;ctx.font=font(28);wrapped("核心课题："+potential.theme+"　　突破关键："+potential.key,LEFT+17,y+60,CONTENT_W-34,36,2);y+=potentialStep;
+        card(LEFT,y,CONTENT_W,238,C.goldSoft,C.gold);
+        ctx.fillStyle=C.ink;ctx.font=font(31,600);ctx.fillText("人生课题（重点突破）："+potential.name+"  ·  "+potential.proto,px(LEFT+17),px(y+15));
+        ctx.fillStyle=C.red;ctx.font=font(26,600);wrapped("核心课题："+potential.theme,LEFT+17,y+58,CONTENT_W-34,33,1);
+        ctx.fillStyle=C.ink2;ctx.font=font(24);wrapped("常见表现："+potential.pattern,LEFT+17,y+94,CONTENT_W-34,31,2);
+        ctx.fillStyle=C.goldDeep;ctx.font=font(24,600);wrapped("突破关键："+potential.key,LEFT+17,y+158,CONTENT_W-34,31,2);
+        y+=potentialStep;
       });
       y+=30;
     }
 
     y+=34;
-sectionTitle("五种综合职业选择",y);y+=sectionTitleHeight;
+sectionTitle(isSide?"副业方向推荐":"五种综合职业选择",y);y+=sectionTitleHeight;
+    card(LEFT,y,CONTENT_W,74,C.goldSoft,C.gold);
+    ctx.fillStyle=C.ink2;ctx.font=font(22);
+    wrapped("普适性建议：本卡未结合实时招聘市场、学历、地域与个人履历。建议将解读报告和简历一起交给 AI，进一步筛选更适配的现实方向。",LEFT+17,y+13,CONTENT_W-34,29,2);
+    y+=recommendationNoteHeight;
     directions.forEach((direction,index)=>{
       card(LEFT,y,CONTENT_W,110,"#fdfbf7",C.gold);
       ctx.fillStyle=C.red;ctx.font=font(30,600);ctx.fillText(String(index+1).padStart(2,"0"),px(LEFT+17),px(y+14));
       ctx.fillStyle=C.ink;ctx.font=font(31,600);ctx.fillText(direction.title,px(LEFT+66),px(y+14));
-      ctx.fillStyle=C.ink2;ctx.font=font(29);wrapped("职业示例："+(direction.examples||[]).slice(0,3).join("、"),LEFT+66,y+59,CONTENT_W-92,36,1);y+=careerStep;
+      ctx.fillStyle=C.ink2;ctx.font=font(29);wrapped((isSide?"方向案例：":"职业示例：")+(direction.examples||[]).slice(0,3).join("、"),LEFT+66,y+59,CONTENT_W-92,36,1);y+=careerStep;
     });
 
     y+=28;ctx.fillStyle=C.gold;ctx.fillRect(px(LEFT+40),px(y),px(CONTENT_W-80),px(1));
     ctx.fillStyle=C.ink3;ctx.font=font(22);ctx.textAlign="center";
     ctx.fillText("本测评属于趣味性自我探索工具，结论仅供参考。",px(PAGE_W/2),px(y+24));ctx.textAlign="left";
 
-    const fileName="识己-"+displayName+"-天赋能力全览.png";
+    const fileName="识己-"+displayName+(isSide?"-副业方向推荐.png":"-天赋能力全览.png");
     var link=document.createElement("a");link.download=fileName;link.href=canvas.toDataURL("image/png");link.click();
   }catch(e){alert("导出出错: "+e.message);console.error(e);}
 }
 
+function exportCareerImage(){return exportTalentImage("career");}
 
 function exportSideImage(){
+  return exportTalentImage("side");
+}
+
+function exportSideImageLegacy(){
   try{
     const a=window._analysis;
     if(!a){alert("请先进行天赋能力解读");return;}
@@ -4297,7 +4723,7 @@ function exportSideImage(){
     const px=value=>Math.round(value*SCALE);
     const font=(size,weight=400)=>`${weight} ${px(size)}px "Microsoft YaHei","PingFang SC",sans-serif`;
     const PAGE_W=1080,LEFT=72,CONTENT_W=936;
-    const sectionTitleHeight=46,headerHeight=180,mainStep=170,auxStep=202,potentialStep=144,careerStep=122;
+    const sectionTitleHeight=46,headerHeight=180,mainStep=170,auxStep=202,potentialStep=250,careerStep=122;
     let logicalHeight=LEFT+headerHeight+34;
     logicalHeight+=sectionTitleHeight+104+34;
     if(a.zeros.length)logicalHeight+=sectionTitleHeight+a.zeros.length*76+20;
@@ -4345,7 +4771,7 @@ function exportSideImage(){
     ctx.fillStyle=C.ink3;ctx.font=font(20);ctx.fillText("成长环境与人生经历，会影响天赋的发挥。发展好任一项天赋，人生会更加顺流。",px(LEFT),px(y+140));
     y+=headerHeight+34;
 
-    sectionTitle("四大天赋占比",y);y+=sectionTitleHeight;
+    sectionTitle("四类能力占比",y);y+=sectionTitleHeight;
     const energyGap=8,energyWidth=(CONTENT_W-energyGap*3)/4;
     energyKeys.forEach((key,index)=>{
       const pct=Math.round((a.counts[key]||0)/total*100),x=LEFT+index*(energyWidth+energyGap);
@@ -4402,7 +4828,7 @@ function exportSideImage(){
     y+=24;
 
     if(auxs.length||potentials.length){
-      sectionTitle("辅助与潜能天赋",y);y+=sectionTitleHeight;
+      sectionTitle("辅助天赋与人生课题",y);y+=sectionTitleHeight;
       auxs.forEach(aux=>{
         const detail=AUX_TO_POTENTIAL[aux.num];if(!detail)return;
         const resonant=a.ranking.resonantNums?.has(aux.num),careerText=TALENT_DETAIL[aux.num].careers.slice(0,3).join("、");
@@ -4414,9 +4840,12 @@ function exportSideImage(){
       });
       potentials.forEach(num=>{
         const potential=POTENTIAL_DIRECT[num];if(!potential)return;
-        card(LEFT,y,CONTENT_W,132,C.goldSoft,C.gold);
-        ctx.fillStyle=C.ink;ctx.font=font(31,600);ctx.fillText("潜能天赋："+potential.name+"  ·  "+potential.proto,px(LEFT+17),px(y+15));
-        ctx.fillStyle=C.ink2;ctx.font=font(28);wrapped("核心课题："+potential.theme+"　　突破关键："+potential.key,LEFT+17,y+60,CONTENT_W-34,36,2);y+=potentialStep;
+        card(LEFT,y,CONTENT_W,238,C.goldSoft,C.gold);
+        ctx.fillStyle=C.ink;ctx.font=font(31,600);ctx.fillText("人生课题（重点突破）："+potential.name+"  ·  "+potential.proto,px(LEFT+17),px(y+15));
+        ctx.fillStyle=C.red;ctx.font=font(26,600);wrapped("核心课题："+potential.theme,LEFT+17,y+58,CONTENT_W-34,33,1);
+        ctx.fillStyle=C.ink2;ctx.font=font(24);wrapped("常见表现："+potential.pattern,LEFT+17,y+94,CONTENT_W-34,31,2);
+        ctx.fillStyle=C.goldDeep;ctx.font=font(24,600);wrapped("突破关键："+potential.key,LEFT+17,y+158,CONTENT_W-34,31,2);
+        y+=potentialStep;
       });
       y+=30;
     }
