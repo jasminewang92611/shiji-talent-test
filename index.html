@@ -1944,6 +1944,50 @@ const SIDE_ARCHETYPES=[
   {id:'gaming_esports',title:'游戏电竞博主',core:'分享游戏实况、电竞资讯和攻略教程。游戏受众基数巨大，直播和视频内容形式丰富，变现路径多元。',examples:['游戏实况','通关攻略','电竞赛事','游戏测评'],weights:{4:3,13:2,16:2,10:1}},
   {id:'ai_blogger',title:'AI博主',core:'分享AI工具使用技巧和AI行业前沿趋势，用AI提升效率、创造内容。AI赛道正处于爆发期，是最有增长潜力的新方向之一。适合有创意和技术敏感度的人先行布局。',examples:['AI工具测评','AI绘画教程','AI写作技巧','AI行业趋势'],weights:{0:5,9:3,12:2,10:2,16:1}}
 ];
+// 沿用此前逐项确认过的副业清单。副业不再从全部赛道中“猜一个高分答案”，
+// 而是先查每项主天赋对应的可尝试方向，再按天赋强度与多天赋共同支持排序。
+const SIDE_TALENT_DIRECTION_IDS={
+  0:['ai_blogger','creative_design'],
+  1:['study_blogger','book_review','knowledge_science'],
+  2:['psychology_emotion','relationship_advice','daily_vlog'],
+  3:['fashion_style','baby_parenting','photography'],
+  4:['fitness_sport','entrepreneur','career_growth'],
+  5:['finance_invest','money_values'],
+  6:['beauty_skincare','sales_promotion'],
+  7:['home_decor','real_estate'],
+  8:['education_exam','career_growth','personal_growth'],
+  9:['book_review','knowledge_science','tech_digital'],
+  10:['sales_promotion','personal_growth'],
+  11:['study_blogger','book_review','knowledge_science'],
+  12:['sales_promotion','career_growth','fashion_style'],
+  13:['personal_growth','fitness_sport'],
+  14:['travel_blogger','language_learning'],
+  15:['career_growth','goal_management','finance_invest'],
+  16:['multi_direction'],
+  17:['resource_connector','intermediary_connection'],
+  18:['spiritual_growth','food_blogger','pet_blogger'],
+  19:['resource_connector','sales_promotion'],
+  20:['goal_management','education_exam','finance_invest'],
+  21:['health_wellness','rural_life','senior_lifestyle']
+};
+
+// 保留旧清单中已经确认过的展示名称；底层 id 只用于寻找说明与案例。
+const SIDE_DIRECTION_TITLES={
+  ai_blogger:'AI博主',creative_design:'创意设计博主',study_blogger:'学习成长',book_review:'读书',knowledge_science:'知识科普',
+  psychology_emotion:'心理情感',relationship_advice:'婚恋情感咨询',daily_vlog:'日常Vlog',fashion_style:'穿搭时尚',
+  baby_parenting:'母婴育儿',photography:'摄影美学',fitness_sport:'健身运动',entrepreneur:'创业',career_growth:'职场进阶',
+  finance_invest:'理财投资',money_values:'金钱观念',beauty_skincare:'美妆护肤',sales_promotion:'带货推荐',
+  home_decor:'家装改造',real_estate:'房产家居',education_exam:'教育升学',personal_growth:'个人成长教练',
+  tech_digital:'数码科技',travel_blogger:'旅行探店',language_learning:'语言学习',goal_management:'目标管理',
+  multi_direction:'多方向适配',resource_connector:'资源链接',intermediary_connection:'中介对接',spiritual_growth:'身心灵成长',
+  food_blogger:'美食探店',pet_blogger:'宠物',health_wellness:'健康养生',rural_life:'三农乡村',senior_lifestyle:'银发生活'
+};
+
+const LEGACY_SIDE_DIRECTIONS=[
+  {id:'multi_direction',title:'多方向适配',core:'适合通过不同的小项目快速实践，在行动中筛选最有兴趣、最容易形成成果的副业方向。',examples:['短期项目实践','技能接单测试','内容方向测试']},
+  {id:'intermediary_connection',title:'中介对接',core:'发现双方需求并促成信息、人才、服务或商业资源的有效连接，以匹配效率创造价值。',examples:['人才与项目对接','服务资源转介','供需信息匹配']},
+  {id:'spiritual_growth',title:'身心灵成长',core:'围绕自我觉察、情绪感受、身心平衡与成长体验进行记录、分享或陪伴式内容创作。',examples:['觉察成长记录','冥想与放松体验','身心平衡内容']}
+];
 
 const CAREER_EXAMPLE_KEYWORDS={
   public_expression:['主持','直播','演讲','内容','博主','品牌','公关','传播','培训','社群'],
@@ -2459,7 +2503,7 @@ function renderRankingSection(ranking,potentialNums=[]){
   const fmtAux=items=>items.length?items.map(t=>`${AUX_TO_POTENTIAL[t.num]?.auxName||t.name}（${t.name}的辅助面向）×${t.multiplier}`).join('、'):'无';
   const comboText=ranking.combos.length?ranking.combos.map(c=>`${c.name}（${c.nums.map(n=>TALENT_NAMES[n]+'×1').join('＋')}）`).join('；'):'无';
   const lines=[
-    `1 核心天赋：${fmt(ranking.core)}`,
+    `1 共振天赋：${fmt(ranking.core)}`,
     `2 组合天赋：${comboText}`,
     `3 重叠天赋：${fmt(ranking.overlap)}`,
     `4 单个主天赋：${fmt(ranking.single)}`,
@@ -2484,6 +2528,25 @@ function renderTalentDetail(talents){
     const et=ENERGY_TYPES[d.energy];
     h+=`<article class="talent-reading-card" style="--talent-accent:${et.color};--talent-wash:${et.light}"><span class="talent-reading-card-no">${String(i+1).padStart(2,'0')}</span><div class="talent-reading-rows"><div class="talent-reading-row talent-reading-primary-row"><span class="talent-reading-primary-label">${d.name}<span class="talent-reading-multiplier">×${t.multiplier||1}</span></span><span class="talent-reading-inline-value">${d.core}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">职业方向</span><span class="talent-reading-inline-value talent-reading-career-value">${d.careers.slice(0,3).join(' · ')}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">培养路径</span><span class="talent-reading-inline-value">${d.path}</span></div></div></article>`;
   }
+  return h+'</div></div>';
+}
+
+function getComboDeepReading(combo){
+  const members=combo.nums.map(num=>({num,name:TALENT_NAMES[num],detail:TALENT_DETAIL[num],role:TALENT_APPLICATION_ROLES[num]}));
+  const workflow=members.map(member=>`${member.name}：${member.role}`).join(' → ');
+  return {
+    mechanism:`${combo.desc} 实际应用时，可以理解为：${workflow}，各项天赋前后衔接，共同完成从判断、推进到成果落地的过程。`,
+    careers:combo.careers||[]
+  };
+}
+
+function renderComboDetail(combos){
+  if(!combos.length)return '';
+  let h='<div class="talent-detail"><h3>组合天赋解读</h3><div class="talent-reading-list">';
+  combos.forEach((combo,index)=>{
+    const reading=getComboDeepReading(combo);
+    h+=`<article class="talent-reading-card"><div class="talent-reading-rows"><div class="talent-reading-row talent-reading-primary-row"><span class="talent-reading-primary-label">${index+1}. ${combo.name}</span><span class="talent-reading-inline-value">${combo.nums.map(num=>TALENT_NAMES[num]).join('＋')}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">如何组合</span><span class="talent-reading-inline-value">${reading.mechanism}</span></div><div class="talent-reading-row"><span class="talent-reading-inline-label">适合职业</span><span class="talent-reading-inline-value talent-reading-career-value">${reading.careers.join(' · ')}</span></div></div></article>`;
+  });
   return h+'</div></div>';
 }
 
@@ -2569,20 +2632,49 @@ function getDirectionCareerExamples(direction,contributors){
   return result.slice(0,3);
 }
 
-function getTalentPriority(talents){
+function getTalentEnergyTier(talent,combos=[]){
+  if(talent.role==='aux')return .5;
+  if(talent.resonance)return 4;
+  if(combos.some(combo=>combo.nums.includes(talent.num)))return 3;
+  if((talent.multiplier||1)>1)return 2;
+  return 1;
+}
+
+function getTalentPriority(talents,combos=[]){
   const active=talents.filter(t=>!t.absorbedByResonance);
-  const mains=active.filter(t=>t.role!=='aux').sort((a,b)=>(b.multiplier||1)-(a.multiplier||1));
-  const maxMultiplier=Math.max(...mains.map(t=>t.multiplier||1),1);
+  const mains=active.filter(t=>t.role!=='aux').sort((a,b)=>getTalentEnergyTier(b,combos)-getTalentEnergyTier(a,combos)||(b.multiplier||1)-(a.multiplier||1));
+  const maxTier=Math.max(...mains.map(t=>getTalentEnergyTier(t,combos)),1);
   return new Map(active.map(t=>{
-    const energy=(t.multiplier||1)/maxMultiplier;
+    const energyTier=getTalentEnergyTier(t,combos);
+    const energy=energyTier/maxTier;
     const role=t.role==='aux'?.28:1;
     const rank=t.role==='aux'?0:Math.max(0,1-mains.findIndex(x=>x===t)*.12);
-    return [t.num,{energy,role,rank,isLeading:t.role!=='aux'&&(t.multiplier||1)===maxMultiplier}];
+    return [t.num,{energy,energyTier,role,rank,isLeading:t.role!=='aux'&&energyTier===maxTier}];
   }));
 }
 
+const TALENT_APPLICATION_ROLES={
+  0:'提出创意与新方案',1:'整合知识并清晰表达',2:'理解情绪与细微需求',3:'塑造审美与体验',4:'主动突破并争取结果',
+  5:'传递价值并促进成交',6:'建立亲和力与公众信任',7:'连接家庭与生活场景',8:'示范方法并带动成长',
+  9:'识别本质并解决问题',10:'链接机会与优质资源',11:'建立专业判断与知识体系',12:'判断趋势并筛选方向',
+  13:'持续深耕并打磨质量',14:'连接跨文化市场与表达',15:'规划路径与配置资源',16:'快速执行并产出成果',
+  17:'洞察人和资源的潜在价值',18:'营造细腻的身心体验',19:'汇聚人脉并促成合作',20:'制定计划并控制风险',21:'建立规则、秩序与长期信任'
+};
+
+function describeTalentCollaboration(direction,talents,formalCombo=false){
+  const shown=talents.slice(0,3);
+  if(!shown.length)return '';
+  const lead=shown[0],support=shown.slice(1);
+  const leadText=`${lead.name}主导“${TALENT_APPLICATION_ROLES[lead.num]||'核心产出'}”`;
+  const supportText=support.length
+    ?`，${support.map(t=>`${t.name}负责“${TALENT_APPLICATION_ROLES[t.num]||'协同支持'}”`).join('，')}`
+    :'，再根据真实任务补充表达、执行或运营能力';
+  const comboText=formalCombo?'；其中包含已识别的组合天赋关系':'；即使不是组合天赋，也可以在同一工作流程中协同使用';
+  return `${leadText}${supportText}${comboText}，共同完成${direction.title}相关工作。`;
+}
+
 function scoreTalentDirection(direction,talents,combos){
-  const priority=getTalentPriority(talents);
+  const priority=getTalentPriority(talents,combos);
   const contributors=[];
   for(const t of talents){
     if(t.absorbedByResonance)continue;
@@ -2590,7 +2682,7 @@ function scoreTalentDirection(direction,talents,combos){
     if(!fit)continue;
     const p=priority.get(t.num);
     const value=fit*(.55+1.45*p.energy)*p.role*p.rank;
-    contributors.push({num:t.num,name:t.name,value,fit,role:t.role,energy:p.energy,isLeading:p.isLeading});
+    contributors.push({num:t.num,name:t.name,value,fit,role:t.role,energy:p.energy,energyTier:p.energyTier,isLeading:p.isLeading});
   }
   contributors.sort((a,b)=>b.value-a.value);
   const mainContributors=contributors.filter(x=>x.role!=='aux');
@@ -2610,19 +2702,25 @@ function scoreTalentDirection(direction,talents,combos){
   const weakLeadPenalty=leading.isLeading?1:.72;
   const score=(leadScore+support+auxiliary)*coverageBonus*practicalSynergyBonus*comboBonus*weakLeadPenalty;
   const shown=mainContributors.slice(0,3);
-  const synergy=shown.length>1
-    ?`${shown[0].name}负责${direction.title.replace(/与/g,'、')}的核心产出，${shown.slice(1).map(x=>x.name).join('与')}分别补充${shown.length>2?'推进与优化':'推进'}能力，适合在同一项目中搭配使用。`
-    :`${shown[0].name}是这一方向的主要支点，建议先围绕它形成可见成果，再按真实任务补充其他能力。`;
-  return {score,contributors,synergy,synergyCount,formalCombo,usesHighestEnergy:leadingCoverage>0};
+  const synergy=describeTalentCollaboration(direction,shown,formalCombo);
+  return {score,contributors,synergy,synergyCount,formalCombo,usesHighestEnergy:leadingCoverage>0,highestTierUsed:Math.max(...mainContributors.map(x=>x.energyTier),0)};
 }
 
 function getCareerDirections(talents,combos){
+  const mainPool=talents.filter(t=>t.role!=='aux'&&!t.absorbedByResonance).sort((a,b)=>(b.multiplier||1)-(a.multiplier||1));
   const scored=CAREER_ARCHETYPES.map(direction=>{
     const result=scoreTalentDirection(direction,talents,combos);
-    return {...direction,...result,examples:getDirectionCareerExamples(direction,result.contributors),contributors:result.contributors.slice(0,3).map((x,i)=>`${i===0?'主导':'协同'}：${x.name}`)};
-  }).sort((a,b)=>Number(b.usesHighestEnergy)-Number(a.usesHighestEnergy)||b.score-a.score||a.title.localeCompare(b.title,'zh-CN'));
+    const collaborators=[...result.contributors.filter(x=>x.role!=='aux')];
+    for(const talent of mainPool){
+      if(collaborators.length>=3)break;
+      if(!collaborators.some(item=>item.num===talent.num))collaborators.push(talent);
+    }
+    const formalCombo=combos.some(combo=>combo.nums.filter(num=>collaborators.some(t=>t.num===num)).length>=2);
+    return {...direction,...result,synergy:describeTalentCollaboration(direction,collaborators,formalCombo),
+      examples:getDirectionCareerExamples(direction,result.contributors),contributors:collaborators.slice(0,3).map((x,i)=>`${i===0?'主导':'协同'}：${x.name}`)};
+  }).sort((a,b)=>b.highestTierUsed-a.highestTierUsed||b.score-a.score||a.title.localeCompare(b.title,'zh-CN'));
   const selected=scored.filter(direction=>direction.score>0).slice(0,5);
-  const leadingTalents=[...talents].filter(t=>t.role!=='aux'&&!t.absorbedByResonance).sort((a,b)=>b.multiplier-a.multiplier);
+  const leadingTalents=[...talents].filter(t=>t.role!=='aux'&&!t.absorbedByResonance).sort((a,b)=>getTalentEnergyTier(b,combos)-getTalentEnergyTier(a,combos)||(b.multiplier||1)-(a.multiplier||1));
   const sourceNames=leadingTalents.slice(0,3).map(t=>t.name);
   const usedExamples=new Set(selected.flatMap(direction=>direction.examples));
   const evidenceCareers=leadingTalents.flatMap(t=>TALENT_DETAIL[t.num]?.careers||[]).filter(career=>{
@@ -2647,11 +2745,53 @@ function getCareerDirections(talents,combos){
 }
 
 function getSideDirections(talents,combos){
-  const scored=SIDE_ARCHETYPES.map(direction=>{
-    const result=scoreTalentDirection(direction,talents,combos);
-    return {...direction,...result,contributors:result.contributors.slice(0,3).map((x,i)=>`${i===0?'主导':'协同'}：${x.name}`)};
-  }).sort((a,b)=>Number(b.usesHighestEnergy)-Number(a.usesHighestEnergy)||b.score-a.score);
-  return scored.filter(d=>d.score>0).slice(0,5);
+  const catalog=new Map([...SIDE_ARCHETYPES,...CAREER_ARCHETYPES,...LEGACY_SIDE_DIRECTIONS].filter(Boolean).map(direction=>[direction.id,direction]));
+  const mains=talents.filter(t=>t.role!=='aux'&&!t.absorbedByResonance).sort((a,b)=>getTalentEnergyTier(b,combos)-getTalentEnergyTier(a,combos)||(b.multiplier||1)-(a.multiplier||1));
+  const auxs=talents.filter(t=>t.role==='aux'&&!t.absorbedByResonance);
+  const maxTier=Math.max(...mains.map(t=>getTalentEnergyTier(t,combos)),1);
+  const candidates=new Map();
+
+  const addTalent=(talent,mayIntroduce)=>{
+    const ids=SIDE_TALENT_DIRECTION_IDS[talent.num]||[];
+    ids.forEach((id,listIndex)=>{
+      if(!catalog.has(id)||(!mayIntroduce&&!candidates.has(id)))return;
+      const current=candidates.get(id)||{id,score:0,sources:[],bestListIndex:listIndex,bestTier:0};
+      const talentTier=getTalentEnergyTier(talent,combos);
+      const strength=talentTier/maxTier;
+      const mainBonus=talent.role==='aux'?8:70;
+      current.score+=mainBonus*strength+(ids.length-listIndex)*4;
+      current.bestTier=Math.max(current.bestTier,talentTier);
+      current.bestListIndex=Math.min(current.bestListIndex,listIndex);
+      if(!current.sources.some(source=>source.num===talent.num))current.sources.push(talent);
+      candidates.set(id,current);
+    });
+  };
+  mains.forEach(talent=>addTalent(talent,true));
+  auxs.forEach(talent=>addTalent(talent,false));
+
+  return [...candidates.values()].map(candidate=>{
+    const direction=catalog.get(candidate.id);
+    const sources=candidate.sources.sort((a,b)=>(b.multiplier||1)-(a.multiplier||1));
+    // 排名仍只依据旧版清单；搭配层则允许其他强主天赋参与真实工作流程。
+    const collaborators=[...sources];
+    const lead=sources[0];
+    const leadCombo=combos.find(combo=>combo.nums.includes(lead.num));
+    if(leadCombo){
+      for(const num of leadCombo.nums){
+        const partner=mains.find(t=>t.num===num);
+        if(partner&&!collaborators.some(item=>item.num===partner.num))collaborators.push(partner);
+      }
+    }
+    for(const talent of mains){
+      if(collaborators.length>=3)break;
+      if(!collaborators.some(item=>item.num===talent.num))collaborators.push(talent);
+    }
+    const formalCombo=combos.some(combo=>combo.nums.filter(num=>collaborators.some(t=>t.num===num)).length>=2);
+    const displayDirection={...direction,title:SIDE_DIRECTION_TITLES[candidate.id]||direction.title};
+    const synergy=describeTalentCollaboration(displayDirection,collaborators,formalCombo)+` 可先从${direction.examples[0]}等低成本形式开始验证。`;
+    return {...displayDirection,score:candidate.score,bestTier:candidate.bestTier,bestListIndex:candidate.bestListIndex,synergy,
+      contributors:collaborators.slice(0,3).map((t,index)=>`${index===0?'主导':'协同'}：${t.name}`)};
+  }).sort((a,b)=>b.bestTier-a.bestTier||b.score-a.score||a.bestListIndex-b.bestListIndex).slice(0,5);
 }
 
 function renderCareerSummary(talents,combos){
@@ -2671,7 +2811,7 @@ function renderSideSummary(talents,combos){
   const ranked=getSideDirections(talents,combos);
   if(!ranked.length) return "";
   const icon="<div class=\"card-icon\" style=\"background:var(--primary-light)\">\u{1F3D6}</div>";
-  let h="<div class=\"card\" style=\"margin-top:16px\"><div class=\"card-header\">"+icon+"<div><div class=\"card-title\">副业方向推荐</div><div class=\"card-client\">基于你的天赋结构，以下副业方向与你的优势高度匹配</div></div></div><div class=\"career-direction-list\">";
+  let h="<div class=\"card\" style=\"margin-top:16px\"><div class=\"card-header\">"+icon+"<div><div class=\"card-title\">副业方向推荐</div><div class=\"card-client\">按照此前确认的天赋—副业清单，从高能量主天赋依次匹配，并优先保留多项天赋共同支持的方向</div></div></div><div class=\"career-direction-list\">";
   h+=ranked.map((d,i)=>"<article class=\"career-direction\"><div class=\"career-direction-no\">"+String(i+1).padStart(2,"0")+"</div><div class=\"career-direction-body\"><div class=\"career-direction-title\">"+d.title+"</div><p class=\"career-direction-core\">"+d.core+"</p><p class=\"career-direction-core\"><strong>搭配方式：</strong>"+d.synergy+"</p><div class=\"career-direction-meta\"><span class=\"career-direction-label\">方向案例</span><div class=\"career-examples\">"+d.examples.slice(0,3).map(ex=>"<span class=\"career-example\">"+ex+"</span>").join("")+"</div><span class=\"career-direction-label\">天赋来源</span><div class=\"career-sources\">"+d.contributors.map(s=>"<span class=\"career-source\">"+s+"</span>").join("")+"</div></div></div></article>").join("");
   h+="</div></div>";
   return h;
@@ -2679,7 +2819,7 @@ function renderSideSummary(talents,combos){
 function renderCareerCard(name,talents,counts,zeros,ranking,combos,potentialNums=[]){
   let h='<div class="card"><div class="card-header"><div class="card-icon" style="background:var(--primary-light)">💼</div><div><div class="card-title">天赋能力解读</div>';
   h+=name?`<div class="card-client">为 <strong>${escapeHtml(name)}</strong> 定制的天赋职业分析</div>`:'';
-  h+='</div></div>'+renderEnergySection(counts,zeros)+renderRankingSection(ranking,potentialNums)+renderTalentDetail(talents)+renderAuxiliaryDetail(talents)+renderPotentialBreakthrough(potentialNums,talents)+renderCareerSummary(talents,combos)+renderSideSummary(talents,combos)+'</div>';
+  h+='</div></div>'+renderEnergySection(counts,zeros)+renderRankingSection(ranking,potentialNums)+renderComboDetail(combos)+renderTalentDetail(talents)+renderAuxiliaryDetail(talents)+renderPotentialBreakthrough(potentialNums,talents)+renderCareerSummary(talents,combos)+renderSideSummary(talents,combos)+'</div>';
   return h;
 }
 
@@ -4284,7 +4424,7 @@ p,li,td{font-size:13pt!important;line-height:1.78!important}
 
   html+=`<div class="report-subsection"><h3 class="report-subsection-title">2.2 组合天赋</h3><p class="report-subsection-intro">组合天赋由主天赋自动识别，呈现多项能力共同工作时形成的协同价值。</p>`;
   if(a.combos.length){
-    a.combos.forEach((c,index)=>{html+=`<article class="report-block combo-block"><div class="report-block-heading"><h3>2.2.${index+1} ${c.name}</h3><span>${c.nums.map(n=>TALENT_NAMES[n]).join('＋')}</span></div><p><strong>协同方式：</strong>${c.desc}</p><div class="report-chip-row"><strong>适合方向</strong>${(c.careers||[]).map(career=>`<span>${esc(career)}</span>`).join('')}</div></article>`;});
+    a.combos.forEach((c,index)=>{const reading=getComboDeepReading(c);html+=`<article class="report-block combo-block"><div class="report-block-heading"><h3>2.2.${index+1} ${c.name}</h3><span>${c.nums.map(n=>TALENT_NAMES[n]).join('＋')}</span></div><p><strong>如何组合：</strong>${reading.mechanism}</p><div class="report-chip-row"><strong>适合职业</strong>${reading.careers.map(career=>`<span>${esc(career)}</span>`).join('')}</div></article>`;});
   }else{
     html+=`<div class="report-empty-state"><strong>本次未识别到组合天赋</strong><span>这属于正常情况。单项主天赋仍会按照各自的强度与联动关系发挥作用。</span></div>`;
   }
@@ -4362,7 +4502,7 @@ p,li,td{font-size:13pt!important;line-height:1.78!important}
 
   // ══ 七、副业方向推荐 ══
   const sideDirections=getSideDirections(a.talents,a.combos);
-  html+='<div class="section career-report-section" id="chapter-7"><div class="section-opening"><h2>七、副业方向推荐</h2><p class="section-intro">以下副业方向基于天赋延伸，天赋能力才是你的核心优势，覆盖生活、知识、亲子、创意、商业等主流赛道。每个方向都给出典型案例和天赋来源，系统会自动排序，展示与你最匹配的前5个方向。</p><p class="universal-career-note"><strong>适用范围说明：</strong>以下同样属于普适性建议，未直接纳入你的履历基础、所在地域、时间投入、平台条件与市场需求。可将报告和简历交给 AI，结合现实约束进一步缩小范围。</p></div>';
+  html+='<div class="section career-report-section" id="chapter-7"><div class="section-opening"><h2>七、副业方向推荐</h2><p class="section-intro">以下方向沿用此前确认的天赋—副业清单：先按高能量主天赋匹配，再优先保留能够同时发挥多项天赋的方向，不再从全部赛道中仅凭通用权重猜测。</p><p class="universal-career-note"><strong>适用范围说明：</strong>以下属于普适性起步建议，未直接纳入你的履历基础、所在地域、时间投入、平台条件、市场需求或专业资质。涉及投资、心理、健康等专业内容时，仍需具备相应知识与合规条件；建议先用低成本内容或小项目验证兴趣。</p></div>';
   sideDirections.forEach((direction,index)=>{
     html+='<article class="report-block career-block"><div class="report-block-heading"><h3>'+(index+1)+'. '+direction.title+'</h3><span>'+direction.contributors.join("、")+'</span></div><p>'+direction.core+'</p><p><strong>天赋搭配：</strong>'+direction.synergy+'</p><div class="report-chip-row"><strong>方向案例</strong>'+direction.examples.slice(0,3).map(ex=>'<span>'+ex+'</span>').join("")+'</div></article>';
   });
@@ -4554,14 +4694,14 @@ function canvasBrandSeal(ctx,x,y){
 }
 
 const EXPORT_SIDE_MAP={
-  0:["AI博主","创意设计博主"],1:["学习成长","读书","知识科普"],2:["心理情感","婚恋情感咨询","日常Vlog"],
-  3:["穿搭时尚","母婴育儿","摄影美学"],4:["健身运动","创业","职场进阶"],5:["理财投资","金钱观念"],
-  6:["美妆护肤","带货推荐"],7:["家装改造","房产家居"],8:["教育升学","职场进阶","个人成长教练"],
-  9:["读书","知识科普","数码科技"],10:["带货推荐","个人成长教练"],11:["学习成长","读书","知识科普"],
-  12:["带货推荐","职场进阶","穿搭时尚"],13:["个人成长教练","健身运动"],14:["旅行探店","语言学习"],
-  15:["职场进阶","目标管理","理财投资"],16:["多方向适配"],17:["资源链接","中介对接"],
-  18:["身心灵成长","美食探店","宠物"],19:["资源链接","带货推荐"],20:["目标管理","教育升学","理财投资"],
-  21:["健康养生","三农乡村","银发生活"]
+  0:["AI工具分享","创意设计"],1:["学习成长","读书分享","知识整理"],2:["成长感悟","情绪日记","日常Vlog"],
+  3:["穿搭时尚","生活美学","摄影记录"],4:["运动打卡","行动成长","职场经验"],5:["消费观分享","存钱打卡","好物测评"],
+  6:["美妆护肤","好物推荐"],7:["家装改造","收纳整理"],8:["学习成长","职场经验","目标管理"],
+  9:["读书分享","知识整理","数码科技"],10:["好物推荐","资源整理"],11:["学习成长","读书分享","知识整理"],
+  12:["好物推荐","职场经验","穿搭时尚"],13:["自律打卡","运动记录"],14:["旅行探店","语言学习"],
+  15:["职场经验","目标管理","读书分享"],16:["多方向实践"],17:["资源整理","信息分享"],
+  18:["生活方式","美食探店","宠物日常"],19:["资源整理","好物推荐"],20:["目标管理","读书分享","效率工具"],
+  21:["传统文化","乡村生活","银发生活"]
 };
 
 function exportTalentImage(mode="career"){
