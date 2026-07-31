@@ -4222,9 +4222,20 @@ p,li,td{font-size:13pt!important;line-height:1.78!important}
   for(let e of energyOrder){
     const ts=allTs.filter(t=>TALENT_DETAIL[t.num]?.energy===e.k);
     const names=ts.map(t=>t.name+(t.multiplier>1?'×'+t.multiplier:'')).join(' + ')||'—';
-    html+=`<article class="energy-profile-card"><div class="energy-profile-head"><strong>${e.n}</strong><b>${pcts[e.k]}%</b></div><div class="report-energy-track"><i style="width:${pcts[e.k]}%"></i></div><p><span>包含天赋</span>${esc(names)}</p><p><span>发挥提示</span>${a.counts[e.k]===0?'适合通过工具、练习或互补协作进行建设性补充。':ENERGY_TYPES[e.k].desc}</p></article>`;
+    const isZeroEnergy=a.counts[e.k]===0;
+    html+=`<article class="energy-profile-card"><div class="energy-profile-head"><strong>${e.n}</strong><b>${pcts[e.k]}%</b></div><div class="report-energy-track"><i style="width:${pcts[e.k]}%"></i></div><p><span>包含天赋</span>${esc(names)}</p><p><span>${isZeroEnergy?'阅读提示':'发挥提示'}</span>${isZeroEnergy?'当前占比为 0，表示该类能力未在本次天赋组合中显现，并不代表你不具备这项能力。详解见下方「1.2 零能量提醒」。':ENERGY_TYPES[e.k].desc}</p></article>`;
   }
   html+=`</div>`;
+
+  // 0能量提醒
+  html+=`<h3>1.2 零能量提醒</h3>`;
+  if(a.zeros.length>0){
+    for(let z of a.zeros){
+      html+=`<div class="zero-box"><strong>${ENERGY_TYPES[z].name}能量为零：</strong>${ENERGY_TYPES[z].zeroMsg}</div>`;
+    }
+  }else{
+    html+=`<div class="zero-box"><strong>四类能力均有分布：</strong>本次天赋组合中没有占比为零的能力类型，可继续结合各项占比与天赋结构理解自己的优势侧重。</div>`;
+  }
 
   const structureRows=[
     ['核心天赋',a.ranking.core.map(t=>`${t.name}×${t.multiplier}`)],
@@ -4234,15 +4245,7 @@ p,li,td{font-size:13pt!important;line-height:1.78!important}
     ['辅助天赋',a.ranking.aux.map(t=>`${t.name}×${t.multiplier}`)],
     ['人生课题 · 重点突破',(a.potentialNums||[]).map(n=>POTENTIAL_NAMES[n])]
   ];
-  html+=`<h3>1.2 天赋结构层级</h3><div class="structure-map">${structureRows.map(([label,items])=>`<div><span>${label}</span><strong>${esc(items.filter(Boolean).join('、')||'无')}</strong></div>`).join('')}</div>`;
-  
-  // 0能量提醒
-  if(a.zeros.length>0){
-    html+=`<h3>1.3 零能量提醒</h3>`;
-    for(let z of a.zeros){
-      html+=`<div class="zero-box"><strong>${ENERGY_TYPES[z].name}能量为零：</strong>${ENERGY_TYPES[z].zeroMsg}</div>`;
-    }
-  }
+  html+=`<h3>1.3 天赋结构层级</h3><div class="structure-map">${structureRows.map(([label,items])=>`<div><span>${label}</span><strong>${esc(items.filter(Boolean).join('、')||'无')}</strong></div>`).join('')}</div>`;
   html+=`</div>`;
 
   const renderReportMainTalent=(t,number,stageLabel)=>{
