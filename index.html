@@ -4224,7 +4224,7 @@ p,li,td{font-size:13pt!important;line-height:1.78!important}
     const ts=allTs.filter(t=>TALENT_DETAIL[t.num]?.energy===e.k);
     const names=ts.map(t=>t.name+(t.multiplier>1?'×'+t.multiplier:'')).join(' + ')||'—';
     const isZeroEnergy=a.counts[e.k]===0;
-    html+=`<article class="energy-profile-card"><div class="energy-profile-head"><strong>${e.n}</strong><b>${pcts[e.k]}%</b></div><div class="report-energy-track"><i style="width:${pcts[e.k]}%"></i></div><p><span>包含天赋</span>${esc(names)}</p><p><span>能力描述</span>${ENERGY_TYPES[e.k].desc}</p>${isZeroEnergy?'<p class="zero-energy-note"><span>零能量提示</span>当前占比为 0，表示该类能力未在本次天赋组合中显现，并不代表你不具备这项能力。详解见下方「1.2 零能量提醒」。</p>':''}</article>`;
+    html+=`<article class="energy-profile-card"><div class="energy-profile-head"><strong>${e.n}</strong><b>${pcts[e.k]}%</b></div><div class="report-energy-track"><i style="width:${pcts[e.k]}%"></i></div><p><span>包含天赋</span>${esc(names)}</p><p><span>能力描述</span>${ENERGY_TYPES[e.k].desc}</p>${isZeroEnergy?'<p class="zero-energy-note"><span>零能量提示</span>详解见下方「1.2 零能量提醒」。</p>':''}</article>`;
   }
   html+=`</div>`;
 
