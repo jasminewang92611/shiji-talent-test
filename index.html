@@ -2569,22 +2569,58 @@ function getDirectionCareerExamples(direction,contributors){
   return result.slice(0,3);
 }
 
+function getTalentPriority(talents){
+  const active=talents.filter(t=>!t.absorbedByResonance);
+  const mains=active.filter(t=>t.role!=='aux').sort((a,b)=>(b.multiplier||1)-(a.multiplier||1));
+  const maxMultiplier=Math.max(...mains.map(t=>t.multiplier||1),1);
+  return new Map(active.map(t=>{
+    const energy=(t.multiplier||1)/maxMultiplier;
+    const role=t.role==='aux'?.28:1;
+    const rank=t.role==='aux'?0:Math.max(0,1-mains.findIndex(x=>x===t)*.12);
+    return [t.num,{energy,role,rank,isLeading:t.role!=='aux'&&(t.multiplier||1)===maxMultiplier}];
+  }));
+}
+
+function scoreTalentDirection(direction,talents,combos){
+  const priority=getTalentPriority(talents);
+  const contributors=[];
+  for(const t of talents){
+    if(t.absorbedByResonance)continue;
+    const fit=direction.weights[t.num]||0;
+    if(!fit)continue;
+    const p=priority.get(t.num);
+    const value=fit*(.55+1.45*p.energy)*p.role*p.rank;
+    contributors.push({num:t.num,name:t.name,value,fit,role:t.role,energy:p.energy,isLeading:p.isLeading});
+  }
+  contributors.sort((a,b)=>b.value-a.value);
+  const mainContributors=contributors.filter(x=>x.role!=='aux');
+  const leading=mainContributors[0];
+  if(!leading)return {score:0,contributors:[],synergy:'',synergyCount:0};
+
+  // 一个方向必须先承接最强天赋，再奖励第二、第三项主天赋形成的实际协同。
+  const leadScore=leading.value*1.9;
+  const support=mainContributors.slice(1,3).reduce((sum,x,index)=>sum+x.value*(index===0?.72:.42),0);
+  const auxiliary=contributors.filter(x=>x.role==='aux').slice(0,1).reduce((sum,x)=>sum+x.value*.35,0);
+  const leadingCoverage=mainContributors.filter(x=>x.isLeading).length;
+  const synergyCount=mainContributors.filter(x=>x.fit>=2).length;
+  const coverageBonus=leadingCoverage>1?1+(leadingCoverage-1)*.18:1;
+  const practicalSynergyBonus=synergyCount>=2?1.2:1;
+  const formalCombo=combos.some(combo=>combo.nums.filter(num=>mainContributors.some(x=>x.num===num&&x.fit>=2)).length>=2);
+  const comboBonus=formalCombo?1.12:1;
+  const weakLeadPenalty=leading.isLeading?1:.72;
+  const score=(leadScore+support+auxiliary)*coverageBonus*practicalSynergyBonus*comboBonus*weakLeadPenalty;
+  const shown=mainContributors.slice(0,3);
+  const synergy=shown.length>1
+    ?`${shown[0].name}负责${direction.title.replace(/与/g,'、')}的核心产出，${shown.slice(1).map(x=>x.name).join('与')}分别补充${shown.length>2?'推进与优化':'推进'}能力，适合在同一项目中搭配使用。`
+    :`${shown[0].name}是这一方向的主要支点，建议先围绕它形成可见成果，再按真实任务补充其他能力。`;
+  return {score,contributors,synergy,synergyCount,formalCombo,usesHighestEnergy:leadingCoverage>0};
+}
+
 function getCareerDirections(talents,combos){
-  const comboNums=new Set(combos.flatMap(c=>c.nums));
   const scored=CAREER_ARCHETYPES.map(direction=>{
-    let score=0,contributors=[];
-    for(const t of talents){
-      if(t.absorbedByResonance) continue;
-      const fit=direction.weights[t.num]||0;
-      if(!fit) continue;
-      const roleFactor=1;
-      const comboFactor=comboNums.has(t.num)?1.12:1;
-      score+=fit*(t.multiplier||1)*roleFactor*comboFactor;
-      contributors.push({num:t.num,name:t.name,value:fit*(t.multiplier||1)});
-    }
-    contributors.sort((a,b)=>b.value-a.value);
-    return {...direction,score,examples:getDirectionCareerExamples(direction,contributors),contributors:contributors.slice(0,3).map(x=>x.name)};
-  }).sort((a,b)=>b.score-a.score||a.title.localeCompare(b.title,'zh-CN'));
+    const result=scoreTalentDirection(direction,talents,combos);
+    return {...direction,...result,examples:getDirectionCareerExamples(direction,result.contributors),contributors:result.contributors.slice(0,3).map((x,i)=>`${i===0?'主导':'协同'}：${x.name}`)};
+  }).sort((a,b)=>Number(b.usesHighestEnergy)-Number(a.usesHighestEnergy)||b.score-a.score||a.title.localeCompare(b.title,'zh-CN'));
   const selected=scored.filter(direction=>direction.score>0).slice(0,5);
   const leadingTalents=[...talents].filter(t=>t.role!=='aux'&&!t.absorbedByResonance).sort((a,b)=>b.multiplier-a.multiplier);
   const sourceNames=leadingTalents.slice(0,3).map(t=>t.name);
@@ -2611,20 +2647,10 @@ function getCareerDirections(talents,combos){
 }
 
 function getSideDirections(talents,combos){
-  const comboNums=new Set(combos.flatMap(c=>c.nums));
   const scored=SIDE_ARCHETYPES.map(direction=>{
-    let score=0,contributors=[];
-    for(const t of talents){
-      if(t.absorbedByResonance) continue;
-      const fit=direction.weights[t.num]||0;
-      if(!fit) continue;
-      const comboFactor=comboNums.has(t.num)?1.12:1;
-      score+=fit*(t.multiplier||1)*comboFactor;
-      contributors.push({num:t.num,name:t.name,value:fit*(t.multiplier||1)});
-    }
-    contributors.sort((a,b)=>b.value-a.value);
-    return {...direction,score,contributors:contributors.slice(0,3).map(x=>x.name)};
-  }).sort((a,b)=>b.score-a.score);
+    const result=scoreTalentDirection(direction,talents,combos);
+    return {...direction,...result,contributors:result.contributors.slice(0,3).map((x,i)=>`${i===0?'主导':'协同'}：${x.name}`)};
+  }).sort((a,b)=>Number(b.usesHighestEnergy)-Number(a.usesHighestEnergy)||b.score-a.score);
   return scored.filter(d=>d.score>0).slice(0,5);
 }
 
@@ -2632,7 +2658,7 @@ function renderCareerSummary(talents,combos){
   let h='<section class="career-summary"><div class="career-summary-head"><span class="career-summary-seal">职业归向</span><span class="career-summary-kicker">TALENT · CAREER</span><h3>综合职业方向推荐</h3></div>';
   const ranked=getCareerDirections(talents,combos);
   h+='<div class="career-direction-list">';
-  h+=ranked.map((d,i)=>`<article class="career-direction"><div class="career-direction-no">${String(i+1).padStart(2,'0')}</div><div class="career-direction-body"><div class="career-direction-title">${d.title}</div><p class="career-direction-core">${d.core}</p><div class="career-direction-meta"><span class="career-direction-label">职业案例</span><div class="career-examples">${d.examples.slice(0,3).map(example=>`<span class="career-example">${example}</span>`).join('')}</div><span class="career-direction-label">天赋来源</span><div class="career-sources">${d.contributors.map(source=>`<span class="career-source">${source}</span>`).join('')}</div></div></div></article>`).join('');
+  h+=ranked.map((d,i)=>`<article class="career-direction"><div class="career-direction-no">${String(i+1).padStart(2,'0')}</div><div class="career-direction-body"><div class="career-direction-title">${d.title}</div><p class="career-direction-core">${d.core}</p><p class="career-direction-core"><strong>搭配方式：</strong>${d.synergy}</p><div class="career-direction-meta"><span class="career-direction-label">职业案例</span><div class="career-examples">${d.examples.slice(0,3).map(example=>`<span class="career-example">${example}</span>`).join('')}</div><span class="career-direction-label">天赋来源</span><div class="career-sources">${d.contributors.map(source=>`<span class="career-source">${source}</span>`).join('')}</div></div></div></article>`).join('');
   h+='</div>';
   h+='<p class="career-summary-advice">建议先选择最有兴趣的两个内核方向，再结合既有经验、教育背景和市场机会缩小到具体行业与岗位。</p>';
   h+='<div class="disclaimer">本测评属于趣味性自我探索工具，结论仅供参考。免责声明：以上内容基于识己天赋体系生成，仅供个人成长与职业探索参考，不构成职业、心理、医疗、法律或投资决策依据。请结合个人经历、教育背景、现实条件与专业意见综合判断。</div>';
@@ -2646,7 +2672,7 @@ function renderSideSummary(talents,combos){
   if(!ranked.length) return "";
   const icon="<div class=\"card-icon\" style=\"background:var(--primary-light)\">\u{1F3D6}</div>";
   let h="<div class=\"card\" style=\"margin-top:16px\"><div class=\"card-header\">"+icon+"<div><div class=\"card-title\">副业方向推荐</div><div class=\"card-client\">基于你的天赋结构，以下副业方向与你的优势高度匹配</div></div></div><div class=\"career-direction-list\">";
-  h+=ranked.map((d,i)=>"<article class=\"career-direction\"><div class=\"career-direction-no\">"+String(i+1).padStart(2,"0")+"</div><div class=\"career-direction-body\"><div class=\"career-direction-title\">"+d.title+"</div><p class=\"career-direction-core\">"+d.core+"</p><div class=\"career-direction-meta\"><span class=\"career-direction-label\">方向案例</span><div class=\"career-examples\">"+d.examples.slice(0,3).map(ex=>"<span class=\"career-example\">"+ex+"</span>").join("")+"</div><span class=\"career-direction-label\">天赋来源</span><div class=\"career-sources\">"+d.contributors.map(s=>"<span class=\"career-source\">"+s+"</span>").join("")+"</div></div></div></article>").join("");
+  h+=ranked.map((d,i)=>"<article class=\"career-direction\"><div class=\"career-direction-no\">"+String(i+1).padStart(2,"0")+"</div><div class=\"career-direction-body\"><div class=\"career-direction-title\">"+d.title+"</div><p class=\"career-direction-core\">"+d.core+"</p><p class=\"career-direction-core\"><strong>搭配方式：</strong>"+d.synergy+"</p><div class=\"career-direction-meta\"><span class=\"career-direction-label\">方向案例</span><div class=\"career-examples\">"+d.examples.slice(0,3).map(ex=>"<span class=\"career-example\">"+ex+"</span>").join("")+"</div><span class=\"career-direction-label\">天赋来源</span><div class=\"career-sources\">"+d.contributors.map(s=>"<span class=\"career-source\">"+s+"</span>").join("")+"</div></div></div></article>").join("");
   h+="</div></div>";
   return h;
 }
@@ -3944,7 +3970,7 @@ td{background:#fff!important;color:var(--report-text)!important}
 .toc-item span{font-size:9pt!important}
 .toc-item small{font-size:7.3pt!important;line-height:1.35!important}
 .report-subsection-intro{display:none!important}
-.energy-profile-card p:last-child{display:block!important}
+.energy-profile-card p:last-child{display:none!important}
 .talent-block .report-fact-grid>div:first-child{display:block!important;grid-column:1/-1!important}
 .talent-block .report-fact-grid>div:nth-child(2){display:none!important}
 .talent-block .report-fact-grid>.fact-wide{grid-column:1/-1!important}
@@ -4326,7 +4352,7 @@ p,li,td{font-size:13pt!important;line-height:1.78!important}
   const maxDirectionScore=Math.max(...careerDirections.map(d=>d.score||0),1);
   careerDirections.forEach((direction,index)=>{
     const fit=Math.round(72+Math.min(1,(direction.score||0)/maxDirectionScore)*23);
-    html+=`<article class="report-block career-block"><div class="report-block-heading"><h3>方向${['一','二','三','四','五'][index]}：${esc(direction.title)}</h3><span>建议优先度 ${fit}%</span></div><p class="direction-statement">${direction.core}</p><div class="career-fit-row"><span>天赋适配参考</span><div><i style="width:${fit}%"></i></div><strong>${fit}%</strong></div><div class="career-evidence-grid"><div><span>职业案例</span><p>${direction.examples.slice(0,3).map(esc).join('、')}</p></div><div><span>天赋依据</span><p>${direction.contributors.map(esc).join('、')}</p></div><div class="fact-wide"><span>选择建议</span><p>优先寻找能够持续使用上述能力的岗位，再结合个人行业经验、教育背景、收入目标与生活方式做最终选择。</p></div></div></article>`;
+    html+=`<article class="report-block career-block"><div class="report-block-heading"><h3>方向${['一','二','三','四','五'][index]}：${esc(direction.title)}</h3><span>建议优先度 ${fit}%</span></div><p class="direction-statement">${direction.core}</p><div class="career-fit-row"><span>天赋适配参考</span><div><i style="width:${fit}%"></i></div><strong>${fit}%</strong></div><div class="career-evidence-grid"><div><span>职业案例</span><p>${direction.examples.slice(0,3).map(esc).join('、')}</p></div><div><span>天赋依据</span><p>${direction.contributors.map(esc).join('、')}</p></div><div class="fact-wide"><span>天赋搭配</span><p>${esc(direction.synergy)}</p></div><div class="fact-wide"><span>选择建议</span><p>优先寻找能够持续使用上述能力的岗位，再结合个人行业经验、教育背景、收入目标与生活方式做最终选择。</p></div></div></article>`;
   });
   html+=`</div>`;
 
@@ -4334,7 +4360,7 @@ p,li,td{font-size:13pt!important;line-height:1.78!important}
   const sideDirections=getSideDirections(a.talents,a.combos);
   html+='<div class="section career-report-section" id="chapter-7"><div class="section-opening"><h2>七、副业方向推荐</h2><p class="section-intro">以下副业方向基于天赋延伸，天赋能力才是你的核心优势，覆盖生活、知识、亲子、创意、商业等主流赛道。每个方向都给出典型案例和天赋来源，系统会自动排序，展示与你最匹配的前5个方向。</p><p class="universal-career-note"><strong>适用范围说明：</strong>以下同样属于普适性建议，未直接纳入你的履历基础、所在地域、时间投入、平台条件与市场需求。可将报告和简历交给 AI，结合现实约束进一步缩小范围。</p></div>';
   sideDirections.forEach((direction,index)=>{
-    html+='<article class="report-block career-block"><div class="report-block-heading"><h3>'+(index+1)+'. '+direction.title+'</h3><span>'+direction.contributors.join("、")+'</span></div><p>'+direction.core+'</p><div class="report-chip-row"><strong>方向案例</strong>'+direction.examples.slice(0,3).map(ex=>'<span>'+ex+'</span>').join("")+'</div></article>';
+    html+='<article class="report-block career-block"><div class="report-block-heading"><h3>'+(index+1)+'. '+direction.title+'</h3><span>'+direction.contributors.join("、")+'</span></div><p>'+direction.core+'</p><p><strong>天赋搭配：</strong>'+direction.synergy+'</p><div class="report-chip-row"><strong>方向案例</strong>'+direction.examples.slice(0,3).map(ex=>'<span>'+ex+'</span>').join("")+'</div></article>';
   });
   html+='</div>';
 
